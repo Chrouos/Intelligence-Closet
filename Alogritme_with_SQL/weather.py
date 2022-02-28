@@ -8,7 +8,7 @@ class weather_information_API:
     # 初始化:
     def __init__(self, city):
         self.__city = city
-        self.__dataText = 'NONE'
+        self.__dataText = 'NONE'  # 全部的資料
         self.__temp = 0  # 溫度
         self.__humd = 0  # 濕度
         self.__d_tx = 0  # 最高溫
@@ -141,13 +141,13 @@ d_tnt: 本日最低溫之時間
 # h_fxt: 小時最大陣風時間, hhmm (小時分鐘)
 
 方法包含:
-刷新網址:dataText_AutoRefresh( !! 注意, 每次使用都要刷新) 
+刷新網址:dataText_AutoRefresh(!! 註: 每次使用都要刷新) 
 獲得溫度:reTEMP(溫度, 單位:攝氏)
 獲得濕度:reHUMD(濕度, 單位:百分率)
 獲得本日最高溫:reD_TX(本日最高溫, 單位:攝氏)
 獲得本日最低溫:reD_TN(本日最低溫, 單位:攝氏)
 獲得本日最高溫之時間: reD_TXT(本日最高溫發生時間, hhmm (小時分鐘))
 獲得本日最低溫之時間: reD_TNT(本日最低溫發生時間, hhmm (小時分鐘))
-獲得所有天氣資訊:getWeather(溫度、濕度、最高溫、最低溫、最高溫時間段、最低溫時間段)
+獲得所有天氣資訊:getWeather(溫度、濕度、最高溫、最低溫、最高溫時間段、最低溫時間段) (!! 註:不需要使用 dataText_AutoRefresh )
 輸出所有天氣資訊:printWeather(溫度、濕度、最高溫、最低溫、最高溫時間段、最低溫時間段)
 '''
