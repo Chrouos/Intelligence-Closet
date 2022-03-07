@@ -1,5 +1,7 @@
 --select * from clothes_infomation
 
+--UPDATE clothes_infomation SET position = NULL  WHERE position = 1
+--insert	into clothes_infomation values(1, 'upper', 'yellow', 60, 'sweater', NULL, 0, GETDATE());
 SELECT * FROM clothes_infomation
 
 --SELECT * FROM clothes_infomation WHERE category='upper'

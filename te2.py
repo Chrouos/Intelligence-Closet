@@ -25,3 +25,6 @@
 # graph.systemRecommend()
 
 # print(graph.weather_info.getWeather())
+
+for i in range(1, 11):
+    print(i)

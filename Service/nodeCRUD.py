@@ -30,7 +30,8 @@ class nodeCRUD:
             return
 
         self.cnxn.cursor().execute("INSERT	INTO clothes_infomation values(" + str(self.vacancyPosition()) +
-                                   ", '" + category + "', '" + color + "', " + weatherScore + ", '" + type + "', " + style + ")")
+                                   ", '" + category + "', '" + color + "', " + weatherScore + ", '" + type + "', " + style +
+                                   ", 0, GETDATE())")
         self.cnxn.commit()
 
     #!# READ
@@ -66,7 +67,7 @@ class nodeCRUD:
 
     # 空缺的位置資訊(範圍1~10)
     def vacancyPosition(self):
-        for i in range(10):
+        for i in range(1, 11):
             if self.queryDataByPosition(i) == []:
                 return i
 
@@ -87,6 +88,17 @@ class nodeCRUD:
         # ex. UPDATE clothes_infomation SET weather_score = 100 WHERE position = 0
         self.cursor.execute("UPDATE clothes_infomation SET weather_score = " +
                             str(weather_score) + " WHERE position = " + str(position))
+        self.cnxn.commit()
+        print('successfully updated!')
+
+    def updatePositionToNull(self, position):
+
+        if self.queryDataByPosition(position) == []:
+            print('沒有此衣物')
+            return
+
+        # ex. UPDATE clothes_infomation SET weather_score = 100 WHERE position = 0
+        self.cursor.execute("UPDATE clothes_infomation SET position = NULL  WHERE position = " + str(position))
         self.cnxn.commit()
         print('successfully updated!')
 

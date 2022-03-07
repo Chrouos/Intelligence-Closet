@@ -1,7 +1,8 @@
 drop table clothes_infomation
 
 create table clothes_infomation(
-	position int PRIMARY KEY NOT NULL , -- 儲存位置 ( 1, 2, 3 ... )
+	id int PRIMARY KEY NOT NULL IDENTITY , -- 編號 ( 1, 2, 3 ... )
+	position int Unique,
 	category varchar(50) NOT NULL,  -- 衣物分類( upper, lower... )
 	color varchar(50) NOT NULL, 
 	weather_score int NOT NULL, -- 衣物天氣分數

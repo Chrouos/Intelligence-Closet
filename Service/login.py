@@ -3,16 +3,12 @@ import pandas as pd
 
 from nodeCRUD import nodeCRUD
 
-try:
-    server = 'LAPTOP-BGP802KH\SQLEXPRESS'
-    database = 'intelligence_closet'
-    username = 'sa'
-    password = 'asd464017'
-    cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + server +
-                          ';DATABASE=' + database + ';UID=' + username + ';PWD=' + password)
-    cursor = cnxn.cursor()
-    print('操作成功')
-except:
-    print('操作錯誤')
 
-crud = nodeCRUD(cnxn)
+crud = nodeCRUD()
+print(crud.queryData())
+# crud.updatePositionToNull(3)
+# print(crud.queryData())
+# crud.deleteByPosition(1)
+
+# crud.createtData('upper', 'blue', '55', 'long_TShirt', 'NULL')
+# crud.queryData()
