@@ -42,6 +42,12 @@ class station:
             except:
                 td = tr.find_all('th')
 
+    def getAllCity(self):
+        return self.allCity
+
+    def getAllStation(self):
+        return self.allStation
+
     def getStationByCity(self, city):
         try:
             index = self.allCity.index(city)

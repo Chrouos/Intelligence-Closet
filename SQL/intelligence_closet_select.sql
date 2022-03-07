@@ -1,6 +1,6 @@
 --select * from clothes_infomation
 
-SELECT * FROM clothes_infomation WHERE position='0'
+SELECT * FROM clothes_infomation
 
 --SELECT * FROM clothes_infomation WHERE category='upper'
 --SELECT * FROM clothes_infomation WHERE category='lower'
