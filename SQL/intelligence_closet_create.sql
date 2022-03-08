@@ -1,6 +1,6 @@
-drop table clothes_infomation
+drop table clothes_information
 
-create table clothes_infomation(
+create table clothes_information(
 	id int PRIMARY KEY NOT NULL IDENTITY , -- 編號 ( 1, 2, 3 ... )
 	position int Unique,
 	category varchar(50) NOT NULL,  -- 衣物分類( upper, lower... )
@@ -11,5 +11,5 @@ create table clothes_infomation(
 	usageCounter int NOT NULL, 
 	createTime smalldatetime NOT NULL,
 	
-	position text, -- New one
+	filePosition text
 );
