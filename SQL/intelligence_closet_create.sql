@@ -9,5 +9,7 @@ create table clothes_infomation(
 	clothes_type VARCHAR(255) NOT NULL, --衣物種類 ( short, long ... )
 	clothes_style VARCHAR(255) NULL, -- 衣物風格
 	usageCounter int NOT NULL, 
-	createTime smalldatetime NOT NULL
+	createTime smalldatetime NOT NULL,
+	
+	position text, -- New one
 );

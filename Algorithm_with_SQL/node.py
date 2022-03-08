@@ -3,18 +3,31 @@
 class recommend_node:
 
     # 初始化：位置、分類、天氣、天氣分數
-    def __init__(self, position, category, color, type):
+    def __init__(self, position, category, color, type, usageCounter , createTime, position):
         self.position = position  # 面對存儲的位置（1, 2, 3, ...)
         self.category = category  # (upper, lower）
         self.color = color  # 衣物的顏色
         self.type = type  # 衣物的種類
         self.weather_score = 0  # 每日都會變更，利用function 抓取 中央氣象局 API 分數分數
-
+        self.usageCounter = usageCounter # 使用次數
+        self.createTime = createTime # 創建時間
+        
+        self.photoPosition = position
+        self.__comfortableTemp = 26 # 人體最適溫度
+        
         # self.style = style # 衣物的風格
-
+              
     def refresh_WS(self, weather_info):
         # weather_info 包含溫度、濕度、最高溫、最低溫、最高溫時間段、最低溫時間段
+        
+        
+        
         return 0
+        
+    def setComfortableTemp(self, newTemp):
+        self.__comfortableTemp = newTemp
+          
+     
 
 
 '''
