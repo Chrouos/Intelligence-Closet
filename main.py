@@ -7,20 +7,10 @@ from Algorithm_with_SQL.node import recommend_node
 
 station = station()  # 各站
 crud = nodeCRUD()  # SQL ServeR
-# # 圖形
-graph = recommend_Graph('埔心')
+graph = recommend_Graph('埔心')  # 圖形
 
 
-# weather = weather_information_API('埔心')
-# print(weather.getWeather())
-
-Datas = crud.queryData()
+Datas = crud.queryDataInNode()
 for data in Datas:
-    print(data)
-    node = recommend_node(data[0], data[1], data[2], data[4])
+    node = recommend_node(data[0], data[1], data[2], data[3], data[4], data[5], data[6])
     graph.addNode(node)
-
-graph.printNode()
-# print(graph.node)
-graph.refresh_allWeatherScore()
-# graph.systemRecommend()

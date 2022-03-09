@@ -39,7 +39,7 @@ class nodeCRUD:
                                    + ", '" + type + "', " + style + ", 0, GETDATE())")
         self.cnxn.commit()
 
-    #!# READcl
+    #!# READ
     # 搜尋全部的資料
     def queryData(self):
         self.cursor.execute("SELECT * FROM clothes_information")
@@ -53,8 +53,13 @@ class nodeCRUD:
         datas = self.cursor.fetchall()
         return datas
 
-    # 透過分類找尋資料
+    def queryDataInNode(self):
+        self.cursor.execute(
+            "SELECT position,category, color, clothes_type, usageCounter, createTime, filePosition FROM clothes_information")
+        datas = self.cursor.fetchall()
+        return datas
 
+    # 透過分類找尋資料
     def queryDataByCategory(self, category):
         self.cursor.execute("SELECT * FROM clothes_information WHERE category='"
                             + str(category) + "'")
