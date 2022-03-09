@@ -66,6 +66,16 @@ class recommend_Graph:
                 else:
                     return 25
 
+    # print out
+
+    def printNode(self):
+        for n in self.node:
+            print('位置：', n.position, '| 顏色：', n.color, '| 分類：', n.category)
+
+    def printEdge(self):
+        for e in self.edge:
+            print(e[0], ": ", e[1][0].position, e[1][1].position, " | ", e[1][0].category, e[1][1].category)
+
 
 '''
 建立圖形物件

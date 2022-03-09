@@ -14,3 +14,7 @@ Datas = crud.queryDataInNode()
 for data in Datas:
     node = recommend_node(data[0], data[1], data[2], data[3], data[4], data[5], data[6])
     graph.addNode(node)
+
+# graph.printNode()
+# graph.printEdge()
+print(graph.combination())
