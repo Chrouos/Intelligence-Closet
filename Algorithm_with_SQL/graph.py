@@ -1,4 +1,3 @@
-from this import d
 from Algorithm_with_SQL.weather import weather_information_API
 from Service.nodeCRUD import nodeCRUD
 import random  # 亂數產生
@@ -12,6 +11,8 @@ class recommend_Graph:
         self.edge = []  # 邊的存放處 (權重 {nodeA, nodeB} )
         self.otherList = []  # 儲存其他衣物 (物件 node)
         self.weather_info = weather_information_API(city)  # 取得城市當日天氣資訊：溫度、濕度、最高溫、最低溫
+
+        self.comfortableTemp = 26
 
     def addNode(self, newNode):
 
@@ -40,31 +41,31 @@ class recommend_Graph:
 
         # 同色系
         if A_color == B_color:
-            return 30
+            return 6
         else:
             if A_color == 'black' or B_color == 'black':
                 if A_color == 'gray' or B_color == 'gray':
-                    return 25
+                    return 5
                 elif A_color == 'white' or B_color == 'white':
-                    return 25
+                    return 5
                 elif A_color == 'cream' or B_color == 'cream':
-                    return 20
+                    return 4
                 else:
-                    return 15
+                    return 3
             elif A_color == 'white' or B_color == 'white':
                 if A_color == 'gray' or B_color == 'gray':
-                    return 20
+                    return 4
                 elif A_color == 'cream' or B_color == 'cream':
-                    return 25
+                    return 5
                 else:
-                    return 15
+                    return 3
             else:
                 if A_color == 'gray' or B_color == 'gray':
-                    return 20
+                    return 3
                 elif A_color == 'cream' or B_color == 'cream':
-                    return 20
+                    return 2
                 else:
-                    return 25
+                    return 3
 
     # print out
 
@@ -75,6 +76,46 @@ class recommend_Graph:
     def printEdge(self):
         for e in self.edge:
             print(e[0], ": ", e[1][0].position, e[1][1].position, " | ", e[1][0].category, e[1][1].category)
+
+    def combination(self):
+        combs = []
+
+        # 使用26度法則計算分數
+        self.weather_info.dataText_AutoRefresh()
+
+        # 還相差的溫度
+        diff = round(self.comfortableTemp - self.weather_info.reTEMP(), 2)
+        # diff = 16  # 代表目前10度
+        print("最適合溫度 - 現在溫度 = 相差溫度: {} - {} = {}".format(self.comfortableTemp, self.weather_info.reTEMP(), diff))
+
+        scoreBase = 40
+        needCoat = ''
+        for e in self.edge:
+
+            # 公式計算
+            stillNeed = diff - (int(e[1][0].weatherScore) + int(e[1][1].weatherScore))
+            if stillNeed >= 9:
+                needCoat = '你需要加件厚外套'
+            elif stillNeed >= 5:
+                needCoat = '建議你加件薄外套'
+            else:
+                needCoat = '還不需要加外套'
+
+            total = round(scoreBase - abs((diff - stillNeed) * 1.2), 2)
+            combs.append([total + e[0], [e[1][0].position, e[1][1].position], [e[1][0].type, e[1][1].type], needCoat])
+
+        combs.sort(reverse=True)
+        for comb in combs:
+            print(comb)
+
+    #!### GET, SET
+
+    def setcomfortableTemp(self, newTemp):
+        self.comfortableTemp = newTemp
+
+    def refresh_allWeatherScore(self):
+        for n in self.node:
+            n.refresh_WS(self.weather_info.getWeather())
 
 
 '''

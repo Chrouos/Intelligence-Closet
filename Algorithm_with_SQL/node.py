@@ -1,22 +1,29 @@
 
-
 from unittest import case
+from Service.nodeCRUD import nodeCRUD
 
 
 class recommend_node:
 
     # 初始化：位置、分類、顏色、種類、使用次數、創建時間、儲存位置
-    def __init__(self, position, category, color, type, usageCounter, createTime, photoPosition):
+    def __init__(self, position, category, color, type, usageCounter, createTime, photoPosition, weatherScore, crud):
         self.position = position  # 面對存儲的位置（1, 2, 3, ...)
         self.category = category  # (upper, lower, other, outerwear）
         self.color = color  # 衣物的顏色
         self.type = type  # 衣物的種類
-        # self.weather_score = 0  # 每日都會變更，利用function 抓取 中央氣象局 API 分數分數
         self.usageCounter = usageCounter  # 使用次數
         self.createTime = createTime  # 創建時間
         self.photoPosition = photoPosition
 
         # self.style = style # 衣物的風格
+
+        self.weatherScore = 0
+        if(weatherScore == 0):
+            self.weatherScore = self.refresh_WS()  # 固定分數
+            print("S", self.weatherScore)
+            crud.updateWeatherScoreByPosition(position, self.weatherScore)
+        else:
+            self.weatherScore = weatherScore
 
     def refresh_WS(self):
 
@@ -27,7 +34,11 @@ class recommend_node:
             elif self.type == 'long_sleeves':
                 return 2
             elif self.type == 'sweater':
-                return 2
+                return 3
+            elif self.type == 'long_TShirt':
+                return 3
+            else:
+                return 1
 
         # 下半身
         elif self.category == 'lower':
@@ -39,6 +50,8 @@ class recommend_node:
                 return 3
             elif self.type == 'short_skirt':
                 return 1
+            else:
+                return 1
 
         # 其他
         elif self.category == 'coat':
@@ -48,6 +61,10 @@ class recommend_node:
                 return 9
             elif self.type == 'thin_coat':
                 return 3
+            else:
+                return 1
+        else:
+            return 1
 
 
 '''

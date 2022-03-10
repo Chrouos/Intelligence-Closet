@@ -11,10 +11,11 @@ graph = recommend_Graph('埔心')  # 圖形
 
 
 Datas = crud.queryDataInNode()
+
 for data in Datas:
-    node = recommend_node(data[0], data[1], data[2], data[3], data[4], data[5], data[6])
+    node = recommend_node(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], crud)
     graph.addNode(node)
 
-# graph.printNode()
 # graph.printEdge()
-print(graph.combination())
+# print(graph.edge)
+graph.combination()

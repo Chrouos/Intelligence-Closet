@@ -55,7 +55,7 @@ class nodeCRUD:
 
     def queryDataInNode(self):
         self.cursor.execute(
-            "SELECT position,category, color, clothes_type, usageCounter, createTime, filePosition FROM clothes_information")
+            "SELECT position,category, color, clothes_type, usageCounter, createTime, filePosition, weather_score FROM clothes_information")
         datas = self.cursor.fetchall()
         return datas
 
