@@ -1,2 +1,4 @@
 {
+  "python.formatting.provider": "black",
+  "editor.fontFamily": " Consolas, 'Courier New', monospace"
 }
