@@ -1,8 +1,8 @@
 async function get_weather(){ 
     
-
-    weather = await eel.weather_to_js()()  
+    var weather = await eel.weather_to_js()()  
+    json = JSON.parse(weather);
   
-    document.getElementById('weather_panel').textContent = weather
+    document.getElementById('weather_panel').textContent = json;
 }
 get_weather();

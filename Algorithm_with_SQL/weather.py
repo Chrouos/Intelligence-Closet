@@ -43,8 +43,11 @@ class weather_information_API:
         re_complete_temp = re.compile(
             '(TEMP)\W+(elementValue)\W+[0-9]+\W[0-9]')
         complete_temp = re_complete_temp.search(str(self.__dataText))
-
-        self.__temp = float(complete_temp.group()[-4:])
+        
+        try:
+            self.__temp = float(complete_temp.group()[-4:])
+        except:
+            self.__temp = -1
 
         return self.__temp
 
@@ -54,7 +57,10 @@ class weather_information_API:
             '(HUMD)\W+(elementValue)\W+[0-9]\W[0-9]{2}')
         complete_humd = re_complete_humd.search(str(self.__dataText))
 
-        self.__humd = float(complete_humd.group()[-4:])
+        try:
+            self.__humd = float(complete_humd.group()[-4:])
+        except:
+            self.__humd = -1
 
         return self.__humd
 
@@ -63,8 +69,11 @@ class weather_information_API:
         re_complete_DTX = re.compile(
             '(D_TX)\W+(elementValue)\W+[0-9]+\W[0-9]+')
         complete_DTX = re_complete_DTX.search(str(self.__dataText))
-
-        self.__d_tx = float(complete_DTX.group()[-5:])
+        
+        try:
+             self.__d_tx = float(complete_DTX.group()[-5:])
+        except:
+            self.__d_tx = -1
 
         return self.__d_tx
 
@@ -73,8 +82,11 @@ class weather_information_API:
         re_complete_DTN = re.compile(
             '(D_TN)\W+(elementValue)\W+[0-9]+\W[0-9]+')
         complete_DTN = re_complete_DTN.search(str(self.__dataText))
-
-        self.__d_tn = float(complete_DTN.group()[-5:])
+       
+        try:
+             self.__d_tn = float(complete_DTN.group()[-5:])
+        except:
+            self.__d_tn = -1
 
         return self.__d_tn
 
@@ -83,8 +95,11 @@ class weather_information_API:
         re_complete_DTXT = re.compile(
             '(D_TXT)\W+(elementValue)\S{19}')
         complete_dtxt = re_complete_DTXT.search(str(self.__dataText))
-
-        self.__d_txt = str(complete_dtxt.group()[-5:])
+        
+        try:
+             self.__d_txt = str(complete_dtxt.group()[-5:])
+        except:
+            self.__d_txt = -1
 
         return self.__d_txt
 
@@ -93,26 +108,32 @@ class weather_information_API:
         re_complete_DTNT = re.compile(
             '(D_TNT)\W+(elementValue)\S{19}')
         complete_dtnt = re_complete_DTNT.search(str(self.__dataText))
-
-        self.__d_tnt = str(complete_dtnt.group()[-5:])
+      
+        try:
+             self.__d_tnt = str(complete_dtnt.group()[-5:])
+        except:
+            self.__d_tnt = -1
 
         return self.__d_tnt
 
      # 獲得天氣資訊：溫度、濕度、最高溫、最低溫
 
     def getWeather(self):
+              
+        try:
+            self.dataText_AutoRefresh()
+            # 更新所有溫度資訊
+            self.reTEMP()
+            self.reHUMD()
+            self.reD_TX()
+            self.reD_TN()
+            self.reD_TXT()
+            self.reD_TNT()
 
-        self.dataText_AutoRefresh()
-        # 更新所有溫度資訊
-        self.reTEMP()
-        self.reHUMD()
-        self.reD_TX()
-        self.reD_TN()
-        self.reD_TXT()
-        self.reD_TNT()
-
-        # 回傳溫度溫度、濕度、最高溫、最低溫、最高溫時間點、最低溫時間點
-        return (self.__temp, self.__humd, self.__d_tx, self.__d_tn, self.__d_txt, self.__d_tnt)
+            # 回傳溫度溫度、濕度、最高溫、最低溫、最高溫時間點、最低溫時間點
+            return (self.__temp, self.__humd, self.__d_tx, self.__d_tn, self.__d_txt, self.__d_tnt)
+        except:
+            return "此站未提供天氣資訊"
 
     def printWeather(self):
 
