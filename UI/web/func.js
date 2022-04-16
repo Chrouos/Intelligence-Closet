@@ -4,26 +4,15 @@ app.controller('myCtrl', function ($scope) {
 
     $scope.selectedName = ""
 
-    // var str = "新北市,臺北市,基隆市,花蓮縣,桃園市,宜蘭縣,金門縣";
-    // console.log(str.split(","));
-    // $scope.names = str.split(",");
-    // 接收站別 — 城鎮
     async function get_station_city(){
 
         var stationAllCity = await eel.station_city_to_js()(); 
-
-        // 字串轉陣列
-        $scope.names = stationAllCity.split(",");
+        $scope.names = stationAllCity.split(","); // 字串轉陣列
         
     }
     get_station_city();
 
-
-
 });
-
-
-var abc = "email, google, hypaer";
 
 // 從 Python 中獲得天氣資訊(溫度、濕度、最高溫+時間、最低溫+時間)
 async function get_weather(){ 
