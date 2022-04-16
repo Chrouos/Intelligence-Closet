@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html ng-app="myApp" ng-controller="myCtrl">
 
 <head>
   <title>Lobby</title>
@@ -10,6 +10,7 @@
 
   <!-- javascript  -->
   <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   <script src="func.js"></script>
 
   <!-- 關聯的樣式表 -->
@@ -27,6 +28,16 @@
   <p id="weather_d_txt"></p>
   <p id="weather_d_tnt"></p>
   <a href="./test1.html">跳轉頁面</a>
+
+  <input type="text" id="input_weather_position" />
+  <button onclick="get_weather()">確認</button>
+
+  <p>-----------------------------------------</p>
+
+  <p id="allCity"></p>
+
+  <select ng-model="selectedName" ng-options="item for item in names">
+  </select>
 
 </body>
 

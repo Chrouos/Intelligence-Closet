@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html ng-app="myApp" ng-controller="myCtrl">
 
 <head>
   <title>Lobby</title>
@@ -10,6 +10,7 @@
 
   <!-- javascript  -->
   <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   <script src="func.js"></script>
 
   <!-- 關聯的樣式表 -->
@@ -19,8 +20,10 @@
 </head>
 
 <body>
-  <p>here is test1</p>
 
+  <div>
+    Name: <input ng-model="name">
+  </div>
 
 
 </body>
