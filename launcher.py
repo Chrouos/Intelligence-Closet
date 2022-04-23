@@ -23,7 +23,7 @@ def weather_to_js(weatherPostion):    # 傳送天氣資訊
 
 
 @eel.expose
-def station_city_to_js():
+def station_city_to_js(): # 傳送所有縣市資訊
   
   st_all_city = station().getAllCity()
   str_city = ""
@@ -33,11 +33,22 @@ def station_city_to_js():
       str_city += ","
     str_city += str(st_all_city[index])
     
-  
-  print(str_city)
-  
+  print("city: ", str_city)
   return str(str_city)
 
+@eel.expose
+def station_station_to_js(city):
+  
+  st_station_in_city = station().getStationByCity(city)
+  str_station = ""
+  
+  for index in range(len(st_station_in_city)):
+    if(index != 0): 
+      str_station += ","
+    str_station += str(st_station_in_city[index])
+    
+  print("station: ", str_station)
+  return str(str_station)
 
 eel.init('UI/web') # eel.init(網頁的資料夾)
 eel.start('main.html',size = (600,400)) #eel.start(html名稱, size=(起始大小))

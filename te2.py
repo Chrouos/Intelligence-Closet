@@ -3,10 +3,11 @@
 # input()
 
 # from Algorithm_with_SQL.weather import weather_information_API
-# from crawler.crawler import station
+from crawler.crawler import station
 # import re
 
-# st = station()
+st = station()
+print(st.getStationByCity("新北市"))
 # print(st.getStationByCity("新北市"))
 
 # we = weather_information_API("桶後") # 地點

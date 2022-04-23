@@ -29,15 +29,22 @@
   <p id="weather_d_tnt"></p>
   <a href="./test1.html">跳轉頁面</a>
 
-  <input type="text" id="input_weather_position" />
-  <button onclick="get_weather()">確認</button>
+  <input type="text" id="inputWeatherPosition" />
+  <button ng-click="getWeather(1)">確認</button>
 
   <p>-----------------------------------------</p>
 
   <p id="allCity"></p>
 
-  <select ng-model="selectedName" ng-options="item for item in names">
-  </select>
+  <select ng-model="selectedCity" ng-options="city for city in allCitys" ng-change="getStation()"></select>
+  <span> 選擇的城市: {{selectedCity}}</span>
+  <br>
+  <select ng-model="selectedStation" ng-options="station for station in stationByCity"
+    ng-change="getWeather(2)"></select>
+  <span> 選擇的氣象站別: {{selectedStation}}</span>
+
+
+
 
 </body>
 
