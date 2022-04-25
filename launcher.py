@@ -51,4 +51,4 @@ def station_station_to_js(city):
   return str(str_station)
 
 eel.init('UI/web') # eel.init(網頁的資料夾)
-eel.start('main.html',size = (600,400)) #eel.start(html名稱, size=(起始大小))
+eel.start('main.html',size=(1920,1080)) #eel.start(html名稱, size=(起始大小))

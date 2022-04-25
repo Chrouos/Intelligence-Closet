@@ -43,6 +43,11 @@
     ng-change="getWeather(2)"></select>
   <span> 選擇的氣象站別: {{selectedStation}}</span>
 
+  <p>-----------------------------------------</p>
+
+  <div class="columns">
+    <a ng-repeat="(index, city) in allCitys" class="box btn">{{city}}</a>
+  </div>
 
 
 
