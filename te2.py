@@ -1,5 +1,5 @@
-# import os
-# os.system("E:/ProgrammingLanguage/Envir/python376/python.exe launcher.py")
+import os
+os.system("E:/ProgrammingLanguage/Envir/python376/python.exe launcher.py")
 # input()
 
 # from Algorithm_with_SQL.weather import weather_information_API

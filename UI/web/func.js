@@ -3,6 +3,17 @@
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function ($scope) {
 
+    /* ---------- 刷新頁面 Start ---------- */ 
+    $scope.date=new Date();
+    $scope.count=0;
+    setInterval(function(){
+        $scope.$apply(function(){
+            $scope.date=new Date();
+            $scope.count++;
+        });
+    },1000);
+    /* ---------- 刷新頁面 End ---------- */ 
+
 
     // 從 Python中 獲得所有城鎮 顯示在 option 選項中
     async function get_station_city(){
