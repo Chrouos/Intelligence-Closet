@@ -11,8 +11,8 @@ create table clothes_information
 	ClothesType varchar(255) NOT NULL,--衣物種類 ( short_TShirt, long_skirt... ) => 阿亮
 	ClothesStyle varchar(255) NULL,-- 衣物風格 => 阿亮
 	UsageCounter int NOT NULL,-- 衣物使用次數
-	CreateTime date NOT NULL,--放入時間
-	ModifyTime date NOT NULL,
+	CreateTime datetime NOT NULL,--放入時間
+	ModifyTime datetime NOT NULL,
 	FilePosition text--圖片位置
 );
 

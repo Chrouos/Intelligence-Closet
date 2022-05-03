@@ -30,84 +30,85 @@ class nodeCRUD:
      ################## CREATE START ##################
      
      # insert 必要的
-    def insertData(self, category, color, weatherScore, type, style):
+     ### 此為 目前 未有的資料: 使用次數為0
+    def insertData(self, category, color, clothesType, filePostion):
 
-        if(self.vacancyPosition() == False):
+        position = self.vacancyPosition()
+        print("空缺位置為:", position)
+        if(position == -1):
             print("位置已滿")
             return
+        
+        execute_str = "INSERT  INTO clothes_information (Position, Category, Color, ClothesType, UsageCounter, CreateTime, ModifyTime , FilePosition) "\
+          + "values(" + str(position) \
+          + ", '" + category + "'" \
+          + ", '" + color + "'" \
+          + ", '" + clothesType + "'" \
+          + ", 0" \
+          + ", GETDATE(), GETDATE()" \
+          + ", '" + filePostion + "') "         
+        print(execute_str)
 
-        self.cnxn.cursor().execute("INSERT  INTO clothes_information values(" + str(self.vacancyPosition())
-                                   + ", '" + category + "', '" + color + "', " + weatherScore
-                                   + ", '" + type + "', " + style + ", 0, GETDATE())")
+        self.cnxn.cursor().execute(execute_str)
         self.cnxn.commit()
     ################## CREATE END ##################
 
     #!# READ
-    # 搜尋全部的資料
+    # 搜尋 全部的資料
     def queryData(self):
-        self.cursor.execute("SELECT * FROM clothes_information")
+        execute_str = "SELECT * FROM clothes_information"
+        self.cursor.execute(execute_str)
+        datas = self.cursor.fetchall()
+        return datas
+    
+    # 搜尋 View全部的資料
+    def queryViewData(self):
+        execute_str = "SELECT * FROM v_clothes_information"
+        self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
         return datas
 
     # 透過位置找尋資料
     def queryDataByPosition(self, position):
-        self.cursor.execute("SELECT * FROM clothes_information WHERE position='"
-                            + str(position) + "'")
-        datas = self.cursor.fetchall()
-        return datas
-
-    def queryDataInNode(self):
-        self.cursor.execute(
-            "SELECT position,category, color, clothes_type, usageCounter, createTime, filePosition, weather_score FROM clothes_information")
+        execute_str = "SELECT * FROM v_clothes_information WHERE Position='" + str(position) + "'"
+        self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
         return datas
 
     # 透過分類找尋資料
     def queryDataByCategory(self, category):
-        self.cursor.execute("SELECT * FROM clothes_information WHERE category='"
-                            + str(category) + "'")
+        execute_str = "SELECT * FROM v_clothes_information WHERE Category='" + str(category) + "'"
+        self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
         return datas
 
-    # 大到小分類
+    # 大到小分類: name 想找尋的分類
     def sortNameDESC(self, name):
-        self.cursor.execute("SELECT * FROM clothes_information ORDER BY "
+        self.cursor.execute("SELECT * FROM v_clothes_information ORDER BY "
                             + str(name) + " DESC")
         datas = self.cursor.fetchall()
         return datas
 
-    # 小到大分類
+    # 小到大分類: name 想找尋的分類
     def sortNameASC(self, name):
-        self.cursor.execute("SELECT * FROM clothes_information ORDER BY "
+        self.cursor.execute("SELECT * FROM v_clothes_information ORDER BY "
                             + name + " ASC")
         datas = self.cursor.fetchall()
         return datas
 
-    # 空缺的位置資訊(範圍1~10)
+    # 空缺的位置資訊(範圍 0~9 )
     def vacancyPosition(self):
-        for i in range(1, 11):
+        for i in range(10):
             if self.queryDataByPosition(i) == []:
                 return i
 
-        return False
+        return -1
 
      # 最後一個位置
     def lastPosition(self):
-        return self.sortNameDESC('position')[0][0]
+        return self.sortNameDESC('Position')[0][1]
 
     #!# Update
-    # 輸入位置更改天氣分數
-    def updateWeatherScoreByPosition(self, position, weather_score):
-
-        if self.queryDataByPosition(position) == []:
-            print('沒有此衣物')
-            return
-
-        # ex. UPDATE clothes_information SET weather_score = 100 WHERE position = 0
-        self.cursor.execute("UPDATE clothes_information SET weather_score = "
-                            + str(weather_score) + " WHERE position = " + str(position))
-        self.cnxn.commit()
-        print('successfully updated!')
 
     def updatePositionToNull(self, position):
 
@@ -115,10 +116,10 @@ class nodeCRUD:
             print('沒有此衣物')
             return
 
-        # ex. UPDATE clothes_information SET weather_score = 100 WHERE position = 0
-        self.cursor.execute("UPDATE clothes_information SET position = NULL  WHERE position = " + str(position))
+        execute_str = "UPDATE clothes_information SET Position = NULL WHERE Position = " + str(position)
+        print(execute_str)
+        self.cursor.execute(execute_str)
         self.cnxn.commit()
-        print('successfully updated!')
 
     #!# DELETE
     def deleteByPosition(self, position):
@@ -127,8 +128,6 @@ class nodeCRUD:
             print('沒有此衣物')
             return
 
-        # ex. DELETE FROM clothes_information WHERE position=0
-        self.cursor.execute("DELETE FROM clothes_information WHERE position="
-                            + str(position))
+        execute_str = "DELETE FROM clothes_information WHERE position = "+ str(position)
+        self.cursor.execute(execute_str)
         self.cnxn.commit()
-        print('successfully deleted!')
