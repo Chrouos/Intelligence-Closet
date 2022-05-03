@@ -15,7 +15,7 @@ class nodeCRUD:
                                   + ';DATABASE=' + database
                                   + ';UID=' + username
                                   + ';PWD=' + password)
-            cursor = cnxn.cursor()
+            self.cursor = cnxn.cursor()
             print('操作成功')
 
         except:
@@ -27,8 +27,10 @@ class nodeCRUD:
     def reconnect(self):
         self.cursor = self.cnxn.cursor()
 
-     #!# CREATE
-    def createtData(self, category, color, weatherScore, type, style):
+     ################## CREATE START ##################
+     
+     # insert 必要的
+    def insertData(self, category, color, weatherScore, type, style):
 
         if(self.vacancyPosition() == False):
             print("位置已滿")
@@ -38,6 +40,7 @@ class nodeCRUD:
                                    + ", '" + category + "', '" + color + "', " + weatherScore
                                    + ", '" + type + "', " + style + ", 0, GETDATE())")
         self.cnxn.commit()
+    ################## CREATE END ##################
 
     #!# READ
     # 搜尋全部的資料
