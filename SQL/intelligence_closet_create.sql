@@ -3,7 +3,7 @@ drop table clothes_information
 create table clothes_information
 (
 	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- 編號 ( 1, 2, 3 ... )
-	Position int Unique,-- 放在衣櫃裡面的位置( 0 ~ 9)
+	Position int,-- 放在衣櫃裡面的位置( 0 ~ 9)
 	Category varchar(50) NOT NULL,-- 衣物分類( upper, lower... ) => 阿亮
 	Color varchar(50) NOT NULL,-- 衣物顏色 => 阿亮
 	-- WeatherScore int NOT NULL,-- 衣物天氣分數 
