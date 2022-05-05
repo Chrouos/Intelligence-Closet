@@ -16,8 +16,9 @@ create table clothes_information
 	FilePosition text--¹Ï¤ù¦ì¸m
 );
 
-select * from clothes_information
+select *
+from clothes_information
 
 
-insert into clothes_information (Category, Color, ClothesType, UsageCounter, CreateTime, ModifyTime) VALUES('upper', 'blue', 'short_TShirt', 0, GETDATE(), GETDATE() )
+-- insert into clothes_information (Category, Color, ClothesType, UsageCounter, CreateTime, ModifyTime) VALUES('upper', 'blue','short_TShirt', 0, GETDATE(), GETDATE() )
 
