@@ -61,6 +61,7 @@ class nodeCRUD:
         datas = self.cursor.fetchall()
         return datas
     
+    
     # 搜尋 View全部的資料
     def queryViewData(self):
         execute_str = "SELECT * FROM v_clothes_information"

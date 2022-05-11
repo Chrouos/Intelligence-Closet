@@ -54,11 +54,14 @@ class weather_information_API:
     def reHUMD(self):
         # 以下正規表示法取出數值
         re_complete_humd = re.compile(
-            '(HUMD)\W+(elementValue)\W+[0-9]\W[0-9]{2}')
+            '(HUMD)\W+(elementValue)\W+[0-9]\W[0-9]+')
         complete_humd = re_complete_humd.search(str(self.__dataText))
 
         try:
-            self.__humd = float(complete_humd.group()[-4:])
+            try:
+                self.__humd = float(complete_humd.group()[-4:])
+            except:
+                self.__humd = float(complete_humd.group()[-3:])
         except:
             self.__humd = -1
 
@@ -138,8 +141,8 @@ class weather_information_API:
     def printWeather(self):
 
         # 利用“正規化“只截取想要的資訊
-        print('TEMP:', self.reTEMP())
-        print('HUMD:', self.reHUMD())
+        print("TEMP:", self.reTEMP())
+        print("HUMD:", self.reHUMD())
         print("D_TX:", self.reD_TX())
         print("D_TN:", self.reD_TN())
         print("D_TXT:", self.reD_TXT())
