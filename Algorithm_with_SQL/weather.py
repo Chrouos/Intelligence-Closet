@@ -1,3 +1,4 @@
+from pickle import NONE
 import requests  # 要獲得天氣API
 import re  # 正規表示法：regular expression
 
@@ -9,6 +10,7 @@ class weather_information_API:
     def __init__(self, city):
         self.__city = city
         self.__dataText = 'NONE'  # 全部的資料
+        self.type = 1
         self.__temp = 0  # 溫度
         self.__humd = 0  # 濕度
         self.__d_tx = 0  # 最高溫
@@ -27,6 +29,8 @@ class weather_information_API:
 
     # 重整網址
     def dataText_AutoRefresh(self):
+        self.type = 1
+        
         token = 'CWB-A69F077C-C940-4912-9FC2-99F44AA41A25'  # 授權碼
         # 需要的項目：溫度、濕度、今日最高溫、今日最低溫、最高溫時間、最低溫時間、小時最大風速、最大風速時間
         required_item = 'TEMP,HUMD,D_TX,D_TN,D_TXT,D_TNT'
@@ -35,7 +39,18 @@ class weather_information_API:
         url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0001-001?Authorization=' + token + '&format=JSON&locationName=' + str(
             self.__city) + '&elementName=' + required_item
         Data = requests.get(url)
-        # print('Data Set:' , Data.text)
+        
+        # 嘗試判斷是否是無人測站(None = 是!)
+        re_complete_work1 = re.compile(
+            'location":\[\]')
+        complete_work1 = re_complete_work1.search(str(Data.text))
+        if(complete_work1 != None):
+            url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=' + token + '&format=JSON&locationName=' + str(
+            self.__city) + '&elementName=' + required_item
+            Data = requests.get(url)
+            self.type = 2
+        
+        
         self.__dataText = Data.text
 
     def reTEMP(self):
@@ -54,16 +69,26 @@ class weather_information_API:
     def reHUMD(self):
         # 以下正規表示法取出數值
         re_complete_humd = re.compile(
-            '(HUMD)\W+(elementValue)\W+[0-9]\W[0-9]+')
+                '(HUMD)\W+(elementValue)\W+[0-9]\W[0-9]+')
         complete_humd = re_complete_humd.search(str(self.__dataText))
-
-        try:
+        
+        # 若不剛好等於 1
+        if complete_humd == None:
+            re_complete_humd = re.compile('(HUMD)\W+(elementValue)\W+[0-9]')
+            complete_humd = re_complete_humd.search(str(self.__dataText))
             try:
-                self.__humd = float(complete_humd.group()[-4:])
+                self.__humd = float(complete_humd.group()[-1])
             except:
-                self.__humd = float(complete_humd.group()[-3:])
-        except:
-            self.__humd = -1
+                self.__humd = -1
+        else:
+            try:
+                try:
+                    self.__humd = float(complete_humd.group()[-4:])
+                except:
+                    self.__humd = float(complete_humd.group()[-3:])
+            except:
+                self.__humd = -1
+            
 
         return self.__humd
 
@@ -95,12 +120,18 @@ class weather_information_API:
 
     def reD_TXT(self):
         # 以下正規表示法取出數值
-        re_complete_DTXT = re.compile(
-            '(D_TXT)\W+(elementValue)\S{19}')
+        if(self.type == 1):
+            re_complete_DTXT = re.compile('(D_TXT)\W+(elementValue)\S{19}')
+        elif(self.type == 2):
+            re_complete_DTXT = re.compile('D_TXT"\W+\w+\W+\d{4}')
+            
         complete_dtxt = re_complete_DTXT.search(str(self.__dataText))
         
         try:
-             self.__d_txt = str(complete_dtxt.group()[-5:])
+            if(self.type == 1):
+                self.__d_txt = str(complete_dtxt.group()[-5:])
+            elif(self.type == 2):
+                self.__d_txt = str(complete_dtxt.group()[-4:-2] + ":" +  complete_dtxt.group()[-2:])
         except:
             self.__d_txt = -1
 
@@ -108,12 +139,17 @@ class weather_information_API:
 
     def reD_TNT(self):
         # 以下正規表示法取出數值
-        re_complete_DTNT = re.compile(
-            '(D_TNT)\W+(elementValue)\S{19}')
+        if(self.type == 1):
+            re_complete_DTNT = re.compile('(D_TNT)\W+(elementValue)\S{19}')
+        elif(self.type == 2):
+            re_complete_DTNT = re.compile('D_TNT"\W+\w+\W+\d{4}')
         complete_dtnt = re_complete_DTNT.search(str(self.__dataText))
       
-        try:
-             self.__d_tnt = str(complete_dtnt.group()[-5:])
+        try: 
+            if(self.type == 1):
+                self.__d_tnt = str(complete_dtnt.group()[-5:])
+            elif(self.type == 2):
+                self.__d_tnt = str(complete_dtnt.group()[-4:-2] + ":" +  complete_dtnt.group()[-2:])
         except:
             self.__d_tnt = -1
 

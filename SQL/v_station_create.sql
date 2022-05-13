@@ -20,4 +20,4 @@ AS
 select *
 from v_station
 
-SELECT StationName FROM v_station WHERE CityName = '新北市'
+SELECT * FROM v_station WHERE CityName = '新北市'

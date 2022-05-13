@@ -46,8 +46,8 @@ app.controller('myCtrl', function ($scope) {
             document.getElementById("weather_temp").textContent = "該區目前未提供溫度"
         }
 
-        if(json.humd != -1) {
-        var humdStr = "濕度: " + json.humd;
+        if(json.humd != -100) {
+        var humdStr = "濕度: " + json.humd + "%";
             document.getElementById("weather_humd").textContent = humdStr;
         } else{
             document.getElementById("weather_humd").textContent = "該區目前未提供濕度"
