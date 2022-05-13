@@ -1,6 +1,10 @@
 import eel
 from Algorithm_with_SQL.weather import weather_information_API
 from crawler.crawler import station
+from Service.stationCRUD import stationCRUD
+
+import sys, os
+sys.path.append(os.getcwd()) # 抓取路徑
 
 @eel.expose
 def weather_to_js(weatherPostion):    # 傳送天氣資訊
@@ -25,9 +29,12 @@ def weather_to_js(weatherPostion):    # 傳送天氣資訊
 @eel.expose
 def station_city_to_js(): # 傳送所有縣市資訊
   
-  st = station()
-  st.refreshDataByNet()
-  st_all_city = st.getAllCity()
+  stCrud = stationCRUD()
+  st_all_city = stCrud.queryCity()
+  
+  # st = station()
+  # st.refreshDataByNet()
+  # st_all_city = st.getAllCity()
   
   str_city = ""
   
@@ -42,9 +49,12 @@ def station_city_to_js(): # 傳送所有縣市資訊
 @eel.expose
 def station_station_to_js(city):
   
-  st = station()
-  st.refreshDataByNet()
-  st_station_in_city = st.getStationByCity(city[0])
+  stCrud = stationCRUD()
+  st_station_in_city = stCrud.queryCityByName(city[0])
+  
+  # st = station()
+  # st.refreshDataByNet()
+  # st_station_in_city = st.getStationByCity(city[0])
   
   str_station = ""
   

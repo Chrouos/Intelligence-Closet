@@ -65,22 +65,28 @@ class stationCRUD:
  
 	################## SELECT START ##################
 	def queryCityByName(self, cityName):
-		execute_str = "SELECT * FROM city Where CityName = '" + cityName + "'"
+		execute_str = "SELECT StationName FROM v_station WHERE CityName = '" + cityName + "'"
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()
-		return datas
+		rtData = [row[0] for row in datas]
+
+		return list(rtData)
 
 	def queryStation(self):
 		execute_str = "SELECT * FROM station"
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()
-		return datas
+		rtData = [row[0] for row in datas]
+
+		return list(rtData)
 
 	def queryCity(self):
-		execute_str = "SELECT * FROM city "
+		execute_str = "SELECT CityName FROM city"
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()
-		return datas
+		rtData = [row[0] for row in datas]
+
+		return list(rtData)
  
 	def refreshAllData(self):
 		st = station()
