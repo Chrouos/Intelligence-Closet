@@ -1,6 +1,10 @@
 import cv2
+import os
+
+my_path = os.getcwd()
 
 cap = cv2.VideoCapture(0)  # 開啟攝像頭
+my_path = "e:/ProgrammingLanguage/git/Intelligence-Closet/classify" # 不同路徑
 
 while True:
     ret, frame = cap.read() # 讀取鏡頭畫面
@@ -44,7 +48,7 @@ while True:
     cv2.imshow("capture", frame)  # 生成攝像頭視窗
 
     if cv2.waitKey(1) & 0xFF == ord('q'):  # 如果按下q 就截圖儲存並退出
-        cv2.imwrite("./images/test.png", frame)  # 儲存路徑
+        cv2.imwrite(my_path + "./images/test.png", frame)  # 儲存路徑
         break
 
 cap.release()
@@ -71,27 +75,31 @@ cls_list = ['Not_sure',
  'Skip',
  'Blazer']
 
-from tensorflow.keras.preprocessing import image
+from keras.preprocessing import image
 #from keras.models import load_model
 import tensorflow as tf
 #from keras import backend as K
 import numpy as np
 import os
 
-# 關閉GPU加速功能(建議安裝無GPU版本，縮短初始化時間)
+
+
+ 
+# 關閉GPU加速功能(建議安裝無GPU版本, 縮短初始化時間)
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 # 開啟800字典
-words_path = './archive/images.csv'
+words_path = my_path + './archive/images.csv'
 file1 = open(words_path, 'rt', encoding='Big5')
 labels = list(file1.read())
 file1.close()
 
 # 載入模型
-model = tf.compat.v1.keras.models.load_model('./h5/eff_final.h5')
+model_path = my_path + './h5/eff_final.h5'
+model = tf.compat.v1.keras.models.load_model(model_path)
 
 # 讀取照片
-img_path = './images/test.png'
+img_path = my_path + './images/test.png'
 try:
     img = image.load_img(img_path, target_size=(224, 224))
 except Exception as e:

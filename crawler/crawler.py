@@ -21,6 +21,7 @@ class station:
         return self.allInformation
 
     def getStationByCity(self, city):
+        print('getStationByCity: ', city);
         try:
             index = self.allCity.index(city)
             return self.allStation[index]

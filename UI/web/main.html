@@ -21,29 +21,65 @@
 
 <body>
 
-  <p id="weather_temp"></p>
-  <p id="weather_humd"></p>
-  <p id="weather_d_tx"></p>
-  <p id="weather_d_tn"></p>
-  <p id="weather_d_txt"></p>
-  <p id="weather_d_tnt"></p>
-  <a href="./test1.html">跳轉頁面</a>
+  <div class="card columns">
 
-  <input type="text" id="inputWeatherPosition" />
-  <button ng-click="getWeather(1)">確認</button>
+    <div class="block m-2">
+      <div class="select is-multiple pl-4 pt-4">
+        選擇城市
+        <select multiple size="8" ng-model="selectedCity" ng-options="city for city in allCitys"
+          ng-change="getStation()"></select>
+      </div>
+      <!-- <span> 選擇的城市: {{selectedCity}}</span> -->
 
-  <p>-----------------------------------------</p>
+      <div class="select is-multiple pl-3 pt-4">
+        選擇站別
+        <select multiple size="8" ng-model="selectedStation" ng-options="station for station in stationByCity"
+          ng-change="getWeather()"></select>
+      </div>
+      <!-- <span> 選擇的氣象站別: {{selectedStation}}</span> -->
 
-  <p id="allCity"></p>
+    </div>
 
-  <select ng-model="selectedCity" ng-options="city for city in allCitys" ng-change="getStation()"></select>
-  <span> 選擇的城市: {{selectedCity}}</span>
-  <br>
-  <select ng-model="selectedStation" ng-options="station for station in stationByCity"
-    ng-change="getWeather(2)"></select>
-  <span> 選擇的氣象站別: {{selectedStation}}</span>
 
-  <p>-----------------------------------------</p>
+    <!-- <div class="card-content column">
+      <div style="height:50%; text-align: center">
+        <div class="select is-multiple">
+          <select ng-model="selectedCity" ng-options="city for city in allCitys" ng-change="getStation()"></select>
+        </div>
+        <span> 選擇的城市: {{selectedCity}}</span>
+
+      </div>
+      <br>
+      <div style="height:50%; text-align: center">
+        <select ng-model="selectedStation" ng-options="station for station in stationByCity"
+          ng-change="getWeather(2)"></select>
+        <span> 選擇的氣象站別: {{selectedStation}}</span>
+      </div>
+    </div> -->
+
+
+    <div class="card-content column">
+      <div class="box mt-5">
+        氣象顯示
+        <p id="weather_temp">1</p>
+        <p id="weather_humd">2</p>
+        <p id="weather_d_tx">3</p>
+        <p id="weather_d_tn">4</p>
+        <p id="weather_d_txt">5</p>
+        <p id="weather_d_tnt">6</p>
+      </div>
+      <p>這下面可以些一些備註，例如今日風大，適合加...</p>
+    </div>
+
+
+    <!-- <input type="text" id="inputWeatherPosition" />
+  <button ng-click="getWeather(1)">確認</button> -->
+
+    <!-- <p>-----------------------------------------</p> -->
+
+  </div>
+
+  <!-- <p>-----------------------------------------</p> -->
 
   <!-- <div class="columns">
     <a ng-repeat="(index, city) in allCitys" class="box btn" value="{{city}}">{{city}}</a>

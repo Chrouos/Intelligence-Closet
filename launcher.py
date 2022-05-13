@@ -25,7 +25,10 @@ def weather_to_js(weatherPostion):    # 傳送天氣資訊
 @eel.expose
 def station_city_to_js(): # 傳送所有縣市資訊
   
-  st_all_city = station().getAllCity()
+  st = station()
+  st.refreshDataByNet()
+  st_all_city = st.getAllCity()
+  
   str_city = ""
   
   for index in range(len(st_all_city)):
@@ -39,7 +42,10 @@ def station_city_to_js(): # 傳送所有縣市資訊
 @eel.expose
 def station_station_to_js(city):
   
-  st_station_in_city = station().getStationByCity(city)
+  st = station()
+  st.refreshDataByNet()
+  st_station_in_city = st.getStationByCity(city[0])
+  
   str_station = ""
   
   for index in range(len(st_station_in_city)):

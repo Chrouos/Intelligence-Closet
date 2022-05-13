@@ -31,12 +31,10 @@ app.controller('myCtrl', function ($scope) {
     }
 
     // 從 Python中 獲得天氣資訊(溫度、濕度、最高溫+時間、最低溫+時間)
-    async function get_weather(type){ 
+    async function get_weather(){ 
 
-        if (type == 1)
-            var getWeatherPosition = document.getElementById("inputWeatherPosition").value;
-        else if(type == 2)
-            var getWeatherPosition = $scope.selectedStation;
+        
+        var getWeatherPosition = $scope.selectedStation;
 
 
         var weather = await eel.weather_to_js(getWeatherPosition)()  
