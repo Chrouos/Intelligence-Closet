@@ -4,14 +4,11 @@ var app = angular.module('myApp', []);
 app.controller('myCtrl', function ($scope) {
 
     /* ---------- 刷新頁面 Start ---------- */ 
-    $scope.date=new Date();
-    $scope.count=0;
     setInterval(function(){
         $scope.$apply(function(){
-            $scope.date=new Date();
-            $scope.count++;
+           
         });
-    },1000);
+    },15);
     /* ---------- 刷新頁面 End ---------- */ 
 
 

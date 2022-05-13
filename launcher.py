@@ -5,7 +5,7 @@ from crawler.crawler import station
 @eel.expose
 def weather_to_js(weatherPostion):    # 傳送天氣資訊
   
-  we = weather_information_API(weatherPostion) # 地點
+  we = weather_information_API(weatherPostion[0]) # 地點
   weather_list = we.getWeather() # 獲得陣列(6個資訊)
   print("weather_list: ", weather_list)
   print("weather_position: ", weatherPostion)
