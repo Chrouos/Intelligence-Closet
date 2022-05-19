@@ -1,3 +1,4 @@
+
 import cv2
 
 cap = cv2.VideoCapture(0)  # 開啟攝像頭
@@ -44,13 +45,16 @@ while True:
     cv2.imshow("capture", frame)  # 生成攝像頭視窗
 
     if cv2.waitKey(1) & 0xFF == ord('q'):  # 如果按下q 就截圖儲存並退出
-        cv2.imwrite("./images/test.png", frame)  # 儲存路徑
+        cv2.imwrite("./images/test.jpg", frame)  # 儲存路徑
         break
 
 cap.release()
 cv2.destroyAllWindows() # 關閉視窗
 
-cls_list = ['Not_sure',
+cls_list = ['Blazer','','Body','Dress,Top','Hat','Hoodie','Longsleeve','Not_sure','','Outwear',
+            'Pants','Polo','Shirt','Shoes','Shorts','','Skirt','T-Shirt','','Undershirt']#Other,Blouse,Skip
+
+'''cls_list = ['Not_sure',
  'T-Shirt',
  'Shoes',
  'Shorts',
@@ -70,8 +74,9 @@ cls_list = ['Not_sure',
  'Hoodie',
  'Skip',
  'Blazer']
+ '''
 
-from keras.preprocessing import image
+from tensorflow.keras.preprocessing import image
 #from keras.models import load_model
 import tensorflow as tf
 #from keras import backend as K
@@ -91,7 +96,8 @@ file1.close()
 model = tf.compat.v1.keras.models.load_model('./h5/eff_final.h5')
 
 # 讀取照片
-img_path = './images/test.png'
+#img_path = './archive/images_original/2df8bf1f-6d89-4acd-b6f6-9daec6b61b95.jpg'
+img_path = './images/test.jpg'
 try:
     img = image.load_img(img_path, target_size=(224, 224))
 except Exception as e:
@@ -108,4 +114,4 @@ print(pred) # 機率list
 index = np.argmax(pred)
 prediction = cls_list[index]
 print('\ncolor:',color)
-print('category:',prediction) # 預測結果 
+print('category:',prediction) # 預測結果
