@@ -15,12 +15,7 @@ class recommend_Graph:
         self.comfortableTemp = 26
 
     def addNode(self, newNode):
-
-        # 若為其他類別，存入即結束
-        if newNode.category == 'other':
-            self.otherList.append(newNode)
-            return
-
+  
         # 將所有分類不同的上下衣物連線，賦予權重
         for n in self.node:
             # 先判斷是不是為不同類別

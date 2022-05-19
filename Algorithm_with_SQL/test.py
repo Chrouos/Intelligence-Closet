@@ -1,9 +1,11 @@
-from weather import weather_information_API
+import sys, os
+sys.path.append(os.getcwd()) # 抓取路徑
+from node import recommend_node
 
+# from Service.nodeCRUD import nodeCRUD
 
+# ndCrud = nodeCRUD()
+# print(ndCrud.queryDataByPosition(1))
 
-weather = weather_information_API('五股')
-print(weather.getWeather())
-
-weather = weather_information_API('埔心')
-print(weather.getWeather())
+node = recommend_node(1)
+node.printNodeData()

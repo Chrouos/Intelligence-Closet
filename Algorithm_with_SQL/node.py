@@ -1,70 +1,42 @@
+import sys, os
+sys.path.append(os.getcwd()) # 抓取路徑
 
-from unittest import case
 from Service.nodeCRUD import nodeCRUD
-
 
 class recommend_node:
 
     # 初始化：位置、分類、顏色、種類、使用次數、創建時間、儲存位置
-    def __init__(self, position, category, color, type, usageCounter, createTime, photoPosition, weatherScore, crud):
+    def __init__(self, position):
         self.position = position  # 面對存儲的位置（1, 2, 3, ...)
-        self.category = category  # (upper, lower, other, outerwear）
-        self.color = color  # 衣物的顏色
-        self.type = type  # 衣物的種類
-        self.usageCounter = usageCounter  # 使用次數
-        self.createTime = createTime  # 創建時間
-        self.photoPosition = photoPosition
+        ndCrud = nodeCRUD()
+        self.data = ndCrud.queryDataByPosition(position)[0]
+        
+        self.clothesName = self.data[3] # 衣物名稱 (ex. 長裙、長褲)
+        self.color = self.data[5] # 衣物的顏色
+        self.userPreferences = self.data[6] # 使用者喜好程度
+        self.categoryName = self.data[8] # 衣物分類
+        self.clothesStyle = self.data[9]
+        self.usageCounter = self.data[10]  # 使用次數
+        self.createTime = self.data[11]
+        self.modifytime = self.data[12]
+        self.filePosition = self.data[13]
+        self.weatherScore = self.data[14]
+        self.level = self.data[15]
 
-        # self.style = style # 衣物的風格
-
-        self.weatherScore = 0
-        if(weatherScore == 0):
-            self.weatherScore = self.refresh_WS()  # 固定分數
-            print("S", self.weatherScore)
-            crud.updateWeatherScoreByPosition(position, self.weatherScore)
-        else:
-            self.weatherScore = weatherScore
-
-    def refresh_WS(self):
-
-        # 上半身
-        if self.category == 'upper':
-            if self.type == 'short_TShirt':
-                return 1
-            elif self.type == 'long_sleeves':
-                return 2
-            elif self.type == 'sweater':
-                return 3
-            elif self.type == 'long_TShirt':
-                return 3
-            else:
-                return 1
-
-        # 下半身
-        elif self.category == 'lower':
-            if self.type == 'short_pants':
-                return 1
-            elif self.type == 'long_skirt':
-                return 2
-            elif self.type == 'long_pants':
-                return 3
-            elif self.type == 'short_skirt':
-                return 1
-            else:
-                return 1
-
-        # 其他
-        elif self.category == 'coat':
-            if self.type == 'thick_coat':
-                return 5
-            elif self.type == 'down_coat':
-                return 9
-            elif self.type == 'thin_coat':
-                return 3
-            else:
-                return 1
-        else:
-            return 1
+    def printNodeData(self):
+        print("position:", self.position)
+        print("clothesName:", self.clothesName)
+        print("color:", self.color)
+        print("userPreferences:", self.userPreferences)
+        print("categoryName:", self.categoryName)
+        print("clothesStyle:", self.clothesStyle)
+        print("usageCounter:", self.usageCounter)
+        print("createTime:", self.createTime)
+        print("modifytime:", self.modifytime)
+        print("filePosition:", self.filePosition)
+        print("weatherScore:", self.weatherScore)
+        print("level:", self.level)
+        
 
 
 '''

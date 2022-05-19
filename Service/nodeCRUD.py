@@ -27,11 +27,11 @@ class nodeCRUD:
     def reconnect(self):
         self.cursor = self.cnxn.cursor()
 
-     ################## CREATE START ##################
+  ######################################## CREATE START ########################################
      
      # insert 必要的
      ### 此為 目前 未有的資料: 使用次數為0
-    def insertData(self, category, color, clothesType, filePostion):
+    def insertData(self, categoryId, color, weatherScoreId, filePostion):
 
         position = self.vacancyPosition()
         print("空缺位置為:", position)
@@ -39,19 +39,20 @@ class nodeCRUD:
             print("位置已滿")
             return
         
-        execute_str = "INSERT  INTO clothes_information (Position, Category, Color, ClothesType, UsageCounter, CreateTime, ModifyTime , FilePosition) "\
+        execute_str = "INSERT  INTO clothes_information (Position, CategoryId, Color, WeatherScoreId, UsageCounter, CreateTime, ModifyTime , FilePosition) "\
           + "values(" + str(position) \
-          + ", '" + category + "'" \
+          + ", " + str(categoryId) + "" \
           + ", '" + color + "'" \
-          + ", '" + clothesType + "'" \
+          + ", " + str(weatherScoreId) + "" \
           + ", 0" \
           + ", GETDATE(), GETDATE()" \
-          + ", '" + filePostion + "') "         
+          + ", '" + filePostion + "') "  
         print(execute_str)
 
         self.cnxn.cursor().execute(execute_str)
         self.cnxn.commit()
-    ################## CREATE END ##################
+        
+ ######################################## CREATE END ########################################
 
     #!# READ
     # 搜尋 全部的資料
@@ -78,7 +79,7 @@ class nodeCRUD:
 
     # 透過分類找尋資料
     def queryDataByCategory(self, category):
-        execute_str = "SELECT * FROM v_clothes_information WHERE Category='" + str(category) + "'"
+        execute_str = "SELECT * FROM v_clothes_information WHERE CategoryId = '" + str(category) + "'"
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
         return datas

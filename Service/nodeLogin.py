@@ -7,8 +7,10 @@ crud = nodeCRUD()
 
 ############### 操作手冊 ###############
 
-# 1. 插入檔案(全新檔案: 使用次數預設為0)
-crud.insertData('upper', 'blue', 'long_Tshirt', 'E:\ProgrammingLanguage\git\Intelligence-Closet')
+# 1. 插入檔案(全新檔案: 使用次數預設為0) categoryId(上、下半身), color, weatherScoreId(衣服), filePostion
+# crud.insertData(2, 'blue', 1, 'E:\ProgrammingLanguage\git\Intelligence-Closet\1')
+# crud.insertData(2, 'red', 3, 'E:\ProgrammingLanguage\git\Intelligence-Closet\1')
+
 
 # 2. 搜尋全部的資料(會獲得一份陣列data資料): by v_clothes_information(原因資料更完善)
 print("2-1. clothes_information 資料")
@@ -23,8 +25,8 @@ for i in crud.queryViewData():
 print("3. 位置5的資料: \n", crud.queryDataByPosition(5))
 
 # 4. 透過分類找尋資料
-print("4. 透過分類找尋資料 ex. upper")
-for i in crud.queryDataByCategory('upper'):
+print("4. 透過分類找尋資料 ex. 1:upper, 2:lower")
+for i in crud.queryDataByCategory(1):
   print(i)
 
 # 5. Sort
@@ -43,7 +45,9 @@ print("6. 空缺的位置資訊(範圍 0~9:", crud.vacancyPosition()) ## -1 代�
 print("7.最後一個位置", crud.lastPosition())
 
 # 8. 讓位置變成0 (預設是拿取衣物後)
+print("8.最後一個位置 讓位置變成0 (預設是拿取衣物後)")
 crud.updatePositionToNull(0)
 
 # 9. 刪除
+print(" 9. 刪除")
 crud.deleteByPosition(1)
