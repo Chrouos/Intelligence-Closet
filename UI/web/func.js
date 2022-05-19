@@ -40,7 +40,7 @@ app.controller('myCtrl', function ($scope) {
         // document.getElementById("weather_temp").textContent = temp_temp; // 原始寫法
 
         if(json.temp != -1) {
-            var tempStr = "現在溫度: " + json.temp;
+            var tempStr = "現在溫度: " + json.temp + " " + String.fromCharCode(8451);
             document.getElementById("weather_temp").textContent = tempStr;
         } else{
             document.getElementById("weather_temp").textContent = "該區目前未提供溫度"
@@ -54,14 +54,14 @@ app.controller('myCtrl', function ($scope) {
         }
 
         if(json.d_tx != -1) {
-        var dtxStr = "今日最高溫: " + json.d_tx;
+        var dtxStr = "今日最高溫: " + json.d_tx+ " " + String.fromCharCode(8451);
         document.getElementById("weather_d_tx").textContent = dtxStr;
         } else{
             document.getElementById("weather_d_tx").textContent = "該區目前未提供最高溫"
         }
         
         if(json.d_tn != -1) {
-        var dtnStr = "今日最高溫: " + json.d_tn;
+        var dtnStr = "今日最高溫: " + json.d_tn+ " " + String.fromCharCode(8451);
         document.getElementById("weather_d_tn").textContent = dtnStr;
         } else{
             document.getElementById("weather_d_tn").textContent = "該區目前未提供最低溫"

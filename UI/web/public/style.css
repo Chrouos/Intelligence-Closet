@@ -1,10 +1,23 @@
-weather--horizontal {
-
-  height: 15%;
-
+body::-webkit-scrollbar {
+  display: none;
 }
 
-chose-weather--horizontal {
+.container--center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+  height: max-content
+}
 
-  height: 50%;
+.lobby--a--center {
+  height: 150px;
+  font-size: 50px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  align-content: stretch;
+  justify-content: space-evenly;
+  height: 150px;
+  font-size: 50px;
 }

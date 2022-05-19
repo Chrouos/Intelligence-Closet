@@ -24,14 +24,14 @@
   <div class="card columns">
 
     <div class="block m-2 column is-one-quarter">
-      <div class="select is-multiple pl-4 pt-4">
+      <div class="select is-multiple pl-4 pt-4" style="width:40%">
         選擇城市
         <select multiple size="8" ng-model="selectedCity" ng-options="city for city in allCitys"
           ng-change="getStation()"></select>
       </div>
       <!-- <span> 選擇的城市: {{selectedCity}}</span> -->
 
-      <div class="select is-multiple pl-3 pt-4">
+      <div class="select is-multiple pl-3 pt-4" style="width:50%">
         選擇站別
         <select multiple size="8" ng-model="selectedStation" ng-options="station for station in stationByCity"
           ng-change="getWeather()"></select>
