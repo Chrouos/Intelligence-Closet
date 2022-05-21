@@ -7,7 +7,7 @@ while True:
     ret, frame = cap.read() # 讀取鏡頭畫面
 
     hsv_frame=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
-    height,width,ret=frame.shape
+    height,width,ret = frame.shape
 
     cx=int(width/2)
     cy=int(height/2)
