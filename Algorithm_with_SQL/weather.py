@@ -49,8 +49,8 @@ class weather_information_API:
             self.__city) + '&elementName=' + required_item
             Data = requests.get(url)
             self.type = 2
-        
-        
+
+        print("TYPE:", self.type)
         self.__dataText = Data.text
 
     def reTEMP(self):
@@ -59,10 +59,19 @@ class weather_information_API:
             '(TEMP)\W+(elementValue)\W+[0-9]+\W[0-9]')
         complete_temp = re_complete_temp.search(str(self.__dataText))
         
-        try:
-            self.__temp = float(complete_temp.group()[-4:])
-        except:
-            self.__temp = -1
+        if complete_temp == None:
+            re_complete_temp = re.compile(
+            '(TEMP)\W+(elementValue)\W+[0-9]+')
+            complete_temp = re_complete_temp.search(str(self.__dataText))
+            try:
+                self.__temp = float(complete_temp.group()[-2:])
+            except:
+                self.__temp = -1
+        else:
+            try:
+                self.__temp = float(complete_temp.group()[-4:])
+            except:
+                self.__temp = -1
 
         return self.__temp
 

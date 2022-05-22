@@ -51,3 +51,6 @@ crud.updatePositionToNull(0)
 # 9. 刪除
 print(" 9. 刪除")
 crud.deleteByPosition(1)
+
+print("10. 查詢存在的Position")
+print(crud.exitPosition())

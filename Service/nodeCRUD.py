@@ -109,6 +109,19 @@ class nodeCRUD:
      # 最後一個位置
     def lastPosition(self):
         return self.sortNameDESC('Position')[0][1]
+    
+    # 查詢存在的Position
+    def exitPosition(self):
+        execute_str = "SELECT * FROM v_clothes_information"
+        self.cursor.execute(execute_str)
+        datas = self.cursor.fetchall()
+        # reData = [row[1] for row in datas]
+        reData = []
+        for row in datas:
+            if row[1] != None:
+                reData.append(row[1])
+        
+        return reData
 
     #!# Update
 

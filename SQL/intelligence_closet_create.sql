@@ -23,5 +23,6 @@ insert into clothes_information (CategoryId, Color, WeatherScoreId, UsageCounter
 insert into clothes_information (CategoryId, Color, WeatherScoreId, UsageCounter, CreateTime, ModifyTime) VALUES(1, 'blue', 4, 0, GETDATE(), GETDATE() )
 insert into clothes_information (CategoryId, Color, WeatherScoreId, UsageCounter, CreateTime, ModifyTime) VALUES(1, 'black',5, 0, GETDATE(), GETDATE() )
 
+
 select *
 from clothes_information
