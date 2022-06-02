@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html ng-app="myApp" ng-controller="myCtrl">
+
+<head>
+  <title>Lobby</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <!-- javascript  -->
+  <script type="text/javascript" src="./eel.js"></script> <!-- eel.js 是使用eel的必須  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="./js/userDashBoard.js"></script>
+
+  <!-- 關聯的樣式表 -->
+  <link rel="stylesheet" href="./public/style.css" type="text/css">
+  <link rel="stylesheet" href="./public/bulma/bulma.css" type="text/css">
+  <link rel="stylesheet" href="./public/font-awesome/css/font-awesome.min.css" type="text/css">
+
+</head>
+
+<body>
+
+  <div class="container" style="width: 60%;">
+    <div class="div--center">
+
+      <p>Name</p>
+      <div class="control has-icons-left has-icons-right">
+        <input class="input is-link is-medium is-rounded" type="text" placeholder="名字">
+      </div>
+
+      <div class="control has-icons-left has-icons-right" style="margin-top:15px; ">
+        <p>WeahterLike</p>
+        <div class="columns">
+
+          <div class="column is-narrow">
+            <a class="button">
+              <i class="fa-angle-left fa"></i>
+            </a>
+          </div>
+          <div class="column"><progress class="progress is-primary" value="50" max="100"></div></progress>
+          <div class="column is-narrow"><a class="button">
+              <i class="fa-angle-right fa"></i>
+            </a></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="div--center">
+      <a class="button is-info is-medium  is-responsive" href="main.html">返回</a>
+      <a class="button is-success is-medium  is-responsive">儲存</a>
+    </div>
+  </div>
+
+
+
+  </div>
+
+</body>
+
+
+
+</body>
+
+</html>

@@ -11,12 +11,13 @@
   <!-- javascript  -->
   <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-  <script src="func.js"></script>
+  <script src="./js/func.js"></script>
 
   <!-- 關聯的樣式表 -->
   <link rel="stylesheet" href="./public/style.css" type="text/css">
   <link rel="stylesheet" href="./public/bulma/bulma.css" type="text/css">
   <link rel="stylesheet" href="./public/font-awesome/css/font-awesome.min.css" type="text/css">
+
 </head>
 
 <body>
@@ -56,38 +57,71 @@
   <div class="columns">
 
     <div>
-      <button class="button" style="margin:15px">左</button>
+      <a class="button is-medium is-link is-light" style="margin:15px">左</a>
     </div>
 
     <!-- 選擇衣服 -->
-    <div class="column is-one-fifth">
-      <div>
-        <div class="box" style="height:150px"></div>
-        <div class="box" style="height:150px"></div>
-      </div>
-    </div>
-    <div class="column is-one-fifth">
+    <div class="column is-one-fifth ">
       <div class="box">
-        <div class="box" style="height:150px"></div>
-        <div class="box" style="height:150px"></div>
+        <div class="box" style="height:150px">
+          <figure class="img--center image is-128x128">
+            <img src="./public/src/clothes_1.jpg">
+          </figure>
+        </div>
+        <div class="box" style="height:150px">
+          <figure class="image is-128x128 img--center">
+            <img src="./public/src/clothes_3.jpg">
+          </figure>
+        </div>
+        <div>1</div>
+      </div>
+    </div>
+    <div class="column is-one-fifth ">
+      <div class="box">
+        <div class="box" style="height:150px">
+          <figure class="image is-128x128 img--center">
+            <img src="./public/src/clothes_2.jpg">
+          </figure>
+        </div>
+        <div class="box" style="height:150px">
+          <figure class="image is-128x128 img--center">
+            <img src="./public/src/clothes_4.jpg">
+          </figure>
+        </div>
+        <div>2</div>
       </div>
     </div>
     <div class="column is-one-fifth">
-      <div>
-        <div class="box" style="height:150px"></div>
-        <div class="box" style="height:150px"></div>
+      <div class="box is-black ">
+        <div class="box" style="height:150px">
+          <figure class="img--center image is-128x128">
+            <img src="./public/src/clothes_5.jpg">
+          </figure>
+        </div>
+        <div class="box" style="height:150px">
+          <figure class="img--center image is-128x128">
+            <img src="./public/src/clothes_7.jpg">
+          </figure>
+        </div>
+        <div>3</div>
       </div>
     </div>
 
     <div>
-      <button class="button" style="margin:15px">右</button>
+      <a class="button is-medium is-link is-light" style="margin:15px">右</a>
     </div>
 
     <!-- 按鈕：1. 使用者選單, 2. 自訂義穿著 -->
-    <div class="column">
-      <div class="box">使用者選單</div>
-      <div class="box">自訂義穿著</div>
-      <div class="box">返回</div>
+    <div class="column" style="width:150px">
+      <div>
+        <a class="button is-info is-light" style="height:150px; width:150px" href="userDashBoard.html">使用者選單</a>
+      </div>
+      <div>
+        <a class="button is-success is-light" style="height:150px; width:150px">自訂義穿著</a>
+      </div>
+      <div>
+        <a class="button is-warning is-light" style="height:150px; width:150px" href="lobby.html">返回</a>
+      </div>
     </div>
 
   </div>

@@ -2,9 +2,12 @@ import eel
 from Algorithm_with_SQL.weather import weather_information_API
 from crawler.crawler import station
 from Service.stationCRUD import stationCRUD
+from Algorithm_with_SQL.graph import recommend_graph
 
 import sys, os
 sys.path.append(os.getcwd()) # 抓取路徑
+
+graph = recommend_graph()
 
 @eel.expose
 def weather_to_js(weatherPostion):    # 傳送天氣資訊
@@ -67,5 +70,12 @@ def station_station_to_js(city):
   print("station: ", str_station)
   return str(str_station)
 
+# TODO 傳送衣服圖形資料
+def graph_to_js():
+  graph.updateNode()
+  graph.updateGraph()
+  
+  
+  
 eel.init('UI/web') # eel.init(網頁的資料夾)
 eel.start('lobby.html',size=(1920,1080)) #eel.start(html名稱, size=(起始大小))
