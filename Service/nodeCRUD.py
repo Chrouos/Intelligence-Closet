@@ -62,6 +62,13 @@ class nodeCRUD:
         datas = self.cursor.fetchall()
         return datas
     
+    # 搜尋 全部的資料
+    def queryIdCount(self):
+        execute_str = "select count(*) from v_clothes_information"
+        self.cursor.execute(execute_str)
+        datas = self.cursor.fetchone()[0]
+        return datas
+    
     
     # 搜尋 View全部的資料
     def queryViewData(self):

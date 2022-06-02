@@ -37,26 +37,7 @@
           ng-change="getWeather()"></select>
       </div>
       <!-- <span> 選擇的氣象站別: {{selectedStation}}</span> -->
-
     </div>
-
-
-    <!-- <div class="card-content column">
-      <div style="height:50%; text-align: center">
-        <div class="select is-multiple">
-          <select ng-model="selectedCity" ng-options="city for city in allCitys" ng-change="getStation()"></select>
-        </div>
-        <span> 選擇的城市: {{selectedCity}}</span>
-
-      </div>
-      <br>
-      <div style="height:50%; text-align: center">
-        <select ng-model="selectedStation" ng-options="station for station in stationByCity"
-          ng-change="getWeather(2)"></select>
-        <span> 選擇的氣象站別: {{selectedStation}}</span>
-      </div>
-    </div> -->
-
 
     <div class="card-content column auto">
       <div class="box mt-5">
@@ -70,21 +51,46 @@
       </div>
       <p>這下面可以些一些備註，例如今日風大，適合加...</p>
     </div>
-
-
-    <!-- <input type="text" id="inputWeatherPosition" />
-  <button ng-click="getWeather(1)">確認</button> -->
-
-    <!-- <p>-----------------------------------------</p> -->
-
   </div>
 
-  <!-- <p>-----------------------------------------</p> -->
+  <div class="columns">
 
-  <!-- <div class="columns">
-    <a ng-repeat="(index, city) in allCitys" class="box btn" value="{{city}}">{{city}}</a>
-  </div> -->
+    <div>
+      <button class="button" style="margin:15px">左</button>
+    </div>
 
+    <!-- 選擇衣服 -->
+    <div class="column is-one-fifth">
+      <div>
+        <div class="box" style="height:150px"></div>
+        <div class="box" style="height:150px"></div>
+      </div>
+    </div>
+    <div class="column is-one-fifth">
+      <div class="box">
+        <div class="box" style="height:150px"></div>
+        <div class="box" style="height:150px"></div>
+      </div>
+    </div>
+    <div class="column is-one-fifth">
+      <div>
+        <div class="box" style="height:150px"></div>
+        <div class="box" style="height:150px"></div>
+      </div>
+    </div>
+
+    <div>
+      <button class="button" style="margin:15px">右</button>
+    </div>
+
+    <!-- 按鈕：1. 使用者選單, 2. 自訂義穿著 -->
+    <div class="column">
+      <div class="box">使用者選單</div>
+      <div class="box">自訂義穿著</div>
+      <div class="box">返回</div>
+    </div>
+
+  </div>
 
 
 </body>

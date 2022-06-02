@@ -1,7 +1,16 @@
+import sys, os
+sys.path.append(os.getcwd()) # 抓取路徑
 
 import cv2
-
 cap = cv2.VideoCapture(0)  # 開啟攝像頭
+
+from Service.nodeCRUD import nodeCRUD
+from Service.weatherScoreCRUD import weatherScoreCRUD
+
+nCrud = nodeCRUD()
+wsCrud = weatherScoreCRUD()
+
+save_path = ''
 
 while True:
     ret, frame = cap.read() # 讀取鏡頭畫面
@@ -45,14 +54,18 @@ while True:
     cv2.imshow("capture", frame)  # 生成攝像頭視窗
 
     if cv2.waitKey(1) & 0xFF == ord('q'):  # 如果按下q 就截圖儲存並退出
-        cv2.imwrite("./images/test.jpg", frame)  # 儲存路徑
+        lastId = nCrud.queryIdCount() + 1;
+        save_path = "UI/web/public/src/clthes_" + str(lastId)
+        print("save: ", save_path)
+        #cv2.imwrite("./images/test.jpg", frame)  # 儲存路徑
         break
 
 cap.release()
 cv2.destroyAllWindows() # 關閉視窗
 
 cls_list = ['Blazer','','Body','Dress,Top','Hat','Hoodie','Longsleeve','Not_sure','','Outwear',
-            'Pants','Polo','Shirt','Shoes','Shorts','','Skirt','T-Shirt','','Undershirt']#Other,Blouse,Skip
+            'Pants','Polo','Shirt','Shoes','Shorts','','Skirt','T-Shirt','','Undershirt']
+#Other,Blouse,Skip
 
 '''cls_list = ['Not_sure',
  'T-Shirt',
@@ -87,17 +100,17 @@ import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 # 開啟800字典
-words_path = './archive/images.csv'
+words_path = 'classify/archive/images.csv'
 file1 = open(words_path, 'rt', encoding='Big5')
 labels = list(file1.read())
 file1.close()
 
 # 載入模型
-model = tf.compat.v1.keras.models.load_model('./h5/eff_final.h5')
+model = tf.compat.v1.keras.models.load_model('classify/h5/eff_final.h5')
 
 # 讀取照片
 #img_path = './archive/images_original/2df8bf1f-6d89-4acd-b6f6-9daec6b61b95.jpg'
-img_path = './images/test.jpg'
+img_path = 'UI/web/public/src/clothes_7.jpg' # save_path
 try:
     img = image.load_img(img_path, target_size=(224, 224))
 except Exception as e:
@@ -115,3 +128,8 @@ index = np.argmax(pred)
 prediction = cls_list[index]
 print('\ncolor:',color)
 print('category:',prediction) # 預測結果
+
+# 資料庫 傳送資料
+categoryId = wsCrud.queryByClothesTypeCategoryId(prediction)
+weatherScoreId = wsCrud.queryByClothesTypeWSId(prediction)
+nCrud.insertData(categoryId, color, weatherScoreId, save_path)

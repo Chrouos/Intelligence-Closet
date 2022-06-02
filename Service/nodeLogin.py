@@ -54,3 +54,6 @@ crud.deleteByPosition(1)
 
 print("10. 查詢存在的Position")
 print(crud.exitPosition())
+
+print("11. 計算總共衣物")
+print(crud.queryIdCount())

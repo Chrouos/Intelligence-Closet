@@ -14,5 +14,6 @@ insert into category values ('coat', 2)
 insert into category values ('accessories', 3)
 insert into category values ('cap', 3)
 insert into category values ('shoes', 1)
+insert into category values ('Not_sure', 0)
 
 select * from category
