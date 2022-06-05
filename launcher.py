@@ -6,11 +6,12 @@ from Algorithm_with_SQL.graph import recommend_graph
 
 import sys, os
 sys.path.append(os.getcwd()) # 抓取路徑
-
-graph = recommend_graph()
+graph = recommend_graph('板橋')
 
 @eel.expose
 def weather_to_js(weatherPostion):    # 傳送天氣資訊
+  
+  graph.changeCity(weatherPostion[0])
   
   we = weather_information_API(weatherPostion[0]) # 地點
   weather_list = we.getWeather() # 獲得陣列(6個資訊)
@@ -70,10 +71,12 @@ def station_station_to_js(city):
   print("station: ", str_station)
   return str(str_station)
 
-# TODO 傳送衣服圖形資料
-def graph_to_js():
-  graph.updateNode()
-  graph.updateGraph()
+@eel.expose
+def comb_to_js():
+  graph.updateNode() # 更新節點
+  graph.updateGraph() # 更新圖形
+  
+  graphComb = graph.getCombination()
   
   
   
