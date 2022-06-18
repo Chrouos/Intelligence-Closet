@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html ng-app="myApp" ng-controller="myCtrl">
+
+<head>
+  <title>Lobby</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <!-- javascript  -->
+  <script type="text/javascript" src="./eel.js"></script> <!-- eel.js 是使用eel的必須  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="./js/customize.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <!-- 關聯的樣式表 -->
+  <link rel="stylesheet" href="./public/style.css" type="text/css">
+  <link rel="stylesheet" href="./public/bulma/bulma.css" type="text/css">
+  <link rel="stylesheet" href="./public/font-awesome/css/font-awesome.min.css" type="text/css">
+
+</head>
+
+<body>
+
+  <div class="container" style="width: 60%;">
+    <div class="div--center">
+
+      <div class="columns">
+
+        <div class="column is-one-third">
+          <!-- 上衣 -->
+          <div id="upper" class="box has-background-info upShow"><!-- 藍框 -->
+            <img src="./public/src/clothes_1.jpg">
+          </div>
+          <div class="box has-background-warning upHide" style="display: none;">
+            <!-- 黃框 -->
+            <img src="./public/src/clothes_1.jpg">
+          </div>
+
+          <!-- 褲子 -->
+          <div id="lower" class="box has-background-info loShow"><!-- 藍框 -->
+            <img src="./public/src/clothes_3.jpg">
+          </div>
+          <div class="box has-background-warning loHide" style="display: none;">
+            <!-- 黃框 -->
+            <img src="./public/src/clothes_3.jpg">
+          </div>
+        </div>
+
+        <div class="column is-one-third">
+          <!-- 上衣 -->
+          <div id="upper" class="box has-background-info upShow"><!-- 藍框 -->
+            <img src="./public/src/clothes_2.jpg">
+          </div>
+          <div class="box has-background-warning upHide" style="display: none;">
+            <!-- 黃框 -->
+            <img src="./public/src/clothes_2.jpg">
+          </div>
+
+          <!-- 褲子 -->
+          <div id="lower" class="box has-background-info loShow"><!-- 藍框 -->
+            <img src="./public/src/clothes_4.jpg">
+          </div>
+          <div class="box has-background-warning loHide" style="display: none;">
+            <!-- 黃框 -->
+            <img src="./public/src/clothes_4.jpg">
+          </div>
+        </div>
+
+        <div class="column is-one-third">
+          <!-- 上衣 -->
+          <div id="upper" class="box has-background-info upShow"><!-- 藍框 -->
+            <img src="./public/src/clothes_5.jpg">
+          </div>
+          <div class="box has-background-warning upHide" style="display: none;">
+            <!-- 黃框 -->
+            <img src="./public/src/clothes_5.jpg">
+          </div>
+
+          <!-- 褲子 -->
+          <div id="lower" class="box has-background-info loShow"><!-- 藍框 -->
+            <img src="./public/src/clothes_7.jpg">
+          </div>
+          <div class="box has-background-warning loHide" style="display: none;">
+            <!-- 黃框 -->
+            <img src="./public/src/clothes_7.jpg">
+          </div>
+        </div>
+
+      </div>
+
+        <a class="button is-info is-medium  is-responsive" href="main.html">返回</a>
+        <a class="button is-success is-medium  is-responsive">儲存</a>
+    </div>
+  </div>
+
+</body>
+</html>
