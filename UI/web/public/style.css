@@ -30,3 +30,8 @@ body::-webkit-scrollbar {
 .div--center {
   text-align: center !important;
 }
+
+.slider is-primary{
+  -slider-filled-track-color: red ;
+  -slider-track-color: -slider-filled-track-color
+}
