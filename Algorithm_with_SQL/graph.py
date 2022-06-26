@@ -34,8 +34,8 @@ class recommend_graph:
         self.graphs = []
         allGraph = self.gpCrud.queryAll()
         for gNode in allGraph:
-            self.graphs.append([recommend_node(gNode[1], self.ndCrud), recommend_node(gNode[2], self.ndCrud), gNode[9], gNode[12]])
-            # ^ 衣物節點1, 衣物節點2, 天氣分數總分, 喜好分數總分, TODO 顏色分數
+            self.graphs.append([recommend_node(gNode[1], self.ndCrud), recommend_node(gNode[2], self.ndCrud), gNode[9], gNode[12], ])
+            # ^ 衣物節點1, 衣物節點2, 天氣分數總分, 喜好分數總分, 
         
 
     def printNode(self):

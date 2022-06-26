@@ -16,13 +16,9 @@ create table clothes_information
 	FilePosition text--¹Ï¤ù¦ì¸m
 );
 
-insert into clothes_information (CategoryId, Color, WeatherScoreId, UsageCounter, CreateTime, ModifyTime) VALUES(2, 'blue', 1, 0, GETDATE(), GETDATE() )
-insert into clothes_information (CategoryId, Color, WeatherScoreId, UsageCounter, CreateTime, ModifyTime) VALUES(2, 'red',  2, 0, GETDATE(), GETDATE() )
+TRUNCATE TABLE clothes_information
 
-
-insert into clothes_information (CategoryId, Color, WeatherScoreId, UsageCounter, CreateTime, ModifyTime) VALUES(1, 'blue', 4, 0, GETDATE(), GETDATE() )
-insert into clothes_information (CategoryId, Color, WeatherScoreId, UsageCounter, CreateTime, ModifyTime) VALUES(1, 'black',5, 0, GETDATE(), GETDATE() )
-
+UPDATE clothes_information SET CategoryId = 1, WeatherScoreId = 5 WHERE Id = 3
 
 select *
 from clothes_information

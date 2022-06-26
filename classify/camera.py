@@ -1,4 +1,5 @@
 import sys, os
+
 sys.path.append(os.getcwd()) # 抓取路徑
 
 import cv2
@@ -6,11 +7,14 @@ cap = cv2.VideoCapture(0)  # 開啟攝像頭
 
 from Service.nodeCRUD import nodeCRUD
 from Service.weatherScoreCRUD import weatherScoreCRUD
+from Service.graphCRUD import graphCRUD
 
 nCrud = nodeCRUD()
 wsCrud = weatherScoreCRUD()
+gCrud = graphCRUD()
 
-save_path = ''
+lastId = nCrud.queryIdCount() + 1;
+save_path = 'UI/web/public/src/clothes_'+ str(lastId) +'.jpg'
 
 while True:
     ret, frame = cap.read() # 讀取鏡頭畫面
@@ -54,10 +58,9 @@ while True:
     cv2.imshow("capture", frame)  # 生成攝像頭視窗
 
     if cv2.waitKey(1) & 0xFF == ord('q'):  # 如果按下q 就截圖儲存並退出
-        lastId = nCrud.queryIdCount() + 1;
-        save_path = "UI/web/public/src/clthes_" + str(lastId)
+        
         print("save: ", save_path)
-        #cv2.imwrite("./images/test.jpg", frame)  # 儲存路徑
+        cv2.imwrite(save_path, frame)  # 儲存路徑
         break
 
 cap.release()
@@ -110,7 +113,7 @@ model = tf.compat.v1.keras.models.load_model('classify/h5/eff_final.h5')
 
 # 讀取照片
 #img_path = './archive/images_original/2df8bf1f-6d89-4acd-b6f6-9daec6b61b95.jpg'
-img_path = 'UI/web/public/src/clothes_7.jpg' # save_path
+img_path = 'UI/web/public/src/clothes_'+ str(lastId) +'.jpg' # save_path
 try:
     img = image.load_img(img_path, target_size=(224, 224))
 except Exception as e:
@@ -133,3 +136,6 @@ print('category:',prediction) # 預測結果
 categoryId = wsCrud.queryByClothesTypeCategoryId(prediction)
 weatherScoreId = wsCrud.queryByClothesTypeWSId(prediction)
 nCrud.insertData(categoryId, color, weatherScoreId, save_path)
+
+gCrud.insertToGraph_all(nCrud.queryIdCount(), categoryId) # 這行待測 試
+

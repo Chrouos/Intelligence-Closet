@@ -5,6 +5,8 @@ from Service.nodeCRUD import nodeCRUD
 
 class recommend_node:
 
+    
+
     # 初始化：位置、分類、顏色、種類、使用次數、創建時間、儲存位置
     def __init__(self, position, ndCrud):
         self.position = position  # 面對存儲的位置（1, 2, 3, ...)

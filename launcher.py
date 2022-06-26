@@ -27,6 +27,8 @@ def weather_to_js(weatherPostion):    # 傳送天氣資訊
   weather_json += ',"d_tn":'   + str(weather_list[3])
   weather_json += ',"d_txt":"' + str(weather_list[4]) + '"'
   weather_json += ',"d_tnt":"' + str(weather_list[5])  + '"}'
+  
+  print(weather_json)
 
   return weather_json
 
@@ -76,7 +78,7 @@ def comb_to_js():
   graph.updateNode() # 更新節點
   graph.updateGraph() # 更新圖形
   
-  graphComb = graph.getCombination()
+  graphComb = graph.getCombination() 
   
   
   
