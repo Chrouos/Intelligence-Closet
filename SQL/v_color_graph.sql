@@ -1,4 +1,5 @@
-
+create view v_color_graph
+as
 select 
 	cg.ColorId1 as 'UpperColorId',
 	cg.ColorId2 as 'LowerColorId',
@@ -10,3 +11,5 @@ select
 from color_graph as cg
 inner join color as c1 on c1.Id = cg.ColorId1
 inner join color as c2 on c2.Id = cg.ColorId2
+
+select * from v_color_graph

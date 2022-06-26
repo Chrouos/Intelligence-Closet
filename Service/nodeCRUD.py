@@ -31,7 +31,7 @@ class nodeCRUD:
      
      # insert 必要的
      ### 此為 目前 未有的資料: 使用次數為0
-    def insertData(self, categoryId, color, weatherScoreId, filePostion):
+    def insertData(self, colorId, weatherScoreId, filePostion):
 
         position = self.vacancyPosition()
         print("空缺位置為:", position)
@@ -39,10 +39,9 @@ class nodeCRUD:
             print("位置已滿")
             return
         
-        execute_str = "INSERT  INTO clothes_information (Position, CategoryId, Color, WeatherScoreId, UsageCounter, CreateTime, ModifyTime , FilePosition) "\
+        execute_str = "INSERT  INTO clothes_information (Position, ColorId, WeatherScoreId, UsageCounter, CreateTime, ModifyTime , FilePosition) "\
           + "values(" + str(position) \
-          + ", " + str(categoryId) + "" \
-          + ", '" + color + "'" \
+          + ", " + str(colorId) + "" \
           + ", " + str(weatherScoreId) + "" \
           + ", 0" \
           + ", GETDATE(), GETDATE()" \
