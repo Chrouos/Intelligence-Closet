@@ -12,7 +12,7 @@
   <script type="text/javascript" src="./eel.js"></script> <!-- eel.js 是使用eel的必須  -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   <script src="./js/customize.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>-->
 
   <!-- 關聯的樣式表 -->
   <link rel="stylesheet" href="./public/style.css" type="text/css">
@@ -28,69 +28,22 @@
 
       <div class="columns">
 
-        <div class="column is-one-third">
-          <!-- 上衣 -->
-          <div id="upper" class="box has-background-info upShow">
-            <!-- 藍框 -->
-            <img src="./public/src/clothes_1.jpg">
-          </div>
-          <div class="box has-background-warning upHide" style="display: none;">
-            <!-- 黃框 -->
-            <img src="./public/src/clothes_1.jpg">
-          </div>
-
-          <!-- 褲子 -->
-          <div id="lower" class="box has-background-info loShow">
-            <!-- 藍框 -->
-            <img src="./public/src/clothes_3.jpg">
-          </div>
-          <div class="box has-background-warning loHide" style="display: none;">
-            <!-- 黃框 -->
-            <img src="./public/src/clothes_3.jpg">
+        <div class="column is-one-third" ng-repeat="upper in uppers">
+          <!-- 以迴圈方式產生上衣的tag -->
+          <div class="box {{setUpper}}" ng-click="upperCloth(upper)">
+            <!-- 當點擊後會呼叫此函式 -->
+            <img src="{{upper.url}}"><!-- 上衣的照片 -->
           </div>
         </div>
 
-        <div class="column is-one-third">
-          <!-- 上衣 -->
-          <div id="upper" class="box has-background-info upShow">
-            <!-- 藍框 -->
-            <img src="./public/src/clothes_2.jpg">
-          </div>
-          <div class="box has-background-warning upHide" style="display: none;">
-            <!-- 黃框 -->
-            <img src="./public/src/clothes_2.jpg">
-          </div>
+      </div>
+      <div class="columns">
 
-          <!-- 褲子 -->
-          <div id="lower" class="box has-background-info loShow">
-            <!-- 藍框 -->
-            <img src="./public/src/clothes_4.jpg">
-          </div>
-          <div class="box has-background-warning loHide" style="display: none;">
-            <!-- 黃框 -->
-            <img src="./public/src/clothes_4.jpg">
-          </div>
-        </div>
-
-        <div class="column is-one-third">
-          <!-- 上衣 -->
-          <div id="upper" class="box has-background-info upShow">
-            <!-- 藍框 -->
-            <img src="./public/src/clothes_5.jpg">
-          </div>
-          <div class="box has-background-warning upHide" style="display: none;">
-            <!-- 黃框 -->
-            <img src="./public/src/clothes_5.jpg">
-          </div>
-
-          <!-- 褲子 -->
-          <div id="lower" class="box has-background-info loShow">
-            <!-- 藍框 -->
-            <img src="./public/src/clothes_7.jpg">
-          </div>
-          <div class="box has-background-warning loHide" style="display: none;">
-            <!-- 黃框 -->
-            <img src="./public/src/clothes_7.jpg">
+        <div class="column is-one-third" ng-repeat="lower in lowers">
+          <!-- 以迴圈方式產生褲子的tag -->
+          <div class="box {{setLower}}" ng-click="lowerCloth(lower)">
+            <!-- 當點擊後會呼叫此函式 -->
+            <img src="{{lower.url}}"><!-- 褲子的照片 -->
           </div>
         </div>
 
