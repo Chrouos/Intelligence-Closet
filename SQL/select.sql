@@ -1,7 +1,5 @@
 select * from category
 
-select * from weather_score
-
 select * from v_station
 
 select * from v_clothes_information
@@ -12,4 +10,10 @@ select * from v_category_clothes
 
 SELECT * FROM clothes_information
 
-UPDATE clothes_information set CategoryId = 2, WeatherScoreId = 12 where Id = 7
+select * from weather_score
+
+select * from color
+
+
+
+UPDATE clothes_information set  WeatherScoreId = 6, ColorId = 3   where Id = 4

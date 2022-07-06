@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html ng-app="myApp" ng-controller="myCtrl">
+
+<head>
+  <title>tmpMain</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <!-- javascript  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="./js/main.js"></script>
+
+
+  <link rel="stylesheet" href="./public/style.css" type="text/css">
+</head>
+
+
+<body>
+  <!-- 衣物組合 -->
+  <div class="clothes-list-content">
+    <div type="button" class="{{chooseCombIndex[0]}}" ng-click="chooseComb(0)">
+      <div class="clothes-item">
+        <a>
+          <img class="clothes-comb-img" src="./public/src/clothes_6.jpg">
+        </a>
+      </div>
+      <div class="clothes-item">
+        <a>
+          <img class="clothes-comb-img" src="./public/src/clothes_4.jpg">
+        </a>
+      </div>
+    </div>
+
+    <div type="button" class="{{chooseCombIndex[1]}}" ng-click="chooseComb(1)">
+      <div class="clothes-item">
+        <a>
+          <img class="clothes-comb-img" src="./public/src/clothes_1.jpg">
+        </a>
+      </div>
+      <div class="clothes-item">
+        <a>
+          <img class="clothes-comb-img" src="./public/src/clothes_7.jpg">
+        </a>
+      </div>
+    </div>
+
+    <div type="button" class="{{chooseCombIndex[2]}}" ng-click="chooseComb(2)">
+      <div class="clothes-item">
+        <a>
+          <img class="clothes-comb-img" src="./public/src/clothes_6.jpg">
+        </a>
+      </div>
+      <div class="clothes-item">
+        <a>
+          <img class="clothes-comb-img" src="./public/src/clothes_3.jpg">
+        </a>
+      </div>
+    </div>
+
+    <div type="button" class="{{chooseCombIndex[3]}}" ng-click="chooseComb(3)">
+      <div class="clothes-item">
+        <a>
+          <img class="clothes-comb-img" src="./public/src/clothes_2.jpg">
+        </a>
+      </div>
+      <div class="clothes-item">
+        <a>
+          <img class="clothes-comb-img" src="./public/src/clothes_8.jpg">
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- 天氣 -->
+  <div class="right-list-div">
+    <div class="weather-div" style="padding-top:20%;">
+      <table>
+        <tr>
+          <th>目前所在地</th>
+          <td>士林</td>
+        </tr>
+        <tr>
+          <th>溫度</th>
+          <td>27.8°C</td>
+        </tr>
+        <tr>
+          <th>濕度</th>
+          <td>86%</td>
+        </tr>
+        <tr>
+          <th>最高溫</th>
+          <td>32.0°C</td>
+        </tr>
+        <tr>
+          <th>最低溫</th>
+          <td>20.0°C</td>
+        </tr>
+        <tr>
+          <th>最高溫時間點</th>
+          <td>13:00</td>
+        </tr>
+        <tr>
+          <th>最低溫時間點</th>
+          <td>05:23</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="button-div" style="padding-top:10%;">
+      <div class="menu-div-box" onclick="">
+        <a type="button">使用者選單</a>
+      </div>
+      <div class="menu-div-box">
+        <a type="button">自定義衣著</a>
+      </div>
+      <div class="menu-div-box" type="button" ng-click="submitComb()">
+        <a class="return-button">送出</a>
+      </div>
+      <div class="menu-div-box">
+        <a class="return-button" href="lobby.html">返回</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading" ng-if="isLoading">
+    <p>等待中...</p>
+  </div>
+  <div class="getting" ng-if="isGetting">
+    <div class="getting-content">
+      <p>已獲得</p>
+      <p>請查看衣櫃檢視口</p>
+      <button ng-click="returnLobby()">關閉</button>
+    </div>
+  </div>
+
+
+</body>
+
+</html>

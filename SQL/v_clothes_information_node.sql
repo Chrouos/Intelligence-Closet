@@ -12,7 +12,6 @@ select
 	color.ColorName,
 	ci.UserPreferences,
 	ws.CategoryId,
-	ws.Name,
 	ci.ClothesStyle,
 	ci.UsageCounter,
 	ci.CreateTime,
