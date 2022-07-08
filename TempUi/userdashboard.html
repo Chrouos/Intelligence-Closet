@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html ng-app="myApp" ng-controller="myCtrl">
+
+<head>
+  <title>tmpMain</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <!-- javascript  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="./js/userdashboard.js"></script>
+
+
+  <link rel="stylesheet" href="./public/style.css" type="text/css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="user-edit">
+      <form action="" oninput="WeatherLikeVal.value = parseInt(WeatherLike.value)">
+        <p>姓名:
+          <span>DiuDiu</span>
+        </p>
+
+        <p>喜歡的天氣(5為適中, 越喜歡熱就條越大, 冷相反)
+          <input type="range" name="WeatherLike" id="WeatherLike" value="5" max="10" class="slider-weather-like">
+          <output name="WeatherLikeVal" for"WeatherLike">0</output>
+
+        </p>
+
+
+
+        <p>居住的地區:
+          <span>桃園－埔心</span>
+        </p>
+
+        <p>
+          穿最多次的搭配:
+          <span>襯衫與長褲</span>
+        </p>
+
+        <p>
+          鬧鐘: 07:10 a.m.
+        </p>
+      </form>
+
+
+      <div class="user-submit">
+        <a class="user-return-main" href="main.html">
+          回到主頁面
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div>
+
+  </div>
+
+</body>
+
+</html>
+
+
+<!-- 
+ <div class="container">
+   <div class="user-edit">
+     <p>姓名
+       <input type="text" name="UserName" placeholder="請輸入名稱" size="40" required>
+     </p>
+
+   </div>
+ </div>
+
+ -->

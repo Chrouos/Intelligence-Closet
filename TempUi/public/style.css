@@ -9,9 +9,13 @@ body {
   width: 100%;
   height: 100vh;
   /* background-color: rgb(244, 254, 255); */
+
+  background-color: #abbbe5;
+  background-image: radial-gradient(at 47% 33%, hsl(240.00, 26%, 32%) 0, transparent 59%),
+    radial-gradient(at 82% 65%, hsl(219.62, 27%, 40%) 0, transparent 55%);
 }
 
-.clothes-list-content {
+.left-list-div {
   display: inherit;
 
   width: 80%;
@@ -158,7 +162,7 @@ body {
   font-size: 11.5em
 }
 
-.return-button {
+.menu-button {
   border: none;
   text-align: center;
   text-decoration: none;
@@ -204,4 +208,58 @@ body {
   height: 7vh;
   width: 40%;
   font-size: 1em;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+
+
+}
+
+.user-edit {
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  left: 10%;
+  top: 10%;
+
+  padding: 5%;
+
+  backdrop-filter: blur(9px) saturate(100%);
+  -webkit-backdrop-filter: blur(9px) saturate(100%);
+  background-color: rgba(17, 25, 40, 0.68);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+.user-edit p {
+  color: white;
+  font-size: 1.7em;
+  margin: 1em;
+}
+
+.slider-weather-like {
+  width: 80%;
+
+}
+
+.user-submit {
+  margin: 1em;
+
+  font-size: 1.5em;
+  color: white;
+
+}
+
+.user-return-main {
+  border: 1px solid rgba(255, 241, 241, 0.165);
+  background-color: rgba(255, 241, 241, 0.165);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+
+
 }

@@ -19,7 +19,7 @@
 
 <body>
   <!-- 衣物組合 -->
-  <div class="clothes-list-content">
+  <div class="left-list-div">
     <div type="button" class="{{chooseCombIndex[0]}}" ng-click="chooseComb(0)">
       <div class="clothes-item">
         <a>
@@ -112,16 +112,16 @@
 
     <div class="button-div" style="padding-top:10%;">
       <div class="menu-div-box" onclick="">
-        <a type="button">使用者選單</a>
+        <a class="menu-button" href="userdashboard.html"">使用者選單</a>
+      </div>
+      <div class=" menu-div-box">
+          <a class="menu-button" href="">自定義衣著</a>
       </div>
       <div class="menu-div-box">
-        <a type="button">自定義衣著</a>
+        <a class="menu-button" ng-click="submitComb()">送出</a>
       </div>
-      <div class="menu-div-box" type="button" ng-click="submitComb()">
-        <a class="return-button">送出</a>
-      </div>
-      <div class="menu-div-box">
-        <a class="return-button" href="lobby.html">返回</a>
+      <div class=" menu-div-box">
+        <a class="menu-button" href="lobby.html">返回</a>
       </div>
     </div>
   </div>
