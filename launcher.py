@@ -57,7 +57,7 @@ def station_city_to_js(): # 傳送所有縣市資訊
 def station_station_to_js(city):
   
   stCrud = stationCRUD()
-  st_station_in_city = stCrud.queryCityByName(city[0])
+  st_station_in_city = stCrud.queryStationNameByCityName(city[0])
   
   # st = station()
   # st.refreshDataByNet()

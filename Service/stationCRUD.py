@@ -10,10 +10,10 @@ class stationCRUD:
 	def __init__(self):	
 
 		try:
-			server = 'LAPTOP-BGP802KH\SQLEXPRESS'
+			server = 'MSI\SQLEXPRESS'
 			database = 'intelligence_closet'
 			username = 'sa'
-			password = 'asd464017'
+			password = 'a25232523'
 			cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + server
 									+ ';DATABASE=' + database
 									+ ';UID=' + username
@@ -33,7 +33,7 @@ class stationCRUD:
   
 	################## CREATE START ##################
 	def insertStation(self, data):
-		cityId = self.queryCityByName(data[2])[0][0]
+		cityId = self.queryCityIdByName(data[2])[0]
    
    	# 0.站號 1.站名 2.城市 3.地址 4.資料起始日期 5.備註
 		execute_str = "INSERT INTO station (StationNumber, StationName, CityId, [Address], CreateTime,  Remark, ModifyTime, Work) VALUES (" \
@@ -45,6 +45,7 @@ class stationCRUD:
 									+ ", '" + data[5] + "'" \
 									+ ", GETDATE(), 1)"
 
+		print(execute_str)
 		self.cnxn.cursor().execute(execute_str)
 		self.cnxn.commit() # 送出
   
@@ -64,7 +65,15 @@ class stationCRUD:
 	################## CREATE END ##################
  
 	################## SELECT START ##################
-	def queryCityByName(self, cityName):
+	def queryCityIdByName(self, cityName):
+		execute_str = "SELECT Id FROM city WHERE CityName = '" + cityName + "'"
+		self.cursor.execute(execute_str)
+		datas = self.cursor.fetchall()
+		rtData = [row[0] for row in datas]
+
+		return list(rtData)
+
+	def queryStationNameByCityName(self, cityName):
 		execute_str = "SELECT StationName FROM v_station WHERE CityName = '" + cityName + "'"
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()

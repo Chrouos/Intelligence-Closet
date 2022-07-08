@@ -1,4 +1,5 @@
 from crawler import station
 
 
-a = []
+st = station()
+st.refreshDataByNet()

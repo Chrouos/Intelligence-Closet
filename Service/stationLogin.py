@@ -8,6 +8,8 @@ from stationCRUD import stationCRUD
 
 
 stCrud = stationCRUD()
-print(stCrud.queryCityByName('臺北市'))
 
+print(stCrud.queryCityByName("臺中市")[0])
+
+stCrud.refreshAllData()
 ##
