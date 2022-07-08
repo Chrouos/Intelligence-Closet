@@ -7,11 +7,13 @@ import pandas as pd
 class colorCRUD:
 	
 	def __init__(self):	
-
+		
 		try:
+      		# server = 'LAPTOP-BGP802KH\SQLEXPRESS'
 			server = 'MSI\SQLEXPRESS'
 			database = 'intelligence_closet'
 			username = 'sa'
+			# password = 'asd464017'
 			password = 'a25232523'
 			cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + server
 									+ ';DATABASE=' + database
