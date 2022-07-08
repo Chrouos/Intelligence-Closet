@@ -1,0 +1,207 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  /* background-color: rgb(244, 254, 255); */
+}
+
+.clothes-list-content {
+  display: inherit;
+
+  width: 80%;
+  height: 100%;
+  padding: 20px;
+}
+
+.clothes-comb {
+  margin: 3px;
+  width: 25%;
+  height: 100%;
+  border: 2px solid rgb(101, 101, 101);
+
+}
+
+.clothes-comb:hover {
+  margin: 3px;
+  width: 25%;
+  height: 100%;
+  border: 5px solid rgb(192, 63, 63);
+  border-radius: 5px;
+}
+
+.clothes-choosed {
+  margin: 3px;
+  width: 25%;
+  height: 100%;
+  border: 5px solid rgb(87, 165, 78);
+  border-radius: 5px;
+
+  background-color: rgb(181, 255, 177);
+}
+
+.clothes-item {
+  padding-top: 10%;
+  padding: 10% 5%;
+}
+
+
+.clothes-comb-img {
+  width: 100%;
+  height: 40vh;
+  background-color: aquamarine;
+}
+
+
+.clothes-list-table img {
+  border-radius: 30px;
+  width: 100%;
+  height: 40vh;
+}
+
+
+
+.right-list-div {
+  display: inline;
+  width: 20%;
+  height: 100%;
+}
+
+.right-list-div th {
+  padding-right: 20px;
+  text-align: right;
+}
+
+
+.right-list-div tr {
+  font-size: 1.5em;
+}
+
+.weather-div {
+  height: 40%;
+  /* background: rgb(73, 255, 152); */
+}
+
+.button-div {
+  /* background: rgb(73, 76, 255); */
+  height: 60%;
+}
+
+.menu-div-box {
+  text-align: center;
+  width: 90%;
+  height: 15%;
+  font-size: 40px;
+  background-color: antiquewhite;
+  margin: 10px;
+  border-top-right-radius: 70px;
+  border-bottom-right-radius: 70px;
+
+  transition: 0.5s;
+}
+
+.menu-div-box a {
+  width: 100%;
+  height: 100%;
+
+  position: relative;
+
+  text-decoration: none;
+  color: black;
+}
+
+.menu-div-box:hover {
+  background-color: rgb(139, 204, 250);
+
+  text-align: center;
+  width: 90%;
+  height: 15%;
+
+  font-size: 40px;
+  margin: 10px;
+  border-top-left-radius: 70px;
+  border-bottom-left-radius: 70px;
+
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.half-half-div {
+  display: flex;
+
+  height: 100%;
+  width: 50%;
+  text-align: center;
+
+  background-color: #dcdcdc;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.half-half {
+  color: white;
+  text-decoration: none;
+
+  padding-top: 30%;
+  width: 100%;
+  height: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+
+  font-size: 11.5em
+}
+
+.return-button {
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+
+.loading {
+  position: absolute;
+  top: 35%;
+  left: 35%;
+  background-color: whitesmoke;
+  width: 30%;
+  height: 30%;
+  text-align: center;
+}
+
+.loading p {
+  position: relative;
+  top: 30%;
+  font-size: 3em;
+}
+
+
+.getting {
+  position: absolute;
+  top: 35%;
+  left: 35%;
+  background-color: whitesmoke;
+  width: 30%;
+  height: 30%;
+  text-align: center;
+}
+
+.getting-content {
+  margin: 5%;
+  font-size: 2em
+}
+
+.getting-content button {
+  margin: 5%;
+  height: 7vh;
+  width: 40%;
+  font-size: 1em;
+}
