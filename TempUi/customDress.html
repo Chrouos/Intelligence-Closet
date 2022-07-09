@@ -25,15 +25,20 @@
       <!-- img clothes -->
       <div class="custom-clothes-img-div">
         <a>
-          <img src="{{item.FilePosition}}">
+          <img src="{{clothesItems[nowPosition].FilePosition}}">
         </a>
       </div>
       <div style="text-align:right">
-        <p>樣式: {{item.category}}</p>
-        <p>顏色: {{item.color}}</p>
-        <p>存放日期: {{item.createTime}}</p>
-        <p>上次拿取日期: {{item.modifyTime}}</p>
-        <p>拿取次數: {{item.count}}</p>
+        <p>樣式: {{clothesItems[nowPosition].category}}</p>
+        <p>顏色: {{clothesItems[nowPosition].color}}</p>
+        <p>存放日期: {{clothesItems[nowPosition].createTime}}</p>
+        <p>上次拿取日期: {{clothesItems[nowPosition].modifyTime}}</p>
+        <p>拿取次數: {{clothesItems[nowPosition].count}}</p>
+        <p>喜好度: {{clothesItems[nowPosition].like}}
+          <input type="range" name="WeatherLike" ng-model="clothesItems[nowPosition].like" min="0" max="10">
+          <!-- <input type="range" name="WeatherLike" id="WeatherLike"
+            value="{{clothesItems[nowPosition].like}}" max="10" style="width:30%"> -->
+        </p>
       </div>
 
       <div style="position:absolute;bottom:10%; width:90%;">
