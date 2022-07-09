@@ -10,7 +10,7 @@
 
   <!-- javascript  -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-  <script src="./js/lobby.js"></script>
+  <script src="./js/putInCheck.js"></script>
 
 
   <link rel="stylesheet" href="./public/style.css" type="text/css">
@@ -18,25 +18,32 @@
 
 <body>
 
-  <div class="half-half-div">
-    <a class="half-half" ng-click="putInNow()" style="background-color:rgb(64, 85, 88)">存放</a>
+  <div class="container">
+    <div class="user-edit">
+
+      <!-- img clothes -->
+      <div class="check-clothes-img-div">
+        <a>
+          <img src="./public/src/clothes_1.jpg">
+        </a>
+        <p>樣式: 短袖</p>
+        <p>顏色: 白</p>
+        <a class="btn-white" ng-click="checkOk()">辨識成功(存入衣櫃)</a>
+        <a class="btn-white">辨識錯誤(進入選擇畫面)</a>
+      </div>
+    </div>
   </div>
 
-  <div class="half-half-div">
-    <a href="./main.html" class="half-half" style="background-color: gray;">拿取</a>
-  </div>
 
   <div class="loading" ng-if="isLoading">
     <p>等待中...</p>
   </div>
   <div class="getting" ng-if="isGetting">
     <div class="getting-content">
-      <p>偵測到存放！</p>
-      <button ng-click="goToPutInCheck()">關閉</button>
+      <p>存放成功</p>
+      <button ng-click="returnLobby()">關閉</button>
     </div>
   </div>
-
-
 </body>
 
 </html>

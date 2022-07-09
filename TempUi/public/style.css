@@ -263,3 +263,40 @@ body {
 
 
 }
+
+
+.check-clothes-img-div {
+  width: 50%;
+  height: 50%;
+
+  position: absolute;
+  top: 5%;
+}
+
+.check-clothes-img-div img {
+  height: 100%;
+}
+
+.btn-white {
+  color: white;
+  border: 1px solid white;
+  padding: 10px;
+
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+
+  font-size: 1.3em;
+
+}
+
+.custom-clothes-img-div {
+  height: 70%;
+  position: absolute;
+  top: 5%;
+}
+
+.custom-clothes-img-div img {
+  height: 100%;
+}

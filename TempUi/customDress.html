@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html ng-app="myApp" ng-controller="myCtrl">
+
+<head>
+  <title>tmpMain</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <!-- javascript  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="./js/customDress.js"></script>
+
+
+  <link rel="stylesheet" href="./public/style.css" type="text/css">
+</head>
+
+
+<body>
+
+  <div class="container">
+    <div class="user-edit" style="display: inline;">
+
+      <!-- img clothes -->
+      <div class="custom-clothes-img-div">
+        <a>
+          <img src="{{item.FilePosition}}">
+        </a>
+      </div>
+      <div style="text-align:right">
+        <p>樣式: {{item.category}}</p>
+        <p>顏色: {{item.color}}</p>
+        <p>存放日期: {{item.createTime}}</p>
+        <p>上次拿取日期: {{item.modifyTime}}</p>
+        <p>拿取次數: {{item.count}}</p>
+      </div>
+
+      <div style="position:absolute;bottom:10%; width:90%;">
+        <div style="text-align:left; width:20%; display:inline;">
+          <a class="btn-white" style="width: 5%;" ng-click="changeClothes(0)">
+            &lt
+          </a>
+        </div>
+        <div style="width:20%; display:inline; position:relative; left:35%"">
+          <a class=" btn-white" ng-click="returnLobby()">
+          返回
+          </a>
+          <a class=" btn-white" ng-click="submitClothes()">
+            選擇
+          </a>
+        </div>
+        <div style="text-align:left; width:20%; display:inline; position:relative; left:75%">
+          <a class="btn-white" style="width: 5%;" ng-click="changeClothes(1)">
+            &gt
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="loading" ng-if="isLoading">
+    <p>等待中...</p>
+  </div>
+  <div class="getting" ng-if="isGetting">
+    <div class="getting-content">
+      <p>已獲得</p>
+      <p>請查看衣櫃檢視口</p>
+      <button ng-click="returnLobby()">關閉</button>
+    </div>
+  </div>
+
+
+</body>
+
+</html>
