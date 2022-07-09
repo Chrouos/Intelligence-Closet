@@ -62,6 +62,18 @@ app.controller('myCtrl', function ($scope) {
     window.location.replace("main.html");
   }
 
+  $scope.isSaving = false;
+  $scope.saveOk = false;
+
+  $scope.save = function () {
+    $scope.isSaving = true;
+
+    setTimeout(function () {
+      $scope.isLoading = false;
+      $scope.saveOk = true;
+    }, 3000);
+  }
+
 
 });
 

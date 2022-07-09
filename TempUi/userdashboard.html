@@ -51,14 +51,23 @@
         <a class="user-return-main" href="main.html">
           回到主頁面
         </a>
+        <a class="user-return-main" ng-click="save()">
+          儲存
+        </a>
       </div>
 
     </div>
   </div>
 
 
-  <div>
-
+  <div class="loading" ng-if="isSaving">
+    <p>正在儲存中...</p>
+  </div>
+  <div class="getting" ng-if="saveOk">
+    <div class="getting-content">
+      <p>儲存成功!</p>
+      <button ng-click="returnLobby()">關閉</button>
+    </div>
   </div>
 
 </body>

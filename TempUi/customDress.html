@@ -54,8 +54,11 @@
           <a class=" btn-white" ng-click="submitClothes()">
             選擇
           </a>
+          <a class=" btn-white" ng-click="save()">
+            儲存
+          </a>
         </div>
-        <div style="text-align:left; width:20%; display:inline; position:relative; left:75%">
+        <div style="text-align:left; width:20%; display:inline; position:relative; left:65%">
           <a class="btn-white" style="width: 5%;" ng-click="changeClothes(1)">
             &gt
           </a>
@@ -73,6 +76,17 @@
     <div class="getting-content">
       <p>已獲得</p>
       <p>請查看衣櫃檢視口</p>
+      <button ng-click="returnLobby()">關閉</button>
+    </div>
+  </div>
+
+
+  <div class="loading" ng-if="isSaving">
+    <p>正在儲存中...</p>
+  </div>
+  <div class="getting" ng-if="saveOk">
+    <div class="getting-content">
+      <p>儲存成功!</p>
       <button ng-click="returnLobby()">關閉</button>
     </div>
   </div>
