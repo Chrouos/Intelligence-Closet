@@ -34,7 +34,7 @@ app.controller('myCtrl', function ($scope) {
     setTimeout(function () {
       $scope.isLoading = false;
       $scope.isGetting = true;
-    }, 3000);
+    }, 6000);
   }
 
   $scope.returnLobby = function () {
