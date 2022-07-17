@@ -43,7 +43,7 @@ board.digital[pin].read() # READ: 讀取狀態
 ## Components
 所有在ICLoset中會用到個零件筆記
 
-### Arduino MEGA2560 R3
+### 開發版: Arduino MEGA2560 R3
 
 + 主控芯片：ATmega2560
 + 工作電壓：5v（USB線供電）
@@ -57,9 +57,28 @@ board.digital[pin].read() # READ: 讀取狀態
 + EEPROM：4KB
 + 時鐘頻率：16MHZ
 
+### 伺服馬達: MG90S 金屬齒輪
++ 產品尺寸：22.8 * 12.2 * 28.5mmmm
++ 產品重量：13.6克
++ 工作扭矩：2KG /厘米
++ 反應轉速：0.11秒/60度(4.8V
++ 使用溫度：0℃-55℃
++ 死區設定：5微秒 
++ 插頭類型：JR，FUTABA級 
++ 轉動角度：最大90度
++ 舵機類型：數字舵機 
++ 使用電壓：4.8V
+
+[待參考網址:Arduino筆記(15)：控制伺服馬達 Servo](https://atceiling.blogspot.com/2017/03/arduino.html)
+
 ---
 
 ## Resource From
 [TAIWANIOT](https://www.taiwaniot.com.tw/product/arduino-mega-2560-r3-%E9%96%8B%E7%99%BC%E6%9D%BF-atmega2560-16au/)  
 [python serial 模組使用方法](https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/466944/)
+[使用Python的pySerial模組進行序列通訊：連接電腦與Arduino和MicroPython](https://swf.com.tw/?p=1188)
 
+[電阻計算](https://www.digikey.tw/zh/resources/conversion-calculators/conversion-calculator-resistor-color-code)
+
+
+書本: Python x Arduino物聯網整合開發實戰
