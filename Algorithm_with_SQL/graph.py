@@ -64,16 +64,26 @@ class recommend_graph:
         # self.weather_info.printWeather()
         print("最適合溫度 - 現在溫度 = 相差溫度: {} - {} = {}".format(self.comfortableTemp, self.weather_info.reTEMP(), diff))
         
+        
+        # 弄成 dict增加可讀性
+        combs_dict_list = []
+        
         for graph in self.graphs:
             result = math.pow(math.floor((diff - graph[2])), 2)
             combs.append([result, graph[0].position, graph[1].position, graph[0].clothesName, graph[1].clothesName])
+            
+            combs_dict_list.append({'resultScore': result, 
+                                    'clothes1Position': graph[0].position, 'clothes2Position': graph[1].position,
+                                    'clothes1Name': graph[0].clothesName, 'clothes2Name': graph[0].clothesName})
         
         combs.sort(reverse = False)
+        
+        
         
         for c in combs:
             print(c)
             
-        return combs;
+        return combs_dict_list;
         
         
     def changeCity(self, city):

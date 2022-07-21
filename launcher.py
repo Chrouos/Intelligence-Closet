@@ -91,6 +91,8 @@ def comb_to_js():
   
   graphComb = graph.getCombination() 
   
+  return graphComb
+  
   
   
 eel.init('UI/web') # eel.init(網頁的資料夾)
