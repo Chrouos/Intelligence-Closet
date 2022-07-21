@@ -18,4 +18,5 @@
 
 ---
 
-18. Python Arduino 物聯網整合開發實戰 
+18. 書本: Python Arduino 物聯網整合開發實戰 
+19. https://www.twblogs.net/a/5b8d18122b717718833b1147: Python3識別判斷圖片主要顏色並和顏色庫進行對比的方法
