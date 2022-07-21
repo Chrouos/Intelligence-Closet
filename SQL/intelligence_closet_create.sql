@@ -18,7 +18,6 @@ create table clothes_information
 
 TRUNCATE TABLE clothes_information
 
-delete clothes_information where Id = 3
 
 
 select *
@@ -26,17 +25,17 @@ from clothes_information
 
 
 INSERT INTO clothes_information
-VALUES
-	(1, 0, 16, '3', None, None, 0, datetime.datetime(2022, 6, 26, 19, 51, 41, 350000), datetime.datetime(2022, 6, 26, 19, 51, 41, 350000), 'UI/web/public/src/clothes_1.jpg')
+VALUES (0, 16, '3', Null, Null, 0, '2022-6-26', '2022-6-26', 'UI/web/public/src/clothes_1.jpg')
+
+INSERT INTO clothes_information
+VALUES( 1, 14, '2', Null, Null, 0, '2022-6-26', '2022-6-26', 'UI/web/public/src/clothes_2.jpg')
+
+INSERT INTO clothes_information
+VALUES( 2, 6, '3', Null, Null, 0, '2022-6-26', '2022-6-26', 'UI/web/public/src/clothes_3.jpg')
+
 INSERT INTO clothes_information
 VALUES
-	(2, 1, 14, '2', None, None, 0, datetime.datetime(2022, 6, 26, 22, 13, 9, 13000), datetime.datetime(2022, 6, 26, 22, 13, 9, 13000), 'UI/web/public/src/clothes_2.jpg')
+	( 3, 8, '4', Null, Null, 0, '2022-6-26', '2022-6-26', 'UI/web/public/src/clothes_4.jpg')
+
 INSERT INTO clothes_information
-VALUES
-	(4, 2, 6, '3', None, None, 0, datetime.datetime(2022, 6, 26, 22, 14, 47, 267000), datetime.datetime(2022, 6, 26, 22, 14, 47, 267000), 'UI/web/public/src/clothes_3.jpg')
-INSERT INTO clothes_information
-VALUES
-	(5, 3, 8, '4', None, None, 0, datetime.datetime(2022, 6, 26, 22, 15, 13, 217000), datetime.datetime(2022, 6, 26, 22, 15, 13, 217000), 'UI/web/public/src/clothes_4.jpg')
-INSERT INTO clothes_information
-VALUES
-	(6, 4, 8, '4', None, None, 0, datetime.datetime(2022, 6, 26, 22, 15, 34, 570000), datetime.datetime(2022, 6, 26, 22, 15, 34, 570000), 'UI/web/public/src/clothes_5.jpg')
+VALUES(4, 8, '4', Null, Null, 0, '2022-6-26', '2022-6-26', 'UI/web/public/src/clothes_5.jpg')

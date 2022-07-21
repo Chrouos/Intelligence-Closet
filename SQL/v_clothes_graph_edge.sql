@@ -22,9 +22,6 @@ inner join clothes_information as ci1 on w2.CategoryId != 2
 inner join weather_score as w1 on w1.Id = ci1.WeatherScoreId and w1.CategoryId != 8 and w2.CategoryId != 8 and w1.CategoryId != w2.CategoryId  -- no not sure
 
 
--- 這部分有錯誤
-
-
 select * from v_clothes_graph_edge
 
 SELECT * FROM v_clothes_graph_edge WHERE Clothes1Position != ''  or Clothes1Position = 0

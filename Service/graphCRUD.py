@@ -4,17 +4,20 @@ sys.path.append(os.getcwd()) # 抓取路徑
 import pyodbc
 import pandas as pd
 
+# 個人的帳號密碼 sql server, 請不要更動crudAccount.py (輸入自己的即可)
+from Service.crudAccount import exportSQLLink
+
+global_dict = exportSQLLink()
+
 class graphCRUD:
 	
 	def __init__(self):	
 
 		try:
-      		# server = 'LAPTOP-BGP802KH\SQLEXPRESS'
-			server = 'MSI\SQLEXPRESS'
 			database = 'intelligence_closet'
-			username = 'sa'
-			# password = 'asd464017'
-			password = 'a25232523'
+			server = global_dict['server']
+			username = global_dict['username']
+			password = global_dict['password']
 			cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + server
 									+ ';DATABASE=' + database
 									+ ';UID=' + username
