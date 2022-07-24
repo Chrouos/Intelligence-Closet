@@ -1,11 +1,14 @@
 
 # Identify: 將相機和辨識衣物做成物件
 
+from keras_preprocessing import image
+import tensorflow as tf
 import numpy as np
 import collections
 import sys, os
 import cv2
 
+cap = cv2.VideoCapture(0)  # 開啟攝像頭
 sys.path.append(os.getcwd()) # 抓取路徑
 
 class identify:
@@ -13,15 +16,66 @@ class identify:
   def __init__(self, id):
     self.lastId = id; # 抓取資料庫最後一位
     self.save_path = 'UI/web/public/src/clothes_'+ str(self.lastId) +'.jpg' # 儲存的位置
+    self.color = ''
+    self.category = '' 
+    
   
-  def work(self):
+  def printResult(self):
+    print(" ---------- identify result ----------")
+    print("ID: {0}, path: {1}".format( self.lastId, self.save_path))
+    print("color: {0}, category: {1}".format(self.color, self.category))
+    print(" ---------- identify result ----------") 
+
+    
+  
+  def useCamara(self):
+    ret, frame = cap.read() # 讀取鏡頭畫面
+    cv2.imshow("capture", frame)  # 生成攝像頭視窗
+    cv2.imwrite(self.save_path, frame)
+    print("save: ", self.save_path)
+    
+  def identifyCategory(self):
+    cls_list = ['Blazer','','Body','Dress,Top',
+                'Hat','Hoodie','Longsleeve','Not_sure','',
+                'Outwear', 'Pants','Polo','Shirt','Shoes',
+                'Shorts','','Skirt','T-Shirt','',
+                'Undershirt']
+    
+    # 關閉GPU加速功能(建議安裝無GPU版本，縮短初始化時間)
+    os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+    # 開啟800字典
+    words_path = 'classify/archive/images.csv'
+    file1 = open(words_path, 'rt', encoding='Big5')
+    file1.close()
+    
+    model = tf.compat.v1.keras.models.load_model('classify/h5/eff_final.h5')
+    try:
+      img = image.load_img(self.save_path, target_size=(224, 224))
+    except Exception as e:
+        print(self.save_path, e)
+        
+    # 圖檔預處理
+    img = np.expand_dims(img, axis=0) # 轉換通道
+    img = img / 255 # rescale
+    
+    pred = model.predict(img)[0]
+    index = np.argmax(pred)
+    prediction = cls_list[index]
+    
+    self.category = prediction
+    # print("CATEGORY: ", self.category)
+
+  
+  def identifyColor(self):
     frame = cv2.imread(self.save_path)
-    color = self.get_color(frame)
-    print(color)
-    return color
+    
+    self.color = self.getColor(frame)
+    # print("COLOR: ", self.color)
+    
+    return self.color
 
   #處理圖片
-  def get_color(self, frame):
+  def getColor(self, frame):
     hsv = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
     maxsum = -100
     color = None

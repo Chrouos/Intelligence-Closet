@@ -5,5 +5,8 @@ from Identify import identify
 
 # 輸入內容為圖片編碼
 identify = identify(2)
-identify.work()
+
+identify.identifyCategory(); 
+identify.identifyColor();
+identify.printResult();
     
