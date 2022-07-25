@@ -1,5 +1,7 @@
 import pyodbc
 import pandas as pd
+import sys, os
+sys.path.append(os.getcwd()) # 抓取路徑
 
 from nodeCRUD import nodeCRUD
 

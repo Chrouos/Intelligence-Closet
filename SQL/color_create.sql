@@ -19,4 +19,4 @@ insert color values ('ORANGE', '橘色')
 insert color values ('YELLOW', '黃色')
 insert color values ('GREEN', '綠色')
 insert color values ('PURPLE', '紫色')
-
+insert color values ('GRAY', '灰色')

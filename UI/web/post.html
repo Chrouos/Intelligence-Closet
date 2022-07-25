@@ -3,36 +3,56 @@
 <html ng-app="myApp" ng-controller="myCtrl">
 
 <head>
-  <title>Lobby</title>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Lobby</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-  <!-- javascript  -->
-  <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-  <script src="./js/post.js"></script>
+    <!-- javascript  -->
+    <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="./js/post.js"></script>
 
-  <!-- 關聯的樣式表 -->
-  <link rel="stylesheet" href="./public/bs.css" type="text/css">
+    <!-- 關聯的樣式表 -->
+    <link rel="stylesheet" href="./public/bs.css" type="text/css">
 
-  <link rel="stylesheet" href="./public/bulma/bulma.css" type="text/css">
-  <link rel="stylesheet" href="./public/font-awesome/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="./public/style.css" type="text/css">
+    <link rel="stylesheet" href="./public/bulma/bulma.css" type="text/css">
+    <link rel="stylesheet" href="./public/font-awesome/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="./public/style.css" type="text/css">
+
+    <style>
+    .div--box {
+      border: 3.5px solid black;
+      padding: 5px;
+    }
+
+    </style>
 
 </head>
 
 <body>
 
-  <div>
-    <div ng-repeat="comb in combs">
-      <p>{{comb.resultScore}}</p>
-      <p>{{comb.clothes1Position}}</p>
-      <p>{{comb.clothes2Position}}</p>
-      <p>{{comb.clothes1Name}}</p>
-      <p>{{comb.clothes2Name}}</p>
+<div class="container--center" style="padding:20px">
+    <div class="div--box">
+        <!-- ng-repeat="comb in combs" -->
+        <div ng-repeat="comb in combs">
+            <a>{{comb.resultScore}}</a>
+            <a>{{comb.clothes1Position}}</a>
+            <a>{{comb.clothes2Position}}</a>
+            <a>{{comb.clothes1Name}}</a>
+            <a>{{comb.clothes2Name}}</a>
+        </div>
     </div>
-  </div>
+</div>
+
+<div class="container--center" style="padding:20px">
+    <div class="div--box">
+        <button ng-click="get_camera_identify()">拍照</button>
+        <a>{{category}}</a>
+        <a>{{color}}</a>
+        <a>{{path}}</a>
+    </div>
+</div>
 
 </body>
 

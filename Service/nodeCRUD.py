@@ -3,7 +3,11 @@ import pandas as pd
 
 # 個人的帳號密碼 sql server, 請不要更動crudAccount.py (輸入自己的即可)
 from Service.crudAccount import exportSQLLink
+import sys, os
+sys.path.append(os.getcwd()) # 抓取路徑
+
 global_dict = exportSQLLink()
+
 
 class nodeCRUD:
 
@@ -28,48 +32,45 @@ class nodeCRUD:
     def reconnect(self):
         self.cursor = self.cnxn.cursor()
 
-  ######################################## CREATE START ########################################
-     
-     # insert 必要的
-     ### 此為 目前 未有的資料: 使用次數為0
+    ######################################## CREATE START ########################################
+
+    # insert 必要的
+    ### 此為 目前 未有的資料: 使用次數為0
     def insertData(self, colorId, weatherScoreId, filePostion):
 
         position = self.vacancyPosition()
         print("空缺位置為:", position)
-        if(position == -1):
+        if position == -1:
             print("位置已滿")
             return
         
-        execute_str = "INSERT  INTO clothes_information (Position, ColorId, WeatherScoreId, UsageCounter, CreateTime, ModifyTime , FilePosition) "\
-          + "values(" + str(position) \
-          + ", " + str(colorId) + "" \
-          + ", " + str(weatherScoreId) + "" \
-          + ", 0" \
-          + ", GETDATE(), GETDATE()" \
-          + ", '" + filePostion + "') "  
+        execute_str = "INSERT  INTO clothes_information (Position, ColorId, WeatherScoreId, UsageCounter, CreateTime, ModifyTime , FilePosition) " \
+                    + "VALUES ({0}, {1}, {2}, 0, GETDATE(), GETDATE(), '{3}' )".format(position, colorId, weatherScoreId, filePostion)
+
         print(execute_str)
 
         self.cnxn.cursor().execute(execute_str)
         self.cnxn.commit()
-        
- ######################################## CREATE END ########################################
 
-    #!# READ
+        return position
+
+    ######################################## CREATE END ########################################
+
+    # !# READ
     # 搜尋 全部的資料
     def queryData(self):
         execute_str = "SELECT * FROM clothes_information"
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
         return datas
-    
+
     # 搜尋 全部的資料
     def queryIdCount(self):
         execute_str = "select count(*) from v_clothes_information"
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchone()[0]
         return datas
-    
-    
+
     # 搜尋 View全部的資料
     def queryViewData(self):
         execute_str = "SELECT * FROM v_clothes_information"
@@ -113,10 +114,10 @@ class nodeCRUD:
 
         return -1
 
-     # 最後一個位置
+    # 最後一個位置
     def lastPosition(self):
         return self.sortNameDESC('Position')[0][1]
-    
+
     # 查詢存在的Position
     def exitPosition(self):
         execute_str = "SELECT * FROM v_clothes_information"
@@ -127,10 +128,10 @@ class nodeCRUD:
         for row in datas:
             if row[1] != None:
                 reData.append(row[1])
-        
+
         return reData
 
-    #!# Update
+    # !# Update
 
     def updatePositionToNull(self, position):
 
@@ -143,13 +144,13 @@ class nodeCRUD:
         self.cursor.execute(execute_str)
         self.cnxn.commit()
 
-    #!# DELETE
+    # !# DELETE
     def deleteByPosition(self, position):
 
         if self.queryDataByPosition(position) == []:
             print('沒有此衣物')
             return
 
-        execute_str = "DELETE FROM clothes_information WHERE position = "+ str(position)
+        execute_str = "DELETE FROM clothes_information WHERE position = " + str(position)
         self.cursor.execute(execute_str)
         self.cnxn.commit()

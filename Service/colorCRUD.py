@@ -44,7 +44,7 @@ class colorCRUD:
 
   # 2. 搜尋從顏色中 ENG
 	def queryIdByEngName(self, colorEngName):
-		execute_str = "select Id from color where ColorEngName = '" + str(colorEngName) + "'"
+		execute_str = "select Id from color where ColorEngName = '" + str.upper(colorEngName) + "'"
 		self.cursor.execute(execute_str)
 		colorId = self.cursor.fetchone()
     

@@ -1,4 +1,8 @@
+import sys, os
+sys.path.append(os.getcwd()) # 抓取路徑
+
 from nodeCRUD import nodeCRUD
+
 
 crud = nodeCRUD()
 
@@ -9,6 +13,6 @@ crud = nodeCRUD()
 # crud.insertData(1, 'white', 3, 'E:\ProgrammingLanguage\git\Intelligence-Closet\4')
 
 # crud.insertData(1, 'black', 2, 'E:\ProgrammingLanguage\git\Intelligence-Closet\5')
-crud.insertData(1, 'white', 1, 'E:\ProgrammingLanguage\git\Intelligence-Closet\6')
+crud.insertData('white', 1, 'E:\ProgrammingLanguage\git\Intelligence-Closet\6')
 
 # crud.updatePositionToNull(2)
