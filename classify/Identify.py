@@ -8,12 +8,12 @@ import cv2
 import numpy as np
 import tensorflow as tf
 from keras_preprocessing import image
+import time
 
 from Service.colorCRUD import colorCRUD
 from Service.nodeCRUD import nodeCRUD
 from Service.weatherScoreCRUD import weatherScoreCRUD
 
-cap = cv2.VideoCapture(0)  # 開啟攝像頭
 sys.path.append(os.getcwd())  # 抓取路徑
 
 
@@ -33,7 +33,6 @@ class identify:
         return self.lastId
 
     def saveToSql(self):
-
             
         print("SAVE TO SQL: ")
         wsCrud = weatherScoreCRUD()
@@ -54,13 +53,28 @@ class identify:
         print(" ---------- identify result ----------")
 
     def useCamara(self):
-        ret, frame = cap.read()  # 讀取鏡頭畫面
-        cv2.imshow("capture", frame)  # 生成攝像頭視窗
-        cv2.imwrite(self.save_path, frame)
-        print("save: ", self.save_path)
+        cap = cv2.VideoCapture(1)  # 開啟攝像頭
+        
+        
+        
+        a = 1                                               
+        while True:
+            ret, frame = cap.read()  # 讀取鏡頭畫面
+            cv2.imshow("capture", frame)  # 生成攝像頭視窗
+            a = a - 0.1                                
+            if cv2.waitKey(1) & 0xFF == ord('q') or a <= 0:  # 如果按下q 就截圖儲存並退出
+                
+                
+                cv2.imwrite(self.save_path, frame)
+                
+                cap.release()
+                cv2.destroyAllWindows()  # 關閉視窗
+                print("save: ", self.save_path)
+                
+                break
 
     def identifyCategory(self):
-        cls_list = ['Blazer', '', 'Body', 'Dress,Top',
+        cls_list = ['Blazer', '', 'Body', 'Dress',
                     'Hat', 'Hoodie', 'Longsleeve', 'Not_sure', '',
                     'Outwear', 'Pants', 'Polo', 'Shirt', 'Shoes',
                     'Shorts', '', 'Skirt', 'T-Shirt', '',
@@ -90,8 +104,7 @@ class identify:
         self.category = prediction
         # print("CATEGORY: ", self.category)
         
-        cap.release()
-        cv2.destroyAllWindows()  # 關閉視窗
+        
 
     def identifyColor(self):
         frame = cv2.imread(self.save_path)

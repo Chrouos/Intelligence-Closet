@@ -1,3 +1,5 @@
+drop table user_dashboard
+
 create table user_dashboard
 (
 
@@ -9,8 +11,9 @@ create table user_dashboard
 	--喜歡的天氣(5為最熱)
 	ModifyTime datetime Not Null,
 	--異動時間
-	NowCity nvarchar (50) Null,
+	StationName nvarchar (50) Null,
 	--可以記錄使用者目前所在城市
+	Clock datetime, 
 
 	-- StationName, CityName 地區
 );

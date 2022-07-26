@@ -77,7 +77,7 @@ class recommend_graph:
             
             combs_dict_list.append({'resultScore': result, 
                                     'clothes1Position': graph[0].position, 'clothes2Position': graph[1].position,
-                                    'clothes1Name': graph[0].clothesName, 'clothes2Name': graph[0].clothesName,
+                                    'clothes1Name': graph[0].clothesName, 'clothes2Name': graph[1].clothesName,
                                     'clothes1Path': graph[0].filePosition, 'clothes2Path': graph[1].filePosition})
         
         combs.sort(reverse = False)

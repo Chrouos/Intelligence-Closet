@@ -11,6 +11,7 @@ from Identify import identify
 identify = identify()
 
 lastId = identify.getLastId()
+
 print("SQL LAST ID: {0}".format(lastId))
 identify.useCamara()
 

@@ -5,7 +5,7 @@ sys.path.append(os.getcwd())  # 抓取路徑
 
 import cv2
 
-cap = cv2.VideoCapture(0)  # 開啟攝像頭
+cap = cv2.VideoCapture(1)  # 開啟攝像頭
 
 from Service.nodeCRUD import nodeCRUD
 from Service.weatherScoreCRUD import weatherScoreCRUD
@@ -63,7 +63,7 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord('q'):  # 如果按下q 就截圖儲存並退出
 
         print("save: ", save_path)
-        # cv2.imwrite(save_path, frame)  # 儲存路徑 (測試關閉)
+        cv2.imwrite(save_path, frame)  # 儲存路徑 (測試關閉)
         break
 
 cap.release()

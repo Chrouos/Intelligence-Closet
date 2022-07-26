@@ -6,3 +6,5 @@ wsCrud = weatherScoreCRUD()
 print("1. 輸入clothesType獲得CategoryId: " , wsCrud.queryByClothesTypeCategoryId('Blazer'))
 
 print("2. 輸入clothesType獲得Id: " , wsCrud.queryByClothesTypeWSId('Blazer'))
+
+print("3. 獲得所有類別: " , wsCrud.queryAllName())

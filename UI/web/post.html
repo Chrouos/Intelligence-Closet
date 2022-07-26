@@ -21,38 +21,74 @@
     <link rel="stylesheet" href="./public/style.css" type="text/css">
 
     <style>
-    .div--box {
-      border: 3.5px solid black;
-      padding: 5px;
-    }
+        .div--box {
+            margin: 3px;
+            border: 3.5px solid black;
+            padding: 5px;
+        }
 
+        h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
     </style>
 
 </head>
 
 <body>
 
-<div class="container--center" style="padding:20px">
-    <div class="div--box">
-        <!-- ng-repeat="comb in combs" -->
-        <div ng-repeat="comb in combs">
-            <a>{{comb.resultScore}}</a>
-            <a>{{comb.clothes1Position}}</a>
-            <a>{{comb.clothes2Position}}</a>
-            <a>{{comb.clothes1Name}}</a>
-            <a>{{comb.clothes2Name}}</a>
+    <div class="container--center" style="padding:20px">
+        <div class="div--box">
+            <h2>衣物圖型</h2>
+            <!-- ng-repeat="comb in combs" -->
+            <div ng-repeat="comb in combs">
+                <span>{{comb.resultScore}}</span>
+                <spana>{{comb.clothes1Position}}</spana>
+                <span>{{comb.clothes2Position}}</span>
+                <span>{{comb.clothes1Name}}</span>
+                <span>{{comb.clothes2Name}}</span>
+                <span>{{comb.clothes1Path}}</span>
+                <span>{{comb.clothes2Path}}</span>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="container--center" style="padding:20px">
-    <div class="div--box">
-        <button ng-click="get_camera_identify()">拍照</button>
-        <a>{{category}}</a>
-        <a>{{color}}</a>
-        <a>{{path}}</a>
+    <div class="container--center" style="padding:20px">
+        <div class="div--box">
+            <h2>拍照、辨識</h2>
+            <button ng-click="get_camera_identify()">拍照</button>
+            <span>{{category}}</span>
+            <spana>{{color}}</spana>
+            <span>{{path}}</span>
+
+            <div class="div--box" ng-show="isIdentifySuccess">
+                <h2>是否成功</h2>
+                <button ng-click="identify_failed()">不成功</button>
+                <div class="div--box" ng-show="isEditIdentify">
+                    <h3>樣式表</h3>
+                    <div ng-repeat="weatherScore in watherScoreList">
+                        <button ng-click="changeIdentifyName(weatherScore.EngName)">
+                            <span>{{weatherScore.EngName}}</span>
+                            <span>{{weatherScore.ChName}}</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="div--box" ng-show="isEditIdentify">
+                    <h3>顏色表</h3>
+                    <div ng-repeat="color in colorList">
+                        <button ng-click="changeColorName(color.EngName)">
+                            <span>{{color.EngName}}</span>
+                            <span>{{color.ChName}}</span>
+                        </button>
+                    </div>
+                </div>
+                <button ng-click="identify_save_sql()">成功: 存入資料庫</button>
+                <span>資料庫操作: {{isSuccess}}</span>
+            </div>
+        </div>
     </div>
-</div>
+
+
 
 </body>
 

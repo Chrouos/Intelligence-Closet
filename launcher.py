@@ -8,16 +8,18 @@ from Algorithm_with_SQL.graph import recommend_graph
 from Algorithm_with_SQL.weather import weather_information_API
 from Service.stationCRUD import stationCRUD
 from classify.Identify import identify
+from Service.weatherScoreCRUD import weatherScoreCRUD
+from Service.colorCRUD import colorCRUD
 
 sys.path.append(os.getcwd())  # 抓取路徑
 
-graph = recommend_graph('板橋')
+
 
 
 @eel.expose
 def weather_to_js(weatherPosition):  # 傳送天氣資訊
-
-    graph.changeCity(weatherPosition[0])
+    # graph = recommend_graph('板橋')
+    # graph.changeCity(weatherPosition[0])
 
     we = weather_information_API(weatherPosition[0])  # 地點
     weather_list = we.getWeather()  # 獲得陣列(6個資訊)
@@ -86,6 +88,7 @@ def station_station_to_js(city):
 
 @eel.expose
 def comb_to_js():
+    graph = recommend_graph('板橋')
     graph.updateNode()  # 更新節點
     graph.updateGraph()  # 更新圖形
 
@@ -105,16 +108,18 @@ def get_camera_identify(): # 拍照
         idt.identifyColor()  # 辨識顏色
         idt.printResult()  # 輸出結果
 
-        return [idt.category, idt.color, idt.save_path]
+        return [idt.category, idt.color, idt.save_path, True]
     except:
         return False
 
+@eel.expose
 def identify_save_sql(category, color, save_path): # 確定存檔
     try:
         idt = identify()
         idt.category = category
         idt.color = color
         idt.save_path = save_path
+        print(category, color, save_path)
 
         idt.saveToSql()  # 存到資料庫
 
@@ -122,7 +127,33 @@ def identify_save_sql(category, color, save_path): # 確定存檔
     except:
         print("GET CAMARA FALSE")
         return False
+    
+@eel.expose
+def get_all_ws_name():
+    wsCrud = weatherScoreCRUD()
+    datas = wsCrud.queryAllName()
+    
+    # 轉換成 dict
+    weather_score_dict = []
+    for data in datas:
+        weather_score_dict.append({'EngName': data[0], 'ChName': data[1]})
+        
+    print("get_all_ws_name", weather_score_dict)
+    return weather_score_dict
+        
+
+@eel.expose
+def get_all_color():
+    graphCRUD = colorCRUD()
+    datas = graphCRUD.queryAll()
+    
+    # 轉換成 dict
+    color_dict = []
+    for data in datas:
+        color_dict.append({'EngName': data[1], 'ChName': data[2]})
+    
+    return color_dict
 
 
 eel.init('UI/web')  # eel.init(網頁的資料夾)
-eel.start('post.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))
+eel.start('post.html', size=(1080, 720))  # eel.start(html名稱, size=(起始大小))

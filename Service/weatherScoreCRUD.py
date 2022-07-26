@@ -40,3 +40,13 @@ class weatherScoreCRUD:
         datas = self.cursor.fetchone()[0]
         return datas
     
+    def queryAllName(self):
+        execute_str = "select * from weather_score;"
+        self.cursor.execute(execute_str)
+        datas = self.cursor.fetchall()
+        data = []
+        for name in datas:
+            data.append([name[2], name[4]])
+        
+        return data
+    
