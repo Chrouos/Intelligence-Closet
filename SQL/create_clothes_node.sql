@@ -1,6 +1,6 @@
-drop table clothes_information
+drop table clothes_node
 
-create table clothes_information
+create table clothes_node
 (
 	Id bigint PRIMARY KEY NOT NULL IDENTITY, -- 編號 ( 1, 2, 3 ... )
 	Position int, -- 放在衣櫃裡面的位置( 0 ~ 9)
@@ -14,26 +14,27 @@ create table clothes_information
 	FilePosition text --圖片位置
 );
 
-TRUNCATE TABLE clothes_information
+TRUNCATE TABLE clothes_node
 
 
 
 select *
-from clothes_information
+from clothes_node
 
 
-INSERT INTO clothes_information
+INSERT INTO clothes_node
 VALUES (0, 16, '3', Null, Null, 0, '2022-6-26', '2022-6-26', 'UI/web/public/src/clothes_1.jpg')
 
-INSERT INTO clothes_information
+INSERT INTO clothes_node
 VALUES( 1, 14, '2', Null, Null, 0, '2022-6-26', '2022-6-26', 'UI/web/public/src/clothes_2.jpg')
 
-INSERT INTO clothes_information
+INSERT INTO clothes_node
 VALUES( 2, 6, '3', Null, Null, 0, '2022-6-26', '2022-6-26', 'UI/web/public/src/clothes_3.jpg')
 
-INSERT INTO clothes_information
+INSERT INTO clothes_node
 VALUES
 	( 3, 8, '4', Null, Null, 0, '2022-6-26', '2022-6-26', 'UI/web/public/src/clothes_4.jpg')
 
-INSERT INTO clothes_information
+INSERT INTO clothes_node
 VALUES(4, 8, '4', Null, Null, 0, '2022-6-26', '2022-6-26', 'UI/web/public/src/clothes_5.jpg')
+

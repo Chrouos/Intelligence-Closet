@@ -1,6 +1,6 @@
-drop view v_clothes_information
+drop view v_clothes_node
 
-create view v_clothes_information
+create view v_clothes_node
 as
 	select
 		ci.Id,
@@ -19,11 +19,11 @@ as
 		ci.FilePosition,
 		ws.Score,
 		cat.Level
-	from clothes_information as ci
+	from clothes_node as ci
 		inner join weather_score as ws on ci.WeatherScoreId = ws.Id
 		inner join category as cat on cat.Id = ws.CategoryId
 		inner join color as color on ci.ColorId = color.Id
 
 
 select *
-from v_clothes_information
+from v_clothes_node

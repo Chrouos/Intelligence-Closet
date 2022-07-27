@@ -1,6 +1,6 @@
-drop view v_clothes_graph_edge
+drop view v_clothes_graph
 
-create view v_clothes_graph_edge
+create view v_clothes_graph
 as
 	select
 		ROW_NUMBER() OVER (ORDER BY ci2.Id ASC) as ViewId,
@@ -16,12 +16,12 @@ as
 		ci1.UserPreferences as Clothes1UserPreferences,
 		ci2.UserPreferences as Clothes2UserPreferences,
 		coalesce(ci1.UserPreferences, 0) + coalesce(ci2.UserPreferences, 0) as TotalPreferences
-	from clothes_information as ci2
+	from clothes_node as ci2
 		inner join weather_score as w2 on w2.Id = ci2.WeatherScoreId and (w2.CategoryId = 1 or w2.CategoryId = 2)
-		inner join clothes_information as ci1 on w2.CategoryId != 2 
+		inner join clothes_node as ci1 on w2.CategoryId != 2 
 		inner join weather_score as w1 on w1.Id = ci1.WeatherScoreId and w1.CategoryId != 8 and w2.CategoryId != 8 and w1.CategoryId != w2.CategoryId and (w1.CategoryId = 1 or w1.CategoryId = 2)
 
 
 
 select *
-from v_clothes_graph_edge
+from v_clothes_graph
