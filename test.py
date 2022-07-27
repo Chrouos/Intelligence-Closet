@@ -1,12 +1,17 @@
 import sys, os
-
 sys.path.append(os.getcwd())  # 抓取路徑
 
-from Algorithm_with_SQL.graph import recommend_graph
+from Model.Domain.category import Category
+from Model.DAO.categoryDAO import CategoryDAO
+from Service.categoryService import CategoryService
 
-graph = recommend_graph('板橋')
+categoryDAO = CategoryDAO()
+categoryService = CategoryService()
 
-graph.updateNode()  # 更新節點
-graph.updateGraph()  # 更新圖形
+categoryData = categoryService.queryById(3)
 
-graphComb = graph.getCombination()
+category = Category()
+category.print()
+category.updateByDict(categoryData)
+category.print()
+

@@ -10,14 +10,14 @@ as
 		ws.Score,
 		ws.Name,
 		cat.Level
-	from weather_score as ws
+	from sub_category as ws
 		inner join category as cat on cat.Id = ws.CategoryId
 
 select *
 from v_category_clothes
 
 select *
-from weather_score
+from sub_category
 
 select *
 from category

@@ -1,5 +1,5 @@
 
-def exportSQLLink():
+def ExportSQLLink():
   global_server = 'LAPTOP-BGP802KH\SQLEXPRESS'
   global_username = 'sa'
   global_password = 'asd464017'

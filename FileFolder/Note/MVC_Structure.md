@@ -1,4 +1,6 @@
 ### Database & Model
+1. category: 衣物類別
+2. sub_category: 衣物子類別
 
 ### Model
 1. 資料庫欄位物件化 
