@@ -16,7 +16,22 @@ create table clothes_node
 
 TRUNCATE TABLE clothes_node
 
+INSERT INTO clothes_node
+VALUES
+	(0, 16, '3', Null, Null, 0, '2022-6-26', '2022-6-26', 'UI/web/public/src/clothes_1.jpg')
+
+INSERT INTO clothes_node
+VALUES( 1, 14, '2', Null, Null, 0, '2022-6-26', '2022-6-26', 'UI/web/public/src/clothes_2.jpg')
+
+INSERT INTO clothes_node
+VALUES( 2, 6, '3', Null, Null, 0, '2022-6-26', '2022-6-26', 'UI/web/public/src/clothes_3.jpg')
+
+INSERT INTO clothes_node
+VALUES
+	( 3, 8, '4', Null, Null, 0, '2022-6-26', '2022-6-26', 'UI/web/public/src/clothes_4.jpg')
+
+INSERT INTO clothes_node
+VALUES(4, 8, '4', Null, Null, 0, '2022-6-26', '2022-6-26', 'UI/web/public/src/clothes_5.jpg')
+
 select *
 from clothes_node
-
-
