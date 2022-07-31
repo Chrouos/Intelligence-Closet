@@ -11,6 +11,9 @@ from Service.colorGraphService import ColorGraphService
 from Service.stationService import StationService 
 from Service.subCategoryService import SubCategoryService 
 from Service.userCombsService import UserCombsService 
+from Service.userDashboardService import UserDashboardService 
+from Service.viewCategoryClothesService import ViewCategoryClothesService 
+from Service.viewClothesGraphService import ViewClothesGraphService 
 
 
 
@@ -71,3 +74,18 @@ from Service.userCombsService import UserCombsService
 # userCombsService = UserCombsService()
 # print("1. 搜尋全部 LIST: ", userCombsService.queryAll()) # 搜尋全部 LIST
 # print("2. 透過Id找: ", userCombsService.queryById(2))
+
+# 9. UserDashboard
+# userDashboardService = UserDashboardService()
+# print("1. 搜尋全部 LIST: ", userDashboardService.queryAll()) # 搜尋全部 LIST
+# print("2. 透過Id找: ", userDashboardService.queryById(2))
+
+# 10. ViewCategoryClothes
+# viewCategoryClothesService = ViewCategoryClothesService()
+# print("1. 搜尋全部 LIST: ",viewCategoryClothesService.queryAll())
+# print(viewCategoryClothesService.queryById(2))
+
+# 11. ViewClothesGraphService
+viewClothesGraphService = ViewClothesGraphService()
+# print("1. 搜尋全部 LIST: ",viewClothesGraphService.queryAll())
+print(viewClothesGraphService.queryById(2))

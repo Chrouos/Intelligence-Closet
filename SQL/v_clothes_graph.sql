@@ -4,6 +4,8 @@ CREATE view v_clothes_graph
 as
 	select
 		ROW_NUMBER() OVER (ORDER BY cn2.Id ASC) as ViewId,
+		cn1.Id as Clothes1Id,
+		cn2.Id as Clothes2Id,
 		cn1.Position as Clothes1Position,
 		cn2.Position as Clothes2Position,
 		sc1.CategoryId as Clothes1CategoryId,
