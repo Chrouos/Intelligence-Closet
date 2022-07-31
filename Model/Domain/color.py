@@ -19,6 +19,11 @@ class Color:
         
         
     def updateByDict(self, data):
-        self.Id = data['Id']
-        self.ColorEngName = data['ColorEngName']
-        self.ColorName = data['ColorName']
+        if data.get("Id") != None: 
+            self.Id = data['Id']
+            
+        if data.get("ColorEngName") != None: 
+            self.ColorEngName = data['ColorEngName']
+            
+        if data.get("ColorName") != None: 
+            self.ColorName = data['ColorName']

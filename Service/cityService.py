@@ -31,3 +31,9 @@ class CityService:
             city_dict.append({'Id': data.Id, 'CityName': data.CityName})
             
         return city_dict
+    
+    def create(self, cityName):
+        return self.cityDAO.create(cityName)
+    
+    def deleteAllData(self):
+        return self.cityDAO.deleteAllData()

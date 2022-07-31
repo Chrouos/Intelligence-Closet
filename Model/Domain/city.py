@@ -15,6 +15,8 @@ class City:
         
         
     def updateByDict(self, data):
-        self.Id = data['Id']
-        self.CityName = data['CityName']
+        if data.get("Id") != None: 
+            self.Id = data['Id']
+        if data.get("CityName") != None: 
+            self.CityName = data['CityName']
         

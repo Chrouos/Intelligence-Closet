@@ -19,7 +19,14 @@ class ColorGraph:
         
         
     def updateByDict(self, data):
-        self.Id = data['Id']
-        self.ColorId1 = data['ColorId1']
-        self.ColorId2 = data['ColorId2']
-        self.ColorScore = data['ColorScore']
+        if data.get("Id") != None: 
+            self.Id = data['Id']
+            
+        if data.get("ColorId1") != None: 
+            self.ColorId1 = data['ColorId1']
+            
+        if data.get("ColorId2") != None: 
+            self.ColorId2 = data['ColorId2']
+        
+        if data.get("ColorScore") != None: 
+            self.ColorScore = data['ColorScore']

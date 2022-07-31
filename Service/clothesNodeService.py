@@ -33,32 +33,32 @@ class ClothesNodeService:
     def queryById(self, id):
         data = self.clothesNodeDAO.queryById(id)
         
-        category_dict = {'Id': data.Id, 
-                         'Position': data.Position,
-                         'SubCategoryId': data.SubCategoryId,
-                         'ColorId': data.ColorId,
-                         'UserPreferences': data.UserPreferences,
-                         'UsageCounter': data.UsageCounter,
-                         'CreateTime': data.CreateTime,
-                         'ModifyTime': data.ModifyTime,
-                         'FilePosition': data.FilePosition,
-                         }
+        category_dict =     {'Id': data.Id, 
+                            'Position': data.Position,
+                            'SubCategoryId': data.SubCategoryId,
+                            'ColorId': data.ColorId,
+                            'UserPreferences': data.UserPreferences,
+                            'UsageCounter': data.UsageCounter,
+                            'CreateTime': data.CreateTime,
+                            'ModifyTime': data.ModifyTime,
+                            'FilePosition': data.FilePosition,
+                            }
         
         return category_dict
     
     def queryByPosition(self, position):
         data = self.clothesNodeDAO.queryByPosition(position)
         
-        category_dict = {'Id': data.Id, 
-                         'Position': data.Position,
-                         'SubCategoryId': data.SubCategoryId,
-                         'ColorId': data.ColorId,
-                         'UserPreferences': data.UserPreferences,
-                         'UsageCounter': data.UsageCounter,
-                         'CreateTime': data.CreateTime,
-                         'ModifyTime': data.ModifyTime,
-                         'FilePosition': data.FilePosition,
-                         }
+        category_dict =     {'Id': data.Id, 
+                            'Position': data.Position,
+                            'SubCategoryId': data.SubCategoryId,
+                            'ColorId': data.ColorId,
+                            'UserPreferences': data.UserPreferences,
+                            'UsageCounter': data.UsageCounter,
+                            'CreateTime': data.CreateTime,
+                            'ModifyTime': data.ModifyTime,
+                            'FilePosition': data.FilePosition,
+                            }
         
         return category_dict
             
@@ -75,8 +75,8 @@ class ClothesNodeService:
     def updatePositionToNull(self, position):
         self.clothesNodeDAO.updatePositionToNull(position)
         return True
- 
-   	###################### DELETE ######################
+    
+    ###################### DELETE ######################
     def deleteByPosition(self, position):
         self.clothesNodeDAO.deleteByPosition(position)
         return True

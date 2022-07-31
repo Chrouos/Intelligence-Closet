@@ -6,7 +6,7 @@ import pandas as pd
 from crawler.crawler import station
 
 # 個人的帳號密碼 sql server, 請不要更動crudAccount.py (輸入自己的即可)
-from Service.crudAccount import exportSQLLink
+from Model.DAO.crudAccount import exportSQLLink
 global_dict = exportSQLLink()
 
 class stationCRUD:
@@ -66,9 +66,9 @@ class stationCRUD:
         execute_str = "INSERT INTO city VALUES ('" + cityName + "')"
         self.cnxn.cursor().execute(execute_str)
         self.cnxn.commit()
-   
+    
 	################## CREATE END ##################
- 
+  
 	################## SELECT START ##################
     def queryCityIdByName(self, cityName):
       execute_str = "SELECT Id FROM city WHERE CityName = '" + cityName + "'"
@@ -112,5 +112,5 @@ class stationCRUD:
         self.insertCity(c)
 
       for outIndex in range(len(allInfo)):
-      	self.insertStation(allInfo[outIndex])
+        self.insertStation(allInfo[outIndex])
 			# print(allInfo[outIndex])
