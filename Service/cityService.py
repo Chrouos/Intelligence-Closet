@@ -10,24 +10,24 @@ class CityService:
     def queryAll(self):
         datas = self.cityDAO.queryAll()
         
-        category_dict = []
+        city_dict = []
         for data in datas:
-            category_dict.append({'Id': data.Id, 'CityName': data.CityName})
+            city_dict.append({'Id': data.Id, 'CityName': data.CityName})
         
-        return category_dict
+        return city_dict
     
     # 透過Id查找一筆資料: 轉換成字典
     def queryById(self, id):
         data = self.cityDAO.queryById(id)
         
-        category_dict = {'Id': data.Id, 'CityName': data.CityName}
-        return category_dict
+        city_dict = {'Id': data.Id, 'CityName': data.CityName}
+        return city_dict
     
     def queryByName(self, cityName):
         datas = self.cityDAO.queryByName(cityName)
         
-        category_dict = []
+        city_dict = []
         for data in datas:
-            category_dict.append({'Id': data.Id, 'CityName': data.CityName})
+            city_dict.append({'Id': data.Id, 'CityName': data.CityName})
             
-        return category_dict
+        return city_dict

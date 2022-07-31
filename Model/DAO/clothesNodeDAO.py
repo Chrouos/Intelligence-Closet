@@ -13,9 +13,9 @@ class ClothesNodeDAO:
 	def __init__(self):	
 
 		try:
-      
+		
 			global_dict = ExportSQLLink() # 呼叫帳號密碼
-      
+		
 			database = 'intelligence_closet'
 			server = global_dict['server']
 			username = global_dict['username']
@@ -29,65 +29,65 @@ class ClothesNodeDAO:
 
 		except:
 			print('ClothesNodeDAO 操作錯誤')
-   
+	
 		self.cnxn = cnxn
 		self.cursor = cnxn.cursor()
-  
-  
+	
+	
 	###################### READ ######################
-  
+	
 	# 搜尋所有資料: tuple
 	def queryAll(self):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node;"
 		print("queryAll: ", execute_str)
-  
+	
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()
-  
+	
 		clothesNodeLists = []
 		for data in datas:
 			clothesNode = ClothesNode()
 			clothesNode.updateBySQL(data)
 			clothesNodeLists.append(clothesNode)
-  
+	
 		return clothesNodeLists
-  
+
+	
 	# 透過Id查找一筆資料: tuple
 	def queryById(self, id):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node WHERE Id = {0}".format(id)
 		print("queryById: ", execute_str)
-  
+	
 		self.cursor.execute(execute_str)
 		data = self.cursor.fetchone()
-  
+	
 		clothesNode = ClothesNode()
 		clothesNode.updateBySQL(data)
-  
+	
 		return clothesNode
-    
-	def queryByPosition(self, position):
+		
+	def queryNodeByPosition(self, position):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node WHERE [Position]  = {0}".format(position)
-		print("queryByPosition: ", execute_str)
-  
+		print("queryNodeByPosition: ", execute_str)
+	
 		self.cursor.execute(execute_str)
 		data = self.cursor.fetchone()
-  
+	
 		clothesNode = ClothesNode()
 		clothesNode.updateBySQL(data)
-  
+	
 		return clothesNode
 
-     
+		
 	# 空缺的位置資訊(範圍 0~9 )
 	def vacancyPosition(self):
 		for i in range(10):
-			# print("self.queryDataByPosition({0}): {1}".format(i, self.queryDataByPosition(i)))
 			if self.queryDataByPosition(i) == None:
 				return i
 
 		return -1
 
-    # 透過位置找尋資料
+	# 透過位置找尋資料
 	def queryDataByPosition(self, position):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node WHERE Position = '{0}' ".format(position)
 		self.cursor.execute(execute_str)
@@ -124,30 +124,30 @@ class ClothesNodeDAO:
 
 
 		execute_str = "INSERT INTO clothes_node (Position, ColorId, SubCategoryId, UsageCounter, CreateTime, ModifyTime , FilePosition) " \
-                    + "VALUES ({0}, {1}, {2}, 0, GETDATE(), GETDATE(), '{3}' )".format(position, clothesNode_dict['ColorId'], clothesNode_dict['SubCategoryId'], clothesNode_dict['FilePosition'])
-        
+					+ "VALUES ({0}, {1}, {2}, 0, GETDATE(), GETDATE(), '{3}' )".format(position, clothesNode_dict['ColorId'], clothesNode_dict['SubCategoryId'], clothesNode_dict['FilePosition'])
+
 		print("create", execute_str)
 		self.cnxn.cursor().execute(execute_str)
 		self.cnxn.commit()
-  
+
 		return position
-        
-   	###################### UPDATE ######################
+
+	###################### UPDATE ######################
 	def updatePositionToNull(self, position):
-    
+
 		if self.queryDataByPosition(position) == None:
 			print('沒有此衣物')
 			return False
 
 		execute_str = "UPDATE clothes_node SET Position = NULL WHERE Position = {0}".format(position)
 		print(execute_str)
-  
+
 		self.cursor.execute(execute_str)
 		self.cnxn.commit()
-  
+
 		return True
 
-   	###################### DELETE ######################
+	###################### DELETE ######################
 	def deleteByPosition(self, position):
     
 		if self.queryDataByPosition(position) == None:
@@ -156,8 +156,8 @@ class ClothesNodeDAO:
 
 		execute_str = "DELETE FROM clothes_node WHERE Position = {0}".format(position)
 		print(execute_str)
-  
+
 		self.cursor.execute(execute_str)
 		self.cnxn.commit()
-  
+
 		return True
