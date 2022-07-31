@@ -24,12 +24,9 @@ class CityService:
         return city_dict
     
     def queryByName(self, cityName):
-        datas = self.cityDAO.queryByName(cityName)
+        data = self.cityDAO.queryByName(cityName)
         
-        city_dict = []
-        for data in datas:
-            city_dict.append({'Id': data.Id, 'CityName': data.CityName})
-            
+        city_dict = {'Id': data.Id, 'CityName': data.CityName}
         return city_dict
     
     def create(self, cityName):

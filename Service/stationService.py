@@ -51,7 +51,11 @@ class StationService:
         return station_dict
     
     def create(self, jso):
-        station_dict = json.loads(jso)
+        if isinstance(jso, str):
+            station_dict = json.loads(jso)
+        else:
+            station_dict = jso
+            
         station = Station()
         station.updateByDict(station_dict)
         return self.stationDAO.create(station)

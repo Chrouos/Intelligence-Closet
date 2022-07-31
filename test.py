@@ -15,6 +15,8 @@ from Service.userDashboardService import UserDashboardService
 from Service.viewCategoryClothesService import ViewCategoryClothesService 
 from Service.viewClothesGraphService import ViewClothesGraphService 
 
+from Controller.crawlerStation import CrawlerStation
+
 
 
 # 1. Category
@@ -55,9 +57,9 @@ from Service.viewClothesGraphService import ViewClothesGraphService
 # print("2. 透過ID搜尋一筆資料 (82): ",colorGraph.queryById(82)) # 透過ID搜尋一筆資料
 
 # 6. Station
-# station = StationService()
-# print("1. 搜尋全部 LIST: ", station.queryAll()) # 搜尋全部 LIST
-# print("2. 透過CityId找: ", station.queryByCityId(2))
+station = StationService()
+print("1. 搜尋全部 LIST: ", station.queryAll()) # 搜尋全部 LIST
+print("2. 透過CityId找: ", station.queryByCityId(2))
 # station_create = '{ "StationNumber": "ABCDE", "StationName": "測試站號", "CityId": 0, "Address": "Address",  "Remark": "Remark", "Work": "0"}'
 # station.create(station_create)
 # station.deleteById(1276)
@@ -86,6 +88,12 @@ from Service.viewClothesGraphService import ViewClothesGraphService
 # print(viewCategoryClothesService.queryById(2))
 
 # 11. ViewClothesGraphService
-viewClothesGraphService = ViewClothesGraphService()
+# viewClothesGraphService = ViewClothesGraphService()
 # print("1. 搜尋全部 LIST: ",viewClothesGraphService.queryAll())
-print(viewClothesGraphService.queryById(2))
+# print(viewClothesGraphService.queryById(2))
+
+#####################################
+
+# 更新站別
+# crawlerStation = CrawlerStation()
+# crawlerStation.refreshAllData()

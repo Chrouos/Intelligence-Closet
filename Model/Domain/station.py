@@ -47,11 +47,17 @@ class Station:
         if data.get("Remark") != None:    
             self.Remark = data['Remark']
             
-        if data.get("CreateTime") != None:    
-            self.CreateTime = data['CreateTime'].strftime("%m/%d/%Y")
+        if data.get("CreateTime") != None:
+            if isinstance(data['CreateTime'], str):
+                self.CreateTime = data['CreateTime']
+            else:
+                self.CreateTime = data['CreateTime'].strftime("%m/%d/%Y")
             
         if data.get("ModifyTime") != None:    
-            self.ModifyTime = data['ModifyTime'].strftime("%m/%d/%Y")
+            if isinstance(data['ModifyTime'], str):
+                self.ModifyTime = data['ModifyTime']
+            else:
+                self.ModifyTime = data['ModifyTime'].strftime("%m/%d/%Y")
             
         if data.get("Work") != None:    
             self.Work = data['Work']
