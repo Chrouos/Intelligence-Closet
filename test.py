@@ -14,9 +14,14 @@ from Service.userCombsService import UserCombsService
 from Service.userDashboardService import UserDashboardService 
 from Service.viewCategoryClothesService import ViewCategoryClothesService 
 from Service.viewClothesGraphService import ViewClothesGraphService 
+from Service.viewClothesNodeService import ViewClothesNodeService 
+from Service.viewColorGraphService import  ViewColorGraphService
+from Service.viewStationService import  ViewStationService
 
-from Controller.crawlerStation import CrawlerStation
 
+## Controller
+from Controller.crawlerStationController import CrawlerStationController
+from Controller.camaraController import CamaraController
 
 
 # 1. Category
@@ -33,7 +38,8 @@ from Controller.crawlerStation import CrawlerStation
 # print("4. 新增: ", cityService.create("無名小鎮"))
 
 # 3. ClothesNode
-# clothesNodeService = ClothesNodeService()
+clothesNodeService = ClothesNodeService()
+print("最後一個位子:", clothesNodeService.lastId())
 # print(clothesNodeService.queryAll())
 # print(clothesNodeService.queryById(2))
 # print(clothesNodeService.queryByPosition(2))
@@ -57,9 +63,9 @@ from Controller.crawlerStation import CrawlerStation
 # print("2. 透過ID搜尋一筆資料 (82): ",colorGraph.queryById(82)) # 透過ID搜尋一筆資料
 
 # 6. Station
-station = StationService()
-print("1. 搜尋全部 LIST: ", station.queryAll()) # 搜尋全部 LIST
-print("2. 透過CityId找: ", station.queryByCityId(2))
+# station = StationService()
+# print("1. 搜尋全部 LIST: ", station.queryAll()) # 搜尋全部 LIST
+# print("2. 透過CityId找: ", station.queryByCityId(2))
 # station_create = '{ "StationNumber": "ABCDE", "StationName": "測試站號", "CityId": 0, "Address": "Address",  "Remark": "Remark", "Work": "0"}'
 # station.create(station_create)
 # station.deleteById(1276)
@@ -92,8 +98,33 @@ print("2. 透過CityId找: ", station.queryByCityId(2))
 # print("1. 搜尋全部 LIST: ",viewClothesGraphService.queryAll())
 # print(viewClothesGraphService.queryById(2))
 
+# 12 ViewClothesNode
+# viewClothesNodeService = ViewClothesNodeService()
+# print("1. 搜尋全部 LIST: ",viewClothesNodeService.queryAll())
+# print(viewClothesNodeService.queryById(2))
+
+# 13. ViewColorGraph 
+# viewColorGraphService = ViewColorGraphService()
+# print("1. 搜尋全部 LIST: ",viewColorGraphService.queryAll())
+# print(viewColorGraphService.queryByLowerColorId(2))
+# print(viewColorGraphService.queryByUpperColorId(2))
+
+# 14. Station
+# viewStationService = ViewStationService()
+# print("1. 搜尋全部 LIST: ", viewStationService.queryAll()) # 搜尋全部 LIST
+# print("2. 透過CityId找: ", viewStationService.queryByCityId(2))
+# station_create = '{ "StationNumber": "ABCDE", "StationName": "測試站號", "CityId": 0, "Address": "Address",  "Remark": "Remark", "Work": "0"}'
+
+
 #####################################
 
 # 更新站別
-# crawlerStation = CrawlerStation()
-# crawlerStation.refreshAllData()
+# crawlerStationController = CrawlerStationController()
+# crawlerStationController.refreshAllData()
+
+# 相機物件
+camaraController = CamaraController()
+camaraController.getLastId()
+
+
+camaraController.printResult()

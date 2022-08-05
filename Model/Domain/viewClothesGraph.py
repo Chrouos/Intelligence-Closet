@@ -55,8 +55,8 @@ class ViewClothesGraph:
         self.TotalPreferences = data.TotalPreferences
         
     def updateByDict(self, data):
-        if data.get("Id") != None: 
-            self.Id = data['Id']
+        if data.get("ViewId") != None: 
+            self.Id = data['ViewId']
             
         if data.get("Clothes1Id") != None: 
             self.Clothes1Id = data['Clothes1Id']

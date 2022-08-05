@@ -6,7 +6,7 @@ from Service.cityService import CityService
 from Service.stationService import StationService
 
 
-class CrawlerStation:
+class CrawlerStationController:
 
     # 利用爬蟲獲得所有城市和站名：allCity, allStation
     def __init__(self):

@@ -61,6 +61,10 @@ class ClothesNodeService:
                             }
         
         return category_dict
+    
+    def lastId(self):
+        return self.clothesNodeDAO.lastId()
+    
             
 	###################### CREATE ######################
             

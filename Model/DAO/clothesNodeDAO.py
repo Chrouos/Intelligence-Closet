@@ -94,25 +94,33 @@ class ClothesNodeDAO:
 		data = self.cursor.fetchone()
 		return data
 
-	# 最後一個位置
-	def lastPosition(self):
-		return self.sortNameDESC('Position')[1]
+
 
 	# 大到小分類: name 想找尋的分類
 	def sortNameDESC(self, name):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node ORDER BY '{0}' DESC".format(name)
+		print("sortNameDESC", execute_str)
 
 		self.cursor.execute(execute_str)
 		data = self.cursor.fetchone()
 		return data
 
 	# 大到小分類: name 想找尋的分類
-	def sortNameDESC(self, name):
+	def sortNameASC(self, name):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node ORDER BY '{0}' ASC".format(name)
 
 		self.cursor.execute(execute_str)
 		data = self.cursor.fetchone()
 		return data
+
+		# 最後一個位置
+	def lastId(self):
+		data = self.sortNameDESC('Id')
+	
+		clothesNode = ClothesNode()
+		clothesNode.updateBySQL(data)
+
+		return clothesNode.Id
 
 	###################### CREATE ######################
 	
