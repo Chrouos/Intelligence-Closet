@@ -74,6 +74,18 @@ class SubCategoryDAO:
 			subCategoryLists.append(subCategory)
 		return subCategoryLists
 
+	def queryByClothesType(self, clothesType):
+		execute_str = "SELECT * FROM intelligence_closet.dbo.sub_category WHERE ClothesType = '{0}'".format(clothesType)
+		print("queryqueryByClothesTypeById: ", execute_str)
+
+		self.cursor.execute(execute_str)
+		data = self.cursor.fetchone()
+
+		subCategory = SubCategory()
+		subCategory.updateBySQL(data)
+
+		return subCategory
+
 
 	def updateScoreById(self, score, id):
 		execute_str = "UPDATE intelligence_closet.dbo.sub_category SET Score = {0} WHERE Id = {1}".format(score, id)
@@ -83,3 +95,5 @@ class SubCategoryDAO:
 		self.cnxn.commit()
 
 		return True
+
+	

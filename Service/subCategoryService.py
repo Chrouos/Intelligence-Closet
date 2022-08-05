@@ -24,11 +24,11 @@ class SubCategoryService:
     def queryById(self, id):
         data = self.subCategoryDAO.queryById(id)
         
-        subCategory_dict = {  'Id': data.Id, 
-                        'CategoryId': data.CategoryId, 
-                        'ClothesType': data.ClothesType, 
-                        'Score': data.Score, 
-                        'Name': data.Name}
+        subCategory_dict = {'Id': data.Id, 
+                            'CategoryId': data.CategoryId, 
+                            'ClothesType': data.ClothesType, 
+                            'Score': data.Score, 
+                            'Name': data.Name}
         return subCategory_dict
     
     def queryByCategoryId(self, id):
@@ -44,7 +44,13 @@ class SubCategoryService:
         
         return subCategory_dict
     
+    def queryIdByClothesType(self, clothesType):
+        data = self.subCategoryDAO.queryByClothesType(clothesType)
+        
+        return data.Id
     
     def updateScoreById(self, score, id):
         self.subCategoryDAO.updateScoreById(score, id)
         return True
+    
+    

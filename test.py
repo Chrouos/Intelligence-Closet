@@ -6,6 +6,7 @@ sys.path.append(os.getcwd())  # 抓取路徑
 
 from Service.categoryService import CategoryService
 from Service.cityService import CityService 
+from Service.colorService import ColorService 
 from Service.clothesNodeService import ClothesNodeService 
 from Service.colorGraphService import ColorGraphService 
 from Service.stationService import StationService 
@@ -38,8 +39,8 @@ from Controller.camaraController import CamaraController
 # print("4. 新增: ", cityService.create("無名小鎮"))
 
 # 3. ClothesNode
-clothesNodeService = ClothesNodeService()
-print("最後一個位子:", clothesNodeService.lastId())
+# clothesNodeService = ClothesNodeService()
+# print("最後一個位子:", clothesNodeService.lastId())
 # print(clothesNodeService.queryAll())
 # print(clothesNodeService.queryById(2))
 # print(clothesNodeService.queryByPosition(2))
@@ -52,7 +53,7 @@ print("最後一個位子:", clothesNodeService.lastId())
 # colorService = ColorService()
 # print("1. 搜尋全部 LIST: ", colorService.queryAll()) # 搜尋全部 LIST
 # print("2. 透過ID搜尋一筆資料 (2): ",colorService.queryById(2)) # 透過ID搜尋一筆資料
-# print("3. 透過顏色的英文名稱搜尋 ID: ",colorService.queryIdByEngName("BLACK")) # 透過名字搜尋一筆資料
+# print("3. 透過顏色的英文名稱搜尋 ID: ",colorService.queryIdByEngName("black")) # 透過名字搜尋一筆資料
 
 # 5. ColorGraph
 # colorGraph = ColorGraphService()
@@ -125,6 +126,9 @@ print("最後一個位子:", clothesNodeService.lastId())
 # 相機物件
 camaraController = CamaraController()
 camaraController.getLastId()
-
+camaraController.useCamara()
+camaraController.identifyColor()
+camaraController.identifyCategory()
+camaraController.saveToSql()
 
 camaraController.printResult()
