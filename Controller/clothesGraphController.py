@@ -1,4 +1,3 @@
-from Algorithm_with_SQL.weather import weather_information_API
 from Service.viewClothesNodeService import ViewClothesNodeService, ViewClothesNodeDAO
 from Service.viewClothesGraphService import ViewClothesGraphService
 from Controller.weatherInformationAPI import WeatherInformationAPI
@@ -56,46 +55,51 @@ class ClothesGraphController:
             print("位置: {0} & {1}, 樣式: {4}{2} & {5}{3}, 天氣分數:{6}, 喜好分數:{7}".format(graph[0].Position, graph[1].Position, graph[0].Name, graph[1].Name, graph[0].ColorName, graph[1].ColorName, graph[2], graph[3]))
             # print(gr[0].position, gr[1].position)
 
-    # def getCombination(self):
+    def getCombination(self):
         
-    #     combs = []
+        combs = []
         
-    #     self.weather_info.dataText_AutoRefresh()
+        self.weatherInformationAPI.dataText_AutoRefresh()
         
-    #     # 還相差的溫度
-    #     diff = round(self.comfortableTemp - self.weather_info.reTEMP(), 2)
-    #     # self.weather_info.printWeather()
-    #     print("最適合溫度 - 現在溫度 = 相差溫度: {} - {} = {}".format(self.comfortableTemp, self.weather_info.reTEMP(), diff))
+        # 還相差的溫度
+        diff = round(self.comfortableTemp - self.weatherInformationAPI.reTEMP(), 3)
+        self.weatherInformationAPI.printWeather()
+        print("最適合溫度 - 現在溫度 = 相差溫度: {} - {} = {}".format(self.comfortableTemp, self.weatherInformationAPI.reTEMP(), diff))
         
         
-    #     # 弄成 dict增加可讀性
-    #     combs_dict_list = []
+        # 弄成 dict增加可讀性
+        combs_dict_list = []
         
-    #     for graph in self.graphs:
-    #         result = math.pow(math.floor((diff - graph[2])), 2)
-    #         combs.append([  result,
-    #                         graph[0].position, graph[1].position,
-    #                         graph[0].clothesName, graph[1].clothesName,
-    #                         graph[0].filePosition, graph[1].filePosition])
+        
+        # 公式: ( 26 - 使用者喜好) - ( diff - 天氣分數總合)
+        for graph in self.graphs:
+            result = math.pow(math.floor((diff - graph[2])), 2)
+            print("result: ", result)
+            combs.append([  result,
+                            graph[0].Position, graph[1].Position,
+                            graph[0].ColorName, graph[1].ColorName,
+                            graph[0].Name, graph[1].Name,
+                            graph[0].FilePosition, graph[1].FilePosition])
             
-    #         combs_dict_list.append({'resultScore': result, 
-    #                                 'clothes1Position': graph[0].position, 'clothes2Position': graph[1].position,
-    #                                 'clothes1Name': graph[0].clothesName, 'clothes2Name': graph[1].clothesName,
-    #                                 'clothes1Path': graph[0].filePosition, 'clothes2Path': graph[1].filePosition})
+            combs_dict_list.append({'ResultScore': result,
+                                    'Clothes1Position': graph[0].Position, 'Clothes2Position': graph[1].Position,
+                                    'Clothes1Color': graph[0].ColorName, 'Clothes2Color': graph[1].ColorName,
+                                    'Clothes1Name': graph[0].Name, 'Clothes2Name': graph[1].Name,
+                                    'Clothes1Path': graph[0].FilePosition, 'Clothes2Path': graph[1].FilePosition})
         
-    #     combs.sort(reverse = False)
+        combs.sort(reverse = False)
         
         
         
-    #     for c in combs:
-    #         print(c)
+        for c in combs:
+            print(c)
             
-    #     return combs_dict_list;
+        return combs_dict_list;
         
         
-    # def changeCity(self, city):
-    #     self.weather_info.city = city
-    #     self.weather_info.dataText_AutoRefresh()
+    def changeCity(self, city):
+        self.weatherInformationAPI.city = city
+        self.weatherInformationAPI.getWeather()
     
 '''
 建立圖形物件
