@@ -23,7 +23,8 @@ from Service.viewStationService import  ViewStationService
 ## Controller
 from Controller.crawlerStationController import CrawlerStationController
 from Controller.camaraController import CamaraController
-
+from Controller.clothesGraphController import ClothesGraphController
+from Controller.weatherInformationAPI import WeatherInformationAPI
 
 # 1. Category
 # categoryService = CategoryService()
@@ -103,6 +104,7 @@ from Controller.camaraController import CamaraController
 # viewClothesNodeService = ViewClothesNodeService()
 # print("1. 搜尋全部 LIST: ",viewClothesNodeService.queryAll())
 # print(viewClothesNodeService.queryById(2))
+# print(viewClothesNodeService.queryPositionExitNode())
 
 # 13. ViewColorGraph 
 # viewColorGraphService = ViewColorGraphService()
@@ -124,11 +126,22 @@ from Controller.camaraController import CamaraController
 # crawlerStationController.refreshAllData()
 
 # 相機物件
-camaraController = CamaraController()
-camaraController.getLastId()
-camaraController.useCamara()
-camaraController.identifyColor()
-camaraController.identifyCategory()
-camaraController.saveToSql()
+# camaraController = CamaraController()
+# camaraController.getLastId()
+# camaraController.useCamara()
+# camaraController.identifyColor()
+# camaraController.identifyCategory()
+# camaraController.saveToSql()
+# camaraController.printResult()
 
-camaraController.printResult()
+
+# 圖形物件
+# clothesGraphController = ClothesGraphController('板橋')
+# clothesGraphController.updateNode()
+# clothesGraphController.printNode()
+# clothesGraphController.printEdge()
+
+## 天氣物件
+# weatherInformationAPI = WeatherInformationAPI('埔心')
+# weatherInformationAPI.getWeather()
+# weatherInformationAPI.printWeather()

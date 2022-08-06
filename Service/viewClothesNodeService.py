@@ -55,3 +55,28 @@ class ViewClothesNodeService:
                                 'Level': data.Level
                             }
         return viewClothesNode_dict
+    
+    def queryPositionExitNode(self):
+        datas = self.viewClothesNodeDAO.queryPositionExitNode()
+        
+        viewClothesNode_dict = []
+        for data in datas:
+            viewClothesNode_dict.append({  'Id': data.Id, 
+                                            'Position': data.Position, 
+                                            'ClothesId': data.ClothesId,
+                                            'Name': data.Name,
+                                            'ClothesType': data.ClothesType,
+                                            'ColorId': data.ColorId,
+                                            'ColorName': data.ColorName,
+                                            'UserPreferences': data.UserPreferences,
+                                            'CategoryId': data.CategoryId,
+                                            'ClothesStyle': data.ClothesStyle,
+                                            'UsageCounter': data.UsageCounter,
+                                            'CreateTime': data.CreateTime,
+                                            'ModifyTime': data.ModifyTime,
+                                            'FilePosition': data.FilePosition,
+                                            'Score': data.Score,
+                                            'Level': data.Level
+                                        })
+        
+        return viewClothesNode_dict
