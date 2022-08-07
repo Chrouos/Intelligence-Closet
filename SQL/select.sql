@@ -19,7 +19,8 @@ SELECT *
 FROM clothes_information;
 
 
-select *from weather_score;
+select *
+from sub_category;
 
 select *
 from color;

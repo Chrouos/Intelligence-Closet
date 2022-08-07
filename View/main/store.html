@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html ng-app="myApp" ng-controller="myCtrl">
+
+<head>
+    <title>Store</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <!-- javascript  -->
+    <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="./js/store.js"></script>
+
+    <!-- 關聯的樣式表 -->
+    <link rel="stylesheet" href="./public/bs.css" type="text/css">
+
+    <link rel="stylesheet" href="./public/bulma/bulma.css" type="text/css">
+    <link rel="stylesheet" href="./public/font-awesome/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="./public/style.css" type="text/css">
+
+    <style>
+        .div--box {
+            margin: 3px;
+            border: 3.5px solid black;
+            padding: 5px;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container--center" style="padding:20px">
+        <div class="div--box">
+            <h2>衣物圖型</h2>
+            <!-- ng-repeat="comb in combs" -->
+            <div ng-repeat="comb in combs">
+                <span>{{comb.resultScore}}</span>
+                <spana>{{comb.clothes1Position}}</spana>
+                <span>{{comb.clothes2Position}}</span>
+                <span>{{comb.clothes1Name}}</span>
+                <span>{{comb.clothes2Name}}</span>
+                <span>{{comb.clothes1Path}}</span>
+                <span>{{comb.clothes2Path}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container--center" style="padding:20px">
+        <div class="div--box">
+            <h2>拍照、辨識</h2>
+            <button ng-click="get_camera_identify()">拍照</button>
+            <span>{{category}}</span>
+            <spana>{{color}}</spana>
+            <span>{{path}}</span>
+
+            <div class="div--box" ng-show="isIdentifySuccess">
+                <h2>是否成功</h2>
+                <button ng-click="identify_failed()">不成功</button>
+                <div class="div--box" ng-show="isEditIdentify">
+                    <h3>樣式表</h3>
+                    <div ng-repeat="weatherScore in watherScoreList">
+                        <button ng-click="changeIdentifyName(weatherScore.EngName)">
+                            <span>{{weatherScore.EngName}}</span>
+                            <span>{{weatherScore.ChName}}</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="div--box" ng-show="isEditIdentify">
+                    <h3>顏色表</h3>
+                    <div ng-repeat="color in colorList">
+                        <button ng-click="changeColorName(color.EngName)">
+                            <span>{{color.EngName}}</span>
+                            <span>{{color.ChName}}</span>
+                        </button>
+                    </div>
+                </div>
+                <button ng-click="identify_save_sql()">成功: 存入資料庫</button>
+                <span>資料庫操作: {{isSuccess}}</span>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

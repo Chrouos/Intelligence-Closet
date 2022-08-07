@@ -20,6 +20,3 @@ AS
 select *
 from v_station
 
-SELECT *
-FROM v_station
-WHERE CityName = '·s¥_¥«'
