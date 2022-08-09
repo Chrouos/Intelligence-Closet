@@ -2,21 +2,25 @@ drop table color
 
 create table color(
 
-	Id bigint PRIMARY KEY NOT NULL IDENTITY, -- ½s¸¹ ( 1, 2, 3 ... )
-	ColorEngName varchar(30)¡@NOT NULL, -- ÃC¦â¦WºÙ(­^¤åª©¥»)
-	ColorName nvarchar(30)-- ÃC¦â¦WºÙ(¤¤¤åª©¥»)
+	Id bigint PRIMARY KEY NOT NULL IDENTITY, -- ç·¨è™Ÿ ( 1, 2, 3 ... )
+	ColorEngName varchar(30)ã€€NOT NULL, -- é¡è‰²åç¨±(è‹±æ–‡ç‰ˆæœ¬)
+	ColorName nvarchar(30)-- é¡è‰²åç¨±(ä¸­æ–‡ç‰ˆæœ¬)
 
 );
 
 select * from color
 
-insert color values ('Undefined', NULL)
-insert color values ('BLUE', 'ÂÅ¦â')
-insert color values ('BLACK', '¶Â¦â')
-insert color values ('WHITE', '¥Õ¦â')
-insert color values ('RED', '¬õ¦â')
-insert color values ('ORANGE', '¾ï¦â')
-insert color values ('YELLOW', '¶À¦â')
-insert color values ('GREEN', 'ºñ¦â')
-insert color values ('PURPLE', 'µµ¦â')
-insert color values ('GRAY', '¦Ç¦â')
+insert color values ('Undefined', NULL) --1
+insert color values ('BLUE', 'è—è‰²') --2
+insert color values ('BLACK', 'é»‘è‰²') --3
+insert color values ('WHITE', 'ç™½è‰²') --4
+insert color values ('RED', 'ç´…è‰²') --5
+insert color values ('ORANGE', 'æ©˜è‰²') --6
+insert color values ('YELLOW', 'é»ƒè‰²') --7
+insert color values ('GREEN', 'ç¶ è‰²') --8
+insert color values ('PURPLE', 'ç´«è‰²') --9
+insert color values ('GRAY', 'ç°è‰²') --10
+insert color values ('CREAMY WHITE','ç±³ç™½è‰²') --11
+insert color values ('ARMY GREEN','è»ç¶ è‰²') --12
+insert color values ('KHAKI','å¡å…¶è‰²') --13
+
