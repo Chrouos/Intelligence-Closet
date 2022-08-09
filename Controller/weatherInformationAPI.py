@@ -1,3 +1,4 @@
+from cmath import e
 import requests  # 要獲得天氣API
 import re  # 正規表示法：regular expression
 
@@ -94,7 +95,8 @@ class WeatherInformationAPI:
                     self.__humd = float(complete_humd.group()[-4:])
                 except:
                     self.__humd = float(complete_humd.group()[-3:])
-            except:
+            except e:
+                print(e)
                 self.__humd = -1
             
 
@@ -107,7 +109,10 @@ class WeatherInformationAPI:
         complete_DTX = re_complete_DTX.search(str(self.__dataText))
         
         try:
-            self.__d_tx = float(complete_DTX.group()[-5:])
+            try:
+                self.__d_tx = float(complete_DTX.group()[-5:])
+            except:
+                self.__d_tx = float(complete_DTX.group()[-4:])
         except:
             self.__d_tx = -1
 
@@ -120,7 +125,10 @@ class WeatherInformationAPI:
         complete_DTN = re_complete_DTN.search(str(self.__dataText))
         
         try:
-            self.__d_tn = float(complete_DTN.group()[-5:])
+            try:
+                self.__d_tn = float(complete_DTN.group()[-5:])
+            except:
+                self.__d_tn = float(complete_DTN.group()[-4:])
         except:
             self.__d_tn = -1
 

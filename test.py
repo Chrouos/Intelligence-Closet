@@ -143,6 +143,6 @@ from Controller.weatherInformationAPI import WeatherInformationAPI
 # clothesGraphController.getCombination()
 
 ## 天氣物件
-# weatherInformationAPI = WeatherInformationAPI('埔心')
-# weatherInformationAPI.getWeather()
-# weatherInformationAPI.printWeather()
+weatherInformationAPI = WeatherInformationAPI('花蓮')
+weatherInformationAPI.getWeather()
+weatherInformationAPI.printWeather()
