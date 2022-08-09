@@ -10,13 +10,16 @@ create table color(
 
 select * from color
 
-insert color values ('Undefined', NULL)
-insert color values ('BLUE', '藍色')
-insert color values ('BLACK', '黑色')
-insert color values ('WHITE', '白色')
-insert color values ('RED', '紅色')
-insert color values ('ORANGE', '橘色')
-insert color values ('YELLOW', '黃色')
-insert color values ('GREEN', '綠色')
-insert color values ('PURPLE', '紫色')
-insert color values ('GRAY', '灰色')
+insert color values ('Undefined', NULL) --1
+insert color values ('BLUE', '藍色') --2
+insert color values ('BLACK', '黑色') --3
+insert color values ('WHITE', '白色') --4
+insert color values ('RED', '紅色') --5
+insert color values ('ORANGE', '橘色') --6
+insert color values ('YELLOW', '黃色') --7
+insert color values ('GREEN', '綠色') --8
+insert color values ('PURPLE', '紫色') --9
+insert color values ('GRAY', '灰色') --10
+insert color values ('CREAMY WHITE','米白色') --11
+insert color values ('ARMY GREEN','軍綠色') --12
+insert color values ('KHAKI','卡其色') --13

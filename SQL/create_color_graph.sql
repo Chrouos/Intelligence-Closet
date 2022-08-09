@@ -1,349 +1,167 @@
 drop table color_graph
 
-create table color_graph
-(
+create table color_graph(
 
-	Id bigint PRIMARY KEY NOT NULL IDENTITY,
-	-- ½s¸¹ ( 1, 2, 3 ... )
-	ColorId1 bigint NOT NULL,
-	-- ÃC¦â°t¹ï1
-	ColorId2 bigint NOT NULL,
-	-- ÃC¦â°t¹ï2
-	ColorScore float NOT NULL
-	-- °t¹ï¤À¼Æ
+	Id bigint PRIMARY KEY NOT NULL IDENTITY, -- ç·¨è™Ÿ ( 1, 2, 3 ... )
+	ColorId1 bigint NOT NULL, -- é¡è‰²é…å°1
+	ColorId2 bigint NOT NULL, -- é¡è‰²é…å°2
+	ColorScore float NOT NULL -- é…å°åˆ†æ•¸
 );
 
-select *
-from color_graph
+select * from color_graph
 
-insert color_graph
-values
-	(5, 5, 1)
---¬õ ¬õ 1
-insert color_graph
-values
-	(5, 6, 3)
---¬õ ¾ï 3
-insert color_graph
-values
-	(5, 7, 4)
---¬õ ¶À 4
-insert color_graph
-values
-	(5, 8, 3.5)
---¬õ ºñ 3.5
-insert color_graph
-values
-	(5, 2, 2)
---¬õ ÂÅ 2
-insert color_graph
-values
-	(5, 9, 3.5)
---¬õ µµ 3.5
-insert color_graph
-values
-	(5, 3, 4)
---¬õ ¶Â 4
-insert color_graph
-values
-	(5, 10, 4)
---¬õ ¦Ç 0
-insert color_graph
-values
-	(5, 4, 4)
---¬õ ¥Õ 2.5
+insert color_graph values (5, 5, 1) --ç´… ç´… 1
+insert color_graph values (5, 6, 3) --ç´… æ©˜ 3
+insert color_graph values (5, 7, 4) --ç´… é»ƒ 4
+insert color_graph values (5, 8, 3.5) --ç´… ç¶  3.5
+insert color_graph values (5, 2, 2) --ç´… è— 2
+insert color_graph values (5, 9, 3.5) --ç´… ç´« 3.5
+insert color_graph values (5, 3, 4) --ç´… é»‘ 4
+insert color_graph values (5, 10, 4) --ç´… ç° 0
+insert color_graph values (5, 4, 4) --ç´… ç™½ 2.5
+insert color_graph values (5, 11, 4) --ç´… ç±³ç™½ 2.5
+insert color_graph values (5, 12, 4) --ç´… è»ç¶  0
+insert color_graph values (5, 13, 4) --ç´… å¡å…¶ 3
 
-insert color_graph
-values
-	(6, 5, 3)
---¾ï ¬õ 3
-insert color_graph
-values
-	(6, 6, 2)
---¾ï ¾ï 2
-insert color_graph
-values
-	(6, 7, 3.5)
---¾ï ¶À 3.5
-insert color_graph
-values
-	(6, 8, 1)
---¾ï ºñ 1
-insert color_graph
-values
-	(6, 2, 0)
---¾ï ÂÅ 0
-insert color_graph
-values
-	(6, 9, 2)
---¾ï µµ 2
-insert color_graph
-values
-	(6, 3, 3)
---¾ï ¶Â 3
-insert color_graph
-values
-	(6, 10, 0)
---¾ï ¦Ç 0
-insert color_graph
-values
-	(6, 4, 4)
---¾ï ¥Õ 4
+insert color_graph values (6, 5, 3) --æ©˜ ç´… 3
+insert color_graph values (6, 6, 2) --æ©˜ æ©˜ 2
+insert color_graph values (6, 7, 3.5) --æ©˜ é»ƒ 3.5
+insert color_graph values (6, 8, 1) --æ©˜ ç¶  1
+insert color_graph values (6, 2, 0) --æ©˜ è— 0
+insert color_graph values (6, 9, 2) --æ©˜ ç´« 2
+insert color_graph values (6, 3, 3) --æ©˜ é»‘ 3
+insert color_graph values (6, 10, 0) --æ©˜ ç° 0
+insert color_graph values (6, 4, 4) --æ©˜ ç™½ 4
+insert color_graph values (6, 11, 4) --æ©˜ ç±³ç™½ 2.5
+insert color_graph values (6, 12, 4) --æ©˜ è»ç¶  0
+insert color_graph values (6, 13, 4) --æ©˜ å¡å…¶ 3
 
-insert color_graph
-values
-	(7, 5, 4)
---¶À ¬õ 4
-insert color_graph
-values
-	(7, 6, 4.5)
---¶À ¾ï 4.5
-insert color_graph
-values
-	(7, 7, 3)
---¶À ¶À 3
-insert color_graph
-values
-	(7, 8, 3)
---¶À ºñ 3
-insert color_graph
-values
-	(7, 2, 1)
---¶À ÂÅ 1
-insert color_graph
-values
-	(7, 9, 0)
---¶À µµ 0
-insert color_graph
-values
-	(7, 3, 3)
---¶À ¶Â 3
-insert color_graph
-values
-	(7, 10, 0)
---¶À ¦Ç 0
-insert color_graph
-values
-	(7, 4, 4)
---¶À ¥Õ 4
+insert color_graph values (7, 5, 4) --é»ƒ ç´… 4
+insert color_graph values (7, 6, 4.5) --é»ƒ æ©˜ 4.5
+insert color_graph values (7, 7, 3) --é»ƒ é»ƒ 3
+insert color_graph values (7, 8, 3) --é»ƒ ç¶  3
+insert color_graph values (7, 2, 1) --é»ƒ è— 1
+insert color_graph values (7, 9, 0) --é»ƒ ç´« 0
+insert color_graph values (7, 3, 3) --é»ƒ é»‘ 3
+insert color_graph values (7, 10, 0) --é»ƒ ç° 0
+insert color_graph values (7, 4, 4) --é»ƒ ç™½ 4
+insert color_graph values (7, 11, 4) --é»ƒ ç±³ç™½ 4.5
+insert color_graph values (7, 12, 4) --é»ƒ è»ç¶  3
+insert color_graph values (7, 13, 4) --é»ƒ å¡å…¶ 4.5
 
-insert color_graph
-values
-	(8, 5, 3.5)
---ºñ ¬õ 3.5
-insert color_graph
-values
-	(8, 6, 1)
---ºñ ¾ï 1
-insert color_graph
-values
-	(8, 7, 3)
---ºñ ¶À 3
-insert color_graph
-values
-	(8, 8, 2)
---ºñ ºñ 2
-insert color_graph
-values
-	(8, 2, 3.5)
---ºñ ÂÅ 3.5
-insert color_graph
-values
-	(8, 9, 0)
---ºñ µµ 0
-insert color_graph
-values
-	(8, 3, 3)
---ºñ ¶Â 3
-insert color_graph
-values
-	(8, 10, 2)
---ºñ ¦Ç 2
-insert color_graph
-values
-	(8, 4, 3)
---ºñ ¥Õ 3
+insert color_graph values (8, 5, 3.5) --ç¶  ç´… 3.5
+insert color_graph values (8, 6, 1) --ç¶  æ©˜ 1
+insert color_graph values (8, 7, 3) --ç¶  é»ƒ 3
+insert color_graph values (8, 8, 2) --ç¶  ç¶  2
+insert color_graph values (8, 2, 3.5) --ç¶  è— 3.5
+insert color_graph values (8, 9, 0) --ç¶  ç´« 0
+insert color_graph values (8, 3, 3) --ç¶  é»‘ 3
+insert color_graph values (8, 10, 2) --ç¶  ç° 2
+insert color_graph values (8, 4, 3) --ç¶  ç™½ 3
+insert color_graph values (8, 11, 4) --ç¶  ç±³ç™½ 3
+insert color_graph values (8, 12, 4) --ç¶  è»ç¶  4
+insert color_graph values (8, 13, 4) --ç¶  å¡å…¶ 1.5
 
-insert color_graph
-values
-	(2, 5, 2)
---ÂÅ ¬õ 2
-insert color_graph
-values
-	(2, 6, 0)
---ÂÅ ¾ï 0
-insert color_graph
-values
-	(2, 7, 1)
---ÂÅ ¶À 1
-insert color_graph
-values
-	(2, 8, 3)
---ÂÅ ºñ 3
-insert color_graph
-values
-	(2, 2, 4)
---ÂÅ ÂÅ 4
-insert color_graph
-values
-	(2, 9, 4.5)
---ÂÅ µµ 4.5
-insert color_graph
-values
-	(2, 3, 4.5)
---ÂÅ ¶Â 4.5
-insert color_graph
-values
-	(2, 10, 2)
---ÂÅ ¦Ç 2
-insert color_graph
-values
-	(2, 4, 5)
---ÂÅ ¥Õ 5
+insert color_graph values (2, 5, 2) --è— ç´… 2
+insert color_graph values (2, 6, 0) --è— æ©˜ 0
+insert color_graph values (2, 7, 1) --è— é»ƒ 1
+insert color_graph values (2, 8, 3) --è— ç¶  3
+insert color_graph values (2, 2, 4) --è— è— 4
+insert color_graph values (2, 9, 4.5) --è— ç´« 4.5
+insert color_graph values (2, 3, 4.5) --è— é»‘ 4.5
+insert color_graph values (2, 10, 2) --è— ç° 2
+insert color_graph values (2, 4, 5) --è— ç™½ 5
+insert color_graph values (2, 11, 4) --è— ç±³ç™½ 4.5
+insert color_graph values (2, 12, 4) --è— è»ç¶  2
+insert color_graph values (2, 13, 4) --è— å¡å…¶ 2.5
 
-insert color_graph
-values
-	(9, 5, 3.5)
---µµ ¬õ 3.5
-insert color_graph
-values
-	(9, 6, 1)
---µµ ¾ï 1
-insert color_graph
-values
-	(9, 7, 3)
---µµ ¶À 3
-insert color_graph
-values
-	(9, 8, 2)
---µµ ºñ 2
-insert color_graph
-values
-	(9, 2, 3.5)
---µµ ÂÅ 3.5
-insert color_graph
-values
-	(9, 9, 0)
---µµ µµ 0
-insert color_graph
-values
-	(9, 3, 3)
---µµ ¶Â 3
-insert color_graph
-values
-	(9, 10, 2)
---µµ ¦Ç 2
-insert color_graph
-values
-	(9, 4, 3)
---µµ ¥Õ 3
+insert color_graph values (9, 5, 3.5) --ç´« ç´… 3.5
+insert color_graph values (9, 6, 1) --ç´« æ©˜ 1
+insert color_graph values (9, 7, 3) --ç´« é»ƒ 3
+insert color_graph values (9, 8, 2) --ç´« ç¶  2
+insert color_graph values (9, 2, 3.5) --ç´« è— 3.5
+insert color_graph values (9, 9, 0) --ç´« ç´« 0
+insert color_graph values (9, 3, 3) --ç´« é»‘ 3
+insert color_graph values (9, 10, 2) --ç´« ç° 2
+insert color_graph values (9, 4, 3) --ç´« ç™½ 3
+insert color_graph values (9, 11, 4) --ç´« ç±³ç™½ 3
+insert color_graph values (9, 12, 4) --ç´« è»ç¶  0
+insert color_graph values (9, 13, 4) --ç´« å¡å…¶ 0
 
-insert color_graph
-values
-	(3, 5, 0)
---¶Â ¬õ 0
-insert color_graph
-values
-	(3, 6, 0)
---¶Â ¾ï 0
-insert color_graph
-values
-	(3, 7, 0)
---¶Â ¶À 0
-insert color_graph
-values
-	(3, 8, 0)
---¶Â ºñ 0
-insert color_graph
-values
-	(3, 2, 1)
---¶Â ÂÅ 1
-insert color_graph
-values
-	(3, 9, 1)
---¶Â µµ 1
-insert color_graph
-values
-	(3, 3, 5)
---¶Â ¶Â 5
-insert color_graph
-values
-	(3, 10, 4.5)
---¶Â ¦Ç 4.5
-insert color_graph
-values
-	(3, 4, 4.5)
---¶Â ¥Õ 4.5
+insert color_graph values (3, 5, 0) --é»‘ ç´… 0
+insert color_graph values (3, 6, 0) --é»‘ æ©˜ 0
+insert color_graph values (3, 7, 0) --é»‘ é»ƒ 0
+insert color_graph values (3, 8, 0) --é»‘ ç¶  0
+insert color_graph values (3, 2, 1) --é»‘ è— 1
+insert color_graph values (3, 9, 1) --é»‘ ç´« 1
+insert color_graph values (3, 3, 5) --é»‘ é»‘ 5
+insert color_graph values (3, 10, 4.5) --é»‘ ç° 4.5
+insert color_graph values (3, 4, 4.5) --é»‘ ç™½ 4.5
+insert color_graph values (3, 11, 4) --é»‘ ç±³ç™½ 4
+insert color_graph values (3, 12, 4) --é»‘ è»ç¶  4
+insert color_graph values (3, 13, 4) --é»‘ å¡å…¶ 3.5
 
-insert color_graph
-values
-	(10, 5, 0)
---¦Ç ¬õ 0
-insert color_graph
-values
-	(10, 6, 0)
---¦Ç ¾ï 0
-insert color_graph
-values
-	(10, 7, 0)
---¦Ç ¶À 0
-insert color_graph
-values
-	(10, 8, 0)
---¦Ç ºñ 0
-insert color_graph
-values
-	(10, 2, 3)
---¦Ç ÂÅ 3
-insert color_graph
-values
-	(10, 9, 3)
---¦Ç µµ 3
-insert color_graph
-values
-	(10, 3, 4.5)
---¦Ç ¶Â 4.5
-insert color_graph
-values
-	(10, 10, 5)
---¦Ç ¦Ç 5
-insert color_graph
-values
-	(10, 4, 4)
---¦Ç ¥Õ 4
+insert color_graph values (10, 5, 0) --ç° ç´… 0
+insert color_graph values (10, 6, 0) --ç° æ©˜ 0
+insert color_graph values (10, 7, 0) --ç° é»ƒ 0
+insert color_graph values (10, 8, 0) --ç° ç¶  0
+insert color_graph values (10, 2, 3) --ç° è— 3
+insert color_graph values (10, 9, 3) --ç° ç´« 3
+insert color_graph values (10, 3, 4.5) --ç° é»‘ 4.5
+insert color_graph values (10, 10, 5) --ç° ç° 5
+insert color_graph values (10, 4, 4) --ç° ç™½ 4
+insert color_graph values (10, 11, 4) --ç° ç±³ç™½ 4.5
+insert color_graph values (10, 12, 4) --ç° è»ç¶  2
+insert color_graph values (10, 13, 4) --ç° å¡å…¶ 3.5
 
-insert color_graph
-values
-	(4, 5, 4.5)
---¥Õ ¬õ 4.5
-insert color_graph
-values
-	(4, 6, 3)
---¥Õ ¾ï 3
-insert color_graph
-values
-	(4, 7, 3)
---¥Õ ¶À 3
-insert color_graph
-values
-	(4, 8, 2)
---¥Õ ºñ 2
-insert color_graph
-values
-	(4, 2, 3)
---¥Õ ÂÅ 3
-insert color_graph
-values
-	(4, 9, 2.5)
---¥Õ µµ 2.5
-insert color_graph
-values
-	(4, 3, 4)
---¥Õ ¶Â 4
-insert color_graph
-values
-	(4, 10, 5)
---¥Õ ¦Ç 5
-insert color_graph
-values
-	(4, 4, 3.5) --¥Õ ¥Õ 3.5
+insert color_graph values (4, 5, 4.5) --ç™½ ç´… 4.5
+insert color_graph values (4, 6, 3) --ç™½ æ©˜ 3
+insert color_graph values (4, 7, 3) --ç™½ é»ƒ 3
+insert color_graph values (4, 8, 2) --ç™½ ç¶  2
+insert color_graph values (4, 2, 3) --ç™½ è— 3
+insert color_graph values (4, 9, 2.5) --ç™½ ç´« 2.5
+insert color_graph values (4, 3, 4) --ç™½ é»‘ 4
+insert color_graph values (4, 10, 5) --ç™½ ç° 5
+insert color_graph values (4, 4, 3.5) --ç™½ ç™½ 3.5
+insert color_graph values (4, 11, 4) --ç™½ ç±³ç™½ 2.5
+insert color_graph values (4, 12, 4) --ç™½ è»ç¶  3
+insert color_graph values (4, 13, 4) --ç™½ å¡å…¶ 5
+
+insert color_graph values (11, 5, 0) --ç±³ç™½ ç´… 0
+insert color_graph values (11, 6, 0) --ç±³ç™½ æ©˜ 0
+insert color_graph values (11, 7, 1) --ç±³ç™½ é»ƒ 1
+insert color_graph values (11, 8, 0) --ç±³ç™½ ç¶  0
+insert color_graph values (11, 2, 0) --ç±³ç™½ è— 0
+insert color_graph values (11, 9, 0) --ç±³ç™½ ç´« 0
+insert color_graph values (11, 3, 4.5) --ç±³ç™½ é»‘ 4.5
+insert color_graph values (11, 10, 4) --ç±³ç™½ ç° 4
+insert color_graph values (11, 4, 3.5) --ç±³ç™½ ç™½ 3.5
+insert color_graph values (11, 11, 3) --ç±³ç™½ ç±³ç™½ 3
+insert color_graph values (11, 12, 2) --ç±³ç™½ è»ç¶  2
+insert color_graph values (11, 13, 4) --ç±³ç™½ å¡å…¶ 4
+
+insert color_graph values (12, 5, 0) --è»ç¶  ç´… 0
+insert color_graph values (12, 6, 0) --è»ç¶  æ©˜ 0
+insert color_graph values (12, 7, 0) --è»ç¶  é»ƒ 0
+insert color_graph values (12, 8, 0) --è»ç¶  ç¶  0
+insert color_graph values (12, 2, 0) --è»ç¶  è— 0
+insert color_graph values (12, 9, 0) --è»ç¶  ç´« 0
+insert color_graph values (12, 3, 4.5) --è»ç¶  é»‘ 4.5
+insert color_graph values (12, 10, 2) --è»ç¶  ç° 2
+insert color_graph values (12, 4, 4) --è»ç¶  ç™½ 4.5
+insert color_graph values (12, 11, 3) --è»ç¶  ç±³ç™½ 3
+insert color_graph values (12, 12, 2.5) --è»ç¶  è»ç¶  2.5
+insert color_graph values (12, 13, 4) --è»ç¶  å¡å…¶ 4
+
+insert color_graph values (13, 5, 0) --å¡å…¶ ç´… 0
+insert color_graph values (13, 6, 0) --å¡å…¶ æ©˜ 0
+insert color_graph values (13, 7, 2.5) --å¡å…¶ é»ƒ 2
+insert color_graph values (13, 8, 1) --å¡å…¶ ç¶  1
+insert color_graph values (13, 2, 0) --å¡å…¶ è— 0
+insert color_graph values (13, 9, 0) --å¡å…¶ ç´« 0
+insert color_graph values (13, 3, 5) --å¡å…¶ é»‘ 5
+insert color_graph values (13, 10, 4) --å¡å…¶ ç° 4
+insert color_graph values (13, 4, 4.5) --å¡å…¶ ç™½ 4.5
+insert color_graph values (13, 11, 4) --å¡å…¶ ç±³ç™½ 4
+insert color_graph values (13, 12, 1) --å¡å…¶ è»ç¶  1
+insert color_graph values (13, 13, 2.5) --å¡å…¶ å¡å…¶ 2.5
