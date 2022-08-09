@@ -15,8 +15,6 @@ app.controller('myCtrl', function ($scope) {
     $scope.get_combs = async function () {
         $scope.combs = await eel.comb_to_js()();
 
-        console.log($scope.combs)
-
     }; $scope.get_combs();
 
     // 拍照存取
@@ -35,7 +33,7 @@ app.controller('myCtrl', function ($scope) {
     $scope.identify_failed = async function () {
         $scope.isEditIdentify = true;
 
-        $scope.watherScoreList = await eel.get_all_ws_name()();
+        $scope.subCategoryList = await eel.get_all_sc_name()();
         $scope.colorList = await eel.get_all_color()();
     }
 
@@ -44,7 +42,8 @@ app.controller('myCtrl', function ($scope) {
         $scope.isSuccess = await eel.identify_save_sql($scope.category, $scope.color, $scope.path)();
         $scope.isIdentifySuccess = false;
         $scope.isEditIdentify = false;
-    };
+        $scope.get_combs();
+    }
 
     // 修改category
     $scope.changeIdentifyName = function (weatherChName) {

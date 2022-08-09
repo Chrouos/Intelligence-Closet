@@ -116,6 +116,10 @@ class ClothesNodeDAO:
 		# 最後一個位置
 	def lastId(self):
 		data = self.sortNameDESC('Id')
+
+		print("data: ", data)
+		if data == None:
+			return 0
 	
 		clothesNode = ClothesNode()
 		clothesNode.updateBySQL(data)

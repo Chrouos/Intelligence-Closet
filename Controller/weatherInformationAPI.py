@@ -176,9 +176,16 @@ class WeatherInformationAPI:
             self.reD_TN()
             self.reD_TXT()
             self.reD_TNT()
+            
+            weather_dict = {'temp': self.__temp,
+                            'humd': self.__humd, 
+                            'd_tx': self.__d_tx,
+                            'd_tn': self.__d_tn,
+                            'd_txt': self.__d_txt,
+                            'd_tnt': self.__d_tnt}
 
             # 回傳溫度溫度、濕度、最高溫、最低溫、最高溫時間點、最低溫時間點
-            return (self.__temp, self.__humd, self.__d_tx, self.__d_tn, self.__d_txt, self.__d_tnt)
+            return weather_dict
         except:
             return "此站未提供天氣資訊"
 

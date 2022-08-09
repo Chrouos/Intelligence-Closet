@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html ng-app="myApp" ng-controller="myCtrl">
+
+<head>
+    <title>Store</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <!-- javascript  -->
+    <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="./js/weather.js"></script>
+
+    <!-- 關聯的樣式表 -->
+    <link rel="stylesheet" href="./public/bs.css" type="text/css">
+
+    <link rel="stylesheet" href="./public/bulma/bulma.css" type="text/css">
+    <link rel="stylesheet" href="./public/font-awesome/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="./public/style.css" type="text/css">
+
+    <style>
+        .div--box {
+            margin: 3px;
+            border: 3.5px solid black;
+            padding: 5px;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container--center" style="padding:20px">
+        <div class="div--box">
+            <h2>天氣資訊</h2>
+            <div class="block m-2 column is-one-quarter">
+                <div class="select is-multiple pl-4 pt-4" style="width:40%">
+                    選擇城市
+                    <select ng-model="selectedCityId" ng-options="city.Id as city.CityName for city in allCitys"
+                        ng-change="getStation()"></select>
+                </div>
+                <span> 選擇的城市: {{selectedCityId}}</span>
+
+                <div class="select is-multiple pl-3 pt-4" style="width:50%">
+                    選擇站別
+                    <select ng-model="selectedStation"
+                        ng-options="station.StationName as station.StationName for station in stationByCity"
+                        ng-change="getWeather()"></select>
+                </div>
+                <!-- <span> 選擇的氣象站別: {{selectedStation}}</span> -->
+            </div>
+
+            <div class="card-content column auto">
+                <div class="box mt-5">
+                    氣象顯示
+                    <p id="weather_temp">1</p>
+                    <p id="weather_humd">2</p>
+                    <p id="weather_d_tx">3</p>
+                    <p id="weather_d_tn">4</p>
+                    <p id="weather_d_txt">5</p>
+                    <p id="weather_d_tnt">6</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container--center" style="padding:20px">
+        <div class="div--box">
+            <a href="./weather.html">weather.html</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

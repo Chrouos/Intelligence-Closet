@@ -136,11 +136,11 @@ from Controller.weatherInformationAPI import WeatherInformationAPI
 
 
 # 圖形物件
-clothesGraphController = ClothesGraphController('板橋')
+# clothesGraphController = ClothesGraphController('板橋')
 # clothesGraphController.updateNode()
 # clothesGraphController.printNode()
 # clothesGraphController.printEdge()
-clothesGraphController.getCombination()
+# clothesGraphController.getCombination()
 
 ## 天氣物件
 # weatherInformationAPI = WeatherInformationAPI('埔心')

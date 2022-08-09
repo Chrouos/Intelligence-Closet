@@ -73,7 +73,7 @@ class ClothesGraphController:
         
         # 公式: ( 26 - 使用者喜好) - ( diff - 天氣分數總合)
         for graph in self.graphs:
-            result = math.pow(math.floor((diff - graph[2])), 2)
+            result = math.floor((diff * graph[2]))
             print("result: ", result)
             combs.append([  result,
                             graph[0].Position, graph[1].Position,
@@ -87,7 +87,7 @@ class ClothesGraphController:
                                     'Clothes1Name': graph[0].Name, 'Clothes2Name': graph[1].Name,
                                     'Clothes1Path': graph[0].FilePosition, 'Clothes2Path': graph[1].FilePosition})
         
-        combs.sort(reverse = False)
+        combs.sort(reverse = True)
         
         
         

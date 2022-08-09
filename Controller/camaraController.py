@@ -16,7 +16,7 @@ from Service.subCategoryService import SubCategoryService
 
 sys.path.append(os.getcwd())  # 抓取路徑
 
-chooseCamara = 0
+chooseCamara = 1
 
 class CamaraController:
 
@@ -46,8 +46,8 @@ class CamaraController:
         colorId = colorService.queryIdByEngName(self.color)
         subCategoryId = subCategoryService.queryIdByClothesType(self.category)
         
-        
-        clothesNode_create = '{{"SubCategoryId": {0}, "ColorId": {1}, "FilePosition": "{2}"}}'.format(subCategoryId, colorId, self.save_path)
+        src_path = "./public/src/clothes_"+str(self.newOneId)+".jpg"
+        clothesNode_create = '{{"SubCategoryId": {0}, "ColorId": {1}, "FilePosition": "{2}"}}'.format(subCategoryId, colorId, src_path)
         print("saveData:", clothesNode_create)
 
         return clothesNodeService.create(clothesNode_create)

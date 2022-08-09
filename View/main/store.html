@@ -40,15 +40,13 @@
     <div class="container--center" style="padding:20px">
         <div class="div--box">
             <h2>衣物圖型</h2>
-            <!-- ng-repeat="comb in combs" -->
             <div ng-repeat="comb in combs">
-                <span>{{comb.resultScore}}</span>
-                <spana>{{comb.clothes1Position}}</spana>
-                <span>{{comb.clothes2Position}}</span>
-                <span>{{comb.clothes1Name}}</span>
-                <span>{{comb.clothes2Name}}</span>
-                <span>{{comb.clothes1Path}}</span>
-                <span>{{comb.clothes2Path}}</span>
+                <!-- <span>衣服1的位置: {{comb.Clothes1Position}}</span>
+                <span>衣服2的位置: {{comb.Clothes2Position}}</span> -->
+                <span>{{comb.Clothes1Name}}</span>
+                <span>{{comb.Clothes2Name}}</span>
+                <img src="{{comb.Clothes1Path}}" style="width: 100px;"></img>
+                <img src="{{comb.Clothes2Path}}" style="width: 100px;"></img>
             </div>
         </div>
     </div>
@@ -66,19 +64,18 @@
                 <button ng-click="identify_failed()">不成功</button>
                 <div class="div--box" ng-show="isEditIdentify">
                     <h3>樣式表</h3>
-                    <div ng-repeat="weatherScore in watherScoreList">
-                        <button ng-click="changeIdentifyName(weatherScore.EngName)">
-                            <span>{{weatherScore.EngName}}</span>
-                            <span>{{weatherScore.ChName}}</span>
+                    <div ng-repeat="subCategory in subCategoryList">
+                        <button ng-click="changeIdentifyName(subCategory.ClothesType)" class="btn">
+                            <span>{{subCategory.Name}}</span>
                         </button>
                     </div>
                 </div>
                 <div class="div--box" ng-show="isEditIdentify">
                     <h3>顏色表</h3>
                     <div ng-repeat="color in colorList">
-                        <button ng-click="changeColorName(color.EngName)">
-                            <span>{{color.EngName}}</span>
-                            <span>{{color.ChName}}</span>
+                        <button ng-click="changeColorName(color.ColorEngName)" class="btn">
+                            <span>{{color.ColorEngName}}</span>
+                            <span>{{color.ColorName}}</span>
                         </button>
                     </div>
                 </div>
@@ -88,7 +85,11 @@
         </div>
     </div>
 
-
+    <div class="container--center" style="padding:20px">
+        <div class="div--box">
+            <a href="./weather.html">weather.html</a>
+        </div>
+    </div>
 
 </body>
 
