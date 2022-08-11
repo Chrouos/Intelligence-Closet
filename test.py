@@ -121,9 +121,9 @@ from Controller.weatherInformationAPI import WeatherInformationAPI
 
 #####################################
 
-# 更新站別
-# crawlerStationController = CrawlerStationController()
-# crawlerStationController.refreshAllData()
+# 更新站別 !!
+crawlerStationController = CrawlerStationController()
+crawlerStationController.refreshAllData()
 
 # 相機物件
 # camaraController = CamaraController()
@@ -143,6 +143,6 @@ from Controller.weatherInformationAPI import WeatherInformationAPI
 # clothesGraphController.getCombination()
 
 ## 天氣物件
-weatherInformationAPI = WeatherInformationAPI('花蓮')
-weatherInformationAPI.getWeather()
-weatherInformationAPI.printWeather()
+# weatherInformationAPI = WeatherInformationAPI('花蓮')
+# weatherInformationAPI.getWeather()
+# weatherInformationAPI.printWeather()
