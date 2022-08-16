@@ -20,7 +20,8 @@ class UserDashboardService:
                                         'WeatherLike': data.WeatherLike, 
                                         'StationName': data.StationName, 
                                         'Clock': data.Clock,
-                                        'ModifyTime': data.ModifyTime})
+                                        'ModifyTime': data.ModifyTime,
+                                        'StationId': data.StationId})
         
         return userDashboard_dict
     
@@ -33,16 +34,26 @@ class UserDashboardService:
                                 'WeatherLike': data.WeatherLike, 
                                 'StationName': data.StationName, 
                                 'Clock': data.Clock,
-                                'ModifyTime': data.ModifyTime}
+                                'ModifyTime': data.ModifyTime,
+                                'StationId': data.StationId}
         return userDashboard_dict
 
-    def updateById(self, jso, id):
-        userDashboard_dic = json.loads(jso)
-        userDashboard = UserDashboard()
-        userDashboard.updateByDict(userDashboard_dic)
-        
-        self.userDashboardDAO.updateStationNameById(userDashboard, id)
-        return True
+    def updateById(self, request, id):
+        # try:
+            userDashboard = UserDashboard()
+            if type(request) is dict:
+                userDashboard.updateByDict(request)
+            
+            if type(request) is str:
+                userDashboard_dic = json.loads(request)
+                userDashboard = UserDashboard()
+                userDashboard.updateByDict(userDashboard_dic)
+            
+            self.userDashboardDAO.updateById(userDashboard, id)
+            return True
+        # except Exception as e:
+        #     print(e)
+        #     return False
     
     
     def create(self, jso):

@@ -73,8 +73,8 @@ class UserDashboardDAO:
 
 	def create(self, userDashboard):
 		execute_str = "INSERT INTO intelligence_closet.dbo.user_dashboard " \
-					+ "(UserName, WeatherLike, ModifyTime, StationName, Clock) " \
-					+ "VALUES('{0}', {1}, GETDATE(), '{2}', '{3}');".format(userDashboard.UserName, userDashboard.WeatherLike, userDashboard.StationName, userDashboard.Clock)
+					+ "(UserName, WeatherLike, ModifyTime, StationName, Clock, StationId) " \
+					+ "VALUES('{0}', {1}, GETDATE(), '{2}', '{3}');".format(userDashboard.UserName, userDashboard.WeatherLike, userDashboard.StationName, userDashboard.Clock, userDashboard.StationId)
 		print("create: ", execute_str)
 
 		self.cursor.execute(execute_str)

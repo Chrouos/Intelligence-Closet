@@ -1,6 +1,6 @@
 
 
-
+from datetime import datetime
 
 class UserDashboard:
     
@@ -11,6 +11,7 @@ class UserDashboard:
         self.StationName = ""
         self.Clock = ""
         self.ModifyTime = ""
+        self.StationId = ""
         
     def print(self):
         print("Id: {0}, UserName: {1}, WeatherLike: {2}".format(self.Id, self.UserName, self.WeatherLike))
@@ -21,6 +22,7 @@ class UserDashboard:
         self.UserName = data.UserName
         self.WeatherLike = data.WeatherLike
         self.StationName = data.StationName
+        self.StationId = data.StationId
         self.Clock = data.Clock.strftime("%H/%M")
         self.ModifyTime = data.ModifyTime.strftime("%m/%d/%Y")
         
@@ -36,10 +38,22 @@ class UserDashboard:
             
         if data.get("StationName") != None: 
             self.StationName = data['StationName']
-
-        if data.get("Clock") != None: 
-            self.Clock = data['Clock'].strftime("%H/%M")
             
-        if data.get("ModifyTime") != None: 
-            self.ModifyTime = data['ModifyTime'].strftime("%m/%d/%Y")
+        if data.get("StationId") != None: 
+            self.StationId = data['StationId']
+
+        try:
+            if data.get("Clock") != None: 
+                self.Clock = data['Clock'].strftime("%H/%M")
+        except:
+            if data.get("Clock") != None: 
+                self.Clock = datetime.strptime(data['Clock'], "%H/%M")
+                
+        try:
+            if data.get("ModifyTime") != None: 
+                self.ModifyTime = data['ModifyTime'].strftime("%m/%d/%Y")
+        except:
+            if data.get("Clock") != None: 
+                self.ModifyTime = datetime.strptime(data['ModifyTime'], "%m/%d/%Y")
+            
         

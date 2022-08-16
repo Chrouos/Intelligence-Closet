@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html ng-app="myApp" ng-controller="myCtrl">
+
+<head>
+    <title>Store</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <!-- javascript  -->
+    <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="./js/user_dashboard.js"></script>
+
+    <!-- 關聯的樣式表 -->
+    <link rel="stylesheet" href="./public/bs.css" type="text/css">
+
+    <link rel="stylesheet" href="./public/bulma/bulma.css" type="text/css">
+    <link rel="stylesheet" href="./public/font-awesome/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="./public/style.css" type="text/css">
+
+    <style>
+        .div--box {
+            margin: 3px;
+            border: 3.5px solid black;
+            padding: 5px;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="container--center" style="padding:20px">
+        <div class="div--box">
+            <h2>設定</h2>
+            <div>
+                <p>{{user.UserName}}</p>
+                <input ng-model="user.WeatherLike" type="text" />
+                <p>{{user.StationName}}</p>
+                <button ng-click="update_user()">更新</button>
+            </div>
+        </div>
+        <div class="div--box">
+            <h2>更新站別</h2>
+            <div>
+                <div class="select is-multiple pl-4 pt-4" style="width:40%">
+                    選擇城市
+                    <select ng-model="selectedCityId" ng-options="city.Id as city.CityName for city in allCitys"
+                        ng-change="isCity_getStationByCity()"></select>
+                </div>
+                <div class="select is-multiple pl-3 pt-4" style="width:50%">
+                    選擇站別
+                    <select ng-model="user.StationName"
+                        ng-options="station.StationName as station.StationName for station in stationByCity"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container--center" style="padding:20px">
+        <div class="div--box">
+            <a href="./lobby.html">weather.html</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

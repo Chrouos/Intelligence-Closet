@@ -14,6 +14,9 @@ from Service.colorService import ColorService
 from Service.subCategoryService import SubCategoryService
 from Service.viewStationService import ViewStationService
 from Service.cityService import CityService
+from Service.userDashboardService import UserDashboardService
+
+user_id = 2
 
 # 衣物圖形
 @eel.expose
@@ -72,7 +75,7 @@ def get_all_color():
     print("get_all_color", datas)
     return datas
 
-################# weather
+################################################################################## weather
 @eel.expose
 def weather_to_js(weatherPosition):  # 傳送天氣資訊
 
@@ -101,5 +104,39 @@ def station_station_to_js(city):
     print("station: ", station_dict, city)
     return station_dict
 
+
+################################################################################## user
+
+@eel.expose
+def user_by_id_to_js():
+    userDashboardService = UserDashboardService()
+    user_dict = userDashboardService.queryById(user_id) # 預設為2
+    
+    print("user_by_id_to_js: ", user_dict)
+    return user_dict
+
+@eel.expose
+def all_user_to_js():
+    userDashboardService = UserDashboardService()
+    user_dict = userDashboardService.queryAll()
+    
+    print("all_user_to_js: ", user_dict)
+    return user_dict
+
+@eel.expose
+def update_user_dashboard(user):
+    userDashboardService = UserDashboardService()
+    print("user: ", user, type(user))
+    isSuccess = userDashboardService.updateById(user, user_id) # 預設為2 
+    
+    print("update_user_dashboard", isSuccess)
+    
+    return isSuccess
+    
+@eel.expose
+def change_user(userId):
+    global user_id 
+    user_id = userId
+
 eel.init('View/main')  # eel.init(網頁的資料夾)
-eel.start('store.html', size=(1080, 720))  # eel.start(html名稱, size=(起始大小))
+eel.start('lobby.html', size=(1080, 720))  # eel.start(html名稱, size=(起始大小))

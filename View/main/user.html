@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html ng-app="myApp" ng-controller="myCtrl">
+
+<head>
+    <title>Store</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <!-- javascript  -->
+    <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="./js/user.js"></script>
+
+    <!-- 關聯的樣式表 -->
+    <link rel="stylesheet" href="./public/bs.css" type="text/css">
+
+    <link rel="stylesheet" href="./public/bulma/bulma.css" type="text/css">
+    <link rel="stylesheet" href="./public/font-awesome/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="./public/style.css" type="text/css">
+
+    <style>
+        .div--box {
+            margin: 3px;
+            border: 3.5px solid black;
+            padding: 5px;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="container--center" style="padding:20px">
+        <div class="div--box">
+            <h2>所有人員</h2>
+            <div ng-repeat="user in users">
+                <a ng-click="change_user(user.Id)">{{user.UserName}}</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container--center" style="padding:20px">
+        <div class="div--box">
+            <a href="./lobby.html">weather.html</a>
+        </div>
+    </div>
+
+</body>
+
+</html>
