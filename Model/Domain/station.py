@@ -24,8 +24,10 @@ class Station:
         self.CityId = data.CityId
         self.Address = data.Address
         self.Remark = data.Remark
-        self.CreateTime = data.CreateTime.strftime("%m/%d/%Y")
-        self.ModifyTime = data.ModifyTime.strftime("%m/%d/%Y")
+        if data.CreateTime != None:
+            self.CreateTime = data.CreateTime.strftime("%m/%d/%Y")
+        if data.ModifyTime != None:
+            self.ModifyTime = data.ModifyTime.strftime("%m/%d/%Y")
         self.Work = data.Work
         
     def updateByDict(self, data):

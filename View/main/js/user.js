@@ -18,8 +18,8 @@ app.controller('myCtrl', function ($scope) {
     }; $scope.all_user_to_js();
 
 
-    $scope.change_user = async function () {
-        $scope.change_user = await eel.change_user()();
+    $scope.change_user = async function (id) {
+        $scope.change_user = await eel.change_user(id)();
     }
 
 });

@@ -1,5 +1,6 @@
 
 
+from asyncio.windows_events import NULL
 from datetime import datetime
 
 class UserDashboard:
@@ -23,8 +24,11 @@ class UserDashboard:
         self.WeatherLike = data.WeatherLike
         self.StationName = data.StationName
         self.StationId = data.StationId
-        self.Clock = data.Clock.strftime("%H/%M")
-        self.ModifyTime = data.ModifyTime.strftime("%m/%d/%Y")
+        print("CLOCK: ", data.Clock)
+        if data.Clock != None:
+            self.Clock = data.Clock.strftime("%H/%M")
+        if data.ModifyTime != None:
+            self.ModifyTime = data.ModifyTime.strftime("%m/%d/%Y")
         
     def updateByDict(self, data):
         if data.get("Id") != None: 

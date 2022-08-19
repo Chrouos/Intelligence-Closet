@@ -14,8 +14,10 @@ class Color:
         
     def updateBySQL(self, data):
         self.Id = data.Id
-        self.ColorEngName = data.ColorEngName
-        self.ColorName = data.ColorName
+        if data.ColorEngName != None:
+            self.ColorEngName = data.ColorEngName
+        if data.ColorName != None:
+            self.ColorName = data.ColorName
         
         
     def updateByDict(self, data):

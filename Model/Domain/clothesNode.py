@@ -27,8 +27,12 @@ class ClothesNode:
         self.UserPreferences = data.UserPreferences
         self.ClothesStyle = data.ClothesStyle
         self.UsageCounter = data.UsageCounter
-        self.CreateTime = data.CreateTime.strftime("%m/%d/%Y")
-        self.ModifyTime = data.ModifyTime.strftime("%m/%d/%Y")
+        
+        if data.CreateTime != None:
+            self.CreateTime = data.CreateTime.strftime("%m/%d/%Y")
+        if data.ModifyTime != None:
+            self.ModifyTime = data.ModifyTime.strftime("%m/%d/%Y")
+            
         self.FilePosition = data.FilePosition
         
     def updateByDict(self, data):

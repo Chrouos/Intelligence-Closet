@@ -135,8 +135,9 @@ def update_user_dashboard(user):
     
 @eel.expose
 def change_user(userId):
-    global user_id 
+    global user_id
     user_id = userId
+    
 
 eel.init('View/main')  # eel.init(網頁的資料夾)
 eel.start('lobby.html', size=(1080, 720))  # eel.start(html名稱, size=(起始大小))

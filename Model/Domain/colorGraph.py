@@ -15,7 +15,8 @@ class ColorGraph:
         self.Id = data.Id
         self.ColorId1 = data.ColorId1
         self.ColorId2 = data.ColorId2
-        self.ColorScore = data.ColorScore
+        if data.ColorScore != None:
+            self.ColorScore = data.ColorScore
         
         
     def updateByDict(self, data):

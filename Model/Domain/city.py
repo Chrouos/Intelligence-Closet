@@ -11,7 +11,8 @@ class City:
         
     def updateBySQL(self, data):
         self.Id = data.Id
-        self.CityName = data.CityName
+        if data.CityName != None:
+            self.CityName = data.CityName
         
         
     def updateByDict(self, data):

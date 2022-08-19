@@ -15,8 +15,10 @@ class Category:
         
     def updateBySQL(self, data):
         self.Id = data.Id
-        self.CategoryName = data.CategoryName
-        self.Level = data.Level
+        if data.CategoryName != None:
+            self.CategoryName = data.CategoryName
+        if data.Level != None:
+            self.Level = data.Level
         
     def updateByDict(self, data):
         if data.get("Id") != None: 
