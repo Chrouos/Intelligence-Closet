@@ -74,3 +74,51 @@ class ViewClothesNodeDAO:
 			viewClothesNodeLists.append(viewClothesNode)
 	
 		return viewClothesNodeLists
+
+	# 搜尋所有資料: tuple
+	def queryUpperAll(self):
+		execute_str = "SELECT * FROM v_clothes_node vcn WHERE CategoryId = 1;"
+		print("queryUpperAll: ", execute_str)
+	
+		self.cursor.execute(execute_str)
+		datas = self.cursor.fetchall()
+	
+		viewClothesNodeLists = []
+		for data in datas:
+			viewClothesNode = ViewClothesNode()
+			viewClothesNode.updateBySQL(data)
+			viewClothesNodeLists.append(viewClothesNode)
+	
+		return viewClothesNodeLists
+
+	# 搜尋所有資料: tuple
+	def queryLowerAll(self):
+		execute_str = "SELECT * FROM v_clothes_node vcn WHERE CategoryId = 2;"
+		print("queryLowerAll: ", execute_str)
+	
+		self.cursor.execute(execute_str)
+		datas = self.cursor.fetchall()
+	
+		viewClothesNodeLists = []
+		for data in datas:
+			viewClothesNode = ViewClothesNode()
+			viewClothesNode.updateBySQL(data)
+			viewClothesNodeLists.append(viewClothesNode)
+	
+		return viewClothesNodeLists
+
+	# 搜尋所有資料: tuple
+	def queryOtherAll(self):
+		execute_str = "SELECT * FROM v_clothes_node vcn WHERE CategoryId != 1 AND CategoryId != 2;"
+		print("queryOtherAll: ", execute_str)
+	
+		self.cursor.execute(execute_str)
+		datas = self.cursor.fetchall()
+	
+		viewClothesNodeLists = []
+		for data in datas:
+			viewClothesNode = ViewClothesNode()
+			viewClothesNode.updateBySQL(data)
+			viewClothesNodeLists.append(viewClothesNode)
+	
+		return viewClothesNodeLists

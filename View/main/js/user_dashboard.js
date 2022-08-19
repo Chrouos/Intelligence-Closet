@@ -11,7 +11,7 @@ app.controller('myCtrl', function ($scope) {
     }, 15);
     /* ---------- 刷新頁面 End ---------- */
 
-    // 從 Python中 獲得所有城鎮 顯示在 option 選項中
+    // 從 Python中 角色資訊
     $scope.user_by_id_to_js = async function () {
         $scope.user = await eel.user_by_id_to_js()();
 

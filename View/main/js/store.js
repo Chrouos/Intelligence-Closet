@@ -11,6 +11,12 @@ app.controller('myCtrl', function ($scope) {
     }, 15);
     /* ---------- 刷新頁面 End ---------- */
 
+    // 從 Python中 角色資訊
+    $scope.user_by_id_to_js = async function () {
+        $scope.user = await eel.user_by_id_to_js()();
+
+    }; $scope.user_by_id_to_js();
+
     // 從 Python中 獲得所有城鎮 顯示在 option 選項中
     $scope.get_combs = async function () {
         $scope.combs = await eel.comb_to_js()();
@@ -45,15 +51,20 @@ app.controller('myCtrl', function ($scope) {
         $scope.get_combs();
     }
 
-    // 修改category
+    // 修改 樣式名稱
     $scope.changeIdentifyName = function (weatherChName) {
         $scope.category = weatherChName;
     }
 
-    // 修改category
+    // 修改 顏色
     $scope.changeColorName = function (color) {
         $scope.color = color;
     }
+
+    // 從 Python中 獲得天氣資訊(溫度、濕度、最高溫+時間、最低溫+時間)
+    $scope.get_weather = async function () {
+        $scope.weather = await eel.weather_to_js($scope.user.StationName)()
+    }; $scope.get_weather();
 
 });
 

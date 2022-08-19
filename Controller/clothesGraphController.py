@@ -74,7 +74,7 @@ class ClothesGraphController:
         # 公式: ( 26 - 使用者喜好) - ( diff - 天氣分數總合)
         for graph in self.graphs:
             result = math.floor((diff * graph[2]))
-            print("result: ", result)
+            # print("result: ", result)
             combs.append([  result,
                             graph[0].Position, graph[1].Position,
                             graph[0].ColorName, graph[1].ColorName,
@@ -91,8 +91,8 @@ class ClothesGraphController:
         
         
         
-        for c in combs:
-            print(c)
+        # for c in combs:
+        #     print(c)
             
         return combs_dict_list;
         

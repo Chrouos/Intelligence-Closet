@@ -3,7 +3,7 @@
 <html ng-app="myApp" ng-controller="myCtrl">
 
 <head>
-    <title>Store</title>
+    <title>Clothes</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -11,7 +11,7 @@
     <!-- javascript  -->
     <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <!-- <script src="./js/store.js"></script> -->
+    <script src="./js/clothes.js"></script>
 
     <!-- 關聯的樣式表 -->
     <link rel="stylesheet" href="./public/bs.css" type="text/css">
@@ -37,29 +37,36 @@
 
 <body>
 
+
     <div class="container--center" style="padding:20px">
         <div class="div--box">
-            <a href="./store.html">store.html</a>
+            <h2>所有衣物</h2>
+            <div ng-repeat="clothe in clothes">
+                <a><img src="{{clothe.FilePosition}}" style="width: 100px;"></img></a>
+                <a>{{clothe.ColorName}}</a>
+                <a>{{clothe.Name}}</a>
+            </div>
+        </div>
+        <div class="div--box">
+            <h2>類別</h2>
+            <div>
+                <button ng-click="upper_clothes_to_js()">上半身</button>
+                <button ng-click="lower_clothes_to_js()">下半身</button>
+                <button ng-click="other_clothes_to_js()">其他</button>
+            </div>
+            <h2>篩選過的衣物</h2>
+            <div ng-repeat="clothe_f in clothes_filter">
+                <a><img src="{{clothe_f.FilePosition}}" style="width: 100px;"></img></a>
+                <a>{{clothe_f.ColorName}}</a>
+                <a>{{clothe_f.Name}}</a>
+            </div>
         </div>
     </div>
+
+
     <div class="container--center" style="padding:20px">
         <div class="div--box">
-            <a href="./weather.html">weather.html</a>
-        </div>
-    </div>
-    <div class="container--center" style="padding:20px">
-        <div class="div--box">
-            <a href="./user.html">user.html</a>
-        </div>
-    </div>
-    <div class="container--center" style="padding:20px">
-        <div class="div--box">
-            <a href="./user_dashboard.html">user_dashboard.html</a>
-        </div>
-    </div>
-    <div class="container--center" style="padding:20px">
-        <div class="div--box">
-            <a href="./clothes.html">clothes.html</a>
+            <a href="./lobby.html">lobby.html</a>
         </div>
     </div>
 

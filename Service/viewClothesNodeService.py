@@ -80,3 +80,86 @@ class ViewClothesNodeService:
                                         })
         
         return viewClothesNode_dict
+    
+    
+    # 搜尋全部資料: 轉換成字典
+    def queryUpperAll(self):
+        
+        viewClothesNode_dict = []
+        datas = self.viewClothesNodeDAO.queryUpperAll()
+        
+        for data in datas:
+            viewClothesNode_dict.append({  'Id': data.Id, 
+                                            'Position': data.Position, 
+                                            'ClothesId': data.ClothesId,
+                                            'Name': data.Name,
+                                            'ClothesType': data.ClothesType,
+                                            'ColorId': data.ColorId,
+                                            'ColorName': data.ColorName,
+                                            'UserPreferences': data.UserPreferences,
+                                            'CategoryId': data.CategoryId,
+                                            'ClothesStyle': data.ClothesStyle,
+                                            'UsageCounter': data.UsageCounter,
+                                            'CreateTime': data.CreateTime,
+                                            'ModifyTime': data.ModifyTime,
+                                            'FilePosition': data.FilePosition,
+                                            'Score': data.Score,
+                                            'Level': data.Level
+                                        })
+        
+        return viewClothesNode_dict
+    
+    
+    # 搜尋全部資料: 轉換成字典
+    def queryLowerAll(self):
+        
+        viewClothesNode_dict = []
+        datas = self.viewClothesNodeDAO.queryLowerAll()
+        
+        for data in datas:
+            viewClothesNode_dict.append({  'Id': data.Id, 
+                                            'Position': data.Position, 
+                                            'ClothesId': data.ClothesId,
+                                            'Name': data.Name,
+                                            'ClothesType': data.ClothesType,
+                                            'ColorId': data.ColorId,
+                                            'ColorName': data.ColorName,
+                                            'UserPreferences': data.UserPreferences,
+                                            'CategoryId': data.CategoryId,
+                                            'ClothesStyle': data.ClothesStyle,
+                                            'UsageCounter': data.UsageCounter,
+                                            'CreateTime': data.CreateTime,
+                                            'ModifyTime': data.ModifyTime,
+                                            'FilePosition': data.FilePosition,
+                                            'Score': data.Score,
+                                            'Level': data.Level
+                                        })
+        
+        return viewClothesNode_dict
+    
+    # 搜尋全部資料: 轉換成字典
+    def queryOtherAll(self):
+        
+        viewClothesNode_dict = []
+        datas = self.viewClothesNodeDAO.queryOtherAll()
+        
+        for data in datas:
+            viewClothesNode_dict.append({  'Id': data.Id, 
+                                            'Position': data.Position, 
+                                            'ClothesId': data.ClothesId,
+                                            'Name': data.Name,
+                                            'ClothesType': data.ClothesType,
+                                            'ColorId': data.ColorId,
+                                            'ColorName': data.ColorName,
+                                            'UserPreferences': data.UserPreferences,
+                                            'CategoryId': data.CategoryId,
+                                            'ClothesStyle': data.ClothesStyle,
+                                            'UsageCounter': data.UsageCounter,
+                                            'CreateTime': data.CreateTime,
+                                            'ModifyTime': data.ModifyTime,
+                                            'FilePosition': data.FilePosition,
+                                            'Score': data.Score,
+                                            'Level': data.Level
+                                        })
+        
+        return viewClothesNode_dict

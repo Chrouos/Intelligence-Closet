@@ -49,6 +49,13 @@
                 <img src="{{comb.Clothes2Path}}" style="width: 100px;"></img>
             </div>
         </div>
+        <div class="div--box">
+            <h2>氣象顯示</h2>
+            <p id="weather_temp">現在溫度: {{weather.temp}} &deg;C</p>
+            <p id="weather_humd">現在濕度: {{weather.humd * 100}} %</p>
+            <p id="weather_d_tx">最高溫:{{weather.d_tx}}, 發生於: {{weather.d_txt}}</p>
+            <p id="weather_d_tn">最低溫:{{weather.d_tn}}, 發生於: {{weather.d_tnt}}</p>
+        </div>
     </div>
 
     <div class="container--center" style="padding:20px">
@@ -84,6 +91,7 @@
             </div>
         </div>
     </div>
+
 
     <div class="container--center" style="padding:20px">
         <div class="div--box">

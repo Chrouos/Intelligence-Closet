@@ -40,9 +40,9 @@ from Controller.weatherInformationAPI import WeatherInformationAPI
 # print("4. 新增: ", cityService.create("無名小鎮"))
 
 # 3. ClothesNode
-# clothesNodeService = ClothesNodeService()
+clothesNodeService = ClothesNodeService()
 # print("最後一個位子:", clothesNodeService.lastId())
-# print(clothesNodeService.queryAll())
+print(clothesNodeService.queryAll())
 # print(clothesNodeService.queryById(2))
 # print(clothesNodeService.queryByPosition(2))
 # clothesNodeService.updatePositionToNull(5)
@@ -86,8 +86,8 @@ from Controller.weatherInformationAPI import WeatherInformationAPI
 # print("2. 透過Id找: ", userCombsService.queryById(2))
 
 # 9. UserDashboard
-userDashboardService = UserDashboardService()
-print("1. 搜尋全部 LIST: ", userDashboardService.queryAll()) # 搜尋全部 LIST
+# userDashboardService = UserDashboardService()
+# print("1. 搜尋全部 LIST: ", userDashboardService.queryAll()) # 搜尋全部 LIST
 # print("2. 透過Id找: ", userDashboardService.queryById(2))
 
 # 10. ViewCategoryClothes

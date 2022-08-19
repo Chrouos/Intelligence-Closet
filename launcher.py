@@ -15,15 +15,21 @@ from Service.subCategoryService import SubCategoryService
 from Service.viewStationService import ViewStationService
 from Service.cityService import CityService
 from Service.userDashboardService import UserDashboardService
+from Service.clothesNodeService import ClothesNodeService
+from Service.viewClothesNodeService import ViewClothesNodeService
 
-user_id = 2
+
+user_id = 1
 
 # 衣物圖形
 @eel.expose
 def comb_to_js():
-    clothesGraphController = ClothesGraphController('板橋')
+    userDashboardService = UserDashboardService()
+    user_dict = userDashboardService.queryById(user_id) # 預設為2
+    
+    clothesGraphController = ClothesGraphController(user_dict['StationName'])
     graphComb = clothesGraphController.getCombination()
-    print("comb_to_js: ", graphComb)
+    # print("comb_to_js: ", graphComb)
 
     return graphComb
 
@@ -79,6 +85,7 @@ def get_all_color():
 @eel.expose
 def weather_to_js(weatherPosition):  # 傳送天氣資訊
 
+    print("weather_to_js", weatherPosition)
     we = WeatherInformationAPI(weatherPosition)  # 地點
     weather_list = we.getWeather()  # 獲得陣列(6個資訊)
     print(weatherPosition, weather_list)
@@ -138,6 +145,43 @@ def change_user(userId):
     global user_id
     user_id = userId
     
+################################################################################## clothes node
+
+@eel.expose
+def clothes_to_js():
+    viewClothesNodeService = ViewClothesNodeService()
+    v_clothes_dict = viewClothesNodeService.queryAll()
+    
+    print("clothes_to_js", v_clothes_dict)
+    
+    return v_clothes_dict
+
+@eel.expose
+def upper_clothes_to_js():
+    viewClothesNodeService = ViewClothesNodeService()
+    v_clothes_dict = viewClothesNodeService.queryUpperAll()
+    
+    print("upper_clothes_to_js", v_clothes_dict)
+    
+    return v_clothes_dict
+
+@eel.expose
+def lower_clothes_to_js():
+    viewClothesNodeService = ViewClothesNodeService()
+    v_clothes_dict = viewClothesNodeService.queryLowerAll()
+    
+    print("lower_clothes_to_js", v_clothes_dict)
+    
+    return v_clothes_dict
+
+@eel.expose
+def other_clothes_to_js():
+    viewClothesNodeService = ViewClothesNodeService()
+    v_clothes_dict = viewClothesNodeService.queryOtherAll()
+    
+    print("other_clothes_to_js", v_clothes_dict)
+    
+    return v_clothes_dict
 
 eel.init('View/main')  # eel.init(網頁的資料夾)
 eel.start('lobby.html', size=(1080, 720))  # eel.start(html名稱, size=(起始大小))
