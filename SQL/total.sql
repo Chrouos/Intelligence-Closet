@@ -2,7 +2,7 @@ create table category
 (
     Id bigint PRIMARY KEY NOT NULL IDENTITY,-- 編號 ( 1, 2, 3 ... )
     CategoryName varchar(50) Not Null,-- 衣物分類
-    [ Level ] int Not Null-- 衣物層級
+    [Level] int Not Null-- 衣物層級
 );
 
 insert into category

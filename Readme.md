@@ -1,3 +1,15 @@
+# 安裝 python環境
+```
+pip install pandas
+pip install Pillow
+pip install requests
+pip install beautifulsoup4
+pip install pyodbc
+pip install networkx
+pip install regex
+pip install eel
+```
+
 # 安裝sql 環境
 
 - 使用資料庫為 sql server
