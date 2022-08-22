@@ -27,8 +27,8 @@ from Controller.clothesGraphController import ClothesGraphController
 from Controller.weatherInformationAPI import WeatherInformationAPI
 
 # 1. Category
-# categoryService = CategoryService()
-# print(categoryService.queryAll()) # 搜尋全部 LIST
+categoryService = CategoryService()
+print(categoryService.queryAll()) # 搜尋全部 LIST
 # print(categoryService.queryById(1)) # 透過ID搜尋一筆資料
 
 

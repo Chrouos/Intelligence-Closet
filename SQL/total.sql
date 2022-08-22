@@ -661,7 +661,7 @@ as
         ws.ClothesType,
         ws.Score,
         ws.Name,
-        cat.Level
+        cat.[Level]
     from sub_category as ws
         inner join category as cat on cat.Id = ws.CategoryId
 

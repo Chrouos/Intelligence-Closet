@@ -68,13 +68,14 @@ class CrawlerStationController:
                 
                 # 0.站號 1.站名 2.城市 3.地址 4.資料起始日期 5.備註
                 currentData = [td[0].text, td[1].text, td[5].text, td[6].text, td[7].text, td[9].text]
-                self.allInfo_dict.append({  "StationNumber": td[0].text, 
-                                            "StationName": td[1].text, 
-                                            "CityId": cityService.queryByName(td[5].text)["Id"], 
-                                            "Address": td[6].text,
-                                            "CreateTime": td[7].text,
-                                            "Remark": td[9].text
-                })
+                
+                # self.allInfo_dict.append({  "StationNumber": td[0].text, 
+                #                             "StationName": td[1].text, 
+                #                             "CityId": cityService.queryByName(td[5].text)["Id"], 
+                #                             "Address": td[6].text,
+                #                             "CreateTime": td[7].text,
+                #                             "Remark": td[9].text
+                # })
                 self.allInformation.append(currentData)
                 
                 # 把所有縣市放入 allCity
@@ -93,11 +94,20 @@ class CrawlerStationController:
 
         cityService = CityService()
         
-        
         cityService.deleteAllData()
         for c in self.allCity:
             cityService.create(c)
+        
+        for info in self.allInformation:
+            self.allInfo_dict.append({  "StationNumber": info[0],
+                                        "StationName": info[1],
+                                        "CityId": cityService.queryByName(info[2])["Id"], 
+                                        "Address": info[3],
+                                        "CreateTime": info[4],
+                                        "Remark": info[5]
+                                    })
             
+        
         stationService = StationService()
         stationService.deleteAllData()
 
