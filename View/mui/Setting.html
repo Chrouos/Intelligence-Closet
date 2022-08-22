@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+
+<!-- start tag -->
+<html ng-app="myApp" ng-controller="myCtrl">
+
+<head>
+
+  <!-- Set -->
+  <title>衣物設定</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <!-- Connect -->
+  <link rel="stylesheet" href="./CSS/Setting.css" type="text/css">
+  <script src="./JS/Setting.js"></script>
+  <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js" rel="external nofollow"
+    rel="external nofollow" rel="external nofollow"></script>
+  <script src="https://kit.fontawesome.com/8ede13235f.js" crossorigin="anonymous"></script>
+</head>
+
+
+
+<body>
+
+  <a style="font-size: 80px;;display: flex;justify-content: center;">衣物設定介面</a>
+
+  <!-- Menu -->
+  <div id="menu">
+    <ul>
+      <li>
+        <a href="./Login.html">
+          <span class="icon"><i class="fa-solid fa-user"></i></span>
+          <span class="menu-button">登入/登出</span>
+        </a>
+      </li>
+      <li>
+        <a href="./PutIn.html">
+          <span class="icon"><i class="fa-solid fa-arrow-up-wide-short"></i></span>
+          <span class="menu-button">收納</span>
+        </a>
+      </li>
+      <li>
+        <a href="./PutOutI.html">
+          <span class="icon"><i class="fa-solid fa-shirt"></i></span>
+          <span class="menu-button">拿取(推薦)</span>
+        </a>
+      </li>
+      <li>
+        <a href="./PutOutS.html">
+          <span class="icon"><i class="fa-solid fa-arrow-down-short-wide"></i></span>
+          <span class="menu-button">拿取(自選)</span>
+        </a>
+      </li>
+      <li style="background-color: rgb(255, 255, 255);">
+        <a href="./Setting.html">
+          <span class="icon"><i class="fa-solid fa-gear" style="color: rgb(161, 175, 255);"></i></span>
+          <span class="menu-button" style="color: rgb(161, 175, 255);">衣物設定</span>
+        </a>
+      </li>
+      <li>
+        <a href="./Other.html">
+          <span class="icon"><i class="fa-solid fa-clock"></i></span>
+          <span class="menu-button">其他</span>
+        </a>
+      </li>
+      <li>
+        <a href="./Instruction.html">
+          <span class="icon"><i class="fa-solid fa-person-chalkboard"></i></span>
+          <span class="menu-button">使用說明</span>
+        </a>
+      </li>
+
+    </ul>
+    <div id="main-button" onclick="ClickMenu()"></div>
+    <!-- Menu class 更改 -->
+    <script>
+      let Menu = document.getElementById('menu');
+
+      function ClickMenu() {
+        Menu.classList.toggle('active');
+      }
+    </script>
+  </div>
+
+</body>
+
+</html>
+<!-- end tag -->
