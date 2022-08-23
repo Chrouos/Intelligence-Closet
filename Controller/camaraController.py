@@ -26,12 +26,15 @@ class CamaraController:
         self.getLastId()
         self.color = ''
         self.category = ''
+        
+        self.path = ""
 
     def getLastId(self):
         clothesNodeService = ClothesNodeService()
         
         self.newOneId =  clothesNodeService.lastId() + 1
         self.save_path = 'View/main/public/src/clothes_' + str(self.newOneId) + '.jpg'
+        self.path = "./public/src/clothes_"+str(self.newOneId)+".jpg"
 
         return self.newOneId
 
@@ -47,6 +50,7 @@ class CamaraController:
         subCategoryId = subCategoryService.queryIdByClothesType(self.category)
         
         src_path = "./public/src/clothes_"+str(self.newOneId)+".jpg"
+        
         clothesNode_create = '{{"SubCategoryId": {0}, "ColorId": {1}, "FilePosition": "{2}"}}'.format(subCategoryId, colorId, src_path)
         print("saveData:", clothesNode_create)
 
@@ -56,7 +60,7 @@ class CamaraController:
     def printResult(self):
         print(" ---------- identify result ----------")
         print("ID: {0}, path: {1}".format(self.newOneId, self.save_path))
-        print("color: {0}, category: {1}".format(self.color, self.category))
+        print("color: {0}, category: {1}, path: {2}".format(self.color, self.category, self.path))
         print(" ---------- identify result ----------")
 
     def useCamara(self):

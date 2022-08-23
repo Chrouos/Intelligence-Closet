@@ -27,8 +27,8 @@ from Controller.clothesGraphController import ClothesGraphController
 from Controller.weatherInformationAPI import WeatherInformationAPI
 
 # 1. Category
-categoryService = CategoryService()
-print(categoryService.queryAll()) # 搜尋全部 LIST
+# categoryService = CategoryService()
+# print(categoryService.queryAll()) # 搜尋全部 LIST
 # print(categoryService.queryById(1)) # 透過ID搜尋一筆資料
 
 
@@ -86,8 +86,8 @@ print(categoryService.queryAll()) # 搜尋全部 LIST
 # print("2. 透過Id找: ", userCombsService.queryById(2))
 
 # 9. UserDashboard
-# userDashboardService = UserDashboardService()
-# print("1. 搜尋全部 LIST: ", userDashboardService.queryAll()) # 搜尋全部 LIST
+userDashboardService = UserDashboardService()
+print("1. 搜尋全部 LIST: ", userDashboardService.queryAll()) # 搜尋全部 LIST
 # print("2. 透過Id找: ", userDashboardService.queryById(2))
 
 # 10. ViewCategoryClothes

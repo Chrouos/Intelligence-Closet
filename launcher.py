@@ -44,7 +44,9 @@ def get_camera_identify(): # 拍照
         idt.identifyColor()         # 辨識顏色
         idt.printResult()            # 輸出結果
 
-        return [idt.category, idt.color, idt.save_path, True]
+        print("path:", idt.path)
+        return [idt.category, idt.color, idt.path, True]
+        
     except Exception as e: 
         print("get_camera_identify", e)
         return False
@@ -83,12 +85,15 @@ def get_all_color():
 
 ################################################################################## weather
 @eel.expose
-def weather_to_js(weatherPosition):  # 傳送天氣資訊
+def weather_to_js(st):  # 傳送天氣資訊
+    
+    # userDashboardService = UserDashboardService()
+    # user_dict = userDashboardService.queryById(user_id) # 預設為2
 
-    print("weather_to_js", weatherPosition)
-    we = WeatherInformationAPI(weatherPosition)  # 地點
+    # we = WeatherInformationAPI(user_dict['StationName'])  # 地點
+    we = WeatherInformationAPI(st)
     weather_list = we.getWeather()  # 獲得陣列(6個資訊)
-    print(weatherPosition, weather_list)
+    print("weather_to_js", weather_list)
 
     return weather_list
 
