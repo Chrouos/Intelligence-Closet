@@ -26,13 +26,16 @@
 
 <body>
 
-  <a style="font-size: 80px;;display: flex;justify-content: center;">拿取(自選)介面</a>
+  <div id="all">
+    <a>拿取(自選)介面</a>
+  </div>
+  
 
   <!-- Menu -->
   <div id="menu">
     <ul>
       <li>
-        <a href="./Login.html">
+        <a href="./User.html">
           <span class="icon"><i class="fa-solid fa-user"></i></span>
           <span class="menu-button">登入/登出</span>
         </a>
@@ -78,9 +81,10 @@
     <div id="main-button" onclick="ClickMenu()"></div>
     <!-- Menu class 更改 -->
     <script>
+      let All = document.getElementById('all');
       let Menu = document.getElementById('menu');
-
       function ClickMenu() {
+        All.classList.toggle('active');
         Menu.classList.toggle('active');
       }
     </script>
