@@ -19,7 +19,7 @@ from Service.clothesNodeService import ClothesNodeService
 from Service.viewClothesNodeService import ViewClothesNodeService
 
 
-user_id = 1
+user_id = 0
 
 # 衣物圖形
 @eel.expose
@@ -188,5 +188,5 @@ def other_clothes_to_js():
     
     return v_clothes_dict
 
-eel.init('View/main')  # eel.init(網頁的資料夾)
-eel.start('lobby.html', size=(1080, 720))  # eel.start(html名稱, size=(起始大小))
+eel.init('View/mui')  # eel.init(網頁的資料夾)
+eel.start('Login.html', size=(1080, 720))  # eel.start(html名稱, size=(起始大小))
