@@ -31,7 +31,9 @@
   </div>
 
   
-
+  <!-- 遮罩 -->
+  <div id="mask"></div>
+  
   <!-- Menu -->
   <div id="menu">
     <ul>
@@ -82,10 +84,10 @@
     <div id="main-button" onclick="ClickMenu()"></div>
     <!-- Menu class 更改 -->
     <script>
-      let All = document.getElementById('all');
+      let Mask = document.getElementById('mask');
       let Menu = document.getElementById('menu');
       function ClickMenu() {
-        All.classList.toggle('active');
+        Mask.classList.toggle('active');
         Menu.classList.toggle('active');
       }
     </script>
