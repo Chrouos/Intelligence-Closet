@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+
+<!-- start tag -->
+<html ng-app="myApp" ng-controller="myCtrl">
+
+<head>
+
+  <!-- Set -->
+  <title>墨兮超可愛</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <!-- Connect -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
+  <script src="./JS/Menu.js"></script>
+  <script src="https://kit.fontawesome.com/8ede13235f.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="../CSS/Menu.css" type="text/css">
+
+
+</head>
+
+
+
+<body>
+
+
+
+
+
+
+
+
+
+  <!-- Menu -->
+  <div id="menu">
+    <ul>
+      <li>
+        <a href="./User.html">
+          <span class="icon"><i class="fa-solid fa-user"></i></span>
+          <span class="menu-button">登入/登出</span>
+        </a>
+      </li>
+      <li>
+        <a href="./PutIn.html">
+          <span class="icon"><i class="fa-solid fa-arrow-up-wide-short"></i></span>
+          <span class="menu-button">收納</span>
+        </a>
+      </li>
+      <li>
+        <a href="./PutOutI.html">
+          <span class="icon"><i class="fa-solid fa-shirt"></i></span>
+          <span class="menu-button">拿取(推薦)</span>
+        </a>
+      </li>
+      <li>
+        <a href="./PutOutS.html">
+          <span class="icon"><i class="fa-solid fa-arrow-down-short-wide"></i></span>
+          <span class="menu-button">拿取(自選)</span>
+        </a>
+      </li>
+      <li>
+        <a href="./Setting.html">
+          <span class="icon"><i class="fa-solid fa-gear"></i></span>
+          <span class="menu-button">衣物設定</span>
+        </a>
+      </li>
+      <li>
+        <a href="./Other.html">
+          <span class="icon"><i class="fa-solid fa-clock"></i></span>
+          <span class="menu-button">其他</span>
+        </a>
+      </li>
+      <li>
+        <a href="./Instruction.html">
+          <span class="icon"><i class="fa-solid fa-person-chalkboard"></i></span>
+          <span class="menu-button">使用說明</span>
+        </a>
+      </li>
+
+    </ul>
+    <div id="main-button" onclick="ClickMenu()"></div>
+    <!-- Menu class 更改 -->
+    <script>
+      let All = document.getElementById('all');
+      let Menu = document.getElementById('menu');
+      function ClickMenu() {
+        All.classList.toggle('active');
+        Menu.classList.toggle('active');
+      }
+    </script>
+  </div>
+
+
+
+</body>
+
+</html>
+<!-- end tag -->
