@@ -1,4 +1,4 @@
-@import "Menu.css";
+@import "menu.css";
 
 /*底色*/
 body {
@@ -20,7 +20,7 @@ body {
   left: 10%;
   top: 5%;
   z-index: 8;
-  /*background-color: azure;*/
+  background-color: azure;
 }
 
 .pictures-one img{
