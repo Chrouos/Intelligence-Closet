@@ -28,101 +28,119 @@
   <div id="all">
     <a>使用者介面</a>
 
-    <div id="test">
+    <div id="test" style="display: flex; flex-direction: column; align-items: center;">
       <div>
-        <a>
-          <p><i class="fa-solid fa-user"></i>使用者名稱: {{nowUser.UserName}}</p>
-          <p>使用者天氣喜好度: {{nowUser.WeatherLike}}</p>
-          <p>使用者所在地: {{nowUser.StationName}}</p>
+        <div ng-show="!isEdit">
+          <h2>使用者資料</h2>
+          <p><i class="fa-solid fa-user"></i>使用者名稱: {{user.UserName}}</p>
+          <p>使用者天氣喜好度: {{user.WeatherLike}}</p>
+          <p>使用者所在地: {{user.StationName}}</p>
           <a href="./Login.html"> 登出 </a>
-        </a>
-      </div>
-      <div>
-        <h2>編輯</h2>
-        <div ng-show="!loginPage">
-          <p>使用者名稱: <input ng-model="user.UserName" /></p>
-          <p>使用者名稱: <input ng-model="user.StationName" /></p>
-          <button ng-click="update_user()"></button>
+          <a ng-click="openEdit()">編輯</a>
+        </div>
+
+        <div ng-show="isEdit">
+          <h2>編輯</h2>
+          <div>
+            <p>使用者名稱: <input ng-model="user.UserName" /></p>
+            <p>使用者所在地: <input ng-model="user.StationName" /></p>
+            <p>使用者天氣喜好度: <input ng-model="user.WeatherLike" /></p>
+
+            <div>
+              <div class="select is-multiple pl-4 pt-4" style="width:40%">
+                選擇城市
+                <select ng-model="selectedCityId" ng-options="city.Id as city.CityName for city in allCitys"
+                  ng-change="isCity_getStationByCity()"></select>
+              </div>
+              <div class="select is-multiple pl-3 pt-4" style="width:50%">
+                選擇站別
+                <select ng-model="user.StationName"
+                  ng-options="station.StationName as station.StationName for station in stationByCity"></select>
+              </div>
+            </div>
+
+            <a ng-click="update_user()">編輯更新</a>
+            <a ng-click="closeEdit()">返回</a>
+          </div>
         </div>
       </div>
+
+
     </div>
 
 
-  </div>
-  
 
-  
 
-  <!-- 遮罩 -->
-  <div id="mask" style="visibility: hidden"></div>
+    <!-- 遮罩 -->
+    <div id="mask" style="visibility: hidden"></div>
 
-  <!-- Menu -->
-  <div id="menu">
-    <ul>
-      <li style="background-color: rgb(255, 255, 255);">
-        <a href="./User.html">
-          <span class="icon"><i class="fa-solid fa-user" style="color: rgb(161, 175, 255);"></i></span>
-          <span class="menu-button" style="color: rgb(161, 175, 255);">登入/登出</span>
-        </a>
-      </li>
-      <li>
-        <a href="./PutIn.html">
-          <span class="icon"><i class="fa-solid fa-arrow-up-wide-short"></i></span>
-          <span class="menu-button">收納</span>
-        </a>
-      </li>
-      <li>
-        <a href="./PutOutI.html">
-          <span class="icon"><i class="fa-solid fa-shirt"></i></span>
-          <span class="menu-button">拿取(推薦)</span>
-        </a>
-      </li>
-      <li>
-        <a href="./PutOutS.html">
-          <span class="icon"><i class="fa-solid fa-arrow-down-short-wide"></i></span>
-          <span class="menu-button">拿取(自選)</span>
-        </a>
-      </li>
-      <li>
-        <a href="./Setting.html">
-          <span class="icon"><i class="fa-solid fa-gear"></i></span>
-          <span class="menu-button">衣物設定</span>
-        </a>
-      </li>
-      <li>
-        <a href="./Other.html">
-          <span class="icon"><i class="fa-solid fa-clock"></i></span>
-          <span class="menu-button">其他</span>
-        </a>
-      </li>
-      <li>
-        <a href="./Instruction.html">
-          <span class="icon"><i class="fa-solid fa-person-chalkboard"></i></span>
-          <span class="menu-button">使用說明</span>
-        </a>
-      </li>
+    <!-- Menu -->
+    <div id="menu">
+      <ul>
+        <li style="background-color: rgb(255, 255, 255);">
+          <a href="./User.html">
+            <span class="icon"><i class="fa-solid fa-user" style="color: rgb(161, 175, 255);"></i></span>
+            <span class="menu-button" style="color: rgb(161, 175, 255);">登入/登出</span>
+          </a>
+        </li>
+        <li>
+          <a href="./PutIn.html">
+            <span class="icon"><i class="fa-solid fa-arrow-up-wide-short"></i></span>
+            <span class="menu-button">收納</span>
+          </a>
+        </li>
+        <li>
+          <a href="./PutOutI.html">
+            <span class="icon"><i class="fa-solid fa-shirt"></i></span>
+            <span class="menu-button">拿取(推薦)</span>
+          </a>
+        </li>
+        <li>
+          <a href="./PutOutS.html">
+            <span class="icon"><i class="fa-solid fa-arrow-down-short-wide"></i></span>
+            <span class="menu-button">拿取(自選)</span>
+          </a>
+        </li>
+        <li>
+          <a href="./Setting.html">
+            <span class="icon"><i class="fa-solid fa-gear"></i></span>
+            <span class="menu-button">衣物設定</span>
+          </a>
+        </li>
+        <li>
+          <a href="./Other.html">
+            <span class="icon"><i class="fa-solid fa-clock"></i></span>
+            <span class="menu-button">其他</span>
+          </a>
+        </li>
+        <li>
+          <a href="./Instruction.html">
+            <span class="icon"><i class="fa-solid fa-person-chalkboard"></i></span>
+            <span class="menu-button">使用說明</span>
+          </a>
+        </li>
 
-    </ul>
-    <div id="main-button" onclick="ClickMenu()"></div>
-    <!-- Menu class 更改 -->
-    <script>
-      let Mask = document.getElementById('mask');
-      let Menu = document.getElementById('menu');
-      function ClickMenu() {
-        Menu.classList.toggle('active');
-        if(Mask.style.visibility==''){
-          Mask.classList.toggle('active');
-          setTimeout(function(){
-            Mask.style.visibility='hidden';
-          },500); 
+      </ul>
+      <div id="main-button" onclick="ClickMenu()"></div>
+      <!-- Menu class 更改 -->
+      <script>
+        let Mask = document.getElementById('mask');
+        let Menu = document.getElementById('menu');
+
+        function ClickMenu() {
+          Menu.classList.toggle('active');
+          if (Mask.style.visibility == '') {
+            Mask.classList.toggle('active');
+            setTimeout(function () {
+              Mask.style.visibility = 'hidden';
+            }, 500);
+          } else {
+            Mask.style.visibility = '';
+            Mask.classList.toggle('active');
+          }
         }
-        else{
-          Mask.style.visibility='';
-          Mask.classList.toggle('active');
-        }
-      }
-    </script>
-  </div>
+      </script>
+    </div>
 
 </body>
 

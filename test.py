@@ -86,8 +86,8 @@ from Controller.weatherInformationAPI import WeatherInformationAPI
 # print("2. 透過Id找: ", userCombsService.queryById(2))
 
 # 9. UserDashboard
-userDashboardService = UserDashboardService()
-print("1. 搜尋全部 LIST: ", userDashboardService.queryAll()) # 搜尋全部 LIST
+# userDashboardService = UserDashboardService()
+# print("1. 搜尋全部 LIST: ", userDashboardService.queryAll()) # 搜尋全部 LIST
 # print("2. 透過Id找: ", userDashboardService.queryById(2))
 
 # 10. ViewCategoryClothes
