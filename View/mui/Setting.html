@@ -32,7 +32,7 @@
   </div>
   
   <!-- 遮罩 -->
-  <div id="mask"></div>
+  <div id="mask" style="visibility: hidden"></div>
 
   <!-- Menu -->
   <div id="menu">
@@ -87,8 +87,17 @@
       let Mask = document.getElementById('mask');
       let Menu = document.getElementById('menu');
       function ClickMenu() {
-        Mask.classList.toggle('active');
         Menu.classList.toggle('active');
+        if(Mask.style.visibility==''){
+          Mask.classList.toggle('active');
+          setTimeout(function(){
+            Mask.style.visibility='hidden';
+          },500); 
+        }
+        else{
+          Mask.style.visibility='';
+          Mask.classList.toggle('active');
+        }
       }
     </script>
   </div>

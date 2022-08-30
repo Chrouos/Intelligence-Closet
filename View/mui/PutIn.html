@@ -26,33 +26,74 @@
 
 
 <body>
-  
-
 
   <div id="all">
-    <a>收納介面</a>
-    
-    
 
-    <div id="putin-main">
-      <!-- 衣物照片 -->
-      <div class="pictures-one">
-      
+    <!-- 衣物照片 -->
+    <div class="pictures-one">
+      <a><img src="./Data/1.jpg"></a>
+    </div>
+    
+    <!-- 衣物資訊/設定 -->
+    <div class="clothesInfo-Set">
+      <div>
+        <p style="display: inline;">顏色: 白</p>
+        <select>
+          <option selected="1" disabled="0">修改</option>
+          <option value="2">藍色</option>
+          <option value="3">黑色</option>
+          <option value="4">白色</option>
+          <option value="5">紅色</option>
+          <option value="6">橘色</option>
+          <option value="7">黃色</option>
+          <option value="8">綠色</option>
+          <option value="9">紫色</option>
+          <option value="10">灰色</option>
+          <option value="11">米白色</option>
+          <option value="12">軍綠色</option>
+          <option value="13">卡其色</option>
+        </select>
       </div>
-      <!-- 衣物資訊/設定 -->
-      <div class="clothesInfo-Set">
-      
+      <br/>
+      <div>
+        <p style="display: inline;">樣式: 短袖</p>
+        <select>
+          <option selected="1" disabled="0">修改</option>
+
+          <option value="3">上半身</option>
+          <option value="5">連帽衫</option>
+          <option value="6">長袖</option>
+          <option value="8">褲子</option>
+          <option value="9">Polo衫</option>
+          <option value="10">襯衫</option>
+          <option value="12">短褲</option>
+          <option value="13">裙子</option>
+          <option value="14">T恤</option>
+          <option value="15">薄衫</option>
+          <!-- button           
+          <option value="2">洋裝</option>
+          <option value="1">西裝外套</option>
+          <option value="4">帽子</option>
+          <option value="7">外套</option>
+          <option value="11">鞋</option>-->
+        </select>
+      </div>
+      <br/>
+      <div>
+        <p style="display: inline;">是否加入最愛</p>
+        <span style="color: white;" onclick="heartClick(this)"><i class="fa-solid fa-heart"></i></span>
+      </div>
+      <br/>
+      <!-- button -->
+      <div>
+        <a class="btn-white" onclick="Send(this)">確認存入</a>
+        <a class="btn-white" onclick="Back(this)">退回</a>
       </div>
     </div>
-    <!-- button -->
-    <div>
-      
-    </div>
-  
   </div>
   
   <!-- 遮罩 -->
-  <div id="mask"></div>
+  <div id="mask" style="visibility: hidden"></div>
 
   <!-- Menu -->
   <div id="menu">
@@ -107,8 +148,17 @@
       let Mask = document.getElementById('mask');
       let Menu = document.getElementById('menu');
       function ClickMenu() {
-        Mask.classList.toggle('active');
         Menu.classList.toggle('active');
+        if(Mask.style.visibility==''){
+          Mask.classList.toggle('active');
+          setTimeout(function(){
+            Mask.style.visibility='hidden';
+          },500); 
+        }
+        else{
+          Mask.style.visibility='';
+          Mask.classList.toggle('active');
+        }
       }
     </script>
   </div>
