@@ -27,49 +27,54 @@
 
 <body>
 
-  <div id="all">
+  <div id="putInStart" ng-if="StartType">
+    <p style="font-size: 50px;">請掛入衣服並點擊開始存放</p>
+    <a id="btn-start" ng-click="Start()">開始存放</a>
+  </div>
+
+  <!-- main -->
+  <div id="putInMain" ng-if="MainType" ng-repeat='putIn in putIn'>
 
     <!-- 衣物照片 -->
     <div class="pictures-one">
-      <a><img src="./public/src/clothes_1.jpg"></a>
+      <a><img src="{{putIn.pictures}}"></a>
     </div>
     
     <!-- 衣物資訊/設定 -->
     <div class="clothesInfo-Set">
       <div>
-        <p style="display: inline;">顏色: 白</p>
-        <select>
+        <p style="display: inline;">顏色: {{putIn.color}}</p>
+        <select ng-model="putIn.color">
           <option selected="1" disabled="0">修改</option>
-          <option value="2">藍色</option>
-          <option value="3">黑色</option>
-          <option value="4">白色</option>
-          <option value="5">紅色</option>
-          <option value="6">橘色</option>
-          <option value="7">黃色</option>
-          <option value="8">綠色</option>
-          <option value="9">紫色</option>
-          <option value="10">灰色</option>
-          <option value="11">米白色</option>
-          <option value="12">軍綠色</option>
-          <option value="13">卡其色</option>
+          <option value="藍色">藍色</option>
+          <option value="黑色">黑色</option>
+          <option value="白色">白色</option>
+          <option value="紅色">紅色</option>
+          <option value="橘色">橘色</option>
+          <option value="黃色">黃色</option>
+          <option value="綠色">綠色</option>
+          <option value="紫色">紫色</option>
+          <option value="灰色">灰色</option>
+          <option value="米白色">米白色</option>
+          <option value="軍綠色">軍綠色</option>
+          <option value="卡其色">卡其色</option>
         </select>
       </div>
       <br/>
       <div>
-        <p style="display: inline;">樣式: 短袖</p>
-        <select>
+        <p style="display: inline;">樣式: {{putIn.style}}</p>
+        <select ng-model="putIn.style">
           <option selected="1" disabled="0">修改</option>
-
-          <option value="3">上半身</option>
-          <option value="5">連帽衫</option>
-          <option value="6">長袖</option>
-          <option value="8">褲子</option>
-          <option value="9">Polo衫</option>
-          <option value="10">襯衫</option>
-          <option value="12">短褲</option>
-          <option value="13">裙子</option>
-          <option value="14">T恤</option>
-          <option value="15">薄衫</option>
+          <option value="上半身">上半身</option>
+          <option value="連帽衫">連帽衫</option>
+          <option value="長袖">長袖</option>
+          <option value="褲子">褲子</option>
+          <option value="Polo衫">Polo衫</option>
+          <option value="襯衫">襯衫</option>
+          <option value="短褲">短褲</option>
+          <option value="裙子">裙子</option>
+          <option value="T恤">T恤</option>
+          <option value="薄衫">薄衫</option>
           <!-- button           
           <option value="2">洋裝</option>
           <option value="1">西裝外套</option>
@@ -81,13 +86,13 @@
       <br/>
       <div>
         <p style="display: inline;">是否加入最愛</p>
-        <span style="color: white;" onclick="heartClick(this)"><i class="fa-solid fa-heart"></i></span>
+        <span style="color: white;" onclick="heartClick(this)" ng-click="heartClicks()"><i class="fa-solid fa-heart"></i></span>
       </div>
       <br/>
       <!-- button -->
       <div>
-        <a class="btn-white" onclick="Send(this)">確認存入</a>
-        <a class="btn-white" onclick="Back(this)">退回</a>
+        <a class="btn-white" ng-click="Send(this)">確認存入</a>
+        <a class="btn-white" ng-click="Back(this)">退回</a>
       </div>
     </div>
   </div>

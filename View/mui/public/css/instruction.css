@@ -1,4 +1,5 @@
 @import "menu.css";
+@import "../bulma/bulma.css";
 
 /*底色*/
 body {

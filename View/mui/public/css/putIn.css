@@ -5,13 +5,38 @@ body {
   width: 100vw;
   height: 100vh;
   background: linear-gradient(to bottom right, rgb(255, 255, 255) , rgb(140, 140, 254));
-  
+  z-index: 1;
 }
+/****************************************************/
 
-#all{
+#putInStart{
   display: flex;
   position: absolute;
-  /*flex-direction: column;*/
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 85%;
+  height: 90%;
+  left: 10%;
+  top: 5%;
+  z-index: 7;
+  /*background-color: aquamarine*/;
+}
+
+#btn-start{
+  border: 3px solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  font-size: 60px;
+  border-radius: 5px;
+
+  position: absolute;
+  bottom: 5%;
+}
+
+/****************************************************/
+#putInMain{
+  display: flex;
+  position: absolute;
   justify-content: center;
   /*align-items: center;*/
   transition: 0.5s;
@@ -19,8 +44,8 @@ body {
   height: 90%;
   left: 10%;
   top: 5%;
-  z-index: 8;
-  background-color: azure;
+  z-index: 7;
+  /*background-color: azure;*/
 }
 
 .pictures-one img{
