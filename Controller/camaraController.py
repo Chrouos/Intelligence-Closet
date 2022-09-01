@@ -49,9 +49,7 @@ class CamaraController:
         colorId = colorService.queryIdByEngName(self.color)
         subCategoryId = subCategoryService.queryIdByClothesType(self.category)
         
-        src_path = "./public/src/clothes_"+str(self.newOneId)+".jpg"
-        
-        clothesNode_create = '{{"SubCategoryId": {0}, "ColorId": {1}, "FilePosition": "{2}"}}'.format(subCategoryId, colorId, src_path)
+        clothesNode_create = '{{"SubCategoryId": {0}, "ColorId": {1}, "FilePosition": "{2}"}}'.format(subCategoryId, colorId, self.path)
         print("saveData:", clothesNode_create)
 
         return clothesNodeService.create(clothesNode_create)
