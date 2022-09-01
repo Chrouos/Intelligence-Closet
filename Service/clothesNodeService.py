@@ -25,6 +25,7 @@ class ClothesNodeService:
                                     'CreateTime': data.CreateTime,
                                     'ModifyTime': data.ModifyTime,
                                     'FilePosition': data.FilePosition,
+                                    'IsFavorite': data.IsFavorite,
                                     })
         
         return category_dict
@@ -42,6 +43,7 @@ class ClothesNodeService:
                             'CreateTime': data.CreateTime,
                             'ModifyTime': data.ModifyTime,
                             'FilePosition': data.FilePosition,
+                            'IsFavorite': data.IsFavorite,
                             }
         
         return category_dict
@@ -58,6 +60,7 @@ class ClothesNodeService:
                             'CreateTime': data.CreateTime,
                             'ModifyTime': data.ModifyTime,
                             'FilePosition': data.FilePosition,
+                            'IsFavorite': data.IsFavorite,
                             }
         
         return category_dict

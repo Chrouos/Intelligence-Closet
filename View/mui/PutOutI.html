@@ -12,13 +12,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-  <!-- Connect -->
-  <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
-  <script src="./js/putOutI.js"></script>
-  <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js" rel="external nofollow"
-    rel="external nofollow" rel="external nofollow"></script>
+  <!-- Package -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
   <script src="https://kit.fontawesome.com/8ede13235f.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
 
+  <!-- Connect -->
+  <script src="./js/putOutI.js"></script>
+
+
+  <!-- Css -->
   <link rel="stylesheet" href="./public/css/putOutI.css" type="text/css">
 
 </head>
@@ -34,7 +38,7 @@
 
   <!-- 遮罩 -->
   <div id="mask" style="visibility: hidden"></div>
-  
+
   <!-- Menu -->
   <div id="menu">
     <ul>
@@ -87,16 +91,16 @@
     <script>
       let Mask = document.getElementById('mask');
       let Menu = document.getElementById('menu');
+
       function ClickMenu() {
         Menu.classList.toggle('active');
-        if(Mask.style.visibility==''){
+        if (Mask.style.visibility == '') {
           Mask.classList.toggle('active');
-          setTimeout(function(){
-            Mask.style.visibility='hidden';
-          },500); 
-        }
-        else{
-          Mask.style.visibility='';
+          setTimeout(function () {
+            Mask.style.visibility = 'hidden';
+          }, 500);
+        } else {
+          Mask.style.visibility = '';
           Mask.classList.toggle('active');
         }
       }

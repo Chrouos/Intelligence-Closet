@@ -28,7 +28,8 @@ class ViewClothesNodeService:
                                             'ModifyTime': data.ModifyTime,
                                             'FilePosition': data.FilePosition,
                                             'Score': data.Score,
-                                            'Level': data.Level
+                                            'Level': data.Level,
+                                            'IsFavorite': data.IsFavorite,
                                         })
         
         return viewClothesNode_dict
@@ -52,7 +53,8 @@ class ViewClothesNodeService:
                                 'ModifyTime': data.ModifyTime,
                                 'FilePosition': data.FilePosition,
                                 'Score': data.Score,
-                                'Level': data.Level
+                                'Level': data.Level,
+                                'IsFavorite': data.IsFavorite,
                             }
         return viewClothesNode_dict
     
@@ -76,7 +78,8 @@ class ViewClothesNodeService:
                                             'ModifyTime': data.ModifyTime,
                                             'FilePosition': data.FilePosition,
                                             'Score': data.Score,
-                                            'Level': data.Level
+                                            'Level': data.Level,
+                                            'IsFavorite': data.IsFavorite,
                                         })
         
         return viewClothesNode_dict
@@ -104,7 +107,8 @@ class ViewClothesNodeService:
                                             'ModifyTime': data.ModifyTime,
                                             'FilePosition': data.FilePosition,
                                             'Score': data.Score,
-                                            'Level': data.Level
+                                            'Level': data.Level,
+                                            'IsFavorite': data.IsFavorite,
                                         })
         
         return viewClothesNode_dict
@@ -132,7 +136,8 @@ class ViewClothesNodeService:
                                             'ModifyTime': data.ModifyTime,
                                             'FilePosition': data.FilePosition,
                                             'Score': data.Score,
-                                            'Level': data.Level
+                                            'Level': data.Level,
+                                            'IsFavorite': data.IsFavorite,
                                         })
         
         return viewClothesNode_dict
@@ -159,7 +164,8 @@ class ViewClothesNodeService:
                                             'ModifyTime': data.ModifyTime,
                                             'FilePosition': data.FilePosition,
                                             'Score': data.Score,
-                                            'Level': data.Level
+                                            'Level': data.Level,
+                                            'IsFavorite': data.IsFavorite,
                                         })
         
         return viewClothesNode_dict

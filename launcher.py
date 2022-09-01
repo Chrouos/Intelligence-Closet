@@ -189,4 +189,7 @@ def other_clothes_to_js():
     return v_clothes_dict
 
 eel.init('View/mui')  # eel.init(網頁的資料夾)
-eel.start('User.html', size=(1080, 720))  # eel.start(html名稱, size=(起始大小))
+# eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))
+
+
+eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))

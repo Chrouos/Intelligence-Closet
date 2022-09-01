@@ -40,9 +40,9 @@ from Controller.weatherInformationAPI import WeatherInformationAPI
 # print("4. 新增: ", cityService.create("無名小鎮"))
 
 # 3. ClothesNode
-# clothesNodeService = ClothesNodeService()
+clothesNodeService = ClothesNodeService()
 # print("最後一個位子:", clothesNodeService.lastId())
-# print(clothesNodeService.queryAll())
+print(clothesNodeService.queryAll())
 # print(clothesNodeService.queryById(2))
 # print(clothesNodeService.queryByPosition(2))
 # clothesNodeService.updatePositionToNull(5)

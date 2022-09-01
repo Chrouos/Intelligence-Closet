@@ -14,9 +14,10 @@ class ClothesNode:
         self.CreateTime = ""
         self.ModifyTime = ""
         self.FilePosition = ""
+        self.IsFavorite = ""
         
     def print(self):
-        print("Id: {0}, Position: {1}, SubCategoryId: {2}, ColorId: {3}".format(self.Id, self.Position, self.SubCategoryId, self.ColorId))
+        print("Id: {0}, Position: {1}, SubCategoryId: {2}, ColorId: {3}, IsFavorite: {4}".format(self.Id, self.Position, self.SubCategoryId, self.ColorId, self.IsFavorite))
         print("UserPreference: {0}, UsageCounter: {1}, CreateTime: {2}, ModifyTime: {3}, FilePosition:{4}".format(self.UserPreference, self.UsageCounter, self.CreateTime, self.ModifyTime, self.FilePosition))
         
     def updateBySQL(self, data):
@@ -27,6 +28,7 @@ class ClothesNode:
         self.UserPreferences = data.UserPreferences
         self.ClothesStyle = data.ClothesStyle
         self.UsageCounter = data.UsageCounter
+        self.IsFavorite = data.IsFavorite
         
         if data.CreateTime != None:
             self.CreateTime = data.CreateTime.strftime("%m/%d/%Y")
@@ -56,4 +58,7 @@ class ClothesNode:
             self.ModifyTime = data['ModifyTime'].strftime("%m/%d/%Y")
         if data.get("FilePosition") != None:
             self.FilePosition = data['FilePosition']
+        
+        if data.get("IsFavorite") != None:
+            self.IsFavorite = data['IsFavorite']
         

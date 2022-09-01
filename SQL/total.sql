@@ -106,7 +106,8 @@ create table clothes_node
     UsageCounter int NOT NULL,-- 衣物使用次數
     CreateTime datetime NOT NULL,--放入時間
     ModifyTime datetime NOT NULL,
-    FilePosition text--圖片位置
+    FilePosition text,--圖片位置
+    IsFavorite int
 );
 
 INSERT INTO intelligence_closet.dbo.clothes_node

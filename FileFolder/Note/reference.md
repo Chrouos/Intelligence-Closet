@@ -20,3 +20,10 @@
 
 18. 書本: Python Arduino 物聯網整合開發實戰 
 19. https://www.twblogs.net/a/5b8d18122b717718833b1147: Python3識別判斷圖片主要顏色並和顏色庫進行對比的方法
+20. https://github.com/ChrisKnott/Eel: eel的說明文件
+21. TAIWANIOThttps://www.taiwaniot.com.tw/product/arduino-mega-2560-r3-%E9%96%8B%E7%99%BC%E6%9D%BF-atmega2560-16au/ TAIWANIOT
+22. https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/466944/: python serial 模組使用方法
+23. https://swf.com.tw/?p=1188: 使用Python的pySerial模組進行序列通訊：連接電腦與Arduino和MicroPython
+24. https://www.digikey.tw/zh/resources/conversion-calculators/conversion-calculator-resistor-color-code: 電阻計算
+25. https://www.youtube.com/watch?v=7MRaNhBQ3Kc: TinkerCAD教程：开关
+26. https://medium.com/jeasee%E9%9A%A8%E7%AD%86/python-%E5%8F%8A-firmata-c8d104c1cf00: Python 及 Firmata

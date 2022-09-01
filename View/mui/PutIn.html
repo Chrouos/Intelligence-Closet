@@ -12,13 +12,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-  <!-- Connect -->
-  <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
-  <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js" rel="external nofollow"
-    rel="external nofollow" rel="external nofollow"></script>
-  <script src="./js/putIn.js"></script>
+  <!-- Package -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
   <script src="https://kit.fontawesome.com/8ede13235f.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
 
+  <!-- Connect -->
+  <script src="./js/putIn.js"></script>
+
+  <!-- Css -->
   <link rel="stylesheet" href="./public/css/putIn.css" type="text/css">
 
 </head>
@@ -39,7 +42,7 @@
     <div class="pictures-one">
       <a><img src="{{putIn.pictures}}"></a>
     </div>
-    
+
     <!-- 衣物資訊/設定 -->
     <div class="clothesInfo-Set">
       <div>
@@ -60,7 +63,7 @@
           <option value="卡其色">卡其色</option>
         </select>
       </div>
-      <br/>
+      <br />
       <div>
         <p style="display: inline;">樣式: {{putIn.style}}</p>
         <select ng-model="putIn.style">
@@ -83,12 +86,13 @@
           <option value="11">鞋</option>-->
         </select>
       </div>
-      <br/>
+      <br />
       <div>
         <p style="display: inline;">是否加入最愛</p>
-        <span style="color: white;" onclick="heartClick(this)" ng-click="heartClicks()"><i class="fa-solid fa-heart"></i></span>
+        <span style="color: white;" onclick="heartClick(this)" ng-click="heartClicks()"><i
+            class="fa-solid fa-heart"></i></span>
       </div>
-      <br/>
+      <br />
       <!-- button -->
       <div>
         <a class="btn-white" ng-click="Send(this)">確認存入</a>
@@ -96,7 +100,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- 遮罩 -->
   <div id="mask" style="visibility: hidden"></div>
 
@@ -152,22 +156,22 @@
     <script>
       let Mask = document.getElementById('mask');
       let Menu = document.getElementById('menu');
+
       function ClickMenu() {
         Menu.classList.toggle('active');
-        if(Mask.style.visibility==''){
+        if (Mask.style.visibility == '') {
           Mask.classList.toggle('active');
-          setTimeout(function(){
-            Mask.style.visibility='hidden';
-          },500); 
-        }
-        else{
-          Mask.style.visibility='';
+          setTimeout(function () {
+            Mask.style.visibility = 'hidden';
+          }, 500);
+        } else {
+          Mask.style.visibility = '';
           Mask.classList.toggle('active');
         }
       }
     </script>
   </div>
-  
+
 
 </body>
 

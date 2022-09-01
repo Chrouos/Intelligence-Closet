@@ -23,3 +23,6 @@ pip install eel
 ## 畫面設定
 * 1920x1080 Full Screen, chrome:125%
 * 2560x1440 Full Screen, chrome: 175%
+* 
+## 辨識
++ 影像像素 640 * 480
