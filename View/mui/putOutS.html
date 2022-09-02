@@ -30,9 +30,52 @@
 
 <body>
 
-  <div id="all">
-    <a>拿取(自選)介面</a>
+  <div id="class-st">
+    <div class="class-nd"   style="height: 100%;"><!-- 收  藏 -->
+      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);"><a>收  藏</a></div>
+    </div>
+    <div class="class-nd"   style="height: 76%;"><!-- 上半身 -->
+      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);" ng-click="upClick()"><a>上半身</a></div>
+      <div class="class-rd" ng-show="upSet"><a>T-shirt</a></div>
+      <div class="class-rd" ng-show="upSet"><a>襯 衫</a></div>
+      <div class="class-rd" ng-show="upSet"><a>Polo衫</a></div>
+      <div class="class-rd" ng-show="upSet"><a>長 袖</a></div>
+      <div class="class-rd" ng-show="upSet"><a>連帽衫</a></div>
+    </div>
+    <div class="class-nd"   style="height: 62%;"><!-- 下半身 -->
+      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);"  ng-click="downClick()"><a>下半身</a></div>
+      <div class="class-rd" ng-show="downSet"><a>短 褲</a></div>
+      <div class="class-rd" ng-show="downSet"><a>長 褲</a></div>
+      <div class="class-rd" ng-show="downSet"><a>短 裙</a></div>
+      <div class="class-rd" ng-show="downSet"><a>長 裙</a></div>
+    </div>
+    <div class="class-nd"   style="height: 62%;"><!-- 其  他 -->
+      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);"  ng-click="otherClick()"><a>其  他</a></div>
+      <div class="class-rd" ng-show="otherSet"><a>佯 裝</a></div>
+      <div class="class-rd" ng-show="otherSet"><a>小可愛</a></div>
+      <div class="class-rd" ng-show="otherSet"><a>內 衣</a></div>
+      <div class="class-rd" ng-show="otherSet"><a>全 部</a></div>
+    </div>
+
+    </div>
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--------------------------------------------------------------------------------------------------------->
 
   <!-- 遮罩 -->
   <div id="mask" style="visibility: hidden"></div>

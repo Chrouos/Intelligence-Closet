@@ -75,3 +75,40 @@ body {
   border-radius: 5px;
   left: 20%;
 }
+/****************************************************/
+.btn-rb-one{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 5%;
+  bottom: 5%;
+
+}
+.btm-rb-one-n{
+  position: fixed;
+  right: 10.2%;
+  bottom: 6%;
+  font-size: 20px;
+  color: aliceblue;
+}
+.btn-rb-two{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 23%;
+  bottom: 5%;
+
+}
+.btm-rb-two-n{
+  position: fixed;
+  right: 26.5%;
+  bottom: 6%;
+  font-size: 20px;
+  color: aliceblue;
+}
