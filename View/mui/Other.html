@@ -12,12 +12,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-  <!-- Connect -->
+  <!-- Package -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-  <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
-  <script src="./js/other.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
   <script src="https://kit.fontawesome.com/8ede13235f.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
 
+  <!-- Connect -->
+  <script src="./js/other.js"></script>
+
+  <!-- Css -->
   <link rel="stylesheet" href="./public/css/other.css" type="text/css">
 
 </head>
@@ -30,51 +34,51 @@
     <a>其他介面</a>
   </div>
 
-  
+
   <!-- 遮罩 -->
   <div id="mask" style="visibility: hidden"></div>
-  
+
   <!-- Menu -->
   <div id="menu">
     <ul>
       <li>
-        <a href="./User.html">
+        <a href="./user.html">
           <span class="icon"><i class="fa-solid fa-user"></i></span>
           <span class="menu-button">登入/登出</span>
         </a>
       </li>
       <li>
-        <a href="./PutIn.html">
+        <a href="./putIn.html">
           <span class="icon"><i class="fa-solid fa-arrow-up-wide-short"></i></span>
           <span class="menu-button">收納</span>
         </a>
       </li>
       <li>
-        <a href="./PutOutI.html">
+        <a href="./putOutI.html">
           <span class="icon"><i class="fa-solid fa-shirt"></i></span>
           <span class="menu-button">拿取(推薦)</span>
         </a>
       </li>
       <li>
-        <a href="./PutOutS.html">
+        <a href="./putOutS.html">
           <span class="icon"><i class="fa-solid fa-arrow-down-short-wide"></i></span>
           <span class="menu-button">拿取(自選)</span>
         </a>
       </li>
       <li>
-        <a href="./Setting.html">
+        <a href="./setting.html">
           <span class="icon"><i class="fa-solid fa-gear"></i></span>
           <span class="menu-button">衣物設定</span>
         </a>
       </li>
       <li style="background-color: rgb(255, 255, 255);">
-        <a href="./Other.html">
+        <a href="./other.html">
           <span class="icon"><i class="fa-solid fa-clock" style="color: rgb(161, 175, 255);"></i></span>
           <span class="menu-button" style="color: rgb(161, 175, 255);">其他</span>
         </a>
       </li>
       <li>
-        <a href="./Instruction.html">
+        <a href="./instruction.html">
           <span class="icon"><i class="fa-solid fa-person-chalkboard"></i></span>
           <span class="menu-button">使用說明</span>
         </a>
@@ -86,16 +90,16 @@
     <script>
       let Mask = document.getElementById('mask');
       let Menu = document.getElementById('menu');
+
       function ClickMenu() {
         Menu.classList.toggle('active');
-        if(Mask.style.visibility==''){
+        if (Mask.style.visibility == '') {
           Mask.classList.toggle('active');
-          setTimeout(function(){
-            Mask.style.visibility='hidden';
-          },500); 
-        }
-        else{
-          Mask.style.visibility='';
+          setTimeout(function () {
+            Mask.style.visibility = 'hidden';
+          }, 500);
+        } else {
+          Mask.style.visibility = '';
           Mask.classList.toggle('active');
         }
       }

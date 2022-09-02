@@ -12,13 +12,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-  <!-- Connect -->
+  <!-- Package -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-  <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
-  <script src="./js/user.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
   <script src="https://kit.fontawesome.com/8ede13235f.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
 
+  <!-- Connect -->
+  <script src="./js/user.js"></script>
+
+  <!-- Css -->
   <link rel="stylesheet" href="./public/css/user.css" type="text/css">
+
 </head>
 
 <body>
@@ -27,13 +32,13 @@
     <h2 style="font-size: 65px;">使用者資料</h2>
     <div>
       <div id="userInfo">
-        <p  style="margin-top: 30px;"></p>
+        <p style="margin-top: 30px;"></p>
         <a><i class="fa-solid fa-user"></i>使用者名稱:&nbsp; </a>
         <a style="font-size: 50px;">{{user.UserName}}</a>
-        <p  style="margin-top: 20px;"></p>
+        <p style="margin-top: 20px;"></p>
         <a>使用者天氣喜好度:&nbsp;</a>
         <a style="font-size: 50px;">{{user.WeatherLike}}</a>
-        <p  style="margin-top: 20px;"></p>
+        <p style="margin-top: 20px;"></p>
         <a>使用者所在地:&nbsp;</a>
         <a style="font-size: 50px;">{{user.StationName}}</a>
         <p style="margin-top: 20px;"></p>
@@ -43,7 +48,7 @@
       <a style="position: relative;margin:20px;" class="btn-main" ng-click="openEdit()">編輯</a>
 
     </div>
-    
+
   </div>
 
   <div id="userSetting" ng-show="isEdit">
@@ -70,79 +75,79 @@
       <a class="btn-set" ng-click="closeEdit()">返回</a>
     </div>
   </div>
-  
 
 
-<!--------------------------------------------------------------------------------------------------------->
-    <!-- 遮罩 -->
-    <div id="mask" style="visibility: hidden"></div>
-    <!-- Menu -->
-    <div id="menu">
-      <ul>
-        <li style="background-color: rgb(255, 255, 255);">
-          <a href="./User.html">
-            <span class="icon"><i class="fa-solid fa-user" style="color: rgb(161, 175, 255);"></i></span>
-            <span class="menu-button" style="color: rgb(161, 175, 255);">登入/登出</span>
-          </a>
-        </li>
-        <li>
-          <a href="./PutIn.html">
-            <span class="icon"><i class="fa-solid fa-arrow-up-wide-short"></i></span>
-            <span class="menu-button">收納</span>
-          </a>
-        </li>
-        <li>
-          <a href="./PutOutI.html">
-            <span class="icon"><i class="fa-solid fa-shirt"></i></span>
-            <span class="menu-button">拿取(推薦)</span>
-          </a>
-        </li>
-        <li>
-          <a href="./PutOutS.html">
-            <span class="icon"><i class="fa-solid fa-arrow-down-short-wide"></i></span>
-            <span class="menu-button">拿取(自選)</span>
-          </a>
-        </li>
-        <li>
-          <a href="./Setting.html">
-            <span class="icon"><i class="fa-solid fa-gear"></i></span>
-            <span class="menu-button">衣物設定</span>
-          </a>
-        </li>
-        <li>
-          <a href="./Other.html">
-            <span class="icon"><i class="fa-solid fa-clock"></i></span>
-            <span class="menu-button">其他</span>
-          </a>
-        </li>
-        <li>
-          <a href="./Instruction.html">
-            <span class="icon"><i class="fa-solid fa-person-chalkboard"></i></span>
-            <span class="menu-button">使用說明</span>
-          </a>
-        </li>
 
-      </ul>
-      <div id="main-button" onclick="ClickMenu()"></div>
-      <!-- Menu class 更改 -->
-      <script>
-        let Mask = document.getElementById('mask');
-        let Menu = document.getElementById('menu');
+  <!--------------------------------------------------------------------------------------------------------->
+  <!-- 遮罩 -->
+  <div id="mask" style="visibility: hidden"></div>
+  <!-- Menu -->
+  <div id="menu">
+    <ul>
+      <li style="background-color: rgb(255, 255, 255);">
+        <a href="./user.html">
+          <span class="icon"><i class="fa-solid fa-user" style="color: rgb(161, 175, 255);"></i></span>
+          <span class="menu-button" style="color: rgb(161, 175, 255);">登入/登出</span>
+        </a>
+      </li>
+      <li>
+        <a href="./putIn.html">
+          <span class="icon"><i class="fa-solid fa-arrow-up-wide-short"></i></span>
+          <span class="menu-button">收納</span>
+        </a>
+      </li>
+      <li>
+        <a href="./putOutI.html">
+          <span class="icon"><i class="fa-solid fa-shirt"></i></span>
+          <span class="menu-button">拿取(推薦)</span>
+        </a>
+      </li>
+      <li>
+        <a href="./putOutS.html">
+          <span class="icon"><i class="fa-solid fa-arrow-down-short-wide"></i></span>
+          <span class="menu-button">拿取(自選)</span>
+        </a>
+      </li>
+      <li>
+        <a href="./setting.html">
+          <span class="icon"><i class="fa-solid fa-gear"></i></span>
+          <span class="menu-button">衣物設定</span>
+        </a>
+      </li>
+      <li>
+        <a href="./other.html">
+          <span class="icon"><i class="fa-solid fa-clock"></i></span>
+          <span class="menu-button">其他</span>
+        </a>
+      </li>
+      <li>
+        <a href="./instruction.html">
+          <span class="icon"><i class="fa-solid fa-person-chalkboard"></i></span>
+          <span class="menu-button">使用說明</span>
+        </a>
+      </li>
 
-        function ClickMenu() {
-          Menu.classList.toggle('active');
-          if (Mask.style.visibility == '') {
-            Mask.classList.toggle('active');
-            setTimeout(function () {
-              Mask.style.visibility = 'hidden';
-            }, 500);
-          } else {
-            Mask.style.visibility = '';
-            Mask.classList.toggle('active');
-          }
+    </ul>
+    <div id="main-button" onclick="ClickMenu()"></div>
+    <!-- Menu class 更改 -->
+    <script>
+      let Mask = document.getElementById('mask');
+      let Menu = document.getElementById('menu');
+
+      function ClickMenu() {
+        Menu.classList.toggle('active');
+        if (Mask.style.visibility == '') {
+          Mask.classList.toggle('active');
+          setTimeout(function () {
+            Mask.style.visibility = 'hidden';
+          }, 500);
+        } else {
+          Mask.style.visibility = '';
+          Mask.classList.toggle('active');
         }
-      </script>
-    </div>
+      }
+    </script>
+  </div>
 
 </body>
 
