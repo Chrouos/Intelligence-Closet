@@ -25,14 +25,6 @@ body {
   position: relative;
   left: -15%;
 }
-.btn-main{
-  border: 1px solid rgb(255, 255, 255);
-  color: rgb(255, 255, 255);
-  font-size: 55px;
-  border-radius: 5px;
-  position: relative;
-  left: -15%;
-}
 /***********************************************************/
 #userSetting{
   display: flex;
@@ -67,10 +59,41 @@ margin-top: 10px;
   height: 33px;
   font-size: 30px;
 }
-.btn-set{
-  border: 1px solid rgb(255, 255, 255);
-  color: rgb(255, 255, 255);
-  font-size: 55px;
-  border-radius: 5px;
 
+/***********************************************************/
+.btn-rb-one{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 5%;
+  bottom: 5%;
+
+}
+.btm-rb-one-n{
+  position: fixed;
+  right: 10.2%;
+  bottom: 6%;
+  font-size: 20px;
+  color: aliceblue;
+}
+.btn-rb-two{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 23%;
+  bottom: 5%;
+
+}
+.btm-rb-two-n{
+  position: fixed;
+  right: 26.5%;
+  bottom: 6%;
+  font-size: 20px;
+  color: aliceblue;
 }

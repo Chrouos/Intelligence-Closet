@@ -43,9 +43,8 @@
         <a style="font-size: 50px;">{{user.StationName}}</a>
         <p style="margin-top: 20px;"></p>
       </div>
-      <p style="margin-top: 60px;"></p>
-      <a class="btn-main" ng-click="SayHi()">登出</a>
-      <a style="position: relative;margin:20px;" class="btn-main" ng-click="openEdit()">編輯</a>
+
+      <a class="btn-rb-one" ng-click="openEdit()"><a class="btm-rb-one-n" ng-click="openEdit()">編 輯</a></a>
 
     </div>
 
@@ -56,7 +55,7 @@
     <div id="userInfo-set">
       <p>使用者名稱: <input ng-model="user.UserName" /></p>
       <p>使用者所在地: <input ng-model="user.StationName" /></p>
-      <p>使用者天氣喜好度: <input ng-model="user.WeatherLike" /></p>
+      <p>使用者天氣喜好度: {{user.WeatherLike}} <input type="range" min="1" max="10" ng-model="user.WeatherLike" /></p>
 
       <div>
         <div style="margin-top: 10px;" class="select is-multiple pl-4 pt-4" style="width:40%">
@@ -71,8 +70,8 @@
         </div>
       </div>
       <p></p>
-      <a class="btn-set" ng-click="update_user()">編輯更新</a>
-      <a class="btn-set" ng-click="closeEdit()">返回</a>
+      <a class="btn-rb-two" ng-click="update_user()"><a class="btm-rb-two-n" ng-click="update_user()">編輯更新</a></a>
+      <a class="btn-rb-one" ng-click="closeEdit()"><a class="btm-rb-one-n" ng-click="closeEdit()">返 回</a></a>
     </div>
   </div>
 
