@@ -22,7 +22,7 @@ VALUES(1, 'Longsleeve', 3, 'ªø³S')
 INSERT INTO sub_category
 VALUES(1, 'Hoodie', 4, '´UT')
 INSERT INTO sub_category
-VALUES(1, 'Outwear', 4, '¥~®M')
+VALUES(4, 'Outwear', 4, '¥~®M')
 
 INSERT INTO sub_category
 VALUES(2, 'Shorts', 1, 'µu¿Ç')

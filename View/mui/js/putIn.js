@@ -21,11 +21,14 @@ app.controller('myCtrl', function ($scope) {
   $scope.StartType = true;//開始介面bool
   $scope.MainType = false;//主介面bool
 
-  $scope.putIn = [//資料
+  $scope.putIn = //資料
     { 'FilePosition': './public/src/clothes_1.jpg', 'color': '白色', 'style': '連帽衫', 'like': 5, 'favorite': false }
-  ]
 
 
+  $scope.getColorAndSubCategoryList = function () {
+    // $scope.subCategoryList = await eel.get_all_sc_name()();
+    // $scope.colorList = await eel.get_all_color()();
+  }
 
   $scope.heartClicks = function () {
     $scope.putIn.favorite = !$scope.putIn.favorite;

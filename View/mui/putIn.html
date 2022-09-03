@@ -36,7 +36,7 @@
   </div>
 
   <!-- main -->
-  <div id="putInMain" ng-if="MainType" ng-repeat='putIn in putIn'>
+  <div id="putInMain" ng-if="MainType">
 
     <!-- 衣物照片 -->
     <div class="pictures-one">
@@ -90,7 +90,8 @@
       <div>
         <p style="display: inline;">是否加入最愛</p>
         <span style="color: white;" onclick="heartClick(this)" ng-click="heartClicks()"><i
-            class="fa-solid fa-heart"></i></span>
+            class="fa-solid fa-heart"></i>
+        </span>
       </div>
       <br />
       <!-- button -->

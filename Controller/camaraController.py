@@ -16,11 +16,9 @@ from Service.subCategoryService import SubCategoryService
 
 sys.path.append(os.getcwd())  # 抓取路徑
 
-chooseCamara = 1
-
 class CamaraController:
 
-    def __init__(self):
+    def __init__(self, camara):
         self.newOneId = -1  # 抓取資料庫最後一位
         
         self.getLastId()
@@ -28,6 +26,8 @@ class CamaraController:
         self.category = ''
         
         self.path = ""
+        
+        self.chooseCamara = camara
 
     def getLastId(self):
         clothesNodeService = ClothesNodeService()
@@ -62,7 +62,7 @@ class CamaraController:
         print(" ---------- identify result ----------")
 
     def useCamara(self):
-        cap = cv2.VideoCapture(chooseCamara)  # 開啟攝像頭
+        cap = cv2.VideoCapture(self.chooseCamara)  # 開啟攝像頭
         countDown = 1                                               
         while True:
             ret, frame = cap.read()  # 讀取鏡頭畫面
@@ -87,22 +87,31 @@ class CamaraController:
 
         # 關閉GPU加速功能(建議安裝無GPU版本，縮短初始化時間)
         os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+        
         # 開啟800字典
         words_path = './Controller/classify/archive/images.csv'
         file1 = open(words_path, 'rt', encoding='Big5')
+        labels = list(file1.read())
         file1.close()
+        
+        # 載入模型
+        model = tf.compat.v1.keras.models.load_model('./Controller/classify/h5/training_model.h5')
 
-        model = tf.compat.v1.keras.models.load_model('./Controller/classify/h5/eff_final.h5')
+            
+        cls_list = ['Blazer(x)','Blouse','Body','Dress','Hat','Hoodie','Longsleeve','Not_sure','Other','Outwear',
+                    'Pants','Polo','Shirt','Shoes','Shorts','Skip','Skirt','T-Shirt','Top','Undershirt']
+
         try:
             img = image.load_img(self.save_path, target_size=(224, 224))
         except Exception as e:
             print(self.save_path, e)
-
+            
         # 圖檔預處理
         img = np.expand_dims(img, axis=0)  # 轉換通道
         img = img / 255  # rescale
 
-        pred = model.predict(img)[0]
+        pred = model.predict(img)[0]  # 計算機率與預測結果
+        #print(pred) # 機率list
         index = np.argmax(pred)
         prediction = cls_list[index]
 

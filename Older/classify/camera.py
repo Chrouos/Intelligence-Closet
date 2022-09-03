@@ -1,6 +1,11 @@
 
 import cv2
 
+import os
+import sys
+
+sys.path.append(os.getcwd())  # 抓取路徑
+
 cap = cv2.VideoCapture(0)  # 開啟攝像頭
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 224)
 
@@ -45,7 +50,7 @@ while True:
     cv2.imshow("capture", frame)  # 生成攝像頭視窗
 
     if cv2.waitKey(1) & 0xFF == ord('q'):  # 如果按下q 就截圖儲存並退出
-        cv2.imwrite("./images/test.jpg", frame)  # 儲存路徑
+        #cv2.imwrite("./images/test.jpg", frame)  # 儲存路徑
         break
 
 cap.release()
@@ -64,17 +69,17 @@ import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 # 開啟800字典
-words_path = './archive/images.csv'
+words_path = './Controller/classify/archive/images.csv'
 file1 = open(words_path, 'rt', encoding='Big5')
 labels = list(file1.read())
 file1.close()
 
 # 載入模型
-model = tf.compat.v1.keras.models.load_model('./h5/training_model.h5')
+model = tf.compat.v1.keras.models.load_model('./Controller/classify/h5/training_model.h5')
 
 # 讀取照片
 #img_path = './archive/images_original/92d4a750-0aab-43b7-997f-e5ebe9c9a92e.jpg'
-img_path = './images/test.jpg'
+img_path = './View/mui/public/src/clothes_2.jpg'
 
 cls_list = ['Blazer(x)','Blouse','Body','Dress','Hat','Hoodie','Longsleeve','Not_sure','Other','Outwear',
             'Pants','Polo','Shirt','Shoes','Shorts','Skip','Skirt','T-Shirt','Top','Undershirt']
@@ -84,7 +89,7 @@ cls_list = ['Blazer(x)','Blouse','Body','Dress','Hat','Hoodie','Longsleeve','Not
 #img=cv2.resize(img,(224,224))
 try:
     #img=img.reshape(1,150528)
-    img = image.load_img(img_path, target_size=(224,224))
+    img = image.load_img(img_path, target_size=(224, 224))
 except Exception as e:
     print(img_path, e)
 
