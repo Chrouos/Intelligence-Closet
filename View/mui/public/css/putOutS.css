@@ -41,3 +41,123 @@ body {
   color: rgb(255, 255, 255);
   transition: 1s;
 }
+/****************************************************************************************/
+.grid-container{
+    width: 80%;
+    height: 70%;
+    position: absolute;
+    top: 18%;
+    left: 12%;
+    display: grid;
+    grid-template-columns: 128px 128px 128px 128px 128px 128px;
+    grid-template-rows: 160px 160px;
+    grid-column-gap: 15px;
+    grid-row-gap: 20px;
+    /*background-color: #2196F3;*/
+
+  }
+.grid-item {
+  background-color: white;
+  border-radius: 20px;
+}
+.grid-item img{
+  height: 160px;
+  width: 128px;
+  border-radius: 20px;
+  
+}
+/****************************************************************************************/
+#preview{
+  position: absolute;
+  /*background-color: rgb(255, 90, 90);*/
+  height: 85px;
+  width: 140px;
+  right: 38%;
+  bottom: 10%;
+  display: flex;
+  justify-content: space-between;
+}
+.preview-i{
+  background-color: rgba(255, 255, 255, 0.854);
+  height: 80px;
+  width: 64px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  z-index: 6;
+}
+.preview-i i{
+  position: absolute;
+  color: rgb(166, 166, 166);
+  font-size: 30px;
+  z-index: 7;
+}
+.preview-i img{
+  position: absolute;
+  height: 80px;
+  width: 64px;
+  border-radius: 10px;
+  z-index: 8;
+}
+/****************************************************************************************/
+.beChoses{
+  background-color: rgb(255, 85, 85);
+}
+/****************************************************************************************/
+.btn-rb-one{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 3%;
+  bottom: 3%;
+
+}
+.btm-rb-one-n{
+  position: fixed;
+  right: 6.5%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}
+.btn-rb-two{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 20%;
+  bottom: 3%;
+
+}
+.btm-rb-two-n{
+  position: fixed;
+  right: 25%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}
+.btn-rb-three{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 37%;
+  bottom: 3%;
+
+}
+.btm-rb-three-n{
+  position: fixed;
+  right: 40.2%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}
+

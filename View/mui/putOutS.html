@@ -29,7 +29,7 @@
 
 
 <body>
-
+  <!-- 選單 -->
   <div id="class-st">
     <div class="class-nd"   style="height: 100%;"><!-- 收  藏 -->
       <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);"><a>收  藏</a></div>
@@ -60,10 +60,36 @@
     </div>
   </div>
 
+  <!-- 列表 -->
+  <div class ="grid-container" > 
+    <div class ="grid-item" ><a ng-click="takeClick(1)"  onclick="takeClick(this)"><img src="{{Data[0].Picture}}"></a></div> 
+    <div class ="grid-item" ><a ng-click="takeClick(2)"  onclick="takeClick(this)"><img src="{{Data[1].Picture}}"></a></div> 
+    <div class ="grid-item" ><a ng-click="takeClick(3)"  onclick="takeClick(this)"><img src="{{Data[2].Picture}}"></a></div> 
+    <div class ="grid-item" ><a ng-click="takeClick(4)"  onclick="takeClick(this)"><img src="{{Data[3].Picture}}"></a></div> 
+    <div class ="grid-item" ><a ng-click="takeClick(5)"  onclick="takeClick(this)"><img src="{{Data[4].Picture}}"></a></div> 
+    <div class ="grid-item" ><a ng-click="takeClick(6)"  onclick="takeClick(this)"><img src="{{Data[5].Picture}}"></a></div> 
+    <div class ="grid-item" ><a ng-click="takeClick(7)"  onclick="takeClick(this)"><img src="{{Data[6].Picture}}"></a></div> 
+    <div class ="grid-item" ><a ng-click="takeClick(8)"  onclick="takeClick(this)"><img src="{{Data[7].Picture}}"></a></div> 
 
+  </div >
 
-
-
+  <!-- button -->
+  <div>
+    <a class="btn-rb-three" ng-click="takeTypeClick()"><a class="btm-rb-three-n" ng-click="takeTypeClick()">單件/一套</a></a>
+    <a class="btn-rb-two" ng-click=""><a class="btm-rb-two-n" ng-click="">拿 取</a></a>
+    <a class="btn-rb-one" ng-click=""><a class="btm-rb-one-n" ng-click="">詳細資料</a></a>
+  </div>
+  <!-- 選取預覽 -->
+  <div id="preview" ng-show="takeType">
+    <div class="preview-i">
+      <i class="fa-solid fa-plus"></i>
+      <img src="{{takeTwiceSt}}">
+    </div>
+    <div class="preview-i">
+      <i class="fa-solid fa-plus"></i>
+      <img src="{{takeTwiceNd}}">
+    </div>
+  </div>
 
 
 
