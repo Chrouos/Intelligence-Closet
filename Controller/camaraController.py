@@ -24,10 +24,12 @@ class CamaraController:
         self.getLastId()
         self.color = ''
         self.category = ''
+        self.isFavorite = 0
         
         self.path = ""
         
         self.chooseCamara = camara
+        
 
     def getLastId(self):
         clothesNodeService = ClothesNodeService()
@@ -49,7 +51,8 @@ class CamaraController:
         colorId = colorService.queryIdByEngName(self.color)
         subCategoryId = subCategoryService.queryIdByClothesType(self.category)
         
-        clothesNode_create = '{{"SubCategoryId": {0}, "ColorId": {1}, "FilePosition": "{2}"}}'.format(subCategoryId, colorId, self.path)
+        clothesNode_create = '{{"SubCategoryId": {0}, "ColorId": {1}, "FilePosition": "{2}", "IsFavorite": {3}}}'.format(   subCategoryId, colorId, 
+                                                                                                                            self.path, self.isFavorite)
         print("saveData:", clothesNode_create)
 
         return clothesNodeService.create(clothesNode_create)
@@ -164,7 +167,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_black)
         color_list.append(upper_black)
-        dict['black'] = color_list
+        dict['BLACK'] = color_list
 
         # #灰色
         lower_gray = np.array([0, 0, 46])
@@ -172,7 +175,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_gray)
         color_list.append(upper_gray)
-        dict['gray'] = color_list
+        dict['GRAY'] = color_list
 
         # 白色
         lower_white = np.array([0, 0, 221])
@@ -180,7 +183,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_white)
         color_list.append(upper_white)
-        dict['white'] = color_list
+        dict['WHITE'] = color_list
 
         # 紅色
         lower_red = np.array([156, 43, 46])
@@ -188,7 +191,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_red)
         color_list.append(upper_red)
-        dict['red'] = color_list
+        dict['RED'] = color_list
 
         # 紅色2
         lower_red = np.array([0, 43, 46])
@@ -196,7 +199,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_red)
         color_list.append(upper_red)
-        dict['red2'] = color_list
+        dict['RED'] = color_list
 
         # 橙色
         lower_orange = np.array([11, 43, 46])
@@ -204,7 +207,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_orange)
         color_list.append(upper_orange)
-        dict['orange'] = color_list
+        dict['ORANGE'] = color_list
 
         # 黃色
         lower_yellow = np.array([26, 43, 46])
@@ -212,7 +215,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_yellow)
         color_list.append(upper_yellow)
-        dict['yellow'] = color_list
+        dict['YELLOW'] = color_list
 
         # 綠色
         lower_green = np.array([35, 43, 46])
@@ -220,7 +223,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_green)
         color_list.append(upper_green)
-        dict['green'] = color_list
+        dict['GREEN'] = color_list
 
         # 青色
         lower_cyan = np.array([78, 43, 46])
@@ -228,7 +231,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_cyan)
         color_list.append(upper_cyan)
-        dict['cyan'] = color_list
+        dict['CYAN'] = color_list
 
         # 藍色
         lower_blue = np.array([100, 43, 46])
@@ -236,7 +239,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_blue)
         color_list.append(upper_blue)
-        dict['blue'] = color_list
+        dict['BLUE'] = color_list
 
         # 紫色
         lower_purple = np.array([125, 43, 46])
@@ -244,6 +247,6 @@ class CamaraController:
         color_list = []
         color_list.append(lower_purple)
         color_list.append(upper_purple)
-        dict['purple'] = color_list
+        dict['PURPLE'] = color_list
 
         return dict

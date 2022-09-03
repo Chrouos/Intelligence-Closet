@@ -13,8 +13,17 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
   <!-- Package -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   <script src="https://kit.fontawesome.com/8ede13235f.js" crossorigin="anonymous"></script>
   <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
 
@@ -32,7 +41,7 @@
 
   <div id="putInStart" ng-if="StartType">
     <p style="font-size: 50px;">請掛入衣服並點擊開始存放</p>
-    <a id="btn-start" ng-click="Start()">開始存放</a>
+    <a id="btn-start" ng-click="start_identify()">開始存放</a>
   </div>
 
   <!-- main -->
@@ -46,49 +55,22 @@
     <!-- 衣物資訊/設定 -->
     <div class="clothesInfo-Set">
       <div>
-        <p style="display: inline;">顏色: {{putIn.color}}</p>
-        <select ng-model="putIn.color">
-          <option selected="1" disabled="0">修改</option>
-          <option value="藍色">藍色</option>
-          <option value="黑色">黑色</option>
-          <option value="白色">白色</option>
-          <option value="紅色">紅色</option>
-          <option value="橘色">橘色</option>
-          <option value="黃色">黃色</option>
-          <option value="綠色">綠色</option>
-          <option value="紫色">紫色</option>
-          <option value="灰色">灰色</option>
-          <option value="米白色">米白色</option>
-          <option value="軍綠色">軍綠色</option>
-          <option value="卡其色">卡其色</option>
+        <p style="display: inline;">顏色: </p>
+        <select ng-model="color" ng-options="color.ColorEngName as color.ColorName for color in colorList">
+          <!-- <option value="" selected>請選擇</option> -->
         </select>
       </div>
       <br />
       <div>
-        <p style="display: inline;">樣式: {{putIn.style}}</p>
-        <select ng-model="putIn.style">
-          <option selected="1" disabled="0">修改</option>
-          <option value="上半身">上半身</option>
-          <option value="連帽衫">連帽衫</option>
-          <option value="長袖">長袖</option>
-          <option value="褲子">褲子</option>
-          <option value="Polo衫">Polo衫</option>
-          <option value="襯衫">襯衫</option>
-          <option value="短褲">短褲</option>
-          <option value="裙子">裙子</option>
-          <option value="T恤">T恤</option>
-          <option value="薄衫">薄衫</option>
-          <!-- button           
-          <option value="2">洋裝</option>
-          <option value="1">西裝外套</option>
-          <option value="4">帽子</option>
-          <option value="7">外套</option>
-          <option value="11">鞋</option>-->
+        <p style="display: inline;">樣式: </p>
+        <select ng-model="category"
+          ng-options="subCategory.ClothesType as subCategory.Name for subCategory in subCategoryList">
+          <!-- <option value="" selected>請選擇</option> -->
         </select>
       </div>
       <br />
       <div>
-        <p style="display: inline;">是否加入最愛</p>
+        <p style="display: inline;">是否加入最愛: </p>
         <span style="color: white;" onclick="heartClick(this)" ng-click="heartClicks()"><i
             class="fa-solid fa-heart"></i>
         </span>

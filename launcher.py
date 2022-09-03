@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 import json
 import os
 import sys
@@ -36,7 +37,7 @@ def comb_to_js():
 @eel.expose
 def get_camera_identify(): # 拍照
     try:
-        idt = CamaraController()
+        idt = CamaraController(0)
         idt.getLastId()             # 獲得ID，目的是為了建立存檔位置
         idt.useCamara()             # 開啟攝象頭講圖片存檔
 
@@ -49,16 +50,19 @@ def get_camera_identify(): # 拍照
         
     except Exception as e: 
         print("get_camera_identify", e)
-        return False
+        return [NULL, NULL, NULL, False]
     
 @eel.expose
-def identify_save_sql(category, color, save_path): # 確定存檔
+def identify_save_sql(category, color, save_path, isFavorite): # 確定存檔
     try:
+        # 儲存至sql的資料
         idt = CamaraController()
         idt.category = category
         idt.color = color
         idt.save_path = save_path
-        print(category, color, save_path)
+        idt.isFavorite = isFavorite
+        
+        print("identify_save_sql: ", category, color, save_path, isFavorite)
 
         idt.saveToSql()  # 存到資料庫
 

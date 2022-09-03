@@ -135,8 +135,8 @@ class ClothesNodeDAO:
 			return False
 
 
-		execute_str = "INSERT INTO clothes_node (Position, ColorId, SubCategoryId, UsageCounter, CreateTime, ModifyTime , FilePosition) " \
-					+ "VALUES ({0}, {1}, {2}, 0, GETDATE(), GETDATE(), '{3}' )".format(position, clothesNode_dict['ColorId'], clothesNode_dict['SubCategoryId'], clothesNode_dict['FilePosition'])
+		execute_str = "INSERT INTO clothes_node (Position, ColorId, SubCategoryId, UsageCounter, CreateTime, ModifyTime , FilePosition, IsFavorite) " \
+					+ "VALUES ({0}, {1}, {2}, 0, GETDATE(), GETDATE(), '{3}', {4} )".format(position, clothesNode_dict['ColorId'], clothesNode_dict['SubCategoryId'], clothesNode_dict['FilePosition'], clothesNode_dict['IsFavorite'])
 
 		print("create", execute_str)
 		self.cnxn.cursor().execute(execute_str)
