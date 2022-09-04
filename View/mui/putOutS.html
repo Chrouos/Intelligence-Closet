@@ -31,51 +31,58 @@
 <body>
   <!-- 選單 -->
   <div id="class-st">
-    <div class="class-nd"   style="height: 100%;"><!-- 收  藏 -->
-      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);"><a>收  藏</a></div>
+    <!-- 收  藏 -->
+    <div class="class-nd" style="height: 100%;">
+      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);"><a>收 藏</a></div>
     </div>
-    <div class="class-nd"   style="height: 76%;"><!-- 上半身 -->
-      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);" ng-click="upClick()"><a>上半身</a></div>
-      <div class="class-rd" ng-show="upSet"><a>T-shirt</a></div>
-      <div class="class-rd" ng-show="upSet"><a>襯 衫</a></div>
-      <div class="class-rd" ng-show="upSet"><a>Polo衫</a></div>
-      <div class="class-rd" ng-show="upSet"><a>長 袖</a></div>
-      <div class="class-rd" ng-show="upSet"><a>連帽衫</a></div>
+    <!-- 上半身 -->
+    <div class="class-nd" style="height: 76%;">
+      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);" ng-click="upClick()">
+        <a>上半身</a>
+      </div>
+      <div ng-repeat="upper in upperList">
+        <div class="class-rd" ng-show="upSet" ng-click=""><a>{{upper.Name}}</a></div>
+      </div>
     </div>
-    <div class="class-nd"   style="height: 62%;"><!-- 下半身 -->
-      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);"  ng-click="downClick()"><a>下半身</a></div>
+    <!-- 下半身 -->
+    <div class="class-nd" style="height: 62%;">
+      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);" ng-click="downClick()"><a>下半身</a>
+      </div>
       <div class="class-rd" ng-show="downSet"><a>短 褲</a></div>
       <div class="class-rd" ng-show="downSet"><a>長 褲</a></div>
       <div class="class-rd" ng-show="downSet"><a>短 裙</a></div>
       <div class="class-rd" ng-show="downSet"><a>長 裙</a></div>
     </div>
-    <div class="class-nd"   style="height: 62%;"><!-- 其  他 -->
-      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);"  ng-click="otherClick()"><a>其  他</a></div>
+    <div class="class-nd" style="height: 62%;">
+      <!-- 其  他 -->
+      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);" ng-click="otherClick()"><a>其
+          他</a></div>
       <div class="class-rd" ng-show="otherSet"><a>佯 裝</a></div>
       <div class="class-rd" ng-show="otherSet"><a>小可愛</a></div>
       <div class="class-rd" ng-show="otherSet"><a>內 衣</a></div>
       <div class="class-rd" ng-show="otherSet"><a>全 部</a></div>
     </div>
 
-    </div>
+  </div>
   </div>
 
   <!-- 列表 -->
-  <div class ="grid-container" > 
-    <div class ="grid-item" ><a ng-click="takeClick(1)"  onclick="takeClick(this)"><img src="{{Data[0].Picture}}"></a></div> 
+  <div class="grid-container">
+    <!-- <div class ="grid-item" ><a ng-click="takeClick(1)"  onclick="takeClick(this)"><img src="{{Data[0].Picture}}"></a></div> 
     <div class ="grid-item" ><a ng-click="takeClick(2)"  onclick="takeClick(this)"><img src="{{Data[1].Picture}}"></a></div> 
     <div class ="grid-item" ><a ng-click="takeClick(3)"  onclick="takeClick(this)"><img src="{{Data[2].Picture}}"></a></div> 
     <div class ="grid-item" ><a ng-click="takeClick(4)"  onclick="takeClick(this)"><img src="{{Data[3].Picture}}"></a></div> 
     <div class ="grid-item" ><a ng-click="takeClick(5)"  onclick="takeClick(this)"><img src="{{Data[4].Picture}}"></a></div> 
     <div class ="grid-item" ><a ng-click="takeClick(6)"  onclick="takeClick(this)"><img src="{{Data[5].Picture}}"></a></div> 
     <div class ="grid-item" ><a ng-click="takeClick(7)"  onclick="takeClick(this)"><img src="{{Data[6].Picture}}"></a></div> 
-    <div class ="grid-item" ><a ng-click="takeClick(8)"  onclick="takeClick(this)"><img src="{{Data[7].Picture}}"></a></div> 
+    <div class ="grid-item" ><a ng-click="takeClick(8)"  onclick="takeClick(this)"><img src="{{Data[7].Picture}}"></a></div>  -->
 
-  </div >
+  </div>
 
   <!-- button -->
   <div>
-    <a class="btn-rb-three" ng-click="takeTypeClick()"><a class="btm-rb-three-n" ng-click="takeTypeClick()">單件/一套</a></a>
+    <a class="btn-rb-three" ng-click="takeTypeClick()"><a class="btm-rb-three-n"
+        ng-click="takeTypeClick()">單件/一套</a></a>
     <a class="btn-rb-two" ng-click=""><a class="btm-rb-two-n" ng-click="">拿 取</a></a>
     <a class="btn-rb-one" ng-click=""><a class="btm-rb-one-n" ng-click="">詳細資料</a></a>
   </div>

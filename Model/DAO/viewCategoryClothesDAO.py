@@ -59,3 +59,19 @@ class ViewCategoryClothesDAO:
 		viewCategoryClothes.updateBySQL(data)
 	
 		return viewCategoryClothes
+
+	# 透過Id查找一筆資料: tuple
+	def queryByCategoryId(self, categoryId):
+		execute_str = "SELECT * FROM intelligence_closet.dbo.v_category_clothes WHERE CategoryId = {0}".format(categoryId)
+		print("queryByCategoryId: ", execute_str)
+	
+		self.cursor.execute(execute_str)
+		datas = self.cursor.fetchall()
+	
+		viewCategoryClothesLists = []
+		for data in datas:
+			viewCategoryClothes = ViewCategoryClothes()
+			viewCategoryClothes.updateBySQL(data)
+			viewCategoryClothesLists.append(viewCategoryClothes)
+	
+		return viewCategoryClothesLists

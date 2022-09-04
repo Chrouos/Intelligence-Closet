@@ -91,9 +91,10 @@ from Controller.camaraController import CamaraController
 # print("2. 透過Id找: ", userDashboardService.queryById(2))
 
 # 10. ViewCategoryClothes
-# viewCategoryClothesService = ViewCategoryClothesService()
-# print("1. 搜尋全部 LIST: ",viewCategoryClothesService.queryAll())
-# print(viewCategoryClothesService.queryById(2))
+viewCategoryClothesService = ViewCategoryClothesService()
+# print("1. 搜尋全部 LIST: ", viewCategoryClothesService.queryAll())
+# print("2. 依據ID搜尋子類別: ", viewCategoryClothesService.queryById(2))
+# print("3. 依據類別搜尋: ", viewCategoryClothesService.queryByCategoryId(1))
 
 # 11. ViewClothesGraphService
 # viewClothesGraphService = ViewClothesGraphService()
@@ -126,13 +127,13 @@ from Controller.camaraController import CamaraController
 # crawlerStationController.refreshAllData()
 
 # 相機物件
-camaraController = CamaraController(0)
-camaraController.getLastId()
-camaraController.useCamara()
-camaraController.identifyColor()
-camaraController.identifyCategory()
+# camaraController = CamaraController(0)
+# camaraController.getLastId()
+# camaraController.useCamara()
+# camaraController.identifyColor()
+# camaraController.identifyCategory()
 # camaraController.saveToSql()
-camaraController.printResult()
+# camaraController.printResult()
 
 
 # 圖形物件

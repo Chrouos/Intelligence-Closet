@@ -18,6 +18,7 @@ from Service.cityService import CityService
 from Service.userDashboardService import UserDashboardService
 from Service.clothesNodeService import ClothesNodeService
 from Service.viewClothesNodeService import ViewClothesNodeService
+from Service.viewCategoryClothesService import ViewCategoryClothesService
 
 
 user_id = 1
@@ -190,6 +191,14 @@ def other_clothes_to_js():
     print("other_clothes_to_js", v_clothes_dict)
     
     return v_clothes_dict
+
+@eel.expose
+def query_subCategory_byCategoryId(categoryId):
+    viewCategoryClothesService = ViewCategoryClothesService()
+    v_subCategory_dict = viewCategoryClothesService.queryByCategoryId(categoryId) # 利用類別搜尋子類別 # 1:上半身, 2:下半身, 3:裙裝, 4:大衣
+    print("query_subCategory_byCategoryId", v_subCategory_dict)
+    
+    return v_subCategory_dict
 
 eel.init('View/mui')  # eel.init(網頁的資料夾)
 # eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))
