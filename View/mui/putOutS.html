@@ -40,9 +40,7 @@
       <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);" ng-click="upClick()">
         <a>上半身</a>
       </div>
-      <div ng-repeat="upper in upperList">
-        <div class="class-rd" ng-show="upSet" ng-click=""><a>{{upper.Name}}</a></div>
-      </div>
+      <div ng-repeat="upper in upperList" class="class-rd" ng-show="upSet" ng-click=""><a>{{upper.Name}}</a></div>
     </div>
     <!-- 下半身 -->
     <div class="class-nd" style="height: 62%;">

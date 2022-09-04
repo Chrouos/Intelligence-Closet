@@ -1,36 +1,95 @@
-<!DOCTYPE html>
-<html>
+<ul class="menu-hover-fill flex flex-col items-start leading-none text-2xl uppercase space-y-4">
+  <li><a href="#" data-text="upper">upper</a>
+    <a>短袖</a>
+    <a>長袖</a>
+    <a>帽T</a>
+  </li>
+  <li><a href="#" data-text="lower">lower</a></li>
+  <li><a href="#" data-text="other">other</a></li>
+</ul>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My page</title>
+<style>
+  @import url("https://cdn.jsdelivr.net/npm/@alphardex/aqua.css@1.5.0/dist/aqua.min.css");
 
-  <!-- CSS dependencies -->
-  <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
-</head>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f7f7fd;
+  }
 
-<body>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: black;
+  }
 
-  <p>Content here. <a class="show-alert" href=#>Alert!</a></p>
+  :root {
+    --grey-color: #7f8c8d;
+  }
 
-  <!-- JS dependencies -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
-  </script>
+  a {
+    text-decoration: none;
+  }
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+  .menu-hover-fill li {
+    position: relative;
+  }
 
+  .menu-hover-fill li::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: -1rem;
+    width: 0.25rem;
+    height: 100%;
+    background: var(--menu-link-active-color);
+    transition: 0.6s;
+  }
 
-  <script>
-    $(document).on("click", ".show-alert", function (e) {
-      bootbox.alert("Hello world!", function () {
-        console.log("Alert Callback");
-      });
-    });
-  </script>
-</body>
+  .menu-hover-fill li a {
+    --menu-link-color: var(--grey-color);
+    position: relative;
+    background: linear-gradient(var(--menu-link-active-color) 0 100%) left/0 no-repeat;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    transition: background-size 0.9s 0.5s;
+  }
 
-</html>
+  .menu-hover-fill li a::before {
+    position: absolute;
+    content: attr(data-text);
+    z-index: -1;
+    color: var(--menu-link-color);
+  }
+
+  .menu-hover-fill li:hover {
+    --menu-link-active-color: var(--primary-color);
+  }
+
+  .menu-hover-fill li:nth-child(2) {
+    --menu-link-active-color: var(--info-color);
+  }
+
+  .menu-hover-fill li:nth-child(3) {
+    --menu-link-active-color: var(--success-color);
+  }
+
+  .menu-hover-fill li:hover::before {
+    left: calc(100% + 1rem);
+  }
+
+  .menu-hover-fill li:hover a {
+    background-size: 100%;
+  }
+</style>
