@@ -21,7 +21,7 @@ class UserDashboardService:
                                         'StationName': data.StationName, 
                                         'Clock': data.Clock,
                                         'ModifyTime': data.ModifyTime,
-                                        'StationId': data.StationId})
+                                        'CityId': data.CityId})
         
         return userDashboard_dict
     
@@ -35,7 +35,7 @@ class UserDashboardService:
                                 'StationName': data.StationName, 
                                 'Clock': data.Clock,
                                 'ModifyTime': data.ModifyTime,
-                                'StationId': data.StationId}
+                                'CityId': data.CityId}
         return userDashboard_dict
 
     def updateById(self, request, id):

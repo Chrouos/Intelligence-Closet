@@ -142,7 +142,6 @@ def all_user_to_js():
 @eel.expose
 def update_user_dashboard(user):
     userDashboardService = UserDashboardService()
-    print("user: ", user, type(user))
     isSuccess = userDashboardService.updateById(user, user_id) # 預設為2 
     
     print("update_user_dashboard", isSuccess)

@@ -39,16 +39,18 @@ app.controller('myCtrl', function ($scope) {
         if (isSuccess == true) {
             $scope.user_by_id_to_js();
         }
+        $scope.closeEdit();
     }
 
     // 從 Python中 獲得所有城鎮 顯示在 option 選項中
     $scope.get_station_city = async function () {
         $scope.allCitys = await eel.station_city_to_js()();
+        $scope.isCity_getStationByCity();
     }; $scope.get_station_city();
 
     // 從 Python中 獲得縣市氣象站別 顯示在 option 選項中
     $scope.isCity_getStationByCity = async function () {
-        var stationByCity = await eel.station_station_to_js($scope.selectedCityId)();
+        var stationByCity = await eel.station_station_to_js($scope.user.CityId)();
         $scope.stationByCity = stationByCity;
     }
 
