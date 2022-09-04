@@ -56,7 +56,7 @@ def get_camera_identify(): # 拍照
 def identify_save_sql(category, color, save_path, isFavorite): # 確定存檔
     try:
         # 儲存至sql的資料
-        idt = CamaraController()
+        idt = CamaraController(0)
         idt.category = category
         idt.color = color
         idt.save_path = save_path
@@ -67,8 +67,8 @@ def identify_save_sql(category, color, save_path, isFavorite): # 確定存檔
         idt.saveToSql()  # 存到資料庫
 
         return True
-    except:
-        print("GET CAMARA FALSE")
+    except Exception as e: 
+        print("GET CAMARA FALSE", e)
         return False
     
 @eel.expose
