@@ -1,0 +1,150 @@
+
+*{
+  padding: 0;/*內部空間*/
+  margin: 0;/*外部空間*/
+  box-sizing: border-box;/*把所有東西包含在width 和height 中*/
+  font-family: 'Ubuntu',sans-serif;/*字體*/
+}
+
+body{
+  background-color: rgb(255, 255, 255);
+}
+
+#menu{
+  
+  position: fixed;/*固定位置(畫面)*/
+  inset: 20px;/*漸變(?)*/
+  background-color: rgb(171, 180, 238);
+  width: 80px;
+  border-left: 10px solid rgb(171, 180, 238);
+  border-radius: 30px;
+  overflow: hidden;/*隱藏邊界外的東西*/
+  box-shadow: 15px 15px 25px rgba(0,0,0,0.05);
+  transition:  0.5s;
+  z-index: 10;
+}
+
+#menu.active{
+  width: 300px;
+}
+
+#main-button{
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  
+  width: 50px;
+  height: 50px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 30px;
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.15);
+  cursor: pointer;/*可用的按鈕，不可用:not-allowed*/
+  display: flex;
+  justify-content: center;/*主軸置中*/
+  align-items: center;/*次軸置中*/
+}
+
+#main-button::before{
+  content: '';
+  position: absolute;
+  width: 26px;
+  height: 3px;
+  border-radius: 3px;
+  background-color: black;
+  transform: translateY(-5px);
+  transition: 1s;
+}
+
+#main-button::after{
+  content: '';
+  position: absolute;
+  width: 26px;
+  height: 3px;
+  border-radius: 3px;
+  background-color: black;
+  transform: translateY(5px);
+  transition: 1s;
+}
+
+#menu.active #main-button::before{
+  transform: translateY(0px)rotate(-405deg);
+}
+
+#menu.active #main-button::after{
+  transform: translateY(0px)rotate(225deg);
+}
+/***************************************************/
+#menu ul{
+  position: absolute;
+  top: 10px;
+  left: 0%;
+  width: 100%;
+}
+
+#menu ul li{
+  position: relative;/*相對位置(本體)*/
+  list-style: none;
+  width: 100%;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+#menu ul li:nth-child(1){
+ 
+  background-color: none;
+}
+
+#menu ul li:hover{
+  background-color: rgb(255, 255, 255);
+}
+
+#menu ul li a{
+  position: relative;
+  display: block;
+  width: 100%;
+  display: flex;
+  text-decoration: none;/*連結底線*/
+  color: rgb(255, 255, 255);
+}
+
+#menu ul li:hover a{
+  color: rgb(161, 175, 255);
+}
+/***************************************************/
+#menu ul li a .icon{
+  position: relative;
+  display: block;
+  min-width: 60px;
+  height: 60px;
+  line-height: 70px;
+  text-align: center;
+}
+
+#menu ul li a .icon i{
+  font-size: 1.75em;
+}
+
+#menu ul li a .menu-button {
+  position: relative;
+  display: block;
+  padding: 0 10px;
+  height: 60px;
+  line-height: 60px;
+  text-align: start;
+  white-space: nowrap;
+}
+/***************************************************/
+/*遮罩*/
+#mask{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0);
+  transition: 0.5s;
+}
+#mask.active{
+
+  background-color: rgba(0, 0, 0, 0.4);
+  transition: 0.5s;
+}

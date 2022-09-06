@@ -21,6 +21,8 @@ class ViewClothesNode:
         self.FilePosition = ""
         self.Score = ""
         self.Level = ""
+        self.IsFavorite = ""
+
         
     def print(self):
         print("Id: {0}, Position: {1}, ClothesId: {2}".format(self.Id, self.Position, self.ClothesId))
@@ -45,6 +47,7 @@ class ViewClothesNode:
         self.FilePosition = data.FilePosition
         self.Score = data.Score
         self.Level = data.Level
+        self.IsFavorite = data.IsFavorite
         
     def updateByDict(self, data):
         if data.get("Id") != None: 
@@ -95,5 +98,6 @@ class ViewClothesNode:
         if data.get("Level") != None: 
             self.Level = data['Level']
             
-        
+        if data.get("IsFavorite") != None:
+            self.IsFavorite = data['IsFavorite']        
         

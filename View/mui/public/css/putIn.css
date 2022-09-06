@@ -1,0 +1,114 @@
+@import "menu.css";
+
+/*底色*/
+body {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom right, rgb(255, 255, 255) , rgb(140, 140, 254));
+  z-index: 1;
+}
+/****************************************************/
+
+#putInStart{
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 85%;
+  height: 90%;
+  left: 10%;
+  top: 5%;
+  z-index: 7;
+  /*background-color: aquamarine*/;
+}
+
+#btn-start{
+  border: 3px solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  font-size: 60px;
+  border-radius: 5px;
+
+  position: absolute;
+  bottom: 5%;
+}
+
+/****************************************************/
+#putInMain{
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  /*align-items: center;*/
+  transition: 0.5s;
+  width: 85%;
+  height: 90%;
+  left: 10%;
+  top: 5%;
+  z-index: 7;
+  /*background-color: azure;*/
+}
+
+.pictures-one img{
+  position: absolute;
+  height: 70%;
+  top: 15%;
+  left: 10%;
+  border-radius: 20px;
+}
+
+.clothesInfo-Set{
+  position: absolute;
+  font-size: 40px;
+  top: 18%;
+  left: 50%;
+}
+.clothesInfo-Set select{
+  top: 0;
+  width: 150px;
+  height: 35px;
+  font-size: 25px;
+}
+.btn-white{
+  border: 1px solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  font-size: 40px;
+  border-radius: 5px;
+  left: 20%;
+}
+/****************************************************/
+.btn-rb-one{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 5%;
+  bottom: 5%;
+
+}
+.btm-rb-one-n{
+  position: fixed;
+  right: 10.2%;
+  bottom: 6%;
+  font-size: 20px;
+  color: aliceblue;
+}
+.btn-rb-two{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 23%;
+  bottom: 5%;
+
+}
+.btm-rb-two-n{
+  position: fixed;
+  right: 26.5%;
+  bottom: 6%;
+  font-size: 20px;
+  color: aliceblue;
+}

@@ -12,7 +12,7 @@ class UserDashboard:
         self.StationName = ""
         self.Clock = ""
         self.ModifyTime = ""
-        self.StationId = ""
+        self.CityId = ""
         
     def print(self):
         print("Id: {0}, UserName: {1}, WeatherLike: {2}".format(self.Id, self.UserName, self.WeatherLike))
@@ -23,7 +23,7 @@ class UserDashboard:
         self.UserName = data.UserName
         self.WeatherLike = data.WeatherLike
         self.StationName = data.StationName
-        self.StationId = data.StationId
+        self.CityId = data.CityId
         print("CLOCK: ", data.Clock)
         if data.Clock != None:
             self.Clock = data.Clock.strftime("%H/%M")
@@ -43,8 +43,8 @@ class UserDashboard:
         if data.get("StationName") != None: 
             self.StationName = data['StationName']
             
-        if data.get("StationId") != None: 
-            self.StationId = data['StationId']
+        if data.get("CityId") != None: 
+            self.CityId = data['CityId']
 
         try:
             if data.get("Clock") != None: 

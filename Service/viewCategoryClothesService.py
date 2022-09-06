@@ -37,3 +37,20 @@ class ViewCategoryClothesService:
                                         'Level': data.Level,
                                     }
         return viewCategoryClothes_dict
+    
+        # 透過Id查找一筆資料: 轉換成字典
+    def queryByCategoryId(self, categoryId):
+        datas = self.viewCategoryClothesDAO.queryByCategoryId(categoryId)
+        
+        viewCategoryClothes_dict = []
+        for data in datas:
+            viewCategoryClothes_dict.append({   'Id': data.Id, 
+                                                'CategoryId': data.CategoryId, 
+                                                'CategoryName': data.CategoryName,
+                                                'ClothesType': data.ClothesType,
+                                                'Score': data.Score,
+                                                'Name': data.Name,
+                                                'Level': data.Level,
+                                            })
+        
+        return viewCategoryClothes_dict

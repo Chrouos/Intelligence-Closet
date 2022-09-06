@@ -63,7 +63,7 @@ class UserDashboardDAO:
 	def updateById(self, userDashboard, id):
 		execute_str = "UPDATE intelligence_closet.dbo.user_dashboard SET " \
 					+ "UserName='{0}', WeatherLike={1}, ModifyTime = GETDATE(), ".format(userDashboard.UserName, userDashboard.WeatherLike)\
-					+ "StationName='{0}', Clock='{1}' WHERE Id = {2};".format(userDashboard.StationName, userDashboard.Clock, id)
+					+ "StationName='{0}', Clock='{1}', CityId={3} WHERE Id = {2};".format(userDashboard.StationName, userDashboard.Clock, id, userDashboard.CityId)
 		print("updateById: ", execute_str)
 
 		self.cursor.execute(execute_str)
@@ -73,8 +73,8 @@ class UserDashboardDAO:
 
 	def create(self, userDashboard):
 		execute_str = "INSERT INTO intelligence_closet.dbo.user_dashboard " \
-					+ "(UserName, WeatherLike, ModifyTime, StationName, Clock, StationId) " \
-					+ "VALUES('{0}', {1}, GETDATE(), '{2}', '{3}');".format(userDashboard.UserName, userDashboard.WeatherLike, userDashboard.StationName, userDashboard.Clock, userDashboard.StationId)
+					+ "(UserName, WeatherLike, ModifyTime, StationName, Clock, CityId) " \
+					+ "VALUES('{0}', {1}, GETDATE(), '{2}', '{3}');".format(userDashboard.UserName, userDashboard.WeatherLike, userDashboard.StationName, userDashboard.Clock, userDashboard.CityId)
 		print("create: ", execute_str)
 
 		self.cursor.execute(execute_str)

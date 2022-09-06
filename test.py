@@ -21,10 +21,10 @@ from Service.viewStationService import  ViewStationService
 
 
 ## Controller
-from Controller.crawlerStationController import CrawlerStationController
+# from Controller.crawlerStationController import CrawlerStationController
 from Controller.camaraController import CamaraController
-from Controller.clothesGraphController import ClothesGraphController
-from Controller.weatherInformationAPI import WeatherInformationAPI
+# from Controller.clothesGraphController import ClothesGraphController
+# from Controller.weatherInformationAPI import WeatherInformationAPI
 
 # 1. Category
 # categoryService = CategoryService()
@@ -86,14 +86,15 @@ from Controller.weatherInformationAPI import WeatherInformationAPI
 # print("2. 透過Id找: ", userCombsService.queryById(2))
 
 # 9. UserDashboard
-userDashboardService = UserDashboardService()
-print("1. 搜尋全部 LIST: ", userDashboardService.queryAll()) # 搜尋全部 LIST
+# userDashboardService = UserDashboardService()
+# print("1. 搜尋全部 LIST: ", userDashboardService.queryAll()) # 搜尋全部 LIST
 # print("2. 透過Id找: ", userDashboardService.queryById(2))
 
 # 10. ViewCategoryClothes
-# viewCategoryClothesService = ViewCategoryClothesService()
-# print("1. 搜尋全部 LIST: ",viewCategoryClothesService.queryAll())
-# print(viewCategoryClothesService.queryById(2))
+viewCategoryClothesService = ViewCategoryClothesService()
+# print("1. 搜尋全部 LIST: ", viewCategoryClothesService.queryAll())
+# print("2. 依據ID搜尋子類別: ", viewCategoryClothesService.queryById(2))
+# print("3. 依據類別搜尋: ", viewCategoryClothesService.queryByCategoryId(1))
 
 # 11. ViewClothesGraphService
 # viewClothesGraphService = ViewClothesGraphService()
@@ -126,7 +127,7 @@ print("1. 搜尋全部 LIST: ", userDashboardService.queryAll()) # 搜尋全部 
 # crawlerStationController.refreshAllData()
 
 # 相機物件
-# camaraController = CamaraController()
+# camaraController = CamaraController(0)
 # camaraController.getLastId()
 # camaraController.useCamara()
 # camaraController.identifyColor()

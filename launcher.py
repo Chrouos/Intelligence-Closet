@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 import json
 import os
 import sys
@@ -17,6 +18,7 @@ from Service.cityService import CityService
 from Service.userDashboardService import UserDashboardService
 from Service.clothesNodeService import ClothesNodeService
 from Service.viewClothesNodeService import ViewClothesNodeService
+from Service.viewCategoryClothesService import ViewCategoryClothesService
 
 
 user_id = 1
@@ -36,7 +38,7 @@ def comb_to_js():
 @eel.expose
 def get_camera_identify(): # 拍照
     try:
-        idt = CamaraController()
+        idt = CamaraController(0)
         idt.getLastId()             # 獲得ID，目的是為了建立存檔位置
         idt.useCamara()             # 開啟攝象頭講圖片存檔
 
@@ -49,22 +51,25 @@ def get_camera_identify(): # 拍照
         
     except Exception as e: 
         print("get_camera_identify", e)
-        return False
+        return [NULL, NULL, NULL, False]
     
 @eel.expose
-def identify_save_sql(category, color, save_path): # 確定存檔
+def identify_save_sql(category, color, save_path, isFavorite): # 確定存檔
     try:
-        idt = CamaraController()
+        # 儲存至sql的資料
+        idt = CamaraController(0)
         idt.category = category
         idt.color = color
         idt.save_path = save_path
-        print(category, color, save_path)
+        idt.isFavorite = isFavorite
+        
+        print("identify_save_sql: ", category, color, save_path, isFavorite)
 
         idt.saveToSql()  # 存到資料庫
 
         return True
-    except:
-        print("GET CAMARA FALSE")
+    except Exception as e: 
+        print("GET CAMARA FALSE", e)
         return False
     
 @eel.expose
@@ -138,7 +143,6 @@ def all_user_to_js():
 @eel.expose
 def update_user_dashboard(user):
     userDashboardService = UserDashboardService()
-    print("user: ", user, type(user))
     isSuccess = userDashboardService.updateById(user, user_id) # 預設為2 
     
     print("update_user_dashboard", isSuccess)
@@ -188,5 +192,16 @@ def other_clothes_to_js():
     
     return v_clothes_dict
 
-eel.init('View/main')  # eel.init(網頁的資料夾)
-eel.start('lobby.html', size=(1080, 720))  # eel.start(html名稱, size=(起始大小))
+@eel.expose
+def query_subCategory_byCategoryId(categoryId):
+    viewCategoryClothesService = ViewCategoryClothesService()
+    v_subCategory_dict = viewCategoryClothesService.queryByCategoryId(categoryId) # 利用類別搜尋子類別 # 1:上半身, 2:下半身, 3:裙裝, 4:大衣
+    print("query_subCategory_byCategoryId", v_subCategory_dict)
+    
+    return v_subCategory_dict
+
+eel.init('View/mui')  # eel.init(網頁的資料夾)
+# eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))
+
+
+eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))

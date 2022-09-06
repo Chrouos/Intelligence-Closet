@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+
+<!-- start tag -->
+<html ng-app="myApp" ng-controller="myCtrl">
+
+<head>
+
+  <!-- Set -->
+  <title>登入/登出</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <!-- Connect -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
+  <script src="./login.js"></script>
+  <script src="https://kit.fontawesome.com/8ede13235f.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="./login.css" type="text/css">
+</head>
+
+
+
+<body>
+
+  <a style="font-size: 80px;;display: flex;justify-content: center;">登入/登出介面</a>
+
+  <div id="test" style="display: flex; flex-direction: column; align-items: center;">
+    <h2>測試區域</h2>
+    <div>
+      <a ng-repeat="user in users" style="padding: 5px;" ng-click="login(user.Id)">
+        <p><i class="fa-solid fa-user"></i>使用者名稱: {{user.UserName}}</p>
+        <!-- <p>使用者天氣喜好度: {{user.WeatherLike}}</p>
+        <p>使用者所在地: {{user.StationName}}</p> -->
+      </a>
+    </div>
+  </div>
+
+
+</body>
+
+</html>
+<!-- end tag -->

@@ -16,24 +16,26 @@ from Service.subCategoryService import SubCategoryService
 
 sys.path.append(os.getcwd())  # 抓取路徑
 
-chooseCamara = 1
-
 class CamaraController:
 
-    def __init__(self):
+    def __init__(self, camara):
         self.newOneId = -1  # 抓取資料庫最後一位
         
         self.getLastId()
         self.color = ''
         self.category = ''
+        self.isFavorite = 0
         
         self.path = ""
+        
+        self.chooseCamara = camara
+        
 
     def getLastId(self):
         clothesNodeService = ClothesNodeService()
         
         self.newOneId =  clothesNodeService.lastId() + 1
-        self.save_path = 'View/main/public/src/clothes_' + str(self.newOneId) + '.jpg'
+        self.save_path = 'View/mui/public/src/clothes_' + str(self.newOneId) + '.jpg'
         self.path = "./public/src/clothes_"+str(self.newOneId)+".jpg"
 
         return self.newOneId
@@ -49,9 +51,8 @@ class CamaraController:
         colorId = colorService.queryIdByEngName(self.color)
         subCategoryId = subCategoryService.queryIdByClothesType(self.category)
         
-        src_path = "./public/src/clothes_"+str(self.newOneId)+".jpg"
-        
-        clothesNode_create = '{{"SubCategoryId": {0}, "ColorId": {1}, "FilePosition": "{2}"}}'.format(subCategoryId, colorId, src_path)
+        clothesNode_create = '{{"SubCategoryId": {0}, "ColorId": {1}, "FilePosition": "{2}", "IsFavorite": {3}}}'.format(   subCategoryId, colorId, 
+                                                                                                                            self.path, self.isFavorite)
         print("saveData:", clothesNode_create)
 
         return clothesNodeService.create(clothesNode_create)
@@ -64,7 +65,7 @@ class CamaraController:
         print(" ---------- identify result ----------")
 
     def useCamara(self):
-        cap = cv2.VideoCapture(chooseCamara)  # 開啟攝像頭
+        cap = cv2.VideoCapture(self.chooseCamara)  # 開啟攝像頭
         countDown = 1                                               
         while True:
             ret, frame = cap.read()  # 讀取鏡頭畫面
@@ -72,11 +73,12 @@ class CamaraController:
             countDown = countDown - 0.1                                
             if cv2.waitKey(1) & 0xFF == ord('q') or countDown <= 0:  # 如果按下q 就截圖儲存並退出
                 
+                cv2.resize(frame, (640, 480))
                 cv2.imwrite(self.save_path, frame)
                 
                 cap.release()
                 cv2.destroyAllWindows()  # 關閉視窗
-                print("save: ", self.save_path)
+                # print("save: ", self.save_path)
                 
                 break
 
@@ -89,22 +91,31 @@ class CamaraController:
 
         # 關閉GPU加速功能(建議安裝無GPU版本，縮短初始化時間)
         os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+        
         # 開啟800字典
         words_path = './Controller/classify/archive/images.csv'
         file1 = open(words_path, 'rt', encoding='Big5')
+        labels = list(file1.read())
         file1.close()
+        
+        # 載入模型
+        model = tf.compat.v1.keras.models.load_model('./Controller/classify/h5/training_model.h5')
 
-        model = tf.compat.v1.keras.models.load_model('./Controller/classify/h5/eff_final.h5')
+            
+        cls_list = ['Blazer(x)','Blouse','Body','Dress','Hat','Hoodie','Longsleeve','Not_sure','Other','Outwear',
+                    'Pants','Polo','Shirt','Shoes','Shorts','Skip','Skirt','T-Shirt','Top','Undershirt']
+
         try:
             img = image.load_img(self.save_path, target_size=(224, 224))
         except Exception as e:
             print(self.save_path, e)
-
+            
         # 圖檔預處理
         img = np.expand_dims(img, axis=0)  # 轉換通道
         img = img / 255  # rescale
 
-        pred = model.predict(img)[0]
+        pred = model.predict(img)[0]  # 計算機率與預測結果
+        #print(pred) # 機率list
         index = np.argmax(pred)
         prediction = cls_list[index]
 
@@ -157,7 +168,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_black)
         color_list.append(upper_black)
-        dict['black'] = color_list
+        dict['BLACK'] = color_list
 
         # #灰色
         lower_gray = np.array([0, 0, 46])
@@ -165,7 +176,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_gray)
         color_list.append(upper_gray)
-        dict['gray'] = color_list
+        dict['GRAY'] = color_list
 
         # 白色
         lower_white = np.array([0, 0, 221])
@@ -173,7 +184,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_white)
         color_list.append(upper_white)
-        dict['white'] = color_list
+        dict['WHITE'] = color_list
 
         # 紅色
         lower_red = np.array([156, 43, 46])
@@ -181,7 +192,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_red)
         color_list.append(upper_red)
-        dict['red'] = color_list
+        dict['RED'] = color_list
 
         # 紅色2
         lower_red = np.array([0, 43, 46])
@@ -189,7 +200,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_red)
         color_list.append(upper_red)
-        dict['red2'] = color_list
+        dict['RED'] = color_list
 
         # 橙色
         lower_orange = np.array([11, 43, 46])
@@ -197,7 +208,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_orange)
         color_list.append(upper_orange)
-        dict['orange'] = color_list
+        dict['ORANGE'] = color_list
 
         # 黃色
         lower_yellow = np.array([26, 43, 46])
@@ -205,7 +216,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_yellow)
         color_list.append(upper_yellow)
-        dict['yellow'] = color_list
+        dict['YELLOW'] = color_list
 
         # 綠色
         lower_green = np.array([35, 43, 46])
@@ -213,7 +224,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_green)
         color_list.append(upper_green)
-        dict['green'] = color_list
+        dict['GREEN'] = color_list
 
         # 青色
         lower_cyan = np.array([78, 43, 46])
@@ -221,7 +232,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_cyan)
         color_list.append(upper_cyan)
-        dict['cyan'] = color_list
+        dict['CYAN'] = color_list
 
         # 藍色
         lower_blue = np.array([100, 43, 46])
@@ -229,7 +240,7 @@ class CamaraController:
         color_list = []
         color_list.append(lower_blue)
         color_list.append(upper_blue)
-        dict['blue'] = color_list
+        dict['BLUE'] = color_list
 
         # 紫色
         lower_purple = np.array([125, 43, 46])
@@ -237,6 +248,6 @@ class CamaraController:
         color_list = []
         color_list.append(lower_purple)
         color_list.append(upper_purple)
-        dict['purple'] = color_list
+        dict['PURPLE'] = color_list
 
         return dict

@@ -1,3 +1,4 @@
+
 import numpy as np
 import pandas as pd
 from PIL import Image
@@ -65,7 +66,7 @@ for de in delete:
 
 img_size = 224
 img_shape = (img_size,img_size,3)
-batch_size = 32
+batch_size = 20
 epochs = 20
 dropout_rate = 0.5
 num_of_predict = len(y[0])
@@ -87,10 +88,10 @@ train_img = np.array(train_img)
 train_img = np.array(train_img)/255.
 y = np.array(y)
 
-train_x = train_img[:4000]
-val_x = train_img[4000:]
-train_y = y[:4000]
-val_y = y[4000:]
+train_x = train_img[:400]
+val_x = train_img[400:500]
+train_y = y[:400]
+val_y = y[400:500]
 
 del train_img
 del y
@@ -115,7 +116,10 @@ inputs = Input(shape=img_shape)
 efficientnet = efficientnet(inputs) #efficientnet
 pooling = layers.GlobalAveragePooling2D()(efficientnet) #globalaveragepooling
 dropout = layers.Dropout(dropout_rate)(pooling) #dropout
-outputs = Dense(len(val_y[0]), activation="softmax")(dropout)
+dense1 = Dense(256, activation="relu")(dropout)
+dense2 = Dense(256, activation="relu")(dense1)
+dense3 = Dense(256, activation="relu")(dense2)
+outputs = Dense(len(val_y[0]), activation="softmax")(dense3)
 model2 = Model(inputs=inputs, outputs=outputs)
 
 decay_steps = int(round(4000*0.8/batch_size))*epochs
@@ -126,8 +130,8 @@ model2.compile(loss=tf.keras.losses.CategoricalCrossentropy(),
 
 model2.summary()
 
-history=model2.fit(train_x,train_y,batch_size=batch_size,epochs=25,
+history=model2.fit(train_x,train_y,batch_size=batch_size,epochs=100,
                    validation_data=(val_x,val_y))
 
 model2.evaluate(x=val_x,y=val_y)
-model2.save('./h5/eff_final.h5')
+model2.save('./h5/training_model.h5')

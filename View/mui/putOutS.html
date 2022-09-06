@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+
+<!-- start tag -->
+<html ng-app="myApp" ng-controller="myCtrl">
+
+<head>
+
+  <!-- Set -->
+  <title>拿取(自選)</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <!-- Package -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+  <script src="https://kit.fontawesome.com/8ede13235f.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
+
+  <!-- Connect -->
+  <script src="./js/putOutS.js"></script>
+
+  <!-- Css -->
+  <link rel="stylesheet" href="./public/css/putOutS.css" type="text/css">
+
+</head>
+
+
+
+<body>
+  <!-- 選單 -->
+  <div id="class-st">
+    <!-- 收  藏 -->
+    <div class="class-nd" style="height: 100%;">
+      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);"><a>收 藏</a></div>
+    </div>
+    <!-- 上半身 -->
+    <div class="class-nd" style="height: 76%;">
+      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);" ng-click="upClick()">
+        <a>上半身</a>
+      </div>
+      <div ng-repeat="upper in upperList" class="class-rd" ng-show="upSet" ng-click=""><a>{{upper.Name}}</a></div>
+    </div>
+    <!-- 下半身 -->
+    <div class="class-nd" style="height: 62%;">
+      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);" ng-click="downClick()"><a>下半身</a>
+      </div>
+      <div class="class-rd" ng-show="downSet"><a>短 褲</a></div>
+      <div class="class-rd" ng-show="downSet"><a>長 褲</a></div>
+      <div class="class-rd" ng-show="downSet"><a>短 裙</a></div>
+      <div class="class-rd" ng-show="downSet"><a>長 裙</a></div>
+    </div>
+    <div class="class-nd" style="height: 62%;">
+      <!-- 其  他 -->
+      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);" ng-click="otherClick()"><a>其
+          他</a></div>
+      <div class="class-rd" ng-show="otherSet"><a>佯 裝</a></div>
+      <div class="class-rd" ng-show="otherSet"><a>小可愛</a></div>
+      <div class="class-rd" ng-show="otherSet"><a>內 衣</a></div>
+      <div class="class-rd" ng-show="otherSet"><a>全 部</a></div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- 列表 -->
+  <div class="grid-container">
+    <!-- <div class ="grid-item" ><a ng-click="takeClick(1)"  onclick="takeClick(this)"><img src="{{Data[0].Picture}}"></a></div> 
+    <div class ="grid-item" ><a ng-click="takeClick(2)"  onclick="takeClick(this)"><img src="{{Data[1].Picture}}"></a></div> 
+    <div class ="grid-item" ><a ng-click="takeClick(3)"  onclick="takeClick(this)"><img src="{{Data[2].Picture}}"></a></div> 
+    <div class ="grid-item" ><a ng-click="takeClick(4)"  onclick="takeClick(this)"><img src="{{Data[3].Picture}}"></a></div> 
+    <div class ="grid-item" ><a ng-click="takeClick(5)"  onclick="takeClick(this)"><img src="{{Data[4].Picture}}"></a></div> 
+    <div class ="grid-item" ><a ng-click="takeClick(6)"  onclick="takeClick(this)"><img src="{{Data[5].Picture}}"></a></div> 
+    <div class ="grid-item" ><a ng-click="takeClick(7)"  onclick="takeClick(this)"><img src="{{Data[6].Picture}}"></a></div> 
+    <div class ="grid-item" ><a ng-click="takeClick(8)"  onclick="takeClick(this)"><img src="{{Data[7].Picture}}"></a></div>  -->
+
+  </div>
+
+  <!-- button -->
+  <div>
+    <a class="btn-rb-three" ng-click="takeTypeClick()"><a class="btm-rb-three-n"
+        ng-click="takeTypeClick()">單件/一套</a></a>
+    <a class="btn-rb-two" ng-click=""><a class="btm-rb-two-n" ng-click="">拿 取</a></a>
+    <a class="btn-rb-one" ng-click=""><a class="btm-rb-one-n" ng-click="">詳細資料</a></a>
+  </div>
+  <!-- 選取預覽 -->
+  <div id="preview" ng-show="takeType">
+    <div class="preview-i">
+      <i class="fa-solid fa-plus"></i>
+      <img src="{{takeTwiceSt}}">
+    </div>
+    <div class="preview-i">
+      <i class="fa-solid fa-plus"></i>
+      <img src="{{takeTwiceNd}}">
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+  <!--------------------------------------------------------------------------------------------------------->
+
+  <!-- 遮罩 -->
+  <div id="mask" style="visibility: hidden"></div>
+
+  <!-- Menu -->
+  <div id="menu">
+    <ul>
+      <li>
+        <a href="./user.html">
+          <span class="icon"><i class="fa-solid fa-user"></i></span>
+          <span class="menu-button">登入/登出</span>
+        </a>
+      </li>
+      <li>
+        <a href="./putIn.html">
+          <span class="icon"><i class="fa-solid fa-arrow-up-wide-short"></i></span>
+          <span class="menu-button">收納</span>
+        </a>
+      </li>
+      <li>
+        <a href="./putOutI.html">
+          <span class="icon"><i class="fa-solid fa-shirt"></i></span>
+          <span class="menu-button">拿取(推薦)</span>
+        </a>
+      </li>
+      <li style="background-color: rgb(255, 255, 255);">
+        <a href="./putOutS.html">
+          <span class="icon"><i class="fa-solid fa-arrow-down-short-wide" style="color: rgb(161, 175, 255);"></i></span>
+          <span class="menu-button" style="color: rgb(161, 175, 255);">拿取(自選)</span>
+        </a>
+      </li>
+      <li>
+        <a href="./setting.html">
+          <span class="icon"><i class="fa-solid fa-gear"></i></span>
+          <span class="menu-button">衣物設定</span>
+        </a>
+      </li>
+      <li>
+        <a href="./other.html">
+          <span class="icon"><i class="fa-solid fa-clock"></i></span>
+          <span class="menu-button">其他</span>
+        </a>
+      </li>
+      <li>
+        <a href="./instruction.html">
+          <span class="icon"><i class="fa-solid fa-person-chalkboard"></i></span>
+          <span class="menu-button">使用說明</span>
+        </a>
+      </li>
+
+    </ul>
+    <div id="main-button" onclick="ClickMenu()"></div>
+    <!-- Menu class 更改 -->
+    <script>
+      let Mask = document.getElementById('mask');
+      let Menu = document.getElementById('menu');
+
+      function ClickMenu() {
+        Menu.classList.toggle('active');
+        if (Mask.style.visibility == '') {
+          Mask.classList.toggle('active');
+          setTimeout(function () {
+            Mask.style.visibility = 'hidden';
+          }, 500);
+        } else {
+          Mask.style.visibility = '';
+          Mask.classList.toggle('active');
+        }
+      }
+    </script>
+  </div>
+
+</body>
+
+</html>
+<!-- end tag -->

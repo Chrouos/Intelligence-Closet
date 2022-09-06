@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+
+<!-- start tag -->
+<html ng-app="myApp" ng-controller="myCtrl">
+
+<head>
+
+  <!-- Set -->
+  <title>收納</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <!-- Package -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://kit.fontawesome.com/8ede13235f.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
+
+  <!-- Connect -->
+  <script src="./js/putIn.js"></script>
+
+  <!-- Css -->
+  <link rel="stylesheet" href="./public/css/putIn.css" type="text/css">
+
+</head>
+
+
+
+<body>
+
+  <div id="putInStart" ng-if="StartType">
+    <p style="font-size: 50px;">請掛入衣服並點擊開始存放</p>
+    <a id="btn-start" ng-click="start_identify()">開始存放</a>
+  </div>
+
+  <!-- main -->
+  <div id="putInMain" ng-if="MainType">
+
+    <!-- 衣物照片 -->
+    <div class="pictures-one">
+      <a><img src="{{path}}"></a>
+    </div>
+
+    <!-- 衣物資訊/設定 -->
+    <div class="clothesInfo-Set">
+      <div>
+        <p style="display: inline;">顏色: </p>
+        <select ng-model="color" ng-options="color.ColorEngName as color.ColorName for color in colorList">
+          <!-- <option value="" selected>請選擇</option> -->
+        </select>
+      </div>
+      <br />
+      <div>
+        <p style="display: inline;">樣式: </p>
+        <select ng-model="category"
+          ng-options="subCategory.ClothesType as subCategory.Name for subCategory in subCategoryList">
+          <!-- <option value="" selected>請選擇</option> -->
+        </select>
+      </div>
+      <br />
+      <div>
+        <p style="display: inline;">是否加入最愛: </p>
+        <span style="color: white;" onclick="heartClick(this)" ng-click="heartClicks()"><i
+            class="fa-solid fa-heart"></i>
+        </span>
+      </div>
+      <br />
+      <!-- button -->
+      <div>
+        <a class="btn-rb-two" ng-click="update_user()"><a class="btm-rb-two-n" ng-click="Send(this)">確認存入</a></a>
+        <a class="btn-rb-one" ng-click="closeEdit()"><a class="btm-rb-one-n" ng-click="Back(this)">退 回</a></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 遮罩 -->
+  <div id="mask" style="visibility: hidden"></div>
+
+  <!-- Menu -->
+  <div id="menu">
+    <ul>
+      <li>
+        <a href="./user.html">
+          <span class="icon"><i class="fa-solid fa-user"></i></span>
+          <span class="menu-button">登入/登出</span>
+        </a>
+      </li>
+      <li style="background-color: rgb(255, 255, 255);">
+        <a href="./putIn.html">
+          <span class="icon"><i class="fa-solid fa-arrow-up-wide-short" style="color: rgb(161, 175, 255);"></i></span>
+          <span class="menu-button" style="color: rgb(161, 175, 255);">收納</span>
+        </a>
+      </li>
+      <li>
+        <a href="./putOutI.html">
+          <span class="icon"><i class="fa-solid fa-shirt"></i></span>
+          <span class="menu-button">拿取(推薦)</span>
+        </a>
+      </li>
+      <li>
+        <a href="./putOutS.html">
+          <span class="icon"><i class="fa-solid fa-arrow-down-short-wide"></i></span>
+          <span class="menu-button">拿取(自選)</span>
+        </a>
+      </li>
+      <li>
+        <a href="./setting.html">
+          <span class="icon"><i class="fa-solid fa-gear"></i></span>
+          <span class="menu-button">衣物設定</span>
+        </a>
+      </li>
+      <li>
+        <a href="./other.html">
+          <span class="icon"><i class="fa-solid fa-clock"></i></span>
+          <span class="menu-button">其他</span>
+        </a>
+      </li>
+      <li>
+        <a href="./instruction.html">
+          <span class="icon"><i class="fa-solid fa-person-chalkboard"></i></span>
+          <span class="menu-button">使用說明</span>
+        </a>
+      </li>
+
+    </ul>
+    <div id="main-button" onclick="ClickMenu()"></div>
+    <!-- Menu class 更改 -->
+    <script>
+      let Mask = document.getElementById('mask');
+      let Menu = document.getElementById('menu');
+
+      function ClickMenu() {
+        Menu.classList.toggle('active');
+        if (Mask.style.visibility == '') {
+          Mask.classList.toggle('active');
+          setTimeout(function () {
+            Mask.style.visibility = 'hidden';
+          }, 500);
+        } else {
+          Mask.style.visibility = '';
+          Mask.classList.toggle('active');
+        }
+      }
+    </script>
+  </div>
+
+
+</body>
+
+</html>
+<!-- end tag -->
