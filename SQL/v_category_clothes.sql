@@ -3,15 +3,15 @@ drop view v_category_clothes
 create view v_category_clothes
 as
 	select
-		ws.Id,
-		ws.CategoryId,
+		sc.Id,
+		sc.CategoryId,
 		cat.CategoryName,
-		ws.ClothesType,
-		ws.Score,
-		ws.Name,
+		sc.ClothesType,
+		sc.Score,
+		sc.Name,
 		cat.Level
-	from sub_category as ws
-		inner join category as cat on cat.Id = ws.CategoryId
+	from sub_category as sc
+		inner join category as cat on cat.Id = sc.CategoryId
 
 select *
 from v_category_clothes

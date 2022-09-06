@@ -7,26 +7,26 @@ drop view v_clothes_node
 create view v_clothes_node
 as
 	select
-		ci.Id,
-		ci.Position,
-		ci.SubCategoryId as ClothesId,
+		cn.Id,
+		cn.Position,
+		cn.SubCategoryId as ClothesId,
 		sc.Name,
 		sc.ClothesType,
-		ci.ColorId,
+		cn.ColorId,
 		color.ColorName,
-		ci.UserPreferences,
+		cn.UserPreferences,
 		sc.CategoryId,
-		ci.ClothesStyle,
-		ci.UsageCounter,
-		ci.CreateTime,
-		ci.ModifyTime,
-		ci.FilePosition,
+		cn.ClothesStyle,
+		cn.UsageCounter,
+		cn.CreateTime,
+		cn.ModifyTime,
+		cn.FilePosition,
 		sc.Score,
 		cat.Level
-	from clothes_node as ci
-		inner join sub_category as sc on ci.SubCategoryId = sc.Id
+	from clothes_node as cn
+		inner join sub_category as sc on cn.SubCategoryId = sc.Id
 		inner join category as cat on cat.Id = sc.CategoryId
-		inner join color as color on ci.ColorId = color.Id
+		inner join color as color on cn.ColorId = color.Id
 
 
 select *
