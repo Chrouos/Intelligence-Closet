@@ -1,95 +1,179 @@
-<ul class="menu-hover-fill flex flex-col items-start leading-none text-2xl uppercase space-y-4">
-  <li><a href="#" data-text="upper">upper</a>
-    <a>短袖</a>
-    <a>長袖</a>
-    <a>帽T</a>
-  </li>
-  <li><a href="#" data-text="lower">lower</a></li>
-  <li><a href="#" data-text="other">other</a></li>
-</ul>
+<!DOCTYPE html>
 
-<style>
-  @import url("https://cdn.jsdelivr.net/npm/@alphardex/aqua.css@1.5.0/dist/aqua.min.css");
 
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: #f7f7fd;
-  }
+<!-- start tag -->
+<html ng-app="myApp" ng-controller="myCtrl">
 
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: black;
-  }
+<head>
 
-  :root {
-    --grey-color: #7f8c8d;
-  }
+  <!-- Set -->
+  <title>拿取(自選)</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-  ul {
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-  }
+  <!-- Package -->
+  <script src="https://kit.fontawesome.com/8ede13235f.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
 
-  a {
-    text-decoration: none;
-  }
+  <!-- Connect -->
+  <script src="./js/test.js"></script>
 
-  .menu-hover-fill li {
-    position: relative;
-  }
+  <!-- Css -->
+  <link rel="stylesheet" href="./public/css/test.css" type="text/css">
 
-  .menu-hover-fill li::before {
-    position: absolute;
-    content: "";
-    top: 0;
-    left: -1rem;
-    width: 0.25rem;
-    height: 100%;
-    background: var(--menu-link-active-color);
-    transition: 0.6s;
-  }
+</head>
 
-  .menu-hover-fill li a {
-    --menu-link-color: var(--grey-color);
-    position: relative;
-    background: linear-gradient(var(--menu-link-active-color) 0 100%) left/0 no-repeat;
-    color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
-    transition: background-size 0.9s 0.5s;
-  }
 
-  .menu-hover-fill li a::before {
-    position: absolute;
-    content: attr(data-text);
-    z-index: -1;
-    color: var(--menu-link-color);
-  }
 
-  .menu-hover-fill li:hover {
-    --menu-link-active-color: var(--primary-color);
-  }
+<body>
 
-  .menu-hover-fill li:nth-child(2) {
-    --menu-link-active-color: var(--info-color);
-  }
+  <!------------------------------------------------------------------------------------------------------>
+  <div id="class-main">
+    <div id="btn-class-main" onclick="clickClass_main()"><a style="position:relative; left: 10px;">#篩選器</a></div>
+    <hr class="hrSet"/>
+    <div id="class-st">
+      <div class="class-nd">
+        <div style="position:relative; left: 8px; font-size:25px;"><a>收藏</a></div>
+        <hr class="hrSet"/>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>全部</a></div>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>上半身</a></div>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>下半身</a></div>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>其他</a></div>
+      </div>
+      <div class="class-nd">
+        <div style="position:relative; left: 8px; font-size:25px;"><a>上半身</a></div>
+        <hr class="hrSet"/>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>T恤</a></div>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>背心</a></div>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>襯衫</a></div>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>運動衫</a></div>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>長袖</a></div>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>帽T</a></div>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>外套</a></div>
+      </div>
+      <div class="class-nd">
+        <div style="position:relative; left: 8px; font-size:25px;"><a>下半身</a></div>
+        <hr class="hrSet"/>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>短褲</a></div>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>長褲</a></div>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>裙子</a></div>
+      </div>
+      <div class="class-nd">
+        <div style="position:relative; left: 8px; font-size:25px;"><a>其他</a></div>
+        <hr class="hrSet"/>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>洋裝</a></div>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>連身衣</a></div>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>西裝外套</a></div>
+        <div class="class-rd" onclick="clickClass_set(this)"><a>未設定</a></div>
+      </div>
+    </div>
+    <hr class="hrSet"/>
+        <!-- class-main 更改 -->
+        <script>
+          let classSet = document.getElementById('class-main');
+          let lestClick = "none";
+          function clickClass_main() {
+            classSet.classList.toggle('active');
+          }
+          function clickClass_set(set) {
+            if(lestClick=="none"){
+              lestClick=set;
+              set.classList.toggle('active');
+              setTimeout(function () {
+                classSet.classList.toggle('active');
+            }, 400);
+            }
+            else{
+              lestClick.classList.toggle('active');
+              lestClick=set;
+              set.classList.toggle('active');
+              setTimeout(function () {
+                classSet.classList.toggle('active');
+            }, 400);
+            }
+          }
+        </script>
+  </div>
+  <!------------------------------------------------------------------------------------------------------>
+  
 
-  .menu-hover-fill li:nth-child(3) {
-    --menu-link-active-color: var(--success-color);
-  }
+  <!--------------------------------------------------------------------------------------------------------->
 
-  .menu-hover-fill li:hover::before {
-    left: calc(100% + 1rem);
-  }
+  <!-- 遮罩 -->
 
-  .menu-hover-fill li:hover a {
-    background-size: 100%;
-  }
-</style>
+  <div id="mask" style="visibility: hidden"></div>
+
+  <!-- Menu -->
+  <div id="menu">
+    <ul>
+      <li>
+        <a href="./user.html">
+          <span class="icon"><i class="fa-solid fa-user"></i></span>
+          <span class="menu-button">登入/登出</span>
+        </a>
+      </li>
+      <li>
+        <a href="./putIn.html">
+          <span class="icon"><i class="fa-solid fa-arrow-up-wide-short"></i></span>
+          <span class="menu-button">收納</span>
+        </a>
+      </li>
+      <li>
+        <a href="./putOutI.html">
+          <span class="icon"><i class="fa-solid fa-shirt"></i></span>
+          <span class="menu-button">拿取(推薦)</span>
+        </a>
+      </li>
+      <li style="background-color: rgb(255, 255, 255);">
+        <a href="./putOutS.html">
+          <span class="icon"><i class="fa-solid fa-arrow-down-short-wide" style="color: rgb(161, 175, 255);"></i></span>
+          <span class="menu-button" style="color: rgb(161, 175, 255);">拿取(自選)</span>
+        </a>
+      </li>
+      <li>
+        <a href="./setting.html">
+          <span class="icon"><i class="fa-solid fa-gear"></i></span>
+          <span class="menu-button">衣物設定</span>
+        </a>
+      </li>
+      <li>
+        <a href="./other.html">
+          <span class="icon"><i class="fa-solid fa-clock"></i></span>
+          <span class="menu-button">其他</span>
+        </a>
+      </li>
+      <li>
+        <a href="./instruction.html">
+          <span class="icon"><i class="fa-solid fa-person-chalkboard"></i></span>
+          <span class="menu-button">使用說明</span>
+        </a>
+      </li>
+
+    </ul>
+    <div id="main-button" onclick="ClickMenu()"></div>
+
+    <!-- Menu class 更改 -->
+
+    <script>
+      let Mask = document.getElementById('mask');
+      let Menu = document.getElementById('menu');
+
+      function ClickMenu() {
+        Menu.classList.toggle('active');
+        if (Mask.style.visibility == '') {
+          Mask.classList.toggle('active');
+          setTimeout(function () {
+            Mask.style.visibility = 'hidden';
+          }, 500);
+        } else {
+          Mask.style.visibility = '';
+          Mask.classList.toggle('active');
+        }
+      }
+    </script>
+  </div>
+</body>
+
+</html>
+<!-- end tag -->

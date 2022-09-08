@@ -29,54 +29,91 @@
 
 
 <body>
-  <!-- 選單 -->
-  <div id="class-st">
-    <!-- 收  藏 -->
-    <div class="class-nd" style="height: 100%;">
-      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);"><a>收 藏</a></div>
-    </div>
-    <!-- 上半身 -->
-    <div class="class-nd" style="height: 76%;">
-      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);" ng-click="upClick()">
-        <a>上半身</a>
+  <div id="total">
+    <!--選單-->
+    <div id="class-main">
+      <div id="btn-class-main" onclick="clickClass_main()"><a style="position:relative; left: 10px;">#篩選器</a></div>
+      <hr class="hrSet"/>
+      <div id="class-st">
+        <div class="class-nd"><!--最愛-->
+          <div style="position:relative; left: 8px; font-size:25px;"><a>收藏</a></div>
+          <hr class="hrSet"/>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>全部</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>上半身</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>下半身</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>其他</a></div>
+        </div>
+        <div class="class-nd"><!--上半身-->
+          <div style="position:relative; left: 8px; font-size:25px;"><a>上半身</a></div>
+          <hr class="hrSet"/>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>T恤</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>背心</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>襯衫</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>運動衫</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>長袖</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>帽T</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>外套</a></div>
+        </div>
+        <div class="class-nd"><!--下半身-->
+          <div style="position:relative; left: 8px; font-size:25px;"><a>下半身</a></div>
+          <hr class="hrSet"/>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>短褲</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>長褲</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>裙子</a></div>
+        </div>
+        <div class="class-nd"><!--其他-->
+          <div style="position:relative; left: 8px; font-size:25px;"><a>其他</a></div>
+          <hr class="hrSet"/>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>洋裝</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>連身衣</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>西裝外套</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)"><a>未設定</a></div>
+        </div>
       </div>
-      <div ng-repeat="upper in upperList" class="class-rd" ng-show="upSet" ng-click=""><a>{{upper.Name}}</a></div>
+      <hr class="hrSet"/>
+      <!-- class-main 更改 -->
+      <script>
+        let classSet = document.getElementById('class-main');
+        let lestClick = "none";
+        function clickClass_main() {
+          classSet.classList.toggle('active');
+        }
+        function clickClass_set(set) {
+          if(lestClick=="none"){
+            lestClick=set;
+            set.classList.toggle('active');
+            setTimeout(function () {
+              classSet.classList.toggle('active');
+          }, 400);
+          }
+          else{
+            lestClick.classList.toggle('active');
+            lestClick=set;
+            set.classList.toggle('active');
+            setTimeout(function () {
+              classSet.classList.toggle('active');
+          }, 400);
+          }
+        }
+      </script>
     </div>
-    <!-- 下半身 -->
-    <div class="class-nd" style="height: 62%;">
-      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);" ng-click="downClick()"><a>下半身</a>
-      </div>
-      <div class="class-rd" ng-show="downSet"><a>短 褲</a></div>
-      <div class="class-rd" ng-show="downSet"><a>長 褲</a></div>
-      <div class="class-rd" ng-show="downSet"><a>短 裙</a></div>
-      <div class="class-rd" ng-show="downSet"><a>長 裙</a></div>
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!-- 列表 -->
+    <div class="grid-container">
+      <div class ="grid-item" ><a ng-click="takeClick(1)"  onclick="takeClick(this)"><img src="{{Data[0].Picture}}"></a></div> 
+      <div class ="grid-item" ><a ng-click="takeClick(2)"  onclick="takeClick(this)"><img src="{{Data[1].Picture}}"></a></div> 
+      <div class ="grid-item" ><a ng-click="takeClick(3)"  onclick="takeClick(this)"><img src="{{Data[2].Picture}}"></a></div> 
+      <div class ="grid-item" ><a ng-click="takeClick(4)"  onclick="takeClick(this)"><img src="{{Data[3].Picture}}"></a></div> 
+      <div class ="grid-item" ><a ng-click="takeClick(5)"  onclick="takeClick(this)"><img src="{{Data[4].Picture}}"></a></div> 
+      <div class ="grid-item" ><a ng-click="takeClick(6)"  onclick="takeClick(this)"><img src="{{Data[5].Picture}}"></a></div> 
+      <div class ="grid-item" ><a ng-click="takeClick(7)"  onclick="takeClick(this)"><img src="{{Data[6].Picture}}"></a></div> 
+      <div class ="grid-item" ><a ng-click="takeClick(8)"  onclick="takeClick(this)"><img src="{{Data[7].Picture}}"></a></div>
     </div>
-    <div class="class-nd" style="height: 62%;">
-      <!-- 其  他 -->
-      <div class="class-rd" style=" width: 100%; background-color: rgb(92, 111, 255);" ng-click="otherClick()"><a>其
-          他</a></div>
-      <div class="class-rd" ng-show="otherSet"><a>佯 裝</a></div>
-      <div class="class-rd" ng-show="otherSet"><a>小可愛</a></div>
-      <div class="class-rd" ng-show="otherSet"><a>內 衣</a></div>
-      <div class="class-rd" ng-show="otherSet"><a>全 部</a></div>
-    </div>
-
-  </div>
+    
   </div>
 
-  <!-- 列表 -->
-  <div class="grid-container">
-    <!-- <div class ="grid-item" ><a ng-click="takeClick(1)"  onclick="takeClick(this)"><img src="{{Data[0].Picture}}"></a></div> 
-    <div class ="grid-item" ><a ng-click="takeClick(2)"  onclick="takeClick(this)"><img src="{{Data[1].Picture}}"></a></div> 
-    <div class ="grid-item" ><a ng-click="takeClick(3)"  onclick="takeClick(this)"><img src="{{Data[2].Picture}}"></a></div> 
-    <div class ="grid-item" ><a ng-click="takeClick(4)"  onclick="takeClick(this)"><img src="{{Data[3].Picture}}"></a></div> 
-    <div class ="grid-item" ><a ng-click="takeClick(5)"  onclick="takeClick(this)"><img src="{{Data[4].Picture}}"></a></div> 
-    <div class ="grid-item" ><a ng-click="takeClick(6)"  onclick="takeClick(this)"><img src="{{Data[5].Picture}}"></a></div> 
-    <div class ="grid-item" ><a ng-click="takeClick(7)"  onclick="takeClick(this)"><img src="{{Data[6].Picture}}"></a></div> 
-    <div class ="grid-item" ><a ng-click="takeClick(8)"  onclick="takeClick(this)"><img src="{{Data[7].Picture}}"></a></div>  -->
 
-  </div>
-
+  <!---------------------------------------------------------------------------------------------------------------->
   <!-- button -->
   <div>
     <a class="btn-rb-three" ng-click="takeTypeClick()"><a class="btm-rb-three-n"
@@ -106,7 +143,7 @@
 
 
 
-  <!--------------------------------------------------------------------------------------------------------->
+  <!---------------------------------------------------------------------------------------------------------------->
 
   <!-- 遮罩 -->
   <div id="mask" style="visibility: hidden"></div>
