@@ -75,3 +75,4 @@ class ViewCategoryClothesDAO:
 			viewCategoryClothesLists.append(viewCategoryClothes)
 	
 		return viewCategoryClothesLists
+

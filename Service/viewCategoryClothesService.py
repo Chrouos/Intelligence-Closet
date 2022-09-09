@@ -38,7 +38,7 @@ class ViewCategoryClothesService:
                                     }
         return viewCategoryClothes_dict
     
-        # 透過Id查找一筆資料: 轉換成字典
+    # 透過Id查找一筆資料: 轉換成字典
     def queryByCategoryId(self, categoryId):
         datas = self.viewCategoryClothesDAO.queryByCategoryId(categoryId)
         
@@ -54,3 +54,6 @@ class ViewCategoryClothesService:
                                             })
         
         return viewCategoryClothes_dict
+    
+    
+    

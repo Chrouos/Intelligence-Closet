@@ -200,6 +200,14 @@ def query_subCategory_byCategoryId(categoryId):
     
     return v_subCategory_dict
 
+@eel.expose
+def query_clothes_nodes_bySubCategoryId(categoryId):
+    viewClothesNodeService = ViewClothesNodeService()
+    v_clothes_dict = viewClothesNodeService.queryBySubCategoryId(categoryId) # 利用類別搜尋子類別 # 1:上半身, 2:下半身, 3:裙裝, 4:大衣
+    print("query_clothes_nodes_bySubCategoryId", v_clothes_dict)
+    
+    return v_clothes_dict
+
 eel.init('View/mui')  # eel.init(網頁的資料夾)
 # eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))
 

@@ -91,7 +91,7 @@ from Controller.camaraController import CamaraController
 # print("2. 透過Id找: ", userDashboardService.queryById(2))
 
 # 10. ViewCategoryClothes
-viewCategoryClothesService = ViewCategoryClothesService()
+# viewCategoryClothesService = ViewCategoryClothesService()
 # print("1. 搜尋全部 LIST: ", viewCategoryClothesService.queryAll())
 # print("2. 依據ID搜尋子類別: ", viewCategoryClothesService.queryById(2))
 # print("3. 依據類別搜尋: ", viewCategoryClothesService.queryByCategoryId(1))
@@ -102,10 +102,11 @@ viewCategoryClothesService = ViewCategoryClothesService()
 # print(viewClothesGraphService.queryById(2))
 
 # 12 ViewClothesNode
-# viewClothesNodeService = ViewClothesNodeService()
+viewClothesNodeService = ViewClothesNodeService()
 # print("1. 搜尋全部 LIST: ",viewClothesNodeService.queryAll())
 # print(viewClothesNodeService.queryById(2))
 # print(viewClothesNodeService.queryPositionExitNode())
+print("4. 搜尋所有資料 來自子類別", viewClothesNodeService.queryBySubCategoryId(1))
 
 # 13. ViewColorGraph 
 # viewColorGraphService = ViewColorGraphService()

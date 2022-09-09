@@ -122,3 +122,20 @@ class ViewClothesNodeDAO:
 			viewClothesNodeLists.append(viewClothesNode)
 	
 		return viewClothesNodeLists
+
+
+	# 搜尋所有資料: tuple
+	def queryBySubCategoryId(self, subCategoryId):
+		execute_str = "SELECT * FROM v_clothes_node vcn WHERE ClothesId = {0};".format(subCategoryId)
+		print("queryBySubCategoryId: ", execute_str)
+	
+		self.cursor.execute(execute_str)
+		datas = self.cursor.fetchall()
+	
+		viewClothesNodeLists = []
+		for data in datas:
+			viewClothesNode = ViewClothesNode()
+			viewClothesNode.updateBySQL(data)
+			viewClothesNodeLists.append(viewClothesNode)
+	
+		return viewClothesNodeLists
