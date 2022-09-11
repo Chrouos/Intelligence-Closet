@@ -63,14 +63,15 @@ app.controller('myCtrl', function ($scope) {
       var isInsert = true;
       for (var i = 0; i < 2; i++) {
         // 如果有Id一樣的就拿掉
-        if ($scope.checkThePickUpList[i] != null) {
-          if ($scope.checkThePickUpList[i].Id == clothesNode.Id) {
-            $scope.checkThePickUpList[i] = null;
-            document.getElementById("clothesNode_" + $scope.checkThePickUpList[i].Id).style.border = "";
+        if ($scope.pairPickUpList[i] != null) {
+          if ($scope.pairPickUpList[i].Id == clothesNode.Id) {
+            document.getElementById("clothesNode_" + $scope.pairPickUpList[i].Id).style.border = "";
+            $scope.pairPickUpList[i] = null;
+            isInsert = false;
           }
         }
         // 
-        else if ($scope.checkThePickUpList == null && isInsert) {
+        else if ($scope.pairPickUpList[i] == null && isInsert) {
           $scope.pairPickUpList[i] = clothesNode;
           isInsert = false;
         }
@@ -109,7 +110,16 @@ app.controller('myCtrl', function ($scope) {
   $scope.changePickUpType = function () { // 拿單件or整套
     $scope.takeType = !$scope.takeType;
 
+    if ($scope.siglePickUpList != null) {
+      document.getElementById("clothesNode_" + $scope.siglePickUpList.Id).style.border = ""
+    }
     $scope.siglePickUpList = null;
+
+    for (var i = 0; i < 2; i++) {
+      if ($scope.pairPickUpList[i] != null) {
+        document.getElementById("clothesNode_" + $scope.pairPickUpList[i].Id).style.border = ""
+      }
+    }
     $scope.pairPickUpList = [null, null];
   }
 
