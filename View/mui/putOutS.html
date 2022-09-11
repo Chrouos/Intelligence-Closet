@@ -74,7 +74,7 @@
           <hr class="hrSet" />
 
           <div ng-repeat="lower in lowerList" class="class-rd" onclick="clickClass_set(this)"
-            ng-click="queryClothesBySubCategory(upper.Id)">
+            ng-click="queryClothesBySubCategory(lower.Id)">
             <a>{{lower.Name}}</a>
           </div>
 
@@ -92,7 +92,7 @@
           <hr class="hrSet" />
 
           <div ng-repeat="other in otherList" class="class-rd" onclick="clickClass_set(this)"
-            ng-click="queryClothesBySubCategory(upper.Id)">
+            ng-click="queryClothesBySubCategory(other.Id)">
             <a>{{other.Name}}</a>
           </div>
 
@@ -138,9 +138,9 @@
     <!-- 列表 -->
     <div class="grid-container">
 
-      <div class="grid-item" ng-repeat="clothesNode in clothesNodeList">
-        <a onclick="takeClick(this)">
-          <img src="{{clothesNode.FilePosition}}">
+      <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index">
+        <a ng-click="checkThePickUpList(clothesNode)">
+          <img src="{{clothesNode.FilePosition}}" id="clothesNode_{{clothesNode.Id}}">
         </a>
       </div>
 
@@ -169,10 +169,17 @@
   <!---------------------------------------------------------------------------------------------------------------->
   <!-- button -->
   <div>
-    <a class="btn-rb-three" ng-click="takeTypeClick()"><a class="btm-rb-three-n"
-        ng-click="takeTypeClick()">單件/一套</a></a>
-    <a class="btn-rb-two" ng-click=""><a class="btm-rb-two-n" ng-click="">拿 取</a></a>
-    <a class="btn-rb-one" ng-click=""><a class="btm-rb-one-n" ng-click="">詳細資料</a></a>
+    <div class="btn-rb-three" ng-click="changePickUpType()" ng-show="!takeType">
+      <a class="btm-rb-three-n">單件</a>
+    </div>
+    <div class="btn-rb-three" ng-click="changePickUpType()" ng-show="takeType">
+      <a class="btm-rb-three-n">一套</a>
+    </div>
+
+    <div class="btn-rb-two" ng-click="">
+      <a class="btm-rb-two-n" ng-click="getThePickUpList()">拿 取</a>
+    </div>
+    <div class="btn-rb-one" ng-click=""><a class="btm-rb-one-n" ng-click="">詳細資料</a></div>
   </div>
   <!-- 選取預覽 -->
   <div id="preview" ng-show="takeType">
