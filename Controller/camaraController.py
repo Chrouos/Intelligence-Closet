@@ -251,3 +251,6 @@ class CamaraController:
         dict['PURPLE'] = color_list
 
         return dict
+    
+    # https://www.twblogs.net/a/5c36d389bd9eee35b21d46e3
+    # https://blog.csdn.net/ruoshui_t/article/details/109310806 
