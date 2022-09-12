@@ -33,7 +33,7 @@ app.controller('myCtrl', function ($scope) {
 
   // 搜尋衣物 by.子類別ID
   $scope.nowSubCategory = "";
-  $scope.queryClothesBySubCategory = async function (subCategoryId,subCategoryName) {
+  $scope.queryClothesBySubCategory = async function (subCategoryId, subCategoryName) {
     $scope.clothesNodeList = await eel.query_clothes_nodes_bySubCategoryId(subCategoryId)();
     $scope.nowSubCategory = subCategoryName;
     console.log($scope.nowSubCategory)
@@ -74,7 +74,7 @@ app.controller('myCtrl', function ($scope) {
 
           }
         }
-        // 
+        // 放入
         else if ($scope.pairPickUpList[i] == null && isInsert) {
           $scope.pairPickUpList[i] = clothesNode;
           isInsert = false;

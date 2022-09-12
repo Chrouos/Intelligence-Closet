@@ -25,8 +25,13 @@ app.controller('myCtrl', function ($scope) {
     }
     $scope.queryAllList();
 
-
-
+    // 搜尋衣物 by.子類別ID
+    $scope.nowSubCategory = "";
+    $scope.queryClothesBySubCategory = async function (subCategoryId, subCategoryName) {
+        $scope.clothesNodeList = await eel.query_clothes_nodes_bySubCategoryId(subCategoryId)();
+        $scope.nowSubCategory = subCategoryName;
+        console.log($scope.nowSubCategory)
+    }
 
 
     /* ---------- 切換頁面 start ---------- */

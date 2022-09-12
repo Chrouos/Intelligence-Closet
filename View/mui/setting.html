@@ -239,6 +239,30 @@
           Mask.classList.toggle('active');
         }
       }
+
+      let classSet = document.getElementById('class-main');
+      let lestClick = "none";
+
+      function clickClass_main() {
+        classSet.classList.toggle('active');
+      }
+
+      function clickClass_set(set) {
+        if (lestClick == "none") {
+          lestClick = set;
+          set.classList.toggle('active');
+          setTimeout(function () {
+            classSet.classList.toggle('active');
+          }, 200);
+        } else {
+          lestClick.classList.toggle('active');
+          lestClick = set;
+          set.classList.toggle('active');
+          setTimeout(function () {
+            classSet.classList.toggle('active');
+          }, 200);
+        }
+      }
     </script>
   </div>
 

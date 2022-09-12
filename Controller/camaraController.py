@@ -16,100 +16,107 @@ from Service.subCategoryService import SubCategoryService
 
 sys.path.append(os.getcwd())  # 抓取路徑
 
+
 class CamaraController:
 
     def __init__(self, camara):
         self.newOneId = -1  # 抓取資料庫最後一位
-        
+
         self.getLastId()
         self.color = ''
         self.category = ''
         self.isFavorite = 0
-        
+
         self.path = ""
-        
+
         self.chooseCamara = camara
-        
 
     def getLastId(self):
         clothesNodeService = ClothesNodeService()
-        
-        self.newOneId =  clothesNodeService.lastId() + 1
-        self.save_path = 'View/mui/public/src/clothes_' + str(self.newOneId) + '.jpg'
-        self.path = "./public/src/clothes_"+str(self.newOneId)+".jpg"
+
+        self.newOneId = clothesNodeService.lastId() + 1
+        self.save_path = 'View/mui/public/src/clothes_' + str(
+            self.newOneId) + '.jpg'
+        self.path = "./public/src/clothes_" + str(self.newOneId) + ".jpg"
 
         return self.newOneId
 
     def saveToSql(self):
-            
+
         # 呼叫Service
-        subCategoryService = SubCategoryService() 
+        subCategoryService = SubCategoryService()
         colorService = ColorService()
         clothesNodeService = ClothesNodeService()
-        
+
         #獲得必要資訊
         colorId = colorService.queryIdByEngName(self.color)
         subCategoryId = subCategoryService.queryIdByClothesType(self.category)
-        
-        clothesNode_create = '{{"SubCategoryId": {0}, "ColorId": {1}, "FilePosition": "{2}", "IsFavorite": {3}}}'.format(   subCategoryId, colorId, 
-                                                                                                                            self.path, self.isFavorite)
+
+        clothesNode_create = '{{"SubCategoryId": {0}, "ColorId": {1}, "FilePosition": "{2}", "IsFavorite": {3}}}'.format(
+            subCategoryId, colorId, self.path, self.isFavorite)
         print("saveData:", clothesNode_create)
 
         return clothesNodeService.create(clothesNode_create)
 
-
     def printResult(self):
         print(" ---------- identify result ----------")
         print("ID: {0}, path: {1}".format(self.newOneId, self.save_path))
-        print("color: {0}, category: {1}, path: {2}".format(self.color, self.category, self.path))
+        print("color: {0}, category: {1}, path: {2}".format(
+            self.color, self.category, self.path))
         print(" ---------- identify result ----------")
 
     def useCamara(self):
         cap = cv2.VideoCapture(self.chooseCamara)  # 開啟攝像頭
-        countDown = 1                                               
+        countDown = 1
         while True:
             ret, frame = cap.read()  # 讀取鏡頭畫面
             cv2.imshow("capture", frame)  # 生成攝像頭視窗
-            countDown = countDown - 0.1                                
-            if cv2.waitKey(1) & 0xFF == ord('q') or countDown <= 0:  # 如果按下q 就截圖儲存並退出
-                
-                cv2.resize(frame, (640, 480))
-                cv2.imwrite(self.save_path, frame)
-                
+            countDown = countDown - 0.1
+            if cv2.waitKey(1) & 0xFF == ord(
+                    'q') or countDown <= 0:  # 如果按下q 就截圖儲存並退出
+
+                outputSize = cv2.resize(frame,
+                                        (480, 640))  # to resize the image
+                cv2.imwrite(self.save_path, outputSize)
+
                 cap.release()
                 cv2.destroyAllWindows()  # 關閉視窗
                 # print("save: ", self.save_path)
-                
+
                 break
 
     def identifyCategory(self):
-        cls_list = ['Blazer', '', 'Body', 'Dress',
-                    'Hat', 'Hoodie', 'Longsleeve', 'Not_sure', '',
-                    'Outwear', 'Pants', 'Polo', 'Shirt', 'Shoes',
-                    'Shorts', '', 'Skirt', 'T-Shirt', '',
-                    'Undershirt']
+        cls_list = [
+            'Blazer', '', 'Body', 'Dress', 'Hat', 'Hoodie', 'Longsleeve',
+            'Not_sure', '', 'Outwear', 'Pants', 'Polo', 'Shirt', 'Shoes',
+            'Shorts', '', 'Skirt', 'T-Shirt', '', 'Undershirt'
+        ]
 
         # 關閉GPU加速功能(建議安裝無GPU版本，縮短初始化時間)
         os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-        
+
         # 開啟800字典
         words_path = './Controller/classify/archive/images.csv'
         file1 = open(words_path, 'rt', encoding='Big5')
         labels = list(file1.read())
         file1.close()
-        
-        # 載入模型
-        model = tf.compat.v1.keras.models.load_model('./Controller/classify/h5/training_model.h5')
 
-            
-        cls_list = ['Blazer(x)','Blouse','Body','Dress','Hat','Hoodie','Longsleeve','Not_sure','Other','Outwear',
-                    'Pants','Polo','Shirt','Shoes','Shorts','Skip','Skirt','T-Shirt','Top','Undershirt']
+        # 載入模型
+        model = tf.compat.v1.keras.models.load_model(
+            './Controller/classify/h5/training_model.h5')
+
+        cls_list = [
+            'Blazer(x)', 'Blouse', 'Body', 'Dress', 'Hat', 'Hoodie',
+            'Longsleeve', 'Not_sure', 'Other', 'Outwear', 'Pants', 'Polo',
+            'Shirt', 'Shoes', 'Shorts', 'Skip', 'Skirt', 'T-Shirt', 'Top',
+            'Undershirt'
+        ]
 
         try:
             img = image.load_img(self.save_path, target_size=(224, 224))
         except Exception as e:
             print(self.save_path, e)
-            
+
         # 圖檔預處理
         img = np.expand_dims(img, axis=0)  # 轉換通道
         img = img / 255  # rescale
@@ -120,11 +127,9 @@ class CamaraController:
         prediction = cls_list[index]
 
         self.category = prediction
-        
+
         return self.category
         # print("CATEGORY: ", self.category)
-        
-        
 
     def identifyColor(self):
         frame = cv2.imread(self.save_path)
@@ -142,10 +147,12 @@ class CamaraController:
         color_dict = self.getColorList()
         for d in color_dict:
             mask = cv2.inRange(hsv, color_dict[d][0], color_dict[d][1])
-            cv2.imwrite('./Controller/classify/colorTmpFolder/' + d + '.jpg', mask)
+            cv2.imwrite('./Controller/classify/colorTmpFolder/' + d + '.jpg',
+                        mask)
             binary = cv2.threshold(mask, 127, 255, cv2.THRESH_BINARY)[1]
             binary = cv2.dilate(binary, None, iterations=2)
-            cnts, hiera = cv2.findContours(binary.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            cnts, hiera = cv2.findContours(binary.copy(), cv2.RETR_EXTERNAL,
+                                           cv2.CHAIN_APPROX_SIMPLE)
             sum = 0
             for c in cnts:
                 sum += cv2.contourArea(c)
@@ -251,6 +258,6 @@ class CamaraController:
         dict['PURPLE'] = color_list
 
         return dict
-    
+
     # https://www.twblogs.net/a/5c36d389bd9eee35b21d46e3
-    # https://blog.csdn.net/ruoshui_t/article/details/109310806 
+    # https://blog.csdn.net/ruoshui_t/article/details/109310806
