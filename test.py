@@ -1,4 +1,6 @@
 import sys, os
+sys.dont_write_bytecode = True # 不產生 pyc
+
 import json
 from Model.Domain.color import Color
 from Model.Domain.station import Station
@@ -102,11 +104,11 @@ from Controller.camaraController import CamaraController
 # print(viewClothesGraphService.queryById(2))
 
 # 12 ViewClothesNode
-viewClothesNodeService = ViewClothesNodeService()
+# viewClothesNodeService = ViewClothesNodeService()
 # print("1. 搜尋全部 LIST: ",viewClothesNodeService.queryAll())
 # print(viewClothesNodeService.queryById(2))
 # print(viewClothesNodeService.queryPositionExitNode())
-print("4. 搜尋所有資料 來自子類別", viewClothesNodeService.queryBySubCategoryId(1))
+# print("4. 搜尋所有資料 來自子類別", viewClothesNodeService.queryBySubCategoryId(1))
 
 # 13. ViewColorGraph 
 # viewColorGraphService = ViewColorGraphService()

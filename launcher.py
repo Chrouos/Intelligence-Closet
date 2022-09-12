@@ -5,6 +5,7 @@ import sys
 
 import eel
 sys.path.append(os.getcwd())  # 抓取路徑
+sys.dont_write_bytecode = True # 不產生 pyc
 
 ## Controller
 from Controller.crawlerStationController import CrawlerStationController
