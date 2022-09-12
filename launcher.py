@@ -58,16 +58,16 @@ def get_camera_identify():  # 拍照
 
 
 @eel.expose
-def identify_save_sql(category, color, save_path, isFavorite):  # 確定存檔
+def identify_save_sql(category, color, path, isFavorite):  # 確定存檔
     try:
         # 儲存至sql的資料
         idt = CamaraController(0)
         idt.category = category
         idt.color = color
-        idt.save_path = save_path
+        idt.path = path
         idt.isFavorite = isFavorite
 
-        print("identify_save_sql: ", category, color, save_path, isFavorite)
+        print("identify_save_sql: ", category, color, path, isFavorite)
 
         idt.saveToSql()  # 存到資料庫
 
