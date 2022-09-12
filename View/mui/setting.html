@@ -24,239 +24,152 @@
   <!-- Css -->
   <link rel="stylesheet" href="./public/css/setting.css" type="text/css">
 </head>
+
 <body>
-<!--主畫面-->
-<div id="settingMain" ng-show="settingType_Main">
-  <div class="mainOptions" ng-click="goToMatch()">
-    <a class="btn-white" ng-click="goToMatch()">搭配設定</a>
-  </div>
-  <hr style="border: 0px; border-left: 2px solid rgb(128, 128, 128); margin: 5px;"/>
-  <div class="mainOptions" ng-click="goToSingle()">
-    <a class="btn-white" ng-click="goToSingle()">衣物設定</a>
-  </div>
-</div>
-<!---------------------------------------------------------------------------------------------------------------->
-<!--搭配設定頁面-->
-<div id="settingMatch" ng-show="settingType_Match">
 
-  <div id="settingMatch_st" ng-show="settingType_Match_st"><!--搭配設定頁面01-->
-    <div id="class-main">
-      <div id="btn-class-main" onclick="clickClass_main()"><a style="position:relative; left: 10px;"><i class="fa fa-list-ul" aria-hidden="true"></i> 篩選器</a><a style="display:inline; font-size: 25px;">&nbsp&nbsp&nbsp{{nowSubCategory}}</a></div>
-      <hr class="hrSet" />
-      <div id="class-st">
-        <!--最愛-->
-        <div class="class-nd">
-          <div style="position:relative; left: 8px; font-size:25px;"><a>收藏</a></div>
-          <hr class="hrSet" />
-          <div class="class-rd" onclick="clickClass_set(this)"><a>全部</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>上半身</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>下半身</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>其他</a></div>
-        </div>
-
-        <!--上半身-->
-        <div class="class-nd">
-          <div style="position:relative; left: 8px; font-size:25px;"><a>上半身</a></div>
-          <hr class="hrSet" />
-
-          <div ng-repeat="upper in upperList" class="class-rd" onclick="clickClass_set(this)"
-            ng-click="queryClothesBySubCategory(upper.Id,upper.Name)">
-            <a>{{upper.Name}}</a>
-          </div>
-        </div>
-
-        <!--下半身-->
-        <div class="class-nd">
-          <div style="position:relative; left: 8px; font-size:25px;"><a>下半身</a></div>
-          <hr class="hrSet" />
-
-          <div ng-repeat="lower in lowerList" class="class-rd" onclick="clickClass_set(this)"
-            ng-click="queryClothesBySubCategory(lower.Id,lower.Name)">
-            <a>{{lower.Name}}</a>
-          </div>
-
-        </div>
-
-        <!--其他-->
-        <div class="class-nd">
-          <div style="position:relative; left: 8px; font-size:25px;"><a>其他</a></div>
-          <hr class="hrSet" />
-
-          <div ng-repeat="other in otherList" class="class-rd" onclick="clickClass_set(this)"
-            ng-click="queryClothesBySubCategory(other.Id,other.Name)">
-            <a>{{other.Name}}</a>
-          </div>
-        </div>
-      </div>
-      <hr class="hrSet" />
+  <!--主畫面-->
+  <div id="settingMain" ng-show="settingType_Main">
+    <div class="mainOptions" ng-click="goToMatch()">
+      <a class="btn-white" ng-click="goToMatch()">搭配設定</a>
     </div>
-    <!-- 列表 -->
-    <div class="grid-container">
-
-      <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index">
-        <a ng-click="checkThePickUpList(clothesNode)">
-          <img src="{{clothesNode.FilePosition}}" id="clothesNode_{{clothesNode.Id}}">
-        </a>
-      </div>
-    </div>
-    <!-- button -->
-    <div>
-      <div class="maSt-btn-rb-two" ng-click="goToMatchNd()">
-        <a class="maSt-btm-rb-two-n" ng-click="goToMatchNd()">組合設定</a>
-      </div>
-      <div class="maSt-btn-rb-one" ng-click="backToMain()">
-        <a class="maSt-btm-rb-one-n" ng-click="backToMain()">返 回</a>
-      </div>
+    <hr style="border: 0px; border-left: 2px solid rgb(128, 128, 128); margin: 5px;" />
+    <div class="mainOptions" ng-click="goToSingle()">
+      <a class="btn-white" ng-click="goToSingle()">衣物設定</a>
     </div>
   </div>
-  <!-------------------------------------------------------------------------->
+  <!---------------------------------------------------------------------------------------------------------------->
 
-  <div id="settingMatch_nd" ng-show="settingType_Match_nd"><!--搭配設定頁面02-->
-    <div id="setM_nd_now">
-      <a><img src="./public/src/clothes_1.jpg"></a>
-    </div>
-    <hr style="border: 0px; border-left: 2px solid rgb(128, 128, 128); margin: 5px;"/>
-    <div id="setM_nd_show">
-      <div id="setM_nd_have">
+  <!--搭配設定頁面-->
+  <div id="settingMatch">
 
-      </div>
-      <hr style="border: 0px; border-top: 2px solid rgb(128, 128, 128); margin: 5px;"/>
-      <div id="setM_nd_set">
+    <div id="settingMatch_st" ng-show="settingType_Match_st || settingType_Single">
 
-      </div>
-    </div>
-    <!-- button -->
-    <div>
-      <div class="maNd-btn-rb-three" ng-click="">
-        <a class="maNd-btm-rb-three-n" ng-click="">刪 除</a>
-      </div>
-      <div class="maNd-btn-rb-two" ng-click="">
-        <a class="maNd-btm-rb-two-n" ng-click="">新 增</a>
-      </div>
-      <div class="maNd-btn-rb-one" ng-click="goToMatch()">
-        <a class="maNd-btm-rb-one-n" ng-click="goToMatch()">返 回</a>
-      </div>
-      
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-<!---------------------------------------------------------------------------------------------------------------->
-<!--衣物設定頁面-->  
-<div id="settingSingle" ng-show="settingType_Single">
-    <!--選單-->
-    
-    <div id="class-main">
-      <div id="btn-class-main" onclick="clickClass_main()"><a style="position:relative; left: 10px;"><i class="fa fa-list-ul" aria-hidden="true"></i> 篩選器</a><a style="display:inline; font-size: 25px;">&nbsp&nbsp&nbsp{{nowSubCategory}}</a></div>
-      <hr class="hrSet" />
-      <div id="class-st">
-        <!--最愛-->
-        <div class="class-nd">
-          <div style="position:relative; left: 8px; font-size:25px;"><a>收藏</a></div>
-          <hr class="hrSet" />
-          <div class="class-rd" onclick="clickClass_set(this)"><a>全部</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>上半身</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>下半身</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>其他</a></div>
-        </div>
-
-        <!--上半身-->
-        <div class="class-nd">
-          <div style="position:relative; left: 8px; font-size:25px;"><a>上半身</a></div>
-          <hr class="hrSet" />
-
-          <div ng-repeat="upper in upperList" class="class-rd" onclick="clickClass_set(this)"
-            ng-click="queryClothesBySubCategory(upper.Id,upper.Name)">
-            <a>{{upper.Name}}</a>
-          </div>
-        </div>
-
-        <!--下半身-->
-        <div class="class-nd">
-          <div style="position:relative; left: 8px; font-size:25px;"><a>下半身</a></div>
-          <hr class="hrSet" />
-
-          <div ng-repeat="lower in lowerList" class="class-rd" onclick="clickClass_set(this)"
-            ng-click="queryClothesBySubCategory(lower.Id,lower.Name)">
-            <a>{{lower.Name}}</a>
+      <!--搭配設定頁面-->
+      <div id="class-main">
+        <div id="btn-class-main" onclick="clickClass_main()"><a style="position:relative; left: 10px;"><i
+              class="fa fa-list-ul" aria-hidden="true"></i> 篩選器</a><a
+            style="display:inline; font-size: 25px;">&nbsp&nbsp&nbsp{{nowSubCategory}}</a></div>
+        <hr class="hrSet" />
+        <div id="class-st">
+          <!--最愛-->
+          <div class="class-nd">
+            <div style="position:relative; left: 8px; font-size:25px;"><a>收藏</a></div>
+            <hr class="hrSet" />
+            <div class="class-rd" onclick="clickClass_set(this)"><a>全部</a></div>
+            <div class="class-rd" onclick="clickClass_set(this)"><a>上半身</a></div>
+            <div class="class-rd" onclick="clickClass_set(this)"><a>下半身</a></div>
+            <div class="class-rd" onclick="clickClass_set(this)"><a>其他</a></div>
           </div>
 
-        </div>
+          <!--上半身-->
+          <div class="class-nd">
+            <div style="position:relative; left: 8px; font-size:25px;"><a>上半身</a></div>
+            <hr class="hrSet" />
 
-        <!--其他-->
-        <div class="class-nd">
-          <div style="position:relative; left: 8px; font-size:25px;"><a>其他</a></div>
-          <hr class="hrSet" />
+            <div ng-repeat="upper in upperList" class="class-rd" onclick="clickClass_set(this)"
+              ng-click="queryClothesBySubCategory(upper.Id,upper.Name)">
+              <a>{{upper.Name}}</a>
+            </div>
+          </div>
 
-          <div ng-repeat="other in otherList" class="class-rd" onclick="clickClass_set(this)"
-            ng-click="queryClothesBySubCategory(other.Id,other.Name)">
-            <a>{{other.Name}}</a>
+          <!--下半身-->
+          <div class="class-nd">
+            <div style="position:relative; left: 8px; font-size:25px;"><a>下半身</a></div>
+            <hr class="hrSet" />
+
+            <div ng-repeat="lower in lowerList" class="class-rd" onclick="clickClass_set(this)"
+              ng-click="queryClothesBySubCategory(lower.Id,lower.Name)">
+              <a>{{lower.Name}}</a>
+            </div>
+
+          </div>
+
+          <!--其他-->
+          <div class="class-nd">
+            <div style="position:relative; left: 8px; font-size:25px;"><a>其他</a></div>
+            <hr class="hrSet" />
+
+            <div ng-repeat="other in otherList" class="class-rd" onclick="clickClass_set(this)"
+              ng-click="queryClothesBySubCategory(other.Id,other.Name)">
+              <a>{{other.Name}}</a>
+            </div>
           </div>
         </div>
+        <hr class="hrSet" />
       </div>
-      <hr class="hrSet" />
+      <!-- 列表 -->
+      <div class="grid-container">
 
+        <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index">
+          <a ng-click="checkThePickUpList(clothesNode)">
+            <img src="{{clothesNode.FilePosition}}" id="clothesNode_{{clothesNode.Id}}">
+          </a>
+        </div>
+      </div>
 
-      <!-- class-main 更改 -->
-      <script>
-        let classSet = document.getElementById('class-main');
-        let lestClick = "none";
+      <!--搭配設定 button -->
+      <div ng-show="settingType_Match_st">
+        <div class="maSt-btn-rb-two" ng-click="goToMatchNd()">
+          <a class="maSt-btm-rb-two-n" ng-click="goToMatchNd()">組合設定</a>
+        </div>
+        <div class="maSt-btn-rb-one" ng-click="backToMain()">
+          <a class="maSt-btm-rb-one-n" ng-click="backToMain()">返 回</a>
+        </div>
+      </div>
 
-        function clickClass_main() {
-          classSet.classList.toggle('active');
-        }
+      <!-- 衣物設定 button -->
+      <div ng-show="settingType_Single">
+        <div class="si-btn-rb-three" ng-click="" ng-show="1">
+          <!--TODO:衣物不在衣櫃時才顯示刪除選項-->
+          <a class="si-btm-rb-three-n" ng-click="">刪 除</a>
+        </div>
+        <div class="si-btn-rb-two" ng-click="">
+          <a class="si-btm-rb-two-n" ng-click="">設 定</a>
+        </div>
+        <div class="si-btn-rb-one" ng-click="backToMain()">
+          <a class="si-btm-rb-one-n" ng-click="backToMain()">返 回</a>
+        </div>
+      </div>
 
-        function clickClass_set(set) {
-          if (lestClick == "none") {
-            lestClick = set;
-            set.classList.toggle('active');
-            setTimeout(function () {
-              classSet.classList.toggle('active');
-            }, 200);
-          } else {
-            lestClick.classList.toggle('active');
-            lestClick = set;
-            set.classList.toggle('active');
-            setTimeout(function () {
-              classSet.classList.toggle('active');
-            }, 200);
-          }
-        }
-      </script>
     </div>
-    <!-- 列表 -->
-    <div class="grid-container">
+    <!-------------------------------------------------------------------------->
 
-      <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index">
-        <a ng-click="checkThePickUpList(clothesNode)">
-          <img src="{{clothesNode.FilePosition}}" id="clothesNode_{{clothesNode.Id}}">
-        </a>
+    <div id="settingMatch_nd" ng-show="settingType_Match_nd">
+      <!--搭配設定頁面02-->
+      <div id="setM_nd_now">
+        <a><img src="./public/src/clothes_1.jpg"></a>
       </div>
-    </div>
-    <!-- button -->
-    <div>
-      <div class="si-btn-rb-three" ng-click="" ng-show="1">
-        <!--TODO:衣物不在衣櫃時才顯示刪除選項-->
-        <a class="si-btm-rb-three-n" ng-click="">刪 除</a>
+      <hr style="border: 0px; border-left: 2px solid rgb(128, 128, 128); margin: 5px;" />
+      <div id="setM_nd_show">
+        <div id="setM_nd_have">
+
+        </div>
+        <hr style="border: 0px; border-top: 2px solid rgb(128, 128, 128); margin: 5px;" />
+        <div id="setM_nd_set">
+
+        </div>
       </div>
-      <div class="si-btn-rb-two" ng-click="">
-        <a class="si-btm-rb-two-n" ng-click="">設 定</a>
+      <!-- button -->
+      <div>
+        <div class="maNd-btn-rb-three" ng-click="">
+          <a class="maNd-btm-rb-three-n" ng-click="">刪 除</a>
+        </div>
+        <div class="maNd-btn-rb-two" ng-click="">
+          <a class="maNd-btm-rb-two-n" ng-click="">新 增</a>
+        </div>
+        <div class="maNd-btn-rb-one" ng-click="goToMatch()">
+          <a class="maNd-btm-rb-one-n" ng-click="goToMatch()">返 回</a>
+        </div>
+
       </div>
-      <div class="si-btn-rb-one" ng-click="backToMain()">
-        <a class="si-btm-rb-one-n" ng-click="backToMain()">返 回</a>
-      </div>
-      
     </div>
   </div>
 
-<!---------------------------------------------------------------------------------------------------------------->
+
+  <!---------------------------------------------------------------------------------------------------------------->
+
+
+  <!---------------------------------------------------------------------------------------------------------------->
 
   <!-- 遮罩 -->
   <div id="mask" style="visibility: hidden"></div>

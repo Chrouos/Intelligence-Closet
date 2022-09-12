@@ -11,32 +11,63 @@ app.controller('myCtrl', function ($scope) {
     }, 15);
     /* ---------- 刷新頁面 End ---------- */
 
-    $scope.settingType_Main=true;
-    $scope.settingType_Match=false;
-    $scope.settingType_Single=false;
-    $scope.settingType_Match_st=false;
-    $scope.settingType_Match_nd=false;
-    $scope.backToMain=function(){
-        $scope.settingType_Main=true;
-        $scope.settingType_Match=false;
-        $scope.settingType_Single=false;
+    // 抓取全部資料
+    $scope.queryAllList = async function () {
+        // $scope.upperList = await eel.upper_clothes_to_js()(); // 上半身的所有衣服
+
+        $scope.upperList = await eel.query_subCategory_byCategoryId(1)(); // 上半身的子類別
+        $scope.lowerList = await eel.query_subCategory_byCategoryId(2)(); // 下半身的子類別
+        $scope.otherList = await eel.query_subCategory_byCategoryId(3)(); // 下半身的子類別
+
+        $scope.clothesNodeList = await eel.clothes_to_js()();
+        console.log("clothesNodeList: ", $scope.clothesNodeList)
+
     }
-    $scope.goToMatch=function(){
-        $scope.settingType_Main=false;
-        $scope.settingType_Match=true;
-        $scope.settingType_Single=false;
-        $scope.settingType_Match_st=true;
-        $scope.settingType_Match_nd=false;
+    $scope.queryAllList();
+
+
+
+
+
+    /* ---------- 切換頁面 start ---------- */
+    $scope.settingType_Main = true; // 主頁面
+
+    $scope.settingType_Single = false;
+    $scope.settingType_Match_st = false;
+    $scope.settingType_Match_nd = false;
+
+    $scope.backToMain = function () {
+        $scope.settingType_Main = true;
+        $scope.settingType_Single = false;
+        $scope.settingType_Match_st = false;
+        $scope.settingType_Match_nd = false;
     }
-    $scope.goToSingle=function(){
-        $scope.settingType_Main=false;
-        $scope.settingType_Match=false;
-        $scope.settingType_Single=true;
+
+    $scope.goToMatch = function () {
+        $scope.settingType_Main = false;
+        $scope.settingType_Match_st = true;
+        $scope.settingType_Match_nd = false;
+        $scope.settingType_Single = false;
     }
-    $scope.goToMatchNd=function(){
-        $scope.settingType_Match_nd=true;
-        $scope.settingType_Match_st=false;
+
+    $scope.goToSingle = function () {
+        $scope.settingType_Main = false;
+        $scope.settingType_Match_st = false;
+        $scope.settingType_Match_nd = false;
+        $scope.settingType_Single = true;
     }
+
+    $scope.goToMatchNd = function () {
+        $scope.settingType_Main = false;
+        $scope.settingType_Match_st = false;
+        $scope.settingType_Match_nd = true;
+        $scope.settingType_Single = false;
+    }
+
+
+
+
+    /* ---------- 切換頁面 end ---------- */
 
 
 });
