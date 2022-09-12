@@ -3,9 +3,9 @@ drop table color
 create table color
 (
 
-	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- 編號 ( 1, 2, 3 ... )
-	ColorEngName varchar(30) NOT NULL,-- 顏色名稱(英文)
-	ColorName nvarchar(30)-- 顏色名稱(中文)
+    Id bigint PRIMARY KEY NOT NULL IDENTITY,-- 編號 ( 1, 2, 3 ... )
+    ColorEngName varchar(30) NOT NULL,-- 顏色名稱(英文)
+    ColorName nvarchar(30)-- 顏色名稱(中文)
 
 );
 
@@ -51,3 +51,6 @@ values
 insert color
 values
     ('KHAKI', '卡其色')--13
+insert color
+values
+    ('CYAN', '青色') --14

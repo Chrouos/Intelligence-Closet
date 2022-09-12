@@ -1,8 +1,8 @@
-drop table city
+ï»¿drop table city
 
 create table city
 (
-	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- ½s¸¹ ( 1, 2, 3 ... )
-	CityName varchar(50)-- «°Âí¦WºÙ
+	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- Â½sÂ¸Â¹ ( 1, 2, 3 ... )
+	CityName varchar(50)-- Â«Â°Ã‚Ã­Â¦WÂºÃ™
 );
 
