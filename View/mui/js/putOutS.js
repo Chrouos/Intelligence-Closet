@@ -32,13 +32,16 @@ app.controller('myCtrl', function ($scope) {
   $scope.queryAllList();
 
   // 搜尋衣物 by.子類別ID
-  $scope.queryClothesBySubCategory = async function (subCategoryId) {
+  $scope.nowSubCategory = "";
+  $scope.queryClothesBySubCategory = async function (subCategoryId,subCategoryName) {
     $scope.clothesNodeList = await eel.query_clothes_nodes_bySubCategoryId(subCategoryId)();
+    $scope.nowSubCategory = subCategoryName;
+    console.log($scope.nowSubCategory)
   }
 
   $scope.siglePickUpList = null; // 只拿取一件衣物: JSON
   $scope.pairPickUpList = [null, null]
-
+  $scope.chosen = false;
   $scope.checkThePickUpList = function (clothesNode) {
     // step 1. Judging how to take it
     // 單件
@@ -68,6 +71,7 @@ app.controller('myCtrl', function ($scope) {
             document.getElementById("clothesNode_" + $scope.pairPickUpList[i].Id).style.border = "";
             $scope.pairPickUpList[i] = null;
             isInsert = false;
+
           }
         }
         // 

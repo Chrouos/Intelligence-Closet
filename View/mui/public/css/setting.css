@@ -5,18 +5,316 @@ body {
   width: 100%;
   height: 100vh;
   background: linear-gradient(to bottom right, rgb(255, 255, 255) , rgb(140, 140, 254));
-  
+  display: flex;
+  flex-direction: column;
+}
+/****************************************************************************************/
+/****************************************************************************************//*主畫面*/
+#settingMain{
+  position: fixed;
+  height: 90%;
+  width: 85%;
+  top: 5%;
+  left: 12%;
+  z-index: 7;
+  display: flex;
+  justify-content: space-around;
+
+}
+.mainOptions{
+  height: 90%;
+  position: relative;
+  top:5%;
+  width: 40%;
+  /* background-color: #2196F3; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.btn-white{
+  border: 1.5px solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  font-size: 40px;
+  border-radius: 5px;
+  position: relative;
+  top: 77%;
+}
+/****************************************************************************************/
+/****************************************************************************************//*搭配設定頁面*/
+#settingSingle{
+  position: fixed;
+  height: 84%;
+  width: 85%;
+  top: 5%;
+  left: 12%;
+  overflow: hidden;
+  z-index: 7;
+  /*background-color: #2196F3;*/
 }
 
-#all{
-  font-size: 80px;
+#settingMatch_st{
+  position: fixed;
+  height: 84%;
+  width: 85%;
+  top: 5%;
+  left: 12%;
+  overflow: hidden;
+  z-index: 7;
+  /*background-color: #2196F3;*/
+}
+#settingMatch_nd{
+  position: fixed;
+  height: 84%;
+  width: 85%;
+  top: 4%;
+  left: 12%;
+  display: flex;
+  justify-content: center;
+}
+#setM_nd_now{
+  height: 100%;
+  width: 30%;
+  /* background-color: #2196F3; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#setM_nd_now a img{
+  height: 270px;
+  width: 216px;
+  border-radius: 10px;
+}
+#setM_nd_show{
+  height: 100%;
+  width: 68%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  /* background-color: #2196F3; */
+}
+#setM_nd_have{
+  height: 40%;
   width: 100%;
+  /* background-color: #2196F3; */
+}
+#setM_nd_set{
+  height: 59%;
+  width: 100%;
+  /* background-color: #2196F3; */
+}
+/****************************************************************************************/
+/****************************************************************************************//*衣物設定頁面*/
+/*照片*/
+.grid-container{
+    position: relative;
+    top: 25px;
+    display: grid;
+    grid-template-columns: 132px 132px 132px 132px 132px 132px;
+    grid-template-rows: 165px 165px;
+    grid-column-gap: 15px;
+    grid-row-gap: 20px;
+    padding-left: 15px;/*內部空間*/
+    z-index: 7;
+    /*background-color: #2196F3;*/
+
+  }
+.grid-item {
+  background-color: white;
+  border-radius: 20px;
+}
+.grid-item img{
+  height: 165px;
+  width: 132px;
+  border-radius: 20px;
+}
+/****************************************************************************************//*按鈕*/
+.si-btn-rb-one{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 3%;
+  bottom: 3%;
+
+}
+.si-btm-rb-one-n{
+  position: fixed;
+  right: 8.2%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}
+.si-btn-rb-two{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 20%;
+  bottom: 3%;
+
+}
+.si-btm-rb-two-n{
+  position: fixed;
+  right: 25.2%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}
+.si-btn-rb-three{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 37%;
+  bottom: 3%;
+
+}
+.si-btm-rb-three-n{
+  position: fixed;
+  right: 42.2%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}
+.maSt-btn-rb-one{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 3%;
+  bottom: 3%;
+
+}
+.maSt-btm-rb-one-n{
+  position: fixed;
+  right: 8.2%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}
+.maSt-btn-rb-two{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 20%;
+  bottom: 3%;
+
+}
+.maSt-btm-rb-two-n{
+  position: fixed;
+  right: 23.6%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}
+.maNd-btn-rb-one{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 3%;
+  bottom: 3%;
+
+}
+.maNd-btm-rb-one-n{
+  position: fixed;
+  right: 8.2%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}
+.maNd-btn-rb-two{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 20%;
+  bottom: 3%;
+
+}
+.maNd-btm-rb-two-n{
+  position: fixed;
+  right: 25.2%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}
+.maNd-btn-rb-three{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 37%;
+  bottom: 3%;
+
+}
+.maNd-btm-rb-three-n{
+  position: fixed;
+  right: 42.2%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}
+/****************************************************************************************//*選單*/
+#class-main{
+  height: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition:  0.5s;
+  /*background-color: antiquewhite;*/
+  z-index: 7;
+}
+#class-main.active{
+  height: 60%;
+}
+#btn-class-main{
+  font-size: 30px;
+  width: 250px;
+}
+#class-st{
+  height: 80%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  /*background-color: beige;*/
+}
+.class-nd{
   height: 100%;
-  transition: 0.5s;
-  position: absolute;
-  z-index: 8;
+  width: 20%;
+  /*background-color: rgb(243, 255, 193);*/
+}
+.class-rd{
+  position: relative;
+  left: 8px;
+  font-size: 18px;
+  color: rgb(122, 122, 122);
+  margin: 5px;
+}
+.class-rd.active{
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+}
+.hrSet{
+  border: 0px;
+  border-top: 1.5px solid rgb(128, 128, 128);
+  margin: 5px;
 }

@@ -31,12 +31,11 @@
 <body>
   <div id="total">
     <!--選單-->
+    
     <div id="class-main">
-      <div id="btn-class-main" onclick="clickClass_main()"><a style="position:relative; left: 10px;">#篩選器</a></div>
+      <div id="btn-class-main" onclick="clickClass_main()"><a style="position:relative; left: 10px;"><i class="fa fa-list-ul" aria-hidden="true"></i> 篩選器</a><a style="display:inline; font-size: 25px;">&nbsp&nbsp&nbsp{{nowSubCategory}}</a></div>
       <hr class="hrSet" />
-
       <div id="class-st">
-
         <!--最愛-->
         <div class="class-nd">
           <div style="position:relative; left: 8px; font-size:25px;"><a>收藏</a></div>
@@ -53,19 +52,9 @@
           <hr class="hrSet" />
 
           <div ng-repeat="upper in upperList" class="class-rd" onclick="clickClass_set(this)"
-            ng-click="queryClothesBySubCategory(upper.Id)">
+            ng-click="queryClothesBySubCategory(upper.Id,upper.Name)">
             <a>{{upper.Name}}</a>
           </div>
-
-          <!-- 
-          <div class="class-rd" onclick="clickClass_set(this)"><a>T恤</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>背心</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>襯衫</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>運動衫</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>長袖</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>帽T</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>外套</a></div> 
-          -->
         </div>
 
         <!--下半身-->
@@ -74,15 +63,9 @@
           <hr class="hrSet" />
 
           <div ng-repeat="lower in lowerList" class="class-rd" onclick="clickClass_set(this)"
-            ng-click="queryClothesBySubCategory(lower.Id)">
+            ng-click="queryClothesBySubCategory(lower.Id,lower.Name)">
             <a>{{lower.Name}}</a>
           </div>
-
-          <!--           
-          <div class="class-rd" onclick="clickClass_set(this)"><a>短褲</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>長褲</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>裙子</a></div> 
-          -->
 
         </div>
 
@@ -92,16 +75,9 @@
           <hr class="hrSet" />
 
           <div ng-repeat="other in otherList" class="class-rd" onclick="clickClass_set(this)"
-            ng-click="queryClothesBySubCategory(other.Id)">
+            ng-click="queryClothesBySubCategory(other.Id,other.Name)">
             <a>{{other.Name}}</a>
           </div>
-
-          <!-- 
-          <div class="class-rd" onclick="clickClass_set(this)"><a>洋裝</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>連身衣</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>西裝外套</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>未設定</a></div>
-          -->
         </div>
       </div>
       <hr class="hrSet" />
@@ -143,24 +119,6 @@
           <img src="{{clothesNode.FilePosition}}" id="clothesNode_{{clothesNode.Id}}">
         </a>
       </div>
-
-      <!-- <div class="grid-item"><a ng-click="takeClick(1)" onclick="takeClick(this)"><img src="{{Data[0].Picture}}"></a>
-      </div>
-      <div class="grid-item"><a ng-click="takeClick(2)" onclick="takeClick(this)"><img src="{{Data[1].Picture}}"></a>
-      </div>
-      <div class="grid-item"><a ng-click="takeClick(3)" onclick="takeClick(this)"><img src="{{Data[2].Picture}}"></a>
-      </div>
-      <div class="grid-item"><a ng-click="takeClick(4)" onclick="takeClick(this)"><img src="{{Data[3].Picture}}"></a>
-      </div>
-      <div class="grid-item"><a ng-click="takeClick(5)" onclick="takeClick(this)"><img src="{{Data[4].Picture}}"></a>
-      </div>
-      <div class="grid-item"><a ng-click="takeClick(6)" onclick="takeClick(this)"><img src="{{Data[5].Picture}}"></a>
-      </div>
-      <div class="grid-item"><a ng-click="takeClick(7)" onclick="takeClick(this)"><img src="{{Data[6].Picture}}"></a>
-      </div>
-      <div class="grid-item"><a ng-click="takeClick(8)" onclick="takeClick(this)"><img src="{{Data[7].Picture}}"></a>
-      </div> -->
-
     </div>
 
   </div>
@@ -170,10 +128,10 @@
   <!-- button -->
   <div>
     <div class="btn-rb-three" ng-click="changePickUpType()" ng-show="!takeType">
-      <a class="btm-rb-three-n">單件</a>
+      <a class="btm-rb-three-n">單件拿取</a>
     </div>
     <div class="btn-rb-three" ng-click="changePickUpType()" ng-show="takeType">
-      <a class="btm-rb-three-n">一套</a>
+      <a class="btm-rb-three-n">整套拿取</a>
     </div>
 
     <div class="btn-rb-two" ng-click="">
@@ -185,11 +143,11 @@
   <div id="preview" ng-show="takeType">
     <div class="preview-i">
       <i class="fa-solid fa-plus"></i>
-      <img src="{{takeTwiceSt}}">
+      <img ng-show="pairPickUpList[0]" src="{{pairPickUpList[0].FilePosition}}" >
     </div>
     <div class="preview-i">
       <i class="fa-solid fa-plus"></i>
-      <img src="{{takeTwiceNd}}">
+      <img ng-show="pairPickUpList[1]" src="{{pairPickUpList[1].FilePosition}}" >
     </div>
   </div>
 

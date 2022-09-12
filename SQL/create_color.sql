@@ -3,9 +3,9 @@ drop table color
 create table color
 (
 
-	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- ╫s╦╧ ( 1, 2, 3 ... )
-	ColorEngName varchar(30) NOT NULL,-- цC╕Б╕W╨ы(╜^╓Е╙╘╔╩)
-	ColorName nvarchar(30)-- цC╕Б╕W╨ы(╓╓╓Е╙╘╔╩)
+	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- Г╥╗Х≥÷ ( 1, 2, 3 ... )
+	ColorEngName varchar(30) NOT NULL,-- И║▐Х┴╡Е░█Г╗╠(Х▀╠Ф√┤)
+	ColorName nvarchar(30)-- И║▐Х┴╡Е░█Г╗╠(Д╦╜Ф√┤)
 
 );
 
@@ -14,40 +14,40 @@ from color
 
 insert color
 values
-	('Undefined', NULL)--1
+    ('Undefined', NULL)--1
 insert color
 values
-	('BLUE', 'бе╕Б')--2
+    ('BLUE', 'Х≈█Х┴╡')--2
 insert color
 values
-	('BLACK', '╤б╕Б')--3
+    ('BLACK', 'И╩▒Х┴╡')--3
 insert color
 values
-	('WHITE', '╔у╕Б')--4
+    ('WHITE', 'Г≥╫Х┴╡')--4
 insert color
 values
-	('RED', '╛У╕Б')--5
+    ('RED', 'Г╢┘Х┴╡')--5
 insert color
 values
-	('ORANGE', '╬О╕Б')--6
+    ('ORANGE', 'Ф╘≤Х┴╡')--6
 insert color
 values
-	('YELLOW', '╤ю╕Б')--7
+    ('YELLOW', 'И╩┐Х┴╡')--7
 insert color
 values
-	('GREEN', '╨Я╕Б')--8
+    ('GREEN', 'Г╤═Х┴╡')--8
 insert color
 values
-	('PURPLE', '╣╣╕Б')--9
+    ('PURPLE', 'Г╢╚Х┴╡')--9
 insert color
 values
-	('GRAY', '╕г╕Б')--10
+    ('GRAY', 'Г│╟Х┴╡')--10
 insert color
 values
-	('CREAMY WHITE', '╕л╔у╕Б')--11
+    ('CREAMY WHITE', 'Г╠ЁГ≥╫Х┴╡')--11
 insert color
 values
-	('ARMY GREEN', '╜x╨Я╕Б')--12
+    ('ARMY GREEN', 'Х╩█Г╤═Х┴╡')--12
 insert color
 values
-	('KHAKI', '╔d╗Д╕Б')--13
+    ('KHAKI', 'Е█║Е┘╤Х┴╡')--13

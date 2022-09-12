@@ -49,7 +49,7 @@ class ClothesNodeService:
         return category_dict
     
     def queryByPosition(self, position):
-        data = self.clothesNodeDAO.queryByPosition(position)
+        data = self.clothesNodeDAO.queryNodeByPosition(position)
         
         category_dict =     {'Id': data.Id, 
                             'Position': data.Position,

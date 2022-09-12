@@ -22,7 +22,8 @@ as
 		cn.ModifyTime,
 		cn.FilePosition,
 		sc.Score,
-		cat.Level
+		cat.Level,
+		cn.IsFavorite
 	from clothes_node as cn
 		inner join sub_category as sc on cn.SubCategoryId = sc.Id
 		inner join category as cat on cat.Id = sc.CategoryId

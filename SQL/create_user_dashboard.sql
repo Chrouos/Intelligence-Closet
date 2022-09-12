@@ -10,7 +10,11 @@ create table user_dashboard
 	StationName nvarchar (50) Null,--可以記錄使用者目前所在城市
 	Clock datetime,
 	-- StationName, CityName 地區
+	CityId bigint
 );
 
 select *
 from user_dashboard
+
+insert into user_dashboard
+VALUES ('DiuDu', 5, GETDATE(), 0, GETDATE(), 0)

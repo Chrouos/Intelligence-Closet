@@ -73,7 +73,7 @@ body {
 }
 .btm-rb-two-n{
   position: fixed;
-  right: 25%;
+  right: 25.2%;
   bottom: 4%;
   font-size: 20px;
   color: aliceblue;
@@ -91,7 +91,7 @@ body {
 }
 .btm-rb-three-n{
   position: fixed;
-  right: 40.2%;
+  right: 40.6%;
   bottom: 4%;
   font-size: 20px;
   color: aliceblue;
@@ -147,7 +147,7 @@ body {
 }
 #btn-class-main{
   font-size: 30px;
-  width: 150px;
+  width: 250px;
 }
 #class-st{
   height: 80%;
