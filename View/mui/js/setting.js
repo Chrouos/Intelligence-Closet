@@ -1,4 +1,10 @@
 
+function heartClick(a) {
+    if (a.style.color == "gray")
+        a.style.color = "red";
+    else
+        a.style.color = "gray";
+    }
 
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function ($scope) {
@@ -84,7 +90,15 @@ app.controller('myCtrl', function ($scope) {
         $scope.settingType_Single = false;
     }
 
+    //衣物設定介面
+    $scope.clothesSetType=false;
+    $scope.clothes_Set = function(){
+        $scope.clothesSetType=!$scope.clothesSetType;
+    }
     /* ---------- 切換頁面 end ---------- */
+
+
+
 
 
 });

@@ -318,3 +318,62 @@ body {
   border-top: 1.5px solid rgb(128, 128, 128);
   margin: 5px;
 }
+/**********************************************************/
+#clothesSet-Scene{
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  /*align-items: center;*/
+  transition: 0.5s;
+  width: 65%;
+  height: 70%;
+  left: 20%;
+  top: 15%;
+  z-index: 9;
+  background-color: rgb(246,248,255);
+  border-radius: 30px;
+}
+
+.pictures-one img{
+  position: absolute;
+  height: 70%;
+  top: 15%;
+  left: 10%;
+  border-radius: 20px;
+}
+
+.clothesInfo{
+  position: absolute;
+  font-size: 27px;
+  top: 15%;
+  left: 44%;
+  width: 45%;
+  height: 65%;
+  /* background-color: aqua; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.clothesInfo-Set select{
+  top: 0;
+  width: 150px;
+  height: 35px;
+  font-size: 25px;
+}
+.st-btn-rb-one{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  border-radius: 10px;
+  width: 120px;
+  height: 30px;
+  right: 18%;
+  bottom: 19%;
+
+}
+.st-btm-rb-one-n{
+  position: fixed;
+  right: 22%;
+  bottom: 20%;
+  font-size: 15px;
+  color: aliceblue;
+}

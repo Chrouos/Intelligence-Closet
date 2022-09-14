@@ -230,13 +230,6 @@ body {
   height: 35px;
   font-size: 25px;
 }
-.btn-white{
-  border: 1px solid rgb(255, 255, 255);
-  color: rgb(255, 255, 255);
-  font-size: 40px;
-  border-radius: 5px;
-  left: 20%;
-}
 .btn-rb-one{
   position: fixed;
   background-color: rgb(124, 124, 255);

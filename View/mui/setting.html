@@ -38,7 +38,6 @@
     </div>
   </div>
   <!---------------------------------------------------------------------------------------------------------------->
-
   <!--搭配設定頁面-->
   <div id="settingMatch">
 
@@ -97,6 +96,7 @@
         </div>
         <hr class="hrSet" />
       </div>
+
       <!-- 列表 -->
       <div class="grid-container">
 
@@ -107,7 +107,7 @@
         </div>
       </div>
 
-      <!--搭配設定 button -->
+      <!--搭配設定頁面 button -->
       <div ng-show="settingType_Match_st">
         <div class="maSt-btn-rb-two" ng-click="goToMatchNd()">
           <a class="maSt-btm-rb-two-n" ng-click="goToMatchNd()">組合設定</a>
@@ -117,14 +117,14 @@
         </div>
       </div>
 
-      <!-- 衣物設定 button -->
+      <!-- 衣物設定頁面 button -->
       <div ng-show="settingType_Single">
         <div class="si-btn-rb-three" ng-click="" ng-show="1">
           <!--TODO:衣物不在衣櫃時才顯示刪除選項-->
           <a class="si-btm-rb-three-n" ng-click="">刪 除</a>
         </div>
-        <div class="si-btn-rb-two" ng-click="">
-          <a class="si-btm-rb-two-n" ng-click="">設 定</a>
+        <div class="si-btn-rb-two" ng-click="clothes_Set()">
+          <a class="si-btm-rb-two-n" ng-click="clothes_Set()">設 定</a>
         </div>
         <div class="si-btn-rb-one" ng-click="backToMain()">
           <a class="si-btm-rb-one-n" ng-click="backToMain()">返 回</a>
@@ -149,7 +149,7 @@
 
         </div>
       </div>
-      <!-- button -->
+      <!-- 搭配設定頁面02 button -->
       <div>
         <div class="maNd-btn-rb-three" ng-click="">
           <a class="maNd-btm-rb-three-n" ng-click="">刪 除</a>
@@ -165,10 +165,44 @@
     </div>
   </div>
 
+  <!--衣物設定視窗--><!--TODO:連接資料-->
+  <div id="clothesSet-Scene" ng-show="clothesSetType">
+    <!-- 衣物照片 -->
+    <div class="pictures-one">
+      <a><img src="./public/src/clothes_1.jpg"></a>
+    </div>
+    
+    <!-- 衣物資訊/設定 -->
+    <div class="clothesInfo">
+      <!----------------------------------------------------------------->
+      <div>
 
+        <p style="display: inline;">顏色: </p>
+        <select ng-model="" ng-options="">
+          <!-- <option value="" selected>請選擇</option> -->
+        </select>
+      </div>
+      <div>
+        <p style="display: inline;">樣式: </p>
+        <select ng-model="" ng-options="">
+          <!-- <option value="" selected>請選擇</option> -->
+        </select>
+      </div>
+      <div>
+        <p>衣物喜好度: {{clothes_like}} <input style="width:300px" type="range" min="1" max="10" ng-model="clothes_like" /></p>
+      </div>
+      <div>
+        <p style="display: inline;">是否加入最愛: </p>
+        <span style="color: gray;" onclick="heartClick(this)" ng-click="heartClicks()"><i class="fa-solid fa-heart"></i>
+        </span>
+      </div>
+      <!----------------------------------------------------------------->
+    </div>
+    <div>
+      <div class="st-btn-rb-one" ng-click="clothes_Set()"><a class="st-btm-rb-one-n" ng-click="clothes_Set()">返 回</a></div>
+    </div>
+  </div>
   <!---------------------------------------------------------------------------------------------------------------->
-
-
   <!---------------------------------------------------------------------------------------------------------------->
 
   <!-- 遮罩 -->
