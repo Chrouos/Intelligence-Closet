@@ -42,24 +42,6 @@ body {
   border-radius: 20px;
 }
 /****************************************************************************************//*按鈕*/
-.btn-rb-one{
-  position: fixed;
-  background-color: rgb(124, 124, 255);
-  font-size: 40px;
-  border-radius: 10px;
-  width: 160px;
-  height: 40px;
-  right: 3%;
-  bottom: 3%;
-
-}
-.btm-rb-one-n{
-  position: fixed;
-  right: 8%;
-  bottom: 4%;
-  font-size: 20px;
-  color: aliceblue;
-}
 .btn-rb-two{
   position: fixed;
   background-color: rgb(124, 124, 255);
@@ -213,27 +195,28 @@ body {
   justify-content: center;
   /*align-items: center;*/
   transition: 0.5s;
-  width: 85%;
-  height: 90%;
-  left: 10%;
-  top: 5%;
+  width: 65%;
+  height: 70%;
+  left: 20%;
+  top: 15%;
   z-index: 7;
-  /* background-color: azure; */
+  background-color: rgb(246,248,255);
+  border-radius: 30px;
 }
 
 .pictures-one img{
   position: absolute;
   height: 70%;
   top: 15%;
-  left: 10%;
+  left: 8%;
   border-radius: 20px;
 }
 
 .clothesInfo{
   position: absolute;
-  font-size: 37px;
+  font-size: 30px;
   top: 18%;
-  left: 48%;
+  left: 45%;
 
   height: 65%;
   /* background-color: aqua; */
@@ -253,4 +236,21 @@ body {
   font-size: 40px;
   border-radius: 5px;
   left: 20%;
+}
+.btn-rb-one{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  border-radius: 10px;
+  width: 120px;
+  height: 30px;
+  right: 18%;
+  bottom: 19%;
+
+}
+.btm-rb-one-n{
+  position: fixed;
+  right: 22%;
+  bottom: 20%;
+  font-size: 15px;
+  color: aliceblue;
 }
