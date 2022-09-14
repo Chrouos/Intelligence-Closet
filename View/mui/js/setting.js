@@ -33,6 +33,19 @@ app.controller('myCtrl', function ($scope) {
         console.log($scope.nowSubCategory)
     }
 
+    $scope.pickUp_ClohtesNode = null; // 選擇的衣物
+    $scope.checkThePickUpList = function (clothesNode) {
+        // 如果為空 則選取
+        if ($scope.pickUp_ClohtesNode == null) {
+            document.getElementById("clothesNode_" + clothesNode.Id).style.border = "2px solid red";
+            $scope.pickUp_ClohtesNode = clothesNode;
+        }
+        // 如果點選同樣資料 就取消
+        else if ($scope.pickUp_ClohtesNode.Id == clothesNode.Id) {
+            document.getElementById("clothesNode_" + clothesNode.Id).style.border = "";
+            $scope.pickUp_ClohtesNode = null;
+        }
+    }
 
     /* ---------- 切換頁面 start ---------- */
     $scope.settingType_Main = true; // 主頁面
@@ -46,6 +59,8 @@ app.controller('myCtrl', function ($scope) {
         $scope.settingType_Single = false;
         $scope.settingType_Match_st = false;
         $scope.settingType_Match_nd = false;
+
+        $scope.pickUp_ClohtesNode = null;
     }
 
     $scope.goToMatch = function () {
@@ -69,10 +84,8 @@ app.controller('myCtrl', function ($scope) {
         $scope.settingType_Single = false;
     }
 
-
-
-
     /* ---------- 切換頁面 end ---------- */
 
 
 });
+
