@@ -6,9 +6,9 @@ select * from category
 select * from color
 select * from sub_category
 --推薦相關
+select * from node_graph
 select * from color_graph
 select * from clothes_graph
-select * from user_combs
 select * from user_dashboard
 --天氣相關
 select * from city
