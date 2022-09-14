@@ -41,7 +41,7 @@
   <!--搭配設定頁面-->
   <div id="settingMatch">
 
-    <div id="settingMatch_st" ng-show="settingType_Match_st || settingType_Single">
+    <div id="settingMatch_st" ng-show="settingType_Match_st || settingType_Single"><!--TODO:接資料*2 搭配/一般-->
 
       <!--搭配設定頁面-->
       <div id="class-main">
@@ -97,7 +97,7 @@
         <hr class="hrSet" />
       </div>
 
-      <!-- 列表 -->
+      <!-- 選擇列表 -->
       <div class="grid-container">
 
         <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index">
@@ -135,19 +135,41 @@
     <!-------------------------------------------------------------------------->
 
     <div id="settingMatch_nd" ng-show="settingType_Match_nd">
-      <!--搭配設定頁面02-->
+      <!--搭配設定頁面02--><!--TODO:接資料-->
       <div id="setM_nd_now">
         <a><img src="./public/src/clothes_1.jpg"></a>
       </div>
       <hr style="border: 0px; border-left: 2px solid rgb(128, 128, 128); margin: 5px;" />
+
       <div id="setM_nd_show">
+
         <div id="setM_nd_have">
-
+          <div id="setM_nd_have_line">
+            <div><img src="./public/src/clothes_2.jpg"></div>
+            <div><img src="./public/src/clothes_3.jpg"></div>
+            <div><img src="./public/src/clothes_4.jpg"></div>
+            <div><img src="./public/src/clothes_5.jpg"></div>
+            <div><img src="./public/src/clothes_6.jpg"></div>
+            <div><img src="./public/src/clothes_7.jpg"></div>
+            <div><img src="./public/src/clothes_8.jpg"></div>
+          </div>
         </div>
+
         <hr style="border: 0px; border-top: 2px solid rgb(128, 128, 128); margin: 5px;" />
-        <div id="setM_nd_set">
 
+        <div id="setM_nd_set">
+          <div class="setM_nd_set_picture">
+            <img src="./public/src/clothes_1.jpg">
+          </div>
+          <i class="fa-solid fa-plus"></i>
+          <div class="setM_nd_set_picture">
+            <!-- <img src="./public/src/clothes_5.jpg"> -->
+          </div>
+          <div class="setM_nd_set_set">
+            <p>組合喜好度: {{clothesMath_like}} <input style="width: 200px" type="range" min="1" max="10" ng-model="clothesMath_like" /></p>
+          </div>
         </div>
+
       </div>
       <!-- 搭配設定頁面02 button -->
       <div>
@@ -164,8 +186,8 @@
       </div>
     </div>
   </div>
-
-  <!--衣物設定視窗--><!--TODO:連接資料-->
+  <!---------------------------------------------------------------------------------------------------------------->
+  <!--衣物設定視窗--><!--TODO:接資料-->
   <div id="clothesSet-Scene" ng-show="clothesSetType">
     <!-- 衣物照片 -->
     <div class="pictures-one">

@@ -98,10 +98,65 @@ body {
   /* background-color: #2196F3; */
 }
 #setM_nd_set{
-  height: 59%;
+  height: 55%;
   width: 100%;
+  position: relative;
+  left: 2%;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
   /* background-color: #2196F3; */
 }
+#setM_nd_set i{
+  font-size: 40px;
+  margin: 15px;
+  color: rgb(233, 233, 233);
+}
+.setM_nd_set_set{
+  height: 100px;
+  width: 200px;
+  position: relative;
+  left:4%;
+  font-size: 27px;
+  /* background-color: #ffffff; */
+}
+.setM_nd_set_picture{
+  width: 136px;
+  height: 170px;
+  border-radius: 5%;
+  background-color: rgb(229, 229, 229);
+}
+.setM_nd_set_picture img{
+  width: 136px;
+  height: 170px;
+  border-radius: 5%;
+}
+
+#setM_nd_have_line {
+  position: fixed;
+  top: 0%;
+  right: 2%;
+  height: 29%;
+  width: 55%;/*指定可滑动区域宽度*/
+  overflow: hidden; /*超出隐藏*/
+  white-space: nowrap;/*超出不换行*/
+  overflow-x: auto;/*出现水平滚动条*/
+  margin: 40px;/*无关紧要的代码*/
+  /* background-color: aqua; */
+}
+#setM_nd_have_line div{
+  display: inline-block;
+  border: 1px solid rosybrown;
+  width: 120px;
+  height: 150px;
+  border-radius: 5%;
+}
+#setM_nd_have_line div img{
+  width: 120px;
+  height: 150px;
+  border-radius: 5%;
+}
+
 /****************************************************************************************/
 /****************************************************************************************//*衣物設定頁面*/
 /*照片*/
