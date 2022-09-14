@@ -1,4 +1,5 @@
-create view v_clothes_graph
+
+CREATE view v_clothes_graph
 as
 	select
 		ucn.Id as upperClothesId,
@@ -20,5 +21,5 @@ as
 		ng.Postion as ngPosition
 	from
 		node_graph ng
-		inner join lower_clothes_node lcn on ng.LowerId = lcn.Id
-		inner join upper_clothes_node ucn on ng.UpperId = ucn.Id 
+		inner join clothes_node_lower lcn on ng.LowerId = lcn.Id
+		inner join clothes_node_upper ucn on ng.UpperId = ucn.Id;
