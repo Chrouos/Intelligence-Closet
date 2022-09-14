@@ -59,14 +59,17 @@
         <select ng-model="color" ng-options="color.ColorEngName as color.ColorName for color in colorList">
           <!-- <option value="" selected>請選擇</option> -->
         </select>
+        <p>{{color}}</p>
       </div>
       <br />
       <div>
         <p style="display: inline;">樣式: </p>
         <select ng-model="category"
-          ng-options="subCategory.ClothesType as subCategory.Name for subCategory in subCategoryList">
+          ng-options="subCategory.ClothesType as subCategory.Name for subCategory in subCategoryList"
+          ng-change="identify_save_sql()">
           <!-- <option value="" selected>請選擇</option> -->
         </select>
+        <p>{{category}}</p>
       </div>
       <br />
       <div>
@@ -78,8 +81,8 @@
       <br />
       <!-- button -->
       <div>
-        <a class="btn-rb-two" ng-click="update_user()"><a class="btm-rb-two-n" ng-click="Send(this)">確認存入</a></a>
-        <a class="btn-rb-one" ng-click="closeEdit()"><a class="btm-rb-one-n" ng-click="Back(this)">退 回</a></a>
+        <a class="btn-rb-two" ng-click="Send()"><a class="btm-rb-two-n">確認存入</a></a>
+        <a class="btn-rb-one" ng-click="Back()"><a class="btm-rb-one-n">退 回</a></a>
       </div>
     </div>
   </div>

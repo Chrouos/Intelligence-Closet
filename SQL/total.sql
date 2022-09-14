@@ -47,28 +47,39 @@ create table sub_category
     Score bigint NOT NULL,-- 天氣分數(衣物本身的保暖程度)
     Name nvarchar(255)-- 衣物名稱
 );
-INSERT INTO intelligence_closet.dbo.sub_category
-    (CategoryId,ClothesType,Score,Name)
-VALUES
-    (4, N'Blazer', 3, N'西裝外套'),
-    (3, N'Dress', 3, N'洋裝'),
-    (1, N'Top', 2, N'上半身'),
-    (6, N'Hat', 1, N'帽子'),
-    (1, N'Hoodie', 4, N'連帽衫'),
-    (1, N'Longsleeve', 4, N'長袖'),
-    (4, N'Outwear', 4, N'外套'),
-    (2, N'Pants', 3, N'褲子'),
-    (1, N'Polo', 2, N'Polo衫'),
-    (1, N'Shirt', 2, N'襯衫');
-INSERT INTO intelligence_closet.dbo.sub_category
-    (CategoryId,ClothesType,Score,Name)
-VALUES
-    (7, N'Shoes', 1, N'鞋'),
-    (2, N'Shorts', 1, N'短褲'),
-    (2, N'Skirt', 1, N'裙子'),
-    (1, N'T-Shirt', 2, N'T恤'),
-    (1, N'Undershirt', 1, N'薄衫'),
-    (8, N'Not_sure', 0, NULL);
+
+INSERT INTO sub_category
+VALUES(1, 'T-Shirt', 1, 'T恤')
+INSERT INTO sub_category
+VALUES(1, 'Undershirt', 1, '背心')
+INSERT INTO sub_category
+VALUES(1, 'Shirt', 1, '襯衫')
+INSERT INTO sub_category
+VALUES(1, 'Polo', 1, '運動衫')
+INSERT INTO sub_category
+VALUES(1, 'Longsleeve', 3, '長袖')
+INSERT INTO sub_category
+VALUES(1, 'Hoodie', 4, '帽T')
+INSERT INTO sub_category
+VALUES(4, 'Outwear', 4, '外套')
+
+INSERT INTO sub_category
+VALUES(2, 'Shorts', 1, '短褲')
+INSERT INTO sub_category
+VALUES(2, 'Pants', 3, '長褲')
+INSERT INTO sub_category
+VALUES(2, 'Skirt', 2, '裙子')
+
+INSERT INTO sub_category
+VALUES(3, 'Dress', 3, '洋裝')
+INSERT INTO sub_category
+VALUES(3, 'Body', 2, '連身衣')
+
+INSERT INTO sub_category
+VALUES(4, 'Blazer', 4, '西裝外套')
+
+INSERT INTO sub_category
+VALUES(8, 'Not_sure', 0, '不確定')
 
 
 -------------------------------------------------------------------------------    
@@ -111,14 +122,36 @@ create table clothes_node
 );
 
 INSERT INTO intelligence_closet.dbo.clothes_node
-    ([Position],SubCategoryId,ColorId,UserPreferences,ClothesStyle,UsageCounter,CreateTime,ModifyTime,FilePosition)
-VALUES
-    (0, 4, N'10', NULL, NULL, 0, '2022-08-09 14:28:18.243', '2022-08-09 14:28:18.243', N'./public/src/clothes_1.jpg'),
-    (1, 13, N'2', NULL, NULL, 0, '2022-08-09 14:43:40.777', '2022-08-09 14:43:40.777', N'./public/src/clothes_2.jpg'),
-    (2, 14, N'4', NULL, NULL, 0, '2022-08-09 14:47:25.72', '2022-08-09 14:47:25.72', N'./public/src/clothes_3.jpg'),
-    (3, 12, N'9', NULL, NULL, 0, '2022-08-09 14:51:09.427', '2022-08-09 14:51:09.427', N'./public/src/clothes_4.jpg'),
-    (4, 10, N'6', NULL, NULL, 0, '2022-08-09 14:57:05.37', '2022-08-09 14:57:05.37', N'./public/src/clothes_5.jpg'),
-    (5, 6, N'3', NULL, NULL, 0, '2022-08-09 20:27:27.657', '2022-08-09 20:27:27.657', N'./public/src/clothes_6.jpg');
+    ([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite)
+VALUES(0, 6, 10, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_1.jpg', 0);
+
+INSERT INTO intelligence_closet.dbo.clothes_node
+    ([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite)
+VALUES(1, 1, 11, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_2.jpg', 0);
+
+INSERT INTO intelligence_closet.dbo.clothes_node
+    ([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite)
+VALUES(2, 1, 3, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_3.jpg', 0);
+
+INSERT INTO intelligence_closet.dbo.clothes_node
+    ([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite)
+VALUES(3, 3, 2, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_4.jpg', 0);
+
+INSERT INTO intelligence_closet.dbo.clothes_node
+    ([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite)
+VALUES(4, 9, 2, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_5.jpg', 0);
+
+INSERT INTO intelligence_closet.dbo.clothes_node
+    ([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite)
+VALUES(5, 8, 11, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_6.jpg', 0);
+
+INSERT INTO intelligence_closet.dbo.clothes_node
+    ([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite)
+VALUES(6, 8, 2, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_7.jpg', 0);
+
+INSERT INTO intelligence_closet.dbo.clothes_node
+    ([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite)
+VALUES(7, 9, 3, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_8.jpg', 0);
 
 -------------------------------------------------------------------------------
 create table color
@@ -648,7 +681,8 @@ create table user_dashboard
     WeatherLike Int Not Null,--喜歡的天氣(5為最熱)
     ModifyTime datetime Not Null,--異動時間
     StationName nvarchar (50) Null,--可以記錄使用者目前所在城市
-    Clock datetime,-- StationName, CityName 地區
+    Clock datetime,-- StationName, CityName 地區,
+    CityId bigint
 );
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------

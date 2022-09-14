@@ -18,7 +18,10 @@ from Service.subCategoryService import SubCategoryService
 from Service.viewStationService import ViewStationService
 from Service.cityService import CityService
 from Service.userDashboardService import UserDashboardService
-from Service.clothesNodeService import ClothesNodeService
+from Service.ClothesNodeLowerService import ClothesNodeLowerService
+from Service.ClothesNodeUpperService import ClothesNodeUpperService
+from Service.ClothesNodeOtherService import ClothesNodeOtherService
+from Service.viewClothesNodeService import ViewClothesNodeService
 from Service.viewClothesNodeService import ViewClothesNodeService
 from Service.viewCategoryClothesService import ViewCategoryClothesService
 

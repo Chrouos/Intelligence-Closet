@@ -1,199 +1,218 @@
 from Model.DAO.viewClothesNodeDAO import ViewClothesNodeDAO
+import json
+
 
 class ViewClothesNodeService:
-    
+
     # 建構子: 呼叫SQL
-    def __init__(self):	
+    def __init__(self):
         self.viewClothesNodeDAO = ViewClothesNodeDAO()
-        
-    # 搜尋全部資料: 轉換成字典
+
+
+###################### READ ######################
+
+# 搜尋全部資料: 轉換成字典
+
     def queryAll(self):
-        
-        viewClothesNode_dict = []
         datas = self.viewClothesNodeDAO.queryAll()
-        
+
+        category_dict = []
         for data in datas:
-            viewClothesNode_dict.append({  'Id': data.Id, 
-                                            'Position': data.Position, 
-                                            'ClothesId': data.ClothesId,
-                                            'Name': data.Name,
-                                            'ClothesType': data.ClothesType,
-                                            'ColorId': data.ColorId,
-                                            'ColorName': data.ColorName,
-                                            'UserPreferences': data.UserPreferences,
-                                            'CategoryId': data.CategoryId,
-                                            'ClothesStyle': data.ClothesStyle,
-                                            'UsageCounter': data.UsageCounter,
-                                            'CreateTime': data.CreateTime,
-                                            'ModifyTime': data.ModifyTime,
-                                            'FilePosition': data.FilePosition,
-                                            'Score': data.Score,
-                                            'Level': data.Level,
-                                            'IsFavorite': data.IsFavorite,
-                                        })
-        
-        return viewClothesNode_dict
-    
+            category_dict.append({
+                'Id': data.Id,
+                'Position': data.Position,
+                'SubCategoryId': data.SubCategoryId,
+                'SubCategoryName': data.SubCategoryName,
+                'CategoryId': data.CategoryId,
+                'Score': data.Score,
+                'CategoryName': data.CategoryName,
+                'ColorId': data.ColorId,
+                'ColorEngName': data.ColorEngName,
+                'ColorName': data.ColorName,
+                'UserPreferences': data.UserPreferences,
+                'WarmLevel': data.WarmLevel,
+                'ClothesStyle': data.ClothesStyle,
+                'UsageCounter': data.UsageCounter,
+                'CreateTime': data.CreateTime,
+                'ModifyTime': data.ModifyTime,
+                'FilePosition': data.FilePosition,
+                'IsFavorite': data.IsFavorite,
+            })
+
+        return category_dict
+
     # 透過Id查找一筆資料: 轉換成字典
     def queryById(self, id):
         data = self.viewClothesNodeDAO.queryById(id)
-        
-        viewClothesNode_dict ={ 'Id': data.Id, 
-                                'Position': data.Position, 
-                                'ClothesId': data.ClothesId,
-                                'Name': data.Name,
-                                'ClothesType': data.ClothesType,
-                                'ColorId': data.ColorId,
-                                'ColorName': data.ColorName,
-                                'UserPreferences': data.UserPreferences,
-                                'CategoryId': data.CategoryId,
-                                'ClothesStyle': data.ClothesStyle,
-                                'UsageCounter': data.UsageCounter,
-                                'CreateTime': data.CreateTime,
-                                'ModifyTime': data.ModifyTime,
-                                'FilePosition': data.FilePosition,
-                                'Score': data.Score,
-                                'Level': data.Level,
-                                'IsFavorite': data.IsFavorite,
-                            }
-        return viewClothesNode_dict
-    
-    def queryPositionExitNode(self):
-        datas = self.viewClothesNodeDAO.queryPositionExitNode()
-        
-        viewClothesNode_dict = []
-        for data in datas:
-            viewClothesNode_dict.append({  'Id': data.Id, 
-                                            'Position': data.Position, 
-                                            'ClothesId': data.ClothesId,
-                                            'Name': data.Name,
-                                            'ClothesType': data.ClothesType,
-                                            'ColorId': data.ColorId,
-                                            'ColorName': data.ColorName,
-                                            'UserPreferences': data.UserPreferences,
-                                            'CategoryId': data.CategoryId,
-                                            'ClothesStyle': data.ClothesStyle,
-                                            'UsageCounter': data.UsageCounter,
-                                            'CreateTime': data.CreateTime,
-                                            'ModifyTime': data.ModifyTime,
-                                            'FilePosition': data.FilePosition,
-                                            'Score': data.Score,
-                                            'Level': data.Level,
-                                            'IsFavorite': data.IsFavorite,
-                                        })
-        
-        return viewClothesNode_dict
-    
-    
+
+        category_dict = {
+            'Id': data.Id,
+            'Position': data.Position,
+            'SubCategoryId': data.SubCategoryId,
+            'SubCategoryName': data.SubCategoryName,
+            'CategoryId': data.CategoryId,
+            'Score': data.Score,
+            'CategoryName': data.CategoryName,
+            'ColorId': data.ColorId,
+            'ColorEngName': data.ColorEngName,
+            'ColorName': data.ColorName,
+            'UserPreferences': data.UserPreferences,
+            'WarmLevel': data.WarmLevel,
+            'ClothesStyle': data.ClothesStyle,
+            'UsageCounter': data.UsageCounter,
+            'CreateTime': data.CreateTime,
+            'ModifyTime': data.ModifyTime,
+            'FilePosition': data.FilePosition,
+            'IsFavorite': data.IsFavorite,
+        }
+
+        return category_dict
+
+    def queryByPosition(self, position):
+        data = self.viewClothesNodeDAO.queryNodeByPosition(position)
+
+        category_dict = {
+            'Id': data.Id,
+            'Position': data.Position,
+            'SubCategoryId': data.SubCategoryId,
+            'SubCategoryName': data.SubCategoryName,
+            'CategoryId': data.CategoryId,
+            'Score': data.Score,
+            'CategoryName': data.CategoryName,
+            'ColorId': data.ColorId,
+            'ColorEngName': data.ColorEngName,
+            'ColorName': data.ColorName,
+            'UserPreferences': data.UserPreferences,
+            'WarmLevel': data.WarmLevel,
+            'ClothesStyle': data.ClothesStyle,
+            'UsageCounter': data.UsageCounter,
+            'CreateTime': data.CreateTime,
+            'ModifyTime': data.ModifyTime,
+            'FilePosition': data.FilePosition,
+            'IsFavorite': data.IsFavorite,
+        }
+
+        return category_dict
+
+    def lastId(self):
+        return self.viewClothesNodeDAO.lastId()
+
     # 搜尋全部資料: 轉換成字典
-    def queryUpperAll(self):
-        
-        viewClothesNode_dict = []
-        datas = self.viewClothesNodeDAO.queryUpperAll()
-        
-        for data in datas:
-            viewClothesNode_dict.append({  'Id': data.Id, 
-                                            'Position': data.Position, 
-                                            'ClothesId': data.ClothesId,
-                                            'Name': data.Name,
-                                            'ClothesType': data.ClothesType,
-                                            'ColorId': data.ColorId,
-                                            'ColorName': data.ColorName,
-                                            'UserPreferences': data.UserPreferences,
-                                            'CategoryId': data.CategoryId,
-                                            'ClothesStyle': data.ClothesStyle,
-                                            'UsageCounter': data.UsageCounter,
-                                            'CreateTime': data.CreateTime,
-                                            'ModifyTime': data.ModifyTime,
-                                            'FilePosition': data.FilePosition,
-                                            'Score': data.Score,
-                                            'Level': data.Level,
-                                            'IsFavorite': data.IsFavorite,
-                                        })
-        
-        return viewClothesNode_dict
-    
-    
-    # 搜尋全部資料: 轉換成字典
-    def queryLowerAll(self):
-        
-        viewClothesNode_dict = []
-        datas = self.viewClothesNodeDAO.queryLowerAll()
-        
-        for data in datas:
-            viewClothesNode_dict.append({  'Id': data.Id, 
-                                            'Position': data.Position, 
-                                            'ClothesId': data.ClothesId,
-                                            'Name': data.Name,
-                                            'ClothesType': data.ClothesType,
-                                            'ColorId': data.ColorId,
-                                            'ColorName': data.ColorName,
-                                            'UserPreferences': data.UserPreferences,
-                                            'CategoryId': data.CategoryId,
-                                            'ClothesStyle': data.ClothesStyle,
-                                            'UsageCounter': data.UsageCounter,
-                                            'CreateTime': data.CreateTime,
-                                            'ModifyTime': data.ModifyTime,
-                                            'FilePosition': data.FilePosition,
-                                            'Score': data.Score,
-                                            'Level': data.Level,
-                                            'IsFavorite': data.IsFavorite,
-                                        })
-        
-        return viewClothesNode_dict
-    
-    # 搜尋全部資料: 轉換成字典
-    def queryOtherAll(self):
-        
-        viewClothesNode_dict = []
-        datas = self.viewClothesNodeDAO.queryOtherAll()
-        
-        for data in datas:
-            viewClothesNode_dict.append({  'Id': data.Id, 
-                                            'Position': data.Position, 
-                                            'ClothesId': data.ClothesId,
-                                            'Name': data.Name,
-                                            'ClothesType': data.ClothesType,
-                                            'ColorId': data.ColorId,
-                                            'ColorName': data.ColorName,
-                                            'UserPreferences': data.UserPreferences,
-                                            'CategoryId': data.CategoryId,
-                                            'ClothesStyle': data.ClothesStyle,
-                                            'UsageCounter': data.UsageCounter,
-                                            'CreateTime': data.CreateTime,
-                                            'ModifyTime': data.ModifyTime,
-                                            'FilePosition': data.FilePosition,
-                                            'Score': data.Score,
-                                            'Level': data.Level,
-                                            'IsFavorite': data.IsFavorite,
-                                        })
-        
-        return viewClothesNode_dict
-    
-        # 搜尋全部資料: 轉換成字典
     def queryBySubCategoryId(self, subCategoryId):
-        
+
         viewClothesNode_dict = []
         datas = self.viewClothesNodeDAO.queryBySubCategoryId(subCategoryId)
-        
+
         for data in datas:
-            viewClothesNode_dict.append({  'Id': data.Id, 
-                                            'Position': data.Position, 
-                                            'ClothesId': data.ClothesId,
-                                            'Name': data.Name,
-                                            'ClothesType': data.ClothesType,
-                                            'ColorId': data.ColorId,
-                                            'ColorName': data.ColorName,
-                                            'UserPreferences': data.UserPreferences,
-                                            'CategoryId': data.CategoryId,
-                                            'ClothesStyle': data.ClothesStyle,
-                                            'UsageCounter': data.UsageCounter,
-                                            'CreateTime': data.CreateTime,
-                                            'ModifyTime': data.ModifyTime,
-                                            'FilePosition': data.FilePosition,
-                                            'Score': data.Score,
-                                            'Level': data.Level,
-                                            'IsFavorite': data.IsFavorite,
-                                        })
-        
+            viewClothesNode_dict.append({
+                'Id': data.Id,
+                'Position': data.Position,
+                'SubCategoryId': data.SubCategoryId,
+                'SubCategoryName': data.SubCategoryName,
+                'CategoryId': data.CategoryId,
+                'Score': data.Score,
+                'CategoryName': data.CategoryName,
+                'ColorId': data.ColorId,
+                'ColorEngName': data.ColorEngName,
+                'ColorName': data.ColorName,
+                'UserPreferences': data.UserPreferences,
+                'WarmLevel': data.WarmLevel,
+                'ClothesStyle': data.ClothesStyle,
+                'UsageCounter': data.UsageCounter,
+                'CreateTime': data.CreateTime,
+                'ModifyTime': data.ModifyTime,
+                'FilePosition': data.FilePosition,
+                'IsFavorite': data.IsFavorite,
+            })
+
+        return viewClothesNode_dict
+
+        # 搜尋全部資料: 轉換成字典
+    def queryUpperAll(self):
+
+        viewClothesNode_dict = []
+        datas = self.viewClothesNodeDAO.queryUpperAll()
+
+        for data in datas:
+            viewClothesNode_dict.append({
+                'Id': data.Id,
+                'Position': data.Position,
+                'SubCategoryId': data.SubCategoryId,
+                'SubCategoryName': data.SubCategoryName,
+                'CategoryId': data.CategoryId,
+                'Score': data.Score,
+                'CategoryName': data.CategoryName,
+                'ColorId': data.ColorId,
+                'ColorEngName': data.ColorEngName,
+                'ColorName': data.ColorName,
+                'UserPreferences': data.UserPreferences,
+                'WarmLevel': data.WarmLevel,
+                'ClothesStyle': data.ClothesStyle,
+                'UsageCounter': data.UsageCounter,
+                'CreateTime': data.CreateTime,
+                'ModifyTime': data.ModifyTime,
+                'FilePosition': data.FilePosition,
+                'IsFavorite': data.IsFavorite,
+            })
+
+        return viewClothesNode_dict
+
+    # 搜尋全部資料: 轉換成字典
+    def queryLowerAll(self):
+
+        viewClothesNode_dict = []
+        datas = self.viewClothesNodeDAO.queryLowerAll()
+
+        for data in datas:
+            viewClothesNode_dict.append({
+                'Id': data.Id,
+                'Position': data.Position,
+                'SubCategoryId': data.SubCategoryId,
+                'SubCategoryName': data.SubCategoryName,
+                'CategoryId': data.CategoryId,
+                'Score': data.Score,
+                'CategoryName': data.CategoryName,
+                'ColorId': data.ColorId,
+                'ColorEngName': data.ColorEngName,
+                'ColorName': data.ColorName,
+                'UserPreferences': data.UserPreferences,
+                'WarmLevel': data.WarmLevel,
+                'ClothesStyle': data.ClothesStyle,
+                'UsageCounter': data.UsageCounter,
+                'CreateTime': data.CreateTime,
+                'ModifyTime': data.ModifyTime,
+                'FilePosition': data.FilePosition,
+                'IsFavorite': data.IsFavorite,
+            })
+
+        return viewClothesNode_dict
+
+    # 搜尋全部資料: 轉換成字典
+    def queryOtherAll(self):
+
+        viewClothesNode_dict = []
+        datas = self.viewClothesNodeDAO.queryOtherAll()
+
+        for data in datas:
+            viewClothesNode_dict.append({
+                'Id': data.Id,
+                'Position': data.Position,
+                'SubCategoryId': data.SubCategoryId,
+                'SubCategoryName': data.SubCategoryName,
+                'CategoryId': data.CategoryId,
+                'Score': data.Score,
+                'CategoryName': data.CategoryName,
+                'ColorId': data.ColorId,
+                'ColorEngName': data.ColorEngName,
+                'ColorName': data.ColorName,
+                'UserPreferences': data.UserPreferences,
+                'WarmLevel': data.WarmLevel,
+                'ClothesStyle': data.ClothesStyle,
+                'UsageCounter': data.UsageCounter,
+                'CreateTime': data.CreateTime,
+                'ModifyTime': data.ModifyTime,
+                'FilePosition': data.FilePosition,
+                'IsFavorite': data.IsFavorite,
+            })
+
         return viewClothesNode_dict

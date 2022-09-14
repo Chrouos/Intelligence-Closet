@@ -65,6 +65,11 @@ app.controller('myCtrl', function ($scope) {
   $scope.Back = function () {
     $scope.MainType = false;
     $scope.StartType = true;
+
+    $scope.category = "";
+    $scope.color = "";
+    $scope.path = "";
+    $scope.isFavorite = 0;
   }
 
   /* ---------- 將資料儲存至料庫 Start ---------- */
@@ -76,29 +81,32 @@ app.controller('myCtrl', function ($scope) {
     //TODO bootbox: 衣服收入中...
     $scope.MainType = false;
     $scope.StartType = true;
-    console.log($scope.putIn)
   }
   /* ---------- 將資料儲存至料庫 Start ---------- */
+
+  // 把資料存到資料庫
+  $scope.identify_save_sql = async function () {
+    console.log("[js] identify_save_sql: ", $scope.category, $scope.color, $scope.path, $scope.isFavorite)
+
+    // return await eel.identify_save_sql($scope.category, $scope.color, $scope.path, $scope.isFavorite)();
+  }
 
 
   /* ---------- 拍照 + 辨識 Start ---------- */
   $scope.get_camera_identify = async function () {
-    $scope.identify = await eel.get_camera_identify()();
+    identify = await eel.get_camera_identify()();
 
-    $scope.category = $scope.identify[0];
-    $scope.color = $scope.identify[1];
-    $scope.path = $scope.identify[2];
+    $scope.category = identify[0];
+    $scope.color = identify[1];
+    $scope.path = identify[2];
     $scope.isFavorite = 0;
 
-    $scope.isIdentifySuccess = $scope.identify[3];
+    $scope.isIdentifySuccess = identify[3];
 
   };
   /* ---------- 拍照 + 辨識 Start ---------- */
 
-  // 把資料存到資料庫
-  $scope.identify_save_sql = async function () {
-    return await eel.identify_save_sql($scope.category, $scope.color, $scope.path, $scope.isFavorite)();
-  }
+
 
   $scope.heartClicks = function () {
     $scope.isFavorite = ($scope.isFavorite == 0) ? 1 : 0;

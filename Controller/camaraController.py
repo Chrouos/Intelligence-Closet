@@ -3,6 +3,7 @@
 import collections
 import os
 import sys
+from unicodedata import category
 
 import cv2
 import numpy as np
@@ -11,7 +12,13 @@ from keras_preprocessing import image
 import time
 
 from Service.colorService import ColorService
-from Service.clothesNodeService import ClothesNodeService
+from Service.ClothesNodeUpperService import ClothesNodeUpperService
+from Service.ClothesNodeLowerService import ClothesNodeLowerService
+from Service.ClothesNodeOtherService import ClothesNodeOtherService
+from Service.nodeGraphService import NodeGraphService
+
+from Service.viewClothesNodeService import ViewClothesNodeService
+
 from Service.subCategoryService import SubCategoryService
 
 sys.path.append(os.getcwd())  # 抓取路徑
@@ -32,7 +39,7 @@ class CamaraController:
         self.chooseCamara = camara
 
     def getLastId(self):
-        clothesNodeService = ClothesNodeService()
+        clothesNodeService = ViewClothesNodeService()
 
         self.newOneId = clothesNodeService.lastId() + 1
         self.save_path = 'View/mui/public/src/clothes_' + str(
@@ -46,17 +53,29 @@ class CamaraController:
         # 呼叫Service
         subCategoryService = SubCategoryService()
         colorService = ColorService()
-        clothesNodeService = ClothesNodeService()
 
         #獲得必要資訊
         colorId = colorService.queryIdByEngName(self.color)
-        subCategoryId = subCategoryService.queryIdByClothesType(self.category)
+        subcategory = subCategoryService.queryIdAndCategoryByClothesType(
+            self.category)
+        subCategoryId = subcategory[0]
+        categoryId = subcategory[1]
 
         clothesNode_create = '{{"SubCategoryId": {0}, "ColorId": {1}, "FilePosition": "{2}", "IsFavorite": {3}}}'.format(
             subCategoryId, colorId, self.path, self.isFavorite)
         print("saveData:", clothesNode_create)
 
-        return clothesNodeService.create(clothesNode_create)
+        if categoryId == 1:
+            clothesNodeService = ClothesNodeUpperService()
+            clothesNodeService.create(clothesNode_create)
+        elif categoryId == 2:
+            clothesNodeService = ClothesNodeLowerService()
+            clothesNodeService.create(clothesNode_create)
+        else:
+            clothesNodeService = ClothesNodeOtherService()
+            clothesNodeService.create(clothesNode_create)
+
+        return True
 
     def printResult(self):
         print(" ---------- identify result ----------")
