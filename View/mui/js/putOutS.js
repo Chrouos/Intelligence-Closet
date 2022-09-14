@@ -4,7 +4,30 @@ function takeClick(a) {
   else
     a.style.background.color = "white";
 }
-
+var timeStart, timeEnd, time;
+//獲取此刻時間
+function getTimeNow() {
+        var now = new Date();
+        return now.getTime();
+    }
+function holdDown(CID) {
+  timeStart = getTimeNow();
+  //每100毫秒執行一次
+  time = setInterval(function () {
+      timeEnd = getTimeNow();
+      //如果按超過2s
+      if (timeEnd - timeStart > 1000) {
+          clearInterval(time);
+          //呼叫衣物資訊
+          var a = CID.id;
+          angular.element(document.getElementById('hahaha')).scope().showInfo(a.substr(12));
+      }
+  }, 100);
+}
+function holdUp() {
+  clearInterval(time);
+}
+  /* ----------------------------------------------------------------------------------------------------- */
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function ($scope) {
 
@@ -57,7 +80,7 @@ app.controller('myCtrl', function ($scope) {
       // 代表無資料: 存入
       else $scope.siglePickUpList = clothesNode;
 
-      console.log("sigle: ", $scope.siglePickUpList);
+      //console.log("sigle: ", $scope.siglePickUpList);
     }
     // 整套
     else {
@@ -107,8 +130,6 @@ app.controller('myCtrl', function ($scope) {
   };
 
 
-
-
   //切換拿取衣物的選擇
   $scope.takeType = false; //拿單件or整套 false: 單件, true: 整套
   $scope.changePickUpType = function () { // 拿單件or整套
@@ -127,7 +148,7 @@ app.controller('myCtrl', function ($scope) {
     $scope.pairPickUpList = [null, null];
   }
 
-  // 拿取 衣物
+  // 拿取衣物
   $scope.getThePickUpList = function () {
     // sigle
     if ($scope.takeType == false) {
@@ -138,31 +159,16 @@ app.controller('myCtrl', function ($scope) {
     }
   }
 
-  /* ********************** 選擇 *********************** */
 
-  // $scope.Data = [//假資料
-  //   { 'Picture': './public/src/clothes_1.jpg' },
-  //   { 'Picture': './public/src/clothes_2.jpg' },
-  //   { 'Picture': './public/src/clothes_3.jpg' },
-  //   { 'Picture': './public/src/clothes_4.jpg' },
-  //   { 'Picture': './public/src/clothes_5.jpg' },
-  //   { 'Picture': './public/src/clothes_6.jpg' },
-  //   { 'Picture': './public/src/clothes_7.jpg' },
-  //   { 'Picture': './public/src/clothes_8.jpg' },
-  //   { 'Picture': '' },
-  //   { 'Picture': '' },
-  //   { 'Picture': '' },
-  //   { 'Picture': '' }
-  // ]
+  $scope.putOStype=false
+  //衣物資料
+  $scope.showInfo = function (clothesID) {
+    //TODO:用clothesID呼叫衣物資料
+    console.log(clothesID)
 
-
-
-  $scope.takeOnly = ""; // 拿取單件
-
-  $scope.takeTwiceSt = "";//拿取整套-第一件
-  $scope.takeTwiceNd = "";//拿取整套-第二件
-
-
-
-
+    $scope.putOStype=!$scope.putOStype;
+  }
+  $scope.backToMain = function(){
+    $scope.putOStype=!$scope.putOStype;
+  }
 });

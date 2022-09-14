@@ -29,9 +29,10 @@
 
 
 <body>
-  <div id="total">
+
+  <div id="putOS-main" ng-show="!putOStype">
+
     <!--選單-->
-    
     <div id="class-main">
       <div id="btn-class-main" onclick="clickClass_main()"><a style="position:relative; left: 10px;"><i class="fa fa-list-ul" aria-hidden="true"></i> 篩選器</a><a style="display:inline; font-size: 25px;">&nbsp&nbsp&nbsp{{nowSubCategory}}</a></div>
       <hr class="hrSet" />
@@ -110,48 +111,78 @@
         }
       </script>
     </div>
-    <!---------------------------------------------------------------------------------------------------------------->
-    <!-- 列表 -->
+    
+    <!-- 衣物列表 -->
     <div class="grid-container">
-
-      <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index">
+      <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index" id="hahaha">
         <a ng-click="checkThePickUpList(clothesNode)">
-          <img src="{{clothesNode.FilePosition}}" id="clothesNode_{{clothesNode.Id}}">
+          <img src="{{clothesNode.FilePosition}}" id="clothesNode_{{clothesNode.Id}}" onmousedown="holdDown(this)" onmouseup="holdUp()" >
         </a>
+      </div>
+    </div>
+
+    <!-- button -->
+    <div>
+      <div class="btn-rb-three" ng-click="changePickUpType()" ng-show="!takeType">
+        <a class="btm-rb-three-n">單件拿取</a>
+      </div>
+      <div class="btn-rb-three" ng-click="changePickUpType()" ng-show="takeType">
+        <a class="btm-rb-three-n">整套拿取</a>
+      </div>
+
+      <div class="btn-rb-two" ng-click="">
+        <a class="btm-rb-two-n" ng-click="getThePickUpList()">拿 取</a>
+      </div>
+    </div>
+
+    <!-- 選取預覽 -->
+    <div id="preview" ng-show="takeType">
+      <div class="preview-i">
+        <i class="fa-solid fa-plus"></i>
+        <img ng-show="pairPickUpList[0]" src="{{pairPickUpList[0].FilePosition}}" >
+      </div>
+      <div class="preview-i">
+        <i class="fa-solid fa-plus"></i>
+        <img ng-show="pairPickUpList[1]" src="{{pairPickUpList[1].FilePosition}}" >
       </div>
     </div>
 
   </div>
 
-
-  <!---------------------------------------------------------------------------------------------------------------->
-  <!-- button -->
-  <div>
-    <div class="btn-rb-three" ng-click="changePickUpType()" ng-show="!takeType">
-      <a class="btm-rb-three-n">單件拿取</a>
-    </div>
-    <div class="btn-rb-three" ng-click="changePickUpType()" ng-show="takeType">
-      <a class="btm-rb-three-n">整套拿取</a>
+<!---------------------------------------------------------------------------------------------------------------->
+  <div id="putOS-Info" ng-show="putOStype">
+    <!-- 衣物照片 -->
+    <div class="pictures-one">
+      <a><img src="./public/src/clothes_1.jpg"></a>
     </div>
 
-    <div class="btn-rb-two" ng-click="">
-      <a class="btm-rb-two-n" ng-click="getThePickUpList()">拿 取</a>
+    <!-- 衣物資訊/設定 -->
+    <div class="clothesInfo">
+      <div>
+        <p style="display: inline;">顏色: 色色</p>
+      </div>
+      <div>
+        <p style="display: inline;">樣式: 木木梟</p>
+      </div>
+      <div>
+        <p style="display: inline;">使用次數: 87次 </p>
+      </div>
+      <div>
+        <p style="display: inline;">最後使用時間: 2022/07/10 </p>
+      </div>
+
+      <div>
+        <span style="color: rgb(255, 0, 0);position:relative;left: 2px;"><i class="fa-solid fa-heart"></i>
+        </span>
+      </div>
     </div>
-    <div class="btn-rb-one" ng-click=""><a class="btm-rb-one-n" ng-click="">詳細資料</a></div>
+    <div>
+      <div class="btn-rb-one" ng-click="backToMain()"><a class="btm-rb-one-n" ng-click="backToMain()">返 回</a></div>
+    </div>
+    
   </div>
-  <!-- 選取預覽 -->
-  <div id="preview" ng-show="takeType">
-    <div class="preview-i">
-      <i class="fa-solid fa-plus"></i>
-      <img ng-show="pairPickUpList[0]" src="{{pairPickUpList[0].FilePosition}}" >
-    </div>
-    <div class="preview-i">
-      <i class="fa-solid fa-plus"></i>
-      <img ng-show="pairPickUpList[1]" src="{{pairPickUpList[1].FilePosition}}" >
-    </div>
-  </div>
 
-  <!---------------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------->
 
   <!-- 遮罩 -->
   <div id="mask" style="visibility: hidden"></div>

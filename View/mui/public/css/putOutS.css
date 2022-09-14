@@ -8,7 +8,7 @@ body {
   display: flex;
   flex-direction: column;
 }
-#total{
+#putOS-main{
   position: fixed;
   height: 84%;
   width: 85%;
@@ -55,7 +55,7 @@ body {
 }
 .btm-rb-one-n{
   position: fixed;
-  right: 6.5%;
+  right: 8%;
   bottom: 4%;
   font-size: 20px;
   color: aliceblue;
@@ -67,13 +67,13 @@ body {
   border-radius: 10px;
   width: 160px;
   height: 40px;
-  right: 20%;
+  right: 3%;
   bottom: 3%;
 
 }
 .btm-rb-two-n{
   position: fixed;
-  right: 25.2%;
+  right: 8%;
   bottom: 4%;
   font-size: 20px;
   color: aliceblue;
@@ -85,13 +85,13 @@ body {
   border-radius: 10px;
   width: 160px;
   height: 40px;
-  right: 37%;
+  right: 20%;
   bottom: 3%;
 
 }
 .btm-rb-three-n{
   position: fixed;
-  right: 40.6%;
+  right: 23.5%;
   bottom: 4%;
   font-size: 20px;
   color: aliceblue;
@@ -102,8 +102,8 @@ body {
   /*background-color: rgb(255, 90, 90);*/
   height: 85px;
   width: 140px;
-  right: 38%;
-  bottom: 10%;
+  right: 21.2%;
+  bottom: -1%;
   display: flex;
   justify-content: space-between;
 }
@@ -176,4 +176,81 @@ body {
   border: 0px;
   border-top: 1.5px solid rgb(128, 128, 128);
   margin: 5px;
+}
+
+
+
+/************************************************************************************/
+
+#putInStart{
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 85%;
+  height: 90%;
+  left: 10%;
+  top: 5%;
+  z-index: 7;
+  /*background-color: aquamarine*/;
+}
+
+#btn-start{
+  border: 3px solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  font-size: 60px;
+  border-radius: 5px;
+
+  position: absolute;
+  bottom: 5%;
+}
+
+/****************************************************/
+#putOS-Info{
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  /*align-items: center;*/
+  transition: 0.5s;
+  width: 85%;
+  height: 90%;
+  left: 10%;
+  top: 5%;
+  z-index: 7;
+  /* background-color: azure; */
+}
+
+.pictures-one img{
+  position: absolute;
+  height: 70%;
+  top: 15%;
+  left: 10%;
+  border-radius: 20px;
+}
+
+.clothesInfo{
+  position: absolute;
+  font-size: 37px;
+  top: 18%;
+  left: 48%;
+
+  height: 65%;
+  /* background-color: aqua; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.clothesInfo-Set select{
+  top: 0;
+  width: 150px;
+  height: 35px;
+  font-size: 25px;
+}
+.btn-white{
+  border: 1px solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  font-size: 40px;
+  border-radius: 5px;
+  left: 20%;
 }
