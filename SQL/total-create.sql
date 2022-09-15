@@ -2,7 +2,7 @@ create table category
 (
 	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- 編號 ( 1, 2, 3 ... )
 	CategoryName varchar(50) Not Null,-- 衣物分類
-	[ Level ] int Not Null-- 衣物層級
+	[Level] int Not Null-- 衣物層級
 );
 
 insert into category
@@ -128,8 +128,9 @@ INSERT INTO intelligence_closet.dbo.clothes_node_lower
 	([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite)
 VALUES(7, 9, 3, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_8.jpg', 0);
 
-select *
-from clothes_node
+select * from clothes_node_upper
+select * from clothes_node_lower
+select * from clothes_node_other
 ----------------------------------------------------------
 create table color_graph(
 
@@ -138,8 +139,6 @@ create table color_graph(
 	ColorId2 bigint NOT NULL, -- 顏色配對2
 	ColorScore float NOT NULL -- 配對分數
 );
-
-select * from color_graph
 
 insert color_graph values (5, 5, 1) --紅 紅 1
 insert color_graph values (5, 6, 3) --紅 橘 3
@@ -297,8 +296,9 @@ insert color_graph values (13, 11, 4) --卡其 米白 4
 insert color_graph values (13, 12, 1) --卡其 軍綠 1
 insert color_graph values (13, 13, 2.5) --卡其 卡其 2.5
 
+select * from color_graph
 ----------------------------------------------------------
-CREATE TABLE intelligence_closet.dbo.node_graph
+create table node_graph
 (
 	Id bigint IDENTITY(1,1) NOT NULL,
 	UpperId bigint NULL,-- 上半身衣物Id
@@ -309,6 +309,7 @@ CREATE TABLE intelligence_closet.dbo.node_graph
 	ModifyTime datetime NOT NULL,
 	CONSTRAINT PK__node_gra__3214EC0755D155C9 PRIMARY KEY (Id)
 );
+select * from node_graph
 ----------------------------------------------------------
 create table station
 (
@@ -322,14 +323,9 @@ create table station
 	ModifyTime date,-- 異動時間
 	Work int,-- 是否運作
 );
+select * from station
 
-
-select *
-from station
-
-select *
-from station
-where Work != 0
+select * from station where Work != 0
 ----------------------------------------------------------
 create table color
 (
@@ -339,9 +335,6 @@ create table color
     ColorName nvarchar(30)-- 顏色名稱(中文)
 
 );
-
-select *
-from color
 
 insert color
 values
@@ -385,7 +378,8 @@ values
 insert color
 values
     ('CYAN', '青色') --14
-
+	
+select * from color
 ----------------------------------------------------------
 create table sub_category
 (
@@ -429,9 +423,7 @@ VALUES(4, 'Blazer', 4, '西裝外套')
 INSERT INTO sub_category
 VALUES(8, 'Not_sure', 0, '不確定')
 
-
-select *
-from sub_category;
+select * from sub_category;
 ----------------------------------------------------------
 create table user_dashboard
 (
@@ -446,11 +438,11 @@ create table user_dashboard
 	CityId bigint
 );
 
-select *
-from user_dashboard
-
 insert into user_dashboard
 VALUES ('DiuDu', 5, GETDATE(), 0, GETDATE(), 0)
+
+
+select * from user_dashboard
 ----------------------------------------------------------
 ----------------------------------------------------------
 create view v_category_clothes
@@ -462,7 +454,7 @@ as
 		sc.ClothesType,
 		sc.Score,
 		sc.Name,
-		cat.Level
+		cat.[Level]
 	from sub_category as sc
 		inner join category as cat on cat.Id = sc.CategoryId
 
@@ -475,7 +467,7 @@ from sub_category
 select *
 from category
 ----------------------------------------------------------
-CREATE view v_clothes_graph
+create view v_clothes_graph
 as
 	select
 		ucn.Id as upperClothesId,
@@ -499,8 +491,10 @@ as
 		node_graph ng
 		inner join clothes_node_lower lcn on ng.LowerId = lcn.Id
 		inner join clothes_node_upper ucn on ng.UpperId = ucn.Id;
+
+select * from v_clothes_graph
 ----------------------------------------------------------
-CREATE view v_clothes_node
+create view v_clothes_node
 as
 	SELECT
 		ROW_NUMBER() OVER (ORDER BY A.ClothesNodeId) as Id,
@@ -595,6 +589,8 @@ as
 				inner join category category_o on category_o.Id = sc_o.CategoryId
 				inner join color color_o on color_o.Id = cno.ColorId
 )	A
+
+select * from v_clothes_nod
 ----------------------------------------------------------
 create view v_color_graph
 as
@@ -610,8 +606,7 @@ as
 		inner join color as c1 on c1.Id = cg.ColorId1
 		inner join color as c2 on c2.Id = cg.ColorId2
 
-select *
-from v_color_graph
+select * from v_color_graph
 ----------------------------------------------------------
 create view v_station
 AS
