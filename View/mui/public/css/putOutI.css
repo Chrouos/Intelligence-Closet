@@ -8,15 +8,183 @@ body {
   
 }
 
-#all{
-  font-size: 80px;
+#putOutI_main{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
-  transition: 0.5s;
   position: absolute;
+  width: 85%;
+  height: 85%;
+  left: 11%;
+  top: 1%;
   z-index: 8;
+  border-radius: 10px;
+  overflow: hidden;/*隱藏邊界外的東西*/
+  /* background-color: antiquewhite; */
+}
+#tital{
+  width: 100%;
+  height: 10%;
+  /* background-color: rgba(40, 104, 194, 0.504); */
+  display: flex;
+  justify-content: center;
+}
+#tital a{
+  font-size: 40px;
+}
+#page{
+  position: fixed;
+  bottom: 6%;
+  width: 100%;
+  height: 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: rgba(40, 104, 194, 0.504); */
+}
+#page a{
+  font-size: 30px;
+}
+#recommend_main{
+  width: 100%;
+  height: 82%;
+  /* background-color: rgba(40, 104, 194, 0.504); */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.recommend_second{
+  width: 19%;
+  height: 99%;
+  background-color: rgba(40, 104, 194, 0.362);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+}
+.recommend_second:hover{
+  background-color: rgba(49, 107, 188, 0.813);
+}
+.recommend_third{
+  width: 152px;
+  height: 190px;
+  border-radius: 5%;
+}
+/***************************************************************************************//*按鈕*/
+.si-btn-rb-one{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 3%;
+  bottom: 3%;
+
+}
+.si-btm-rb-one-n{
+  position: fixed;
+  right: 8.2%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}
+.si-btn-rb-two{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 20%;
+  bottom: 3%;
+
+}
+.si-btm-rb-two-n{
+  position: fixed;
+  right: 25.2%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}
+.si-btn-rb-three{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 37%;
+  bottom: 3%;
+
+}
+.si-btm-rb-three-n{
+  position: fixed;
+  right: 42.2%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}
+
+/****************************************************/
+#putOI-Info{
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  /*align-items: center;*/
+  transition: 0.5s;
+  width: 65%;
+  height: 70%;
+  left: 20%;
+  top: 15%;
+  z-index: 8;
+  background-color: rgb(246,248,255);
+  border-radius: 30px;
+}
+
+.pictures-one img{
+  position: absolute;
+  height: 70%;
+  top: 15%;
+  left: 8%;
+  border-radius: 20px;
+}
+
+.clothesInfo{
+  position: absolute;
+  font-size: 20px;
+  top: 18%;
+  left: 45%;
+
+  height: 65%;
+  /* background-color: aqua; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.clothesInfo-Set select{
+  top: 0;
+  width: 150px;
+  height: 35px;
+  font-size: 25px;
+}
+.btn-rb-one{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  border-radius: 10px;
+  width: 120px;
+  height: 30px;
+  right: 18%;
+  bottom: 19%;
+
+}
+.btm-rb-one-n{
+  position: fixed;
+  right: 22%;
+  bottom: 20%;
+  font-size: 15px;
+  color: aliceblue;
 }
