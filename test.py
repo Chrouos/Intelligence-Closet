@@ -14,6 +14,8 @@ from Service.colorService import ColorService
 from Service.ClothesNodeLowerService import ClothesNodeLowerService
 from Service.ClothesNodeUpperService import ClothesNodeUpperService
 from Service.ClothesNodeOtherService import ClothesNodeOtherService
+from Service.ClothesNodeService import ClothesNodeService
+
 from Service.colorGraphService import ColorGraphService
 from Service.stationService import StationService
 from Service.subCategoryService import SubCategoryService
@@ -32,8 +34,8 @@ from Service.viewStationService import ViewStationService
 # from Controller.weatherInformationAPI import WeatherInformationAPI
 
 # 1. Category
-categoryService = CategoryService()
-print(categoryService.queryAll())  # 搜尋全部 LIST
+# categoryService = CategoryService()
+# print(categoryService.queryAll())  # 搜尋全部 LIST
 # print(categoryService.queryById(1)) # 透過ID搜尋一筆資料
 
 # 2. City
@@ -74,6 +76,16 @@ print(categoryService.queryAll())  # 搜尋全部 LIST
 # clothesNode_create = '{ "SubCategoryId": 11, "ColorId": 8, "UserPreferences": 7,  "UsageCounter":4, "CreateTime": "2020/01/01","ModifyTime": "2020/01/01", "FilePosition": "aaa", "IsFavorite": 0 }'
 # print(clothesNodeOtherService.create(clothesNode_create))
 # print(clothesNodeOtherService.deleteByPosition(0))
+
+# 3-4 clothesNodeDAO
+clothesNodeService = ClothesNodeService()
+print(clothesNodeService.queryAll())
+print(clothesNodeService.queryById(2))
+print(clothesNodeService.queryByPosition(2))
+# clothesNodeService.updatePositionToNull(3)
+# clothesNode_create = '{ "SubCategoryId": 11, "ColorId": 8, "UserPreferences": 7,  "UsageCounter":4, "CreateTime": "2020/01/01","ModifyTime": "2020/01/01", "FilePosition": "aaa", "IsFavorite": 0 }'
+# print(clothesNodeService.create(clothesNode_create))
+# print(clothesNodeService.deleteByPosition(0))
 
 # 4. Color
 # colorService = ColorService()
