@@ -8,6 +8,8 @@ pip install pyodbc
 pip install networkx
 pip install regex
 pip install eel
+pip install matplotlib
+pip install opencv-python
 ```
 
 # 安裝sql 環境

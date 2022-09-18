@@ -17,8 +17,7 @@ as
 		lcn.UserPreferences as lowerUserPreferences,
 		lcn.ClothesStyle as lowerClothesStyle,
 		lcn.FilePosition as lowerFilePosition,
-		lcn.IsFavorite as lowerIsFavorite,
-		ng.Postion as ngPosition
+		lcn.IsFavorite as lowerIsFavorite
 	from
 		node_graph ng
 		inner join clothes_node_lower lcn on ng.LowerId = lcn.Id

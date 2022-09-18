@@ -10,7 +10,7 @@ sys.dont_write_bytecode = True  # 不產生 pyc
 
 ## Controller
 from Controller.crawlerStationController import CrawlerStationController
-# from Controller.camaraController import CamaraController
+from Controller.camaraController import CamaraController
 from Controller.clothesGraphController import ClothesGraphController
 from Controller.weatherInformationAPI import WeatherInformationAPI
 from Service.colorService import ColorService
@@ -44,13 +44,13 @@ def comb_to_js():
 @eel.expose
 def get_camera_identify():  # 拍照
     try:
-        # idt = CamaraController(0)
-        # idt.getLastId()  # 獲得ID，目的是為了建立存檔位置
-        # idt.useCamara()  # 開啟攝象頭講圖片存檔
+        idt = CamaraController(0)
+        idt.getLastId()  # 獲得ID，目的是為了建立存檔位置
+        idt.useCamara()  # 開啟攝象頭講圖片存檔
 
-        # idt.identifyCategory()  # 辨識樣式
-        # idt.identifyColor()  # 辨識顏色
-        # idt.printResult()  # 輸出結果
+        idt.identifyCategory()  # 辨識樣式
+        idt.identifyColor()  # 辨識顏色
+        idt.printResult()  # 輸出結果
 
         print("path:", idt.path)
         return [idt.category, idt.color, idt.path, True]
@@ -64,11 +64,11 @@ def get_camera_identify():  # 拍照
 def identify_save_sql(category, color, path, isFavorite):  # 確定存檔
     try:
         # 儲存至sql的資料
-        # idt = CamaraController(0)
-        # idt.category = category
-        # idt.color = color
-        # idt.path = path
-        # idt.isFavorite = isFavorite
+        idt = CamaraController(0)
+        idt.category = category
+        idt.color = color
+        idt.path = path
+        idt.isFavorite = isFavorite
 
         print("identify_save_sql: ", category, color, path, isFavorite)
 
@@ -102,10 +102,10 @@ def get_all_color():
 @eel.expose
 def weather_to_js(st):  # 傳送天氣資訊
 
-    # userDashboardService = UserDashboardService()
-    # user_dict = userDashboardService.queryById(user_id) # 預設為2
+    userDashboardService = UserDashboardService()
+    user_dict = userDashboardService.queryById(user_id)  # 預設為2
 
-    # we = WeatherInformationAPI(user_dict['StationName'])  # 地點
+    we = WeatherInformationAPI(user_dict['StationName'])  # 地點
     we = WeatherInformationAPI(st)
     weather_list = we.getWeather()  # 獲得陣列(6個資訊)
     print("weather_to_js", weather_list)

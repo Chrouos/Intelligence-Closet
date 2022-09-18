@@ -27,13 +27,13 @@ from Service.viewStationService import ViewStationService
 
 ## Controller
 # from Controller.crawlerStationController import CrawlerStationController
-from Controller.camaraController import CamaraController
+# from Controller.camaraController import CamaraController
 # from Controller.clothesGraphController import ClothesGraphController
 # from Controller.weatherInformationAPI import WeatherInformationAPI
 
 # 1. Category
-# categoryService = CategoryService()
-# print(categoryService.queryAll()) # 搜尋全部 LIST
+categoryService = CategoryService()
+print(categoryService.queryAll())  # 搜尋全部 LIST
 # print(categoryService.queryById(1)) # 透過ID搜尋一筆資料
 
 # 2. City
@@ -152,13 +152,13 @@ from Controller.camaraController import CamaraController
 # crawlerStationController.refreshAllData()
 
 # 相機物件
-camaraController = CamaraController(0)
-camaraController.getLastId()
-camaraController.useCamara()
-camaraController.identifyColor()
-camaraController.identifyCategory()
-camaraController.saveToSql()
-camaraController.printResult()
+# camaraController = CamaraController(0)
+# camaraController.getLastId()
+# camaraController.useCamara()
+# camaraController.identifyColor()
+# camaraController.identifyCategory()
+# camaraController.saveToSql()
+# camaraController.printResult()
 
 # 圖形物件
 # clothesGraphController = ClothesGraphController('板橋')

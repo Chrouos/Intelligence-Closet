@@ -7,27 +7,27 @@ function takeClick(a) {
 var timeStart, timeEnd, time;
 //獲取此刻時間
 function getTimeNow() {
-        var now = new Date();
-        return now.getTime();
-    }
+  var now = new Date();
+  return now.getTime();
+}
 function holdDown(CID) {
   timeStart = getTimeNow();
   //每100毫秒執行一次
   time = setInterval(function () {
-      timeEnd = getTimeNow();
-      //如果按超過2s
-      if (timeEnd - timeStart > 1000) {
-          clearInterval(time);
-          //呼叫衣物資訊
-          var a = CID.id;
-          angular.element(document.getElementById('hahaha')).scope().showInfo(a.substr(12));
-      }
+    timeEnd = getTimeNow();
+    //如果按超過2s
+    if (timeEnd - timeStart > 1000) {
+      clearInterval(time);
+      //呼叫衣物資訊
+      var a = CID.id;
+      angular.element(document.getElementById('hahaha')).scope().showInfo(a.substr(12));
+    }
   }, 100);
 }
 function holdUp() {
   clearInterval(time);
 }
-  /* ----------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------- */
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function ($scope) {
 
@@ -39,6 +39,9 @@ app.controller('myCtrl', function ($scope) {
   }, 15);
   /* ---------- 刷新頁面 End ---------- */
 
+  $scope.takeType = false; //拿單件 or 整套, false: 單件, true: 整套
+
+
   /* ********************** 選單 *********************** */
 
   $scope.queryAllList = async function () {
@@ -49,7 +52,6 @@ app.controller('myCtrl', function ($scope) {
     $scope.otherList = await eel.query_subCategory_byCategoryId(3)(); // 下半身的子類別
 
     $scope.clothesNodeList = await eel.clothes_to_js()();
-    console.log("clothesNodeList: ", $scope.clothesNodeList)
 
   }
   $scope.queryAllList();
@@ -60,6 +62,37 @@ app.controller('myCtrl', function ($scope) {
     $scope.clothesNodeList = await eel.query_clothes_nodes_bySubCategoryId(subCategoryId)();
     $scope.nowSubCategory = subCategoryName;
     console.log($scope.nowSubCategory)
+  }
+
+  $scope.queryClothesByCategory = async function (categoryId) {
+    if (categoryId == 1)
+      $scope.clothesNodeList = await eel.upper_clothes_to_js()();
+    else if (categoryId == 2)
+      $scope.clothesNodeList = await eel.lower_clothes_to_js()();
+    else if (categoryId == 3)
+      $scope.clothesNodeList = await eel.other_clothes_to_js()();
+    else if (categoryId == 0)
+      $scope.clothesNodeList = await eel.clothes_to_js()();
+
+    $scope.nowSubCategory = null;
+  }
+
+
+  // 拿取衣物: 
+  $scope.takeOut = async function () {
+
+
+    // TODO: step1: 把衣物位置position = null
+    // TODO: step2: 硬體啟動
+
+    // 單件 // 
+    if ($scope.takeType == false) {
+
+    }
+    // 一套
+    else if ($scope.takeType == true) {
+
+    }
   }
 
   $scope.siglePickUpList = null; // 只拿取一件衣物: JSON
@@ -79,13 +112,10 @@ app.controller('myCtrl', function ($scope) {
       }
       // 代表無資料: 存入
       else $scope.siglePickUpList = clothesNode;
-
       //console.log("sigle: ", $scope.siglePickUpList);
     }
     // 整套
     else {
-
-
       var isInsert = true;
       for (var i = 0; i < 2; i++) {
         // 如果有Id一樣的就拿掉
@@ -94,7 +124,6 @@ app.controller('myCtrl', function ($scope) {
             document.getElementById("clothesNode_" + $scope.pairPickUpList[i].Id).style.border = "";
             $scope.pairPickUpList[i] = null;
             isInsert = false;
-
           }
         }
         // 放入
@@ -102,12 +131,7 @@ app.controller('myCtrl', function ($scope) {
           $scope.pairPickUpList[i] = clothesNode;
           isInsert = false;
         }
-
       }
-      console.log("pair: ", $scope.pairPickUpList);
-
-
-
     }
 
     $scope.pickUpTheStyle();
@@ -131,7 +155,6 @@ app.controller('myCtrl', function ($scope) {
 
 
   //切換拿取衣物的選擇
-  $scope.takeType = false; //拿單件or整套 false: 單件, true: 整套
   $scope.changePickUpType = function () { // 拿單件or整套
     $scope.takeType = !$scope.takeType;
 
@@ -160,15 +183,15 @@ app.controller('myCtrl', function ($scope) {
   }
 
 
-  $scope.putOStype=false
+  $scope.putOStype = false
   //衣物資料
   $scope.showInfo = function (clothesID) {
     //TODO:用clothesID呼叫衣物資料
     console.log(clothesID)
 
-    $scope.putOStype=!$scope.putOStype;
+    $scope.putOStype = !$scope.putOStype;
   }
-  $scope.backToMain = function(){
-    $scope.putOStype=!$scope.putOStype;
+  $scope.backToMain = function () {
+    $scope.putOStype = !$scope.putOStype;
   }
 });

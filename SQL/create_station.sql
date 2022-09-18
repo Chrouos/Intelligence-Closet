@@ -16,7 +16,3 @@ create table station
 
 select *
 from station
-
-select *
-from station
-where Work != 0

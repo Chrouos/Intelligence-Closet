@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-
-
 <!-- start tag -->
 <html ng-app="myApp" ng-controller="myCtrl">
 
@@ -26,15 +24,15 @@
 
 </head>
 
-
-
 <body>
 
   <div id="putOS-main">
 
     <!--選單-->
     <div id="class-main">
-      <div id="btn-class-main" onclick="clickClass_main()"><a style="position:relative; left: 10px;"><i class="fa fa-list-ul" aria-hidden="true"></i> 篩選器</a><a style="display:inline; font-size: 25px;">&nbsp&nbsp&nbsp{{nowSubCategory}}</a></div>
+      <div id="btn-class-main" onclick="clickClass_main()"><a style="position:relative; left: 10px;"><i
+            class="fa fa-list-ul" aria-hidden="true"></i> 篩選器</a><a
+          style="display:inline; font-size: 25px;">&nbsp&nbsp&nbsp{{nowSubCategory}}</a></div>
       <hr class="hrSet" />
       <div id="class-st">
         <!--最愛-->
@@ -52,8 +50,12 @@
           <div style="position:relative; left: 8px; font-size:25px;"><a>上半身</a></div>
           <hr class="hrSet" />
 
+          <div class="class-rd" onclick="clickClass_set(this)" ng-click="queryClothesByCategory(1)">
+            <a>全部</a>
+          </div>
+
           <div ng-repeat="upper in upperList" class="class-rd" onclick="clickClass_set(this)"
-            ng-click="queryClothesBySubCategory(upper.Id,upper.Name)">
+            ng-click="queryClothesBySubCategory(upper.Id, upper.Name)">
             <a>{{upper.Name}}</a>
           </div>
         </div>
@@ -62,6 +64,11 @@
         <div class="class-nd">
           <div style="position:relative; left: 8px; font-size:25px;"><a>下半身</a></div>
           <hr class="hrSet" />
+
+          <div class="class-rd" onclick="clickClass_set(this)" ng-click="queryClothesByCategory(2)">
+            <a>全部</a>
+          </div>
+
 
           <div ng-repeat="lower in lowerList" class="class-rd" onclick="clickClass_set(this)"
             ng-click="queryClothesBySubCategory(lower.Id,lower.Name)">
@@ -75,48 +82,32 @@
           <div style="position:relative; left: 8px; font-size:25px;"><a>其他</a></div>
           <hr class="hrSet" />
 
+          <div class="class-rd" onclick="clickClass_set(this)" ng-click="queryClothesByCategory(3 )">
+            <a>全部</a>
+          </div>
+
+
           <div ng-repeat="other in otherList" class="class-rd" onclick="clickClass_set(this)"
             ng-click="queryClothesBySubCategory(other.Id,other.Name)">
             <a>{{other.Name}}</a>
           </div>
         </div>
       </div>
+
+      <!-- 結束 -->
+      <div class="class-rd" onclick="clickClass_set(this)" ng-click="queryClothesByCategory(0)">
+        <a>全部</a>
+      </div>
+
       <hr class="hrSet" />
-
-
-      <!-- class-main 更改 -->
-      <script>
-        let classSet = document.getElementById('class-main');
-        let lestClick = "none";
-
-        function clickClass_main() {
-          classSet.classList.toggle('active');
-        }
-
-        function clickClass_set(set) {
-          if (lestClick == "none") {
-            lestClick = set;
-            set.classList.toggle('active');
-            setTimeout(function () {
-              classSet.classList.toggle('active');
-            }, 200);
-          } else {
-            lestClick.classList.toggle('active');
-            lestClick = set;
-            set.classList.toggle('active');
-            setTimeout(function () {
-              classSet.classList.toggle('active');
-            }, 200);
-          }
-        }
-      </script>
     </div>
-    
+
     <!-- 衣物列表 -->
     <div class="grid-container">
       <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index" id="hahaha">
         <a ng-click="checkThePickUpList(clothesNode)">
-          <img src="{{clothesNode.FilePosition}}" id="clothesNode_{{clothesNode.Id}}" onmousedown="holdDown(this)" onmouseup="holdUp()" >
+          <img src="{{clothesNode.FilePosition}}" id="clothesNode_{{clothesNode.Id}}" onmousedown="holdDown(this)"
+            onmouseup="holdUp()">
         </a>
       </div>
     </div>
@@ -139,18 +130,19 @@
     <div id="preview" ng-show="takeType">
       <div class="preview-i">
         <i class="fa-solid fa-plus"></i>
-        <img ng-show="pairPickUpList[0]" src="{{pairPickUpList[0].FilePosition}}" >
+        <img ng-show="pairPickUpList[0]" src="{{pairPickUpList[0].FilePosition}}">
       </div>
       <div class="preview-i">
         <i class="fa-solid fa-plus"></i>
-        <img ng-show="pairPickUpList[1]" src="{{pairPickUpList[1].FilePosition}}" >
+        <img ng-show="pairPickUpList[1]" src="{{pairPickUpList[1].FilePosition}}">
       </div>
     </div>
 
   </div>
 
-<!---------------------------------------------------------------------------------------------------------------->
-  <div id="putOS-Info" ng-show="putOStype"><!--TODO:連接資料-->
+  <!---------------------------------------------------------------------------------------------------------------->
+  <div id="putOS-Info" ng-show="putOStype">
+    <!--TODO:連接資料-->
     <!-- 衣物照片 -->
     <div class="pictures-one">
       <a><img src="./public/src/clothes_1.jpg"></a>
@@ -179,10 +171,10 @@
     <div>
       <div class="btn-rb-one" ng-click="backToMain()"><a class="btm-rb-one-n" ng-click="backToMain()">返 回</a></div>
     </div>
-    
+
   </div>
 
-<!---------------------------------------------------------------------------------------------------------------->
+  <!---------------------------------------------------------------------------------------------------------------->
 
   <!-- 遮罩 -->
   <div id="mask" style="visibility: hidden"></div>
@@ -205,7 +197,7 @@
       <li>
         <a href="./putOutI.html">
           <span class="icon"><i class="fa-solid fa-shirt"></i></span>
-          <span class="menu-button">拿取(推薦)</span>
+          <span class="menu-button" ng-click="takeOut()">拿取(推薦)</span>
         </a>
       </li>
       <li style="background-color: rgb(255, 255, 255);">
@@ -254,6 +246,33 @@
       }
     </script>
   </div>
+
+  <!-- class-main 更改 -->
+  <script>
+    let classSet = document.getElementById('class-main');
+    let lestClick = "none";
+
+    function clickClass_main() {
+      classSet.classList.toggle('active');
+    }
+
+    function clickClass_set(set) {
+      if (lestClick == "none") {
+        lestClick = set;
+        set.classList.toggle('active');
+        setTimeout(function () {
+          classSet.classList.toggle('active');
+        }, 200);
+      } else {
+        lestClick.classList.toggle('active');
+        lestClick = set;
+        set.classList.toggle('active');
+        setTimeout(function () {
+          classSet.classList.toggle('active');
+        }, 200);
+      }
+    }
+  </script>
 
 </body>
 
