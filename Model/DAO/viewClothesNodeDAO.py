@@ -127,9 +127,9 @@ class ViewClothesNodeDAO:
         return viewClothesNode.Id
 
     # 搜尋所有資料: tuple
-    def queryBySubCategoryId(self):
+    def queryBySubCategoryId(self, subCategoryId):
         execute_str = "SELECT * FROM intelligence_closet.dbo.v_clothes_node where SubCategoryId = {0};".format(
-        )
+            subCategoryId)
         print("queryBySubCategoryId: ", execute_str)
 
         self.cursor.execute(execute_str)

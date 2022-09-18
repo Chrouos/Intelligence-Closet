@@ -37,8 +37,6 @@ insert into category
 values
 	('Not_sure', 0)
 
-select *
-from category
 
 ----------------------------------------------------------
 create table city
@@ -128,175 +126,608 @@ INSERT INTO intelligence_closet.dbo.clothes_node_lower
 	([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite)
 VALUES(7, 9, 3, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_8.jpg', 0);
 
-select * from clothes_node_upper
-select * from clothes_node_lower
-select * from clothes_node_other
 ----------------------------------------------------------
-create table color_graph(
+create table color_graph
+(
 
-	Id bigint PRIMARY KEY NOT NULL IDENTITY, -- 編號 ( 1, 2, 3 ... )
-	ColorId1 bigint NOT NULL, -- 顏色配對1
-	ColorId2 bigint NOT NULL, -- 顏色配對2
-	ColorScore float NOT NULL -- 配對分數
+	Id bigint PRIMARY KEY NOT NULL IDENTITY,
+	-- 編號 ( 1, 2, 3 ... )
+	ColorId1 bigint NOT NULL,
+	-- 顏色配對1
+	ColorId2 bigint NOT NULL,
+	-- 顏色配對2
+	ColorScore float NOT NULL
+	-- 配對分數
 );
 
-insert color_graph values (5, 5, 1) --紅 紅 1
-insert color_graph values (5, 6, 3) --紅 橘 3
-insert color_graph values (5, 7, 4) --紅 黃 4
-insert color_graph values (5, 8, 3.5) --紅 綠 3.5
-insert color_graph values (5, 2, 2) --紅 藍 2
-insert color_graph values (5, 9, 3.5) --紅 紫 3.5
-insert color_graph values (5, 3, 4) --紅 黑 4
-insert color_graph values (5, 10, 4) --紅 灰 0
-insert color_graph values (5, 4, 4) --紅 白 2.5
-insert color_graph values (5, 11, 4) --紅 米白 2.5
-insert color_graph values (5, 12, 4) --紅 軍綠 0
-insert color_graph values (5, 13, 4) --紅 卡其 3
+insert color_graph
+values
+	(5, 5, 1)
+--紅 紅 1
+insert color_graph
+values
+	(5, 6, 3)
+--紅 橘 3
+insert color_graph
+values
+	(5, 7, 4)
+--紅 黃 4
+insert color_graph
+values
+	(5, 8, 3.5)
+--紅 綠 3.5
+insert color_graph
+values
+	(5, 2, 2)
+--紅 藍 2
+insert color_graph
+values
+	(5, 9, 3.5)
+--紅 紫 3.5
+insert color_graph
+values
+	(5, 3, 4)
+--紅 黑 4
+insert color_graph
+values
+	(5, 10, 4)
+--紅 灰 0
+insert color_graph
+values
+	(5, 4, 4)
+--紅 白 2.5
+insert color_graph
+values
+	(5, 11, 4)
+--紅 米白 2.5
+insert color_graph
+values
+	(5, 12, 4)
+--紅 軍綠 0
+insert color_graph
+values
+	(5, 13, 4)
+--紅 卡其 3
 
-insert color_graph values (6, 5, 3) --橘 紅 3
-insert color_graph values (6, 6, 2) --橘 橘 2
-insert color_graph values (6, 7, 3.5) --橘 黃 3.5
-insert color_graph values (6, 8, 1) --橘 綠 1
-insert color_graph values (6, 2, 0) --橘 藍 0
-insert color_graph values (6, 9, 2) --橘 紫 2
-insert color_graph values (6, 3, 3) --橘 黑 3
-insert color_graph values (6, 10, 0) --橘 灰 0
-insert color_graph values (6, 4, 4) --橘 白 4
-insert color_graph values (6, 11, 4) --橘 米白 2.5
-insert color_graph values (6, 12, 4) --橘 軍綠 0
-insert color_graph values (6, 13, 4) --橘 卡其 3
+insert color_graph
+values
+	(6, 5, 3)
+--橘 紅 3
+insert color_graph
+values
+	(6, 6, 2)
+--橘 橘 2
+insert color_graph
+values
+	(6, 7, 3.5)
+--橘 黃 3.5
+insert color_graph
+values
+	(6, 8, 1)
+--橘 綠 1
+insert color_graph
+values
+	(6, 2, 0)
+--橘 藍 0
+insert color_graph
+values
+	(6, 9, 2)
+--橘 紫 2
+insert color_graph
+values
+	(6, 3, 3)
+--橘 黑 3
+insert color_graph
+values
+	(6, 10, 0)
+--橘 灰 0
+insert color_graph
+values
+	(6, 4, 4)
+--橘 白 4
+insert color_graph
+values
+	(6, 11, 4)
+--橘 米白 2.5
+insert color_graph
+values
+	(6, 12, 4)
+--橘 軍綠 0
+insert color_graph
+values
+	(6, 13, 4)
+--橘 卡其 3
 
-insert color_graph values (7, 5, 4) --黃 紅 4
-insert color_graph values (7, 6, 4.5) --黃 橘 4.5
-insert color_graph values (7, 7, 3) --黃 黃 3
-insert color_graph values (7, 8, 3) --黃 綠 3
-insert color_graph values (7, 2, 1) --黃 藍 1
-insert color_graph values (7, 9, 0) --黃 紫 0
-insert color_graph values (7, 3, 3) --黃 黑 3
-insert color_graph values (7, 10, 0) --黃 灰 0
-insert color_graph values (7, 4, 4) --黃 白 4
-insert color_graph values (7, 11, 4) --黃 米白 4.5
-insert color_graph values (7, 12, 4) --黃 軍綠 3
-insert color_graph values (7, 13, 4) --黃 卡其 4.5
+insert color_graph
+values
+	(7, 5, 4)
+--黃 紅 4
+insert color_graph
+values
+	(7, 6, 4.5)
+--黃 橘 4.5
+insert color_graph
+values
+	(7, 7, 3)
+--黃 黃 3
+insert color_graph
+values
+	(7, 8, 3)
+--黃 綠 3
+insert color_graph
+values
+	(7, 2, 1)
+--黃 藍 1
+insert color_graph
+values
+	(7, 9, 0)
+--黃 紫 0
+insert color_graph
+values
+	(7, 3, 3)
+--黃 黑 3
+insert color_graph
+values
+	(7, 10, 0)
+--黃 灰 0
+insert color_graph
+values
+	(7, 4, 4)
+--黃 白 4
+insert color_graph
+values
+	(7, 11, 4)
+--黃 米白 4.5
+insert color_graph
+values
+	(7, 12, 4)
+--黃 軍綠 3
+insert color_graph
+values
+	(7, 13, 4)
+--黃 卡其 4.5
 
-insert color_graph values (8, 5, 3.5) --綠 紅 3.5
-insert color_graph values (8, 6, 1) --綠 橘 1
-insert color_graph values (8, 7, 3) --綠 黃 3
-insert color_graph values (8, 8, 2) --綠 綠 2
-insert color_graph values (8, 2, 3.5) --綠 藍 3.5
-insert color_graph values (8, 9, 0) --綠 紫 0
-insert color_graph values (8, 3, 3) --綠 黑 3
-insert color_graph values (8, 10, 2) --綠 灰 2
-insert color_graph values (8, 4, 3) --綠 白 3
-insert color_graph values (8, 11, 4) --綠 米白 3
-insert color_graph values (8, 12, 4) --綠 軍綠 4
-insert color_graph values (8, 13, 4) --綠 卡其 1.5
+insert color_graph
+values
+	(8, 5, 3.5)
+--綠 紅 3.5
+insert color_graph
+values
+	(8, 6, 1)
+--綠 橘 1
+insert color_graph
+values
+	(8, 7, 3)
+--綠 黃 3
+insert color_graph
+values
+	(8, 8, 2)
+--綠 綠 2
+insert color_graph
+values
+	(8, 2, 3.5)
+--綠 藍 3.5
+insert color_graph
+values
+	(8, 9, 0)
+--綠 紫 0
+insert color_graph
+values
+	(8, 3, 3)
+--綠 黑 3
+insert color_graph
+values
+	(8, 10, 2)
+--綠 灰 2
+insert color_graph
+values
+	(8, 4, 3)
+--綠 白 3
+insert color_graph
+values
+	(8, 11, 4)
+--綠 米白 3
+insert color_graph
+values
+	(8, 12, 4)
+--綠 軍綠 4
+insert color_graph
+values
+	(8, 13, 4)
+--綠 卡其 1.5
 
-insert color_graph values (2, 5, 2) --藍 紅 2
-insert color_graph values (2, 6, 0) --藍 橘 0
-insert color_graph values (2, 7, 1) --藍 黃 1
-insert color_graph values (2, 8, 3) --藍 綠 3
-insert color_graph values (2, 2, 4) --藍 藍 4
-insert color_graph values (2, 9, 4.5) --藍 紫 4.5
-insert color_graph values (2, 3, 4.5) --藍 黑 4.5
-insert color_graph values (2, 10, 2) --藍 灰 2
-insert color_graph values (2, 4, 5) --藍 白 5
-insert color_graph values (2, 11, 4) --藍 米白 4.5
-insert color_graph values (2, 12, 4) --藍 軍綠 2
-insert color_graph values (2, 13, 4) --藍 卡其 2.5
+insert color_graph
+values
+	(2, 5, 2)
+--藍 紅 2
+insert color_graph
+values
+	(2, 6, 0)
+--藍 橘 0
+insert color_graph
+values
+	(2, 7, 1)
+--藍 黃 1
+insert color_graph
+values
+	(2, 8, 3)
+--藍 綠 3
+insert color_graph
+values
+	(2, 2, 4)
+--藍 藍 4
+insert color_graph
+values
+	(2, 9, 4.5)
+--藍 紫 4.5
+insert color_graph
+values
+	(2, 3, 4.5)
+--藍 黑 4.5
+insert color_graph
+values
+	(2, 10, 2)
+--藍 灰 2
+insert color_graph
+values
+	(2, 4, 5)
+--藍 白 5
+insert color_graph
+values
+	(2, 11, 4)
+--藍 米白 4.5
+insert color_graph
+values
+	(2, 12, 4)
+--藍 軍綠 2
+insert color_graph
+values
+	(2, 13, 4)
+--藍 卡其 2.5
 
-insert color_graph values (9, 5, 3.5) --紫 紅 3.5
-insert color_graph values (9, 6, 1) --紫 橘 1
-insert color_graph values (9, 7, 3) --紫 黃 3
-insert color_graph values (9, 8, 2) --紫 綠 2
-insert color_graph values (9, 2, 3.5) --紫 藍 3.5
-insert color_graph values (9, 9, 0) --紫 紫 0
-insert color_graph values (9, 3, 3) --紫 黑 3
-insert color_graph values (9, 10, 2) --紫 灰 2
-insert color_graph values (9, 4, 3) --紫 白 3
-insert color_graph values (9, 11, 4) --紫 米白 3
-insert color_graph values (9, 12, 4) --紫 軍綠 0
-insert color_graph values (9, 13, 4) --紫 卡其 0
+insert color_graph
+values
+	(9, 5, 3.5)
+--紫 紅 3.5
+insert color_graph
+values
+	(9, 6, 1)
+--紫 橘 1
+insert color_graph
+values
+	(9, 7, 3)
+--紫 黃 3
+insert color_graph
+values
+	(9, 8, 2)
+--紫 綠 2
+insert color_graph
+values
+	(9, 2, 3.5)
+--紫 藍 3.5
+insert color_graph
+values
+	(9, 9, 0)
+--紫 紫 0
+insert color_graph
+values
+	(9, 3, 3)
+--紫 黑 3
+insert color_graph
+values
+	(9, 10, 2)
+--紫 灰 2
+insert color_graph
+values
+	(9, 4, 3)
+--紫 白 3
+insert color_graph
+values
+	(9, 11, 4)
+--紫 米白 3
+insert color_graph
+values
+	(9, 12, 4)
+--紫 軍綠 0
+insert color_graph
+values
+	(9, 13, 4)
+--紫 卡其 0
 
-insert color_graph values (3, 5, 0) --黑 紅 0
-insert color_graph values (3, 6, 0) --黑 橘 0
-insert color_graph values (3, 7, 0) --黑 黃 0
-insert color_graph values (3, 8, 0) --黑 綠 0
-insert color_graph values (3, 2, 1) --黑 藍 1
-insert color_graph values (3, 9, 1) --黑 紫 1
-insert color_graph values (3, 3, 5) --黑 黑 5
-insert color_graph values (3, 10, 4.5) --黑 灰 4.5
-insert color_graph values (3, 4, 4.5) --黑 白 4.5
-insert color_graph values (3, 11, 4) --黑 米白 4
-insert color_graph values (3, 12, 4) --黑 軍綠 4
-insert color_graph values (3, 13, 4) --黑 卡其 3.5
+insert color_graph
+values
+	(3, 5, 0)
+--黑 紅 0
+insert color_graph
+values
+	(3, 6, 0)
+--黑 橘 0
+insert color_graph
+values
+	(3, 7, 0)
+--黑 黃 0
+insert color_graph
+values
+	(3, 8, 0)
+--黑 綠 0
+insert color_graph
+values
+	(3, 2, 1)
+--黑 藍 1
+insert color_graph
+values
+	(3, 9, 1)
+--黑 紫 1
+insert color_graph
+values
+	(3, 3, 5)
+--黑 黑 5
+insert color_graph
+values
+	(3, 10, 4.5)
+--黑 灰 4.5
+insert color_graph
+values
+	(3, 4, 4.5)
+--黑 白 4.5
+insert color_graph
+values
+	(3, 11, 4)
+--黑 米白 4
+insert color_graph
+values
+	(3, 12, 4)
+--黑 軍綠 4
+insert color_graph
+values
+	(3, 13, 4)
+--黑 卡其 3.5
 
-insert color_graph values (10, 5, 0) --灰 紅 0
-insert color_graph values (10, 6, 0) --灰 橘 0
-insert color_graph values (10, 7, 0) --灰 黃 0
-insert color_graph values (10, 8, 0) --灰 綠 0
-insert color_graph values (10, 2, 3) --灰 藍 3
-insert color_graph values (10, 9, 3) --灰 紫 3
-insert color_graph values (10, 3, 4.5) --灰 黑 4.5
-insert color_graph values (10, 10, 5) --灰 灰 5
-insert color_graph values (10, 4, 4) --灰 白 4
-insert color_graph values (10, 11, 4) --灰 米白 4.5
-insert color_graph values (10, 12, 4) --灰 軍綠 2
-insert color_graph values (10, 13, 4) --灰 卡其 3.5
+insert color_graph
+values
+	(10, 5, 0)
+--灰 紅 0
+insert color_graph
+values
+	(10, 6, 0)
+--灰 橘 0
+insert color_graph
+values
+	(10, 7, 0)
+--灰 黃 0
+insert color_graph
+values
+	(10, 8, 0)
+--灰 綠 0
+insert color_graph
+values
+	(10, 2, 3)
+--灰 藍 3
+insert color_graph
+values
+	(10, 9, 3)
+--灰 紫 3
+insert color_graph
+values
+	(10, 3, 4.5)
+--灰 黑 4.5
+insert color_graph
+values
+	(10, 10, 5)
+--灰 灰 5
+insert color_graph
+values
+	(10, 4, 4)
+--灰 白 4
+insert color_graph
+values
+	(10, 11, 4)
+--灰 米白 4.5
+insert color_graph
+values
+	(10, 12, 4)
+--灰 軍綠 2
+insert color_graph
+values
+	(10, 13, 4)
+--灰 卡其 3.5
 
-insert color_graph values (4, 5, 4.5) --白 紅 4.5
-insert color_graph values (4, 6, 3) --白 橘 3
-insert color_graph values (4, 7, 3) --白 黃 3
-insert color_graph values (4, 8, 2) --白 綠 2
-insert color_graph values (4, 2, 3) --白 藍 3
-insert color_graph values (4, 9, 2.5) --白 紫 2.5
-insert color_graph values (4, 3, 4) --白 黑 4
-insert color_graph values (4, 10, 5) --白 灰 5
-insert color_graph values (4, 4, 3.5) --白 白 3.5
-insert color_graph values (4, 11, 4) --白 米白 2.5
-insert color_graph values (4, 12, 4) --白 軍綠 3
-insert color_graph values (4, 13, 4) --白 卡其 5
+insert color_graph
+values
+	(4, 5, 4.5)
+--白 紅 4.5
+insert color_graph
+values
+	(4, 6, 3)
+--白 橘 3
+insert color_graph
+values
+	(4, 7, 3)
+--白 黃 3
+insert color_graph
+values
+	(4, 8, 2)
+--白 綠 2
+insert color_graph
+values
+	(4, 2, 3)
+--白 藍 3
+insert color_graph
+values
+	(4, 9, 2.5)
+--白 紫 2.5
+insert color_graph
+values
+	(4, 3, 4)
+--白 黑 4
+insert color_graph
+values
+	(4, 10, 5)
+--白 灰 5
+insert color_graph
+values
+	(4, 4, 3.5)
+--白 白 3.5
+insert color_graph
+values
+	(4, 11, 4)
+--白 米白 2.5
+insert color_graph
+values
+	(4, 12, 4)
+--白 軍綠 3
+insert color_graph
+values
+	(4, 13, 4)
+--白 卡其 5
 
-insert color_graph values (11, 5, 0) --米白 紅 0
-insert color_graph values (11, 6, 0) --米白 橘 0
-insert color_graph values (11, 7, 1) --米白 黃 1
-insert color_graph values (11, 8, 0) --米白 綠 0
-insert color_graph values (11, 2, 0) --米白 藍 0
-insert color_graph values (11, 9, 0) --米白 紫 0
-insert color_graph values (11, 3, 4.5) --米白 黑 4.5
-insert color_graph values (11, 10, 4) --米白 灰 4
-insert color_graph values (11, 4, 3.5) --米白 白 3.5
-insert color_graph values (11, 11, 3) --米白 米白 3
-insert color_graph values (11, 12, 2) --米白 軍綠 2
-insert color_graph values (11, 13, 4) --米白 卡其 4
+insert color_graph
+values
+	(11, 5, 0)
+--米白 紅 0
+insert color_graph
+values
+	(11, 6, 0)
+--米白 橘 0
+insert color_graph
+values
+	(11, 7, 1)
+--米白 黃 1
+insert color_graph
+values
+	(11, 8, 0)
+--米白 綠 0
+insert color_graph
+values
+	(11, 2, 0)
+--米白 藍 0
+insert color_graph
+values
+	(11, 9, 0)
+--米白 紫 0
+insert color_graph
+values
+	(11, 3, 4.5)
+--米白 黑 4.5
+insert color_graph
+values
+	(11, 10, 4)
+--米白 灰 4
+insert color_graph
+values
+	(11, 4, 3.5)
+--米白 白 3.5
+insert color_graph
+values
+	(11, 11, 3)
+--米白 米白 3
+insert color_graph
+values
+	(11, 12, 2)
+--米白 軍綠 2
+insert color_graph
+values
+	(11, 13, 4)
+--米白 卡其 4
 
-insert color_graph values (12, 5, 0) --軍綠 紅 0
-insert color_graph values (12, 6, 0) --軍綠 橘 0
-insert color_graph values (12, 7, 0) --軍綠 黃 0
-insert color_graph values (12, 8, 0) --軍綠 綠 0
-insert color_graph values (12, 2, 0) --軍綠 藍 0
-insert color_graph values (12, 9, 0) --軍綠 紫 0
-insert color_graph values (12, 3, 4.5) --軍綠 黑 4.5
-insert color_graph values (12, 10, 2) --軍綠 灰 2
-insert color_graph values (12, 4, 4) --軍綠 白 4.5
-insert color_graph values (12, 11, 3) --軍綠 米白 3
-insert color_graph values (12, 12, 2.5) --軍綠 軍綠 2.5
-insert color_graph values (12, 13, 4) --軍綠 卡其 4
+insert color_graph
+values
+	(12, 5, 0)
+--軍綠 紅 0
+insert color_graph
+values
+	(12, 6, 0)
+--軍綠 橘 0
+insert color_graph
+values
+	(12, 7, 0)
+--軍綠 黃 0
+insert color_graph
+values
+	(12, 8, 0)
+--軍綠 綠 0
+insert color_graph
+values
+	(12, 2, 0)
+--軍綠 藍 0
+insert color_graph
+values
+	(12, 9, 0)
+--軍綠 紫 0
+insert color_graph
+values
+	(12, 3, 4.5)
+--軍綠 黑 4.5
+insert color_graph
+values
+	(12, 10, 2)
+--軍綠 灰 2
+insert color_graph
+values
+	(12, 4, 4)
+--軍綠 白 4.5
+insert color_graph
+values
+	(12, 11, 3)
+--軍綠 米白 3
+insert color_graph
+values
+	(12, 12, 2.5)
+--軍綠 軍綠 2.5
+insert color_graph
+values
+	(12, 13, 4)
+--軍綠 卡其 4
 
-insert color_graph values (13, 5, 0) --卡其 紅 0
-insert color_graph values (13, 6, 0) --卡其 橘 0
-insert color_graph values (13, 7, 2.5) --卡其 黃 2
-insert color_graph values (13, 8, 1) --卡其 綠 1
-insert color_graph values (13, 2, 0) --卡其 藍 0
-insert color_graph values (13, 9, 0) --卡其 紫 0
-insert color_graph values (13, 3, 5) --卡其 黑 5
-insert color_graph values (13, 10, 4) --卡其 灰 4
-insert color_graph values (13, 4, 4.5) --卡其 白 4.5
-insert color_graph values (13, 11, 4) --卡其 米白 4
-insert color_graph values (13, 12, 1) --卡其 軍綠 1
-insert color_graph values (13, 13, 2.5) --卡其 卡其 2.5
+insert color_graph
+values
+	(13, 5, 0)
+--卡其 紅 0
+insert color_graph
+values
+	(13, 6, 0)
+--卡其 橘 0
+insert color_graph
+values
+	(13, 7, 2.5)
+--卡其 黃 2
+insert color_graph
+values
+	(13, 8, 1)
+--卡其 綠 1
+insert color_graph
+values
+	(13, 2, 0)
+--卡其 藍 0
+insert color_graph
+values
+	(13, 9, 0)
+--卡其 紫 0
+insert color_graph
+values
+	(13, 3, 5)
+--卡其 黑 5
+insert color_graph
+values
+	(13, 10, 4)
+--卡其 灰 4
+insert color_graph
+values
+	(13, 4, 4.5)
+--卡其 白 4.5
+insert color_graph
+values
+	(13, 11, 4)
+--卡其 米白 4
+insert color_graph
+values
+	(13, 12, 1)
+--卡其 軍綠 1
+insert color_graph
+values
+	(13, 13, 2.5)
+--卡其 卡其 2.5
 
-select * from color_graph
 ----------------------------------------------------------
 create table node_graph
 (
@@ -309,7 +740,8 @@ create table node_graph
 	ModifyTime datetime NOT NULL,
 	CONSTRAINT PK__node_gra__3214EC0755D155C9 PRIMARY KEY (Id)
 );
-select * from node_graph
+select *
+from node_graph
 ----------------------------------------------------------
 create table station
 (
@@ -323,63 +755,60 @@ create table station
 	ModifyTime date,-- 異動時間
 	Work int,-- 是否運作
 );
-select * from station
-
-select * from station where Work != 0
 ----------------------------------------------------------
 create table color
 (
 
-    Id bigint PRIMARY KEY NOT NULL IDENTITY,-- 編號 ( 1, 2, 3 ... )
-    ColorEngName varchar(30) NOT NULL,-- 顏色名稱(英文)
-    ColorName nvarchar(30)-- 顏色名稱(中文)
+	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- 編號 ( 1, 2, 3 ... )
+	ColorEngName varchar(30) NOT NULL,-- 顏色名稱(英文)
+	ColorName nvarchar(30)-- 顏色名稱(中文)
 
 );
 
 insert color
 values
-    ('Undefined', NULL)--1
+	('Undefined', NULL)--1
 insert color
 values
-    ('BLUE', '藍色')--2
+	('BLUE', '藍色')--2
 insert color
 values
-    ('BLACK', '黑色')--3
+	('BLACK', '黑色')--3
 insert color
 values
-    ('WHITE', '白色')--4
+	('WHITE', '白色')--4
 insert color
 values
-    ('RED', '紅色')--5
+	('RED', '紅色')--5
 insert color
 values
-    ('ORANGE', '橘色')--6
+	('ORANGE', '橘色')--6
 insert color
 values
-    ('YELLOW', '黃色')--7
+	('YELLOW', '黃色')--7
 insert color
 values
-    ('GREEN', '綠色')--8
+	('GREEN', '綠色')--8
 insert color
 values
-    ('PURPLE', '紫色')--9
+	('PURPLE', '紫色')--9
 insert color
 values
-    ('GRAY', '灰色')--10
+	('GRAY', '灰色')--10
 insert color
 values
-    ('CREAMY WHITE', '米白色')--11
+	('CREAMY WHITE', '米白色')--11
 insert color
 values
-    ('ARMY GREEN', '軍綠色')--12
+	('ARMY GREEN', '軍綠色')--12
 insert color
 values
-    ('KHAKI', '卡其色')--13
+	('KHAKI', '卡其色')--13
 insert color
 values
-    ('CYAN', '青色') --14
-	
-select * from color
+	('CYAN', '青色')
+--14
+
 ----------------------------------------------------------
 create table sub_category
 (
@@ -423,7 +852,8 @@ VALUES(4, 'Blazer', 4, '西裝外套')
 INSERT INTO sub_category
 VALUES(8, 'Not_sure', 0, '不確定')
 
-select * from sub_category;
+select *
+from sub_category;
 ----------------------------------------------------------
 create table user_dashboard
 (
@@ -439,10 +869,9 @@ create table user_dashboard
 );
 
 insert into user_dashboard
-VALUES ('DiuDu', 5, GETDATE(), 0, GETDATE(), 0)
+VALUES
+	('DiuDu', 5, GETDATE(), 0, GETDATE(), 0)
 
-
-select * from user_dashboard
 ----------------------------------------------------------
 ----------------------------------------------------------
 create view v_category_clothes
@@ -458,14 +887,6 @@ as
 	from sub_category as sc
 		inner join category as cat on cat.Id = sc.CategoryId
 
-select *
-from v_category_clothes
-
-select *
-from sub_category
-
-select *
-from category
 ----------------------------------------------------------
 create view v_clothes_graph
 as
@@ -485,14 +906,12 @@ as
 		lcn.UserPreferences as lowerUserPreferences,
 		lcn.ClothesStyle as lowerClothesStyle,
 		lcn.FilePosition as lowerFilePosition,
-		lcn.IsFavorite as lowerIsFavorite,
-		ng.Postion as ngPosition
+		lcn.IsFavorite as lowerIsFavorite
 	from
 		node_graph ng
 		inner join clothes_node_lower lcn on ng.LowerId = lcn.Id
 		inner join clothes_node_upper ucn on ng.UpperId = ucn.Id;
 
-select * from v_clothes_graph
 ----------------------------------------------------------
 create view v_clothes_node
 as
@@ -517,7 +936,7 @@ as
 		IsFavorite
 	FROM
 		(
-										select
+																																								select
 				cnu.Id as ClothesNodeId,
 				cnu.Position,
 				cnu.SubCategoryId,
@@ -590,7 +1009,6 @@ as
 				inner join color color_o on color_o.Id = cno.ColorId
 )	A
 
-select * from v_clothes_nod
 ----------------------------------------------------------
 create view v_color_graph
 as
@@ -606,7 +1024,6 @@ as
 		inner join color as c1 on c1.Id = cg.ColorId1
 		inner join color as c2 on c2.Id = cg.ColorId2
 
-select * from v_color_graph
 ----------------------------------------------------------
 create view v_station
 AS
@@ -624,22 +1041,17 @@ AS
 	from station as st
 		inner join city as ci on ci.Id = st.CityId
 
-select *
-from v_station
-
 ----------------------------------------------------------
-create table clothes_graph(
-	Id bigint PRIMARY KEY NOT NULL IDENTITY, -- 編號 ( 1, 2, 3 ... )
-	ClothesId1 bigint NOT NULL, -- 衣服1號
-	ClothesId2 bigint NOT NULL, -- 衣服2號
-	CombScore bigint -- 組合分數
+create table clothes_graph
+(
+	Id bigint PRIMARY KEY NOT NULL IDENTITY,
+	-- 編號 ( 1, 2, 3 ... )
+	ClothesId1 bigint NOT NULL,
+	-- 衣服1號
+	ClothesId2 bigint NOT NULL,
+	-- 衣服2號
+	CombScore bigint
+	-- 組合分數
 );
 
-TRUNCATE TABLE clothes_graph
-
-INSERT INTO clothes_graph(ClothesId1, ClothesId2) select Id,1 from clothes_information where CategoryId = 2
-
-DELETE clothes_graph WHERE Id = 3
-
-select * from clothes_graph
 ----------------------------------------------------------
