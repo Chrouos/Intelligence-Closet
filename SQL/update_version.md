@@ -61,6 +61,7 @@ select
 	vcn_u.ColorId as upperColorId,
 	vcn_u.UserPreferences as upperUserPreferences,
 	vcn_u.FilePosition as upperFilePosition,
+	
 	-- vcn_u.IsFavorite as upperIsFavorite,
 	
 	vcn_l.Id as LowerClothesId, 
@@ -69,24 +70,30 @@ select
 	vcn_l.ColorId as LowerColorId,
 	vcn_l.UserPreferences as LowerUserPreferences,
 	vcn_l.FilePosition as LowerFilePosition,
+	
 	-- vcn_l.IsFavorite as LowerIsFavorite,
 	
-	vcn_o.Id as OtherClothesId, 
-	vcn_o.[Position] as OtherPosition,
-	vcn_o.SubCategoryId as OtherSubCategory,
-	vcn_o.ColorId as OtherColorId,
-	vcn_o.UserPreferences as OtherUserPreferences,
-	vcn_o.FilePosition as OtherFilePosition,
-	-- vcn_o.IsFavorite as OtherIsFavorite
+	 vcn_o.Id as OtherClothesId, 
+	 vcn_o.[Position] as OtherPosition,
+	 vcn_o.SubCategoryId as OtherSubCategory,
+	 vcn_o.ColorId as OtherColorId,
+	 vcn_o.UserPreferences as OtherUserPreferences,
+	 vcn_o.FilePosition as OtherFilePosition,
+	 
+--	 vcn_o.IsFavorite as OtherIsFavorite
 	
-	coalesce(vcn_u.UserPreferences, 0) + coalesce(vcn_l.UserPreferences, 0) + coalesce(vcn_o.UserPreferences, 0) as TotalPreferences,
+	 coalesce(vcn_u.UserPreferences, 0) + coalesce(vcn_l.UserPreferences, 0) + coalesce(vcn_o.UserPreferences, 0) as TotalPreferences,
 	-- coalesce(vcn_u.UserPreferences, 0) + coalesce(vcn_l.UserPreferences, 0) + coalesce(vcn_o.UserPreferences, 0) as TotalColorCombs
-	ng.UserLike 
+	ng.UserLike -- 權重須加重
+	
 from 
 	node_graph ng  
-inner join v_clothes_node vcn_u on vcn_u.CategoryId = 1 and ng.UpperId = vcn_u.Id 
-inner join v_clothes_node vcn_l on vcn_l.CategoryId = 2 and ng.LowerId  = vcn_u.Id 
-inner join v_clothes_node vcn_o on vcn_o.CategoryId != 1 and vcn_u.CategoryId != 2 and ng.OtherId = vcn_o.Id 
+left join v_clothes_node vcn_u on vcn_u.CategoryId = 1 and ng.UpperId = vcn_u.Id 
+left join v_clothes_node vcn_l on vcn_l.CategoryId = 2 and ng.LowerId  = vcn_l.Id 
+left join v_clothes_node vcn_o on vcn_o.CategoryId != 1 and vcn_o.CategoryId != 2 and ng.OtherId = vcn_o.Id;
+
+
+
 
 ```
 
@@ -94,9 +101,10 @@ inner join v_clothes_node vcn_o on vcn_o.CategoryId != 1 and vcn_u.CategoryId !=
 
 drop view v_clothes_node
 
+
 CREATE view v_clothes_node as
 SELECT 
-	cn.Id as ClothesNodeId,
+	cn.Id,
 	cn.Position,
 	cn.SubCategoryId,
 	sc.Name as SubCategoryName,
@@ -118,6 +126,79 @@ SELECT
 inner join sub_category sc on sc.Id = cn.SubCategoryId 
 inner join category categorys on categorys.Id = sc.CategoryId 
 inner join color colors on colors.Id = cn.ColorId  
+
+```
+
+
+```sql
+TRUNCATE TABLE node_graph
+
+INSERT INTO intelligence_closet.dbo.node_graph
+	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
+VALUES(1, 5, null, 2, GETDATE(), GETDATE());
+
+INSERT INTO intelligence_closet.dbo.node_graph
+	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
+VALUES(1, 6, null, 2, GETDATE(), GETDATE());
+
+INSERT INTO intelligence_closet.dbo.node_graph
+	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
+VALUES(1, 7, null, -1, GETDATE(), GETDATE());
+
+INSERT INTO intelligence_closet.dbo.node_graph
+	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
+VALUES(1, 8, null, -1, GETDATE(), GETDATE());
+
+
+INSERT INTO intelligence_closet.dbo.node_graph
+	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
+VALUES(2, 5, null, 2, GETDATE(), GETDATE());
+
+INSERT INTO intelligence_closet.dbo.node_graph
+	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
+VALUES(2, 6, null, 2, GETDATE(), GETDATE());
+
+INSERT INTO intelligence_closet.dbo.node_graph
+	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
+VALUES(2, 7, null, 2, GETDATE(), GETDATE());
+
+INSERT INTO intelligence_closet.dbo.node_graph
+	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
+VALUES(2, 8, null, 2, GETDATE(), GETDATE());
+
+INSERT INTO intelligence_closet.dbo.node_graph
+	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
+VALUES(3, 5, null, 2, GETDATE(), GETDATE());
+
+INSERT INTO intelligence_closet.dbo.node_graph
+	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
+VALUES(3, 6, null, 2, GETDATE(), GETDATE());
+
+INSERT INTO intelligence_closet.dbo.node_graph
+	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
+VALUES(3, 7, null, 2, GETDATE(), GETDATE());
+
+INSERT INTO intelligence_closet.dbo.node_graph
+	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
+VALUES(3, 8, null, 2, GETDATE(), GETDATE());
+
+INSERT INTO intelligence_closet.dbo.node_graph
+	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
+VALUES(4, 5, null, 2, GETDATE(), GETDATE());
+
+INSERT INTO intelligence_closet.dbo.node_graph
+	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
+VALUES(4, 6, null, 2, GETDATE(), GETDATE());
+
+INSERT INTO intelligence_closet.dbo.node_graph
+	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
+VALUES(4, 7, null, 2, GETDATE(), GETDATE());
+
+INSERT INTO intelligence_closet.dbo.node_graph
+	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
+VALUES(4, 8, null, 2, GETDATE(), GETDATE());
+
+
 
 ```
 -----

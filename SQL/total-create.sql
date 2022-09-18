@@ -126,7 +126,63 @@ INSERT INTO intelligence_closet.dbo.clothes_node_lower
 	([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite)
 VALUES(7, 9, 3, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_8.jpg', 0);
 
+
+
 ----------------------------------------------------------
+
+
+
+create table clothes_node
+(
+	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- 編號 ( 1, 2, 3 ... )
+	Position int,-- 放在衣櫃裡面的位置( 0 ~ 9)
+	SubCategoryId bigint NOT NULL,-- 衣物分類( 0, 1... )
+	ColorId bigint NOT NULL,-- 衣物顏色ID
+	UserPreferences int NULL,-- 使用者喜好程度 (0~10)
+	WarmLevel bigint,-- 保暖程度
+	ClothesStyle varchar(255) NULL,-- 衣物風格
+	UsageCounter int NOT NULL,-- 衣物使用次數
+	CreateTime datetime NOT NULL,--放入時間
+	ModifyTime datetime NOT NULL,
+	FilePosition text,--圖片位置
+	IsFavorite int--衣物我的最愛
+);
+
+INSERT INTO intelligence_closet.dbo.clothes_node
+	([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite, WarmLevel)
+VALUES(0, 6, 10, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_1.jpg', 0, 0);
+
+INSERT INTO intelligence_closet.dbo.clothes_node
+	([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite, WarmLevel)
+VALUES(1, 1, 11, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_2.jpg', 0, 0);
+
+INSERT INTO intelligence_closet.dbo.clothes_node
+	([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite, WarmLevel)
+VALUES(2, 1, 3, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_3.jpg', 0, 0);
+
+INSERT INTO intelligence_closet.dbo.clothes_node
+	([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite, WarmLevel)
+VALUES(3, 3, 2, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_4.jpg', 0, 0);
+
+INSERT INTO intelligence_closet.dbo.clothes_node
+	([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite, WarmLevel)
+VALUES(4, 9, 2, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_5.jpg', 0, 0);
+
+INSERT INTO intelligence_closet.dbo.clothes_node
+	([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite, WarmLevel)
+VALUES(5, 8, 11, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_6.jpg', 0, 0);
+
+INSERT INTO intelligence_closet.dbo.clothes_node
+	([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite, WarmLevel)
+VALUES(6, 8, 2, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_7.jpg', 0, 0);
+
+INSERT INTO intelligence_closet.dbo.clothes_node
+	([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite, WarmLevel)
+VALUES(7, 9, 3, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_8.jpg', 0, 0);
+
+-------
+
+
 create table color_graph
 (
 
@@ -140,6 +196,8 @@ create table color_graph
 	-- 配對分數
 );
 
+
+------------------------w
 insert color_graph
 values
 	(5, 5, 1)
@@ -740,8 +798,6 @@ create table node_graph
 	ModifyTime datetime NOT NULL,
 	CONSTRAINT PK__node_gra__3214EC0755D155C9 PRIMARY KEY (Id)
 );
-select *
-from node_graph
 ----------------------------------------------------------
 create table station
 (
@@ -886,128 +942,72 @@ as
 		cat.[Level]
 	from sub_category as sc
 		inner join category as cat on cat.Id = sc.CategoryId
+----------------
 
-----------------------------------------------------------
-create view v_clothes_graph
-as
-	select
-		ucn.Id as upperClothesId,
-		ucn.[Position] as upperPosition,
-		ucn.SubCategoryId as upperSubCategory,
-		ucn.ColorId as upperColorId,
-		ucn.UserPreferences as upperUserPreferences,
-		ucn.ClothesStyle as upperClothesStyle,
-		ucn.FilePosition as upperFilePosition,
-		ucn.IsFavorite as upperIsFavorite,
-		lcn.Id as lowerClothesId,
-		lcn.[Position] as lowerPosition,
-		lcn.SubCategoryId as lowerSubCategory,
-		lcn.ColorId as lowerColorId,
-		lcn.UserPreferences as lowerUserPreferences,
-		lcn.ClothesStyle as lowerClothesStyle,
-		lcn.FilePosition as lowerFilePosition,
-		lcn.IsFavorite as lowerIsFavorite
-	from
-		node_graph ng
-		inner join clothes_node_lower lcn on ng.LowerId = lcn.Id
-		inner join clothes_node_upper ucn on ng.UpperId = ucn.Id;
-
-----------------------------------------------------------
-create view v_clothes_node
+CREATE view v_clothes_node
 as
 	SELECT
-		ROW_NUMBER() OVER (ORDER BY A.ClothesNodeId) as Id,
-		Position,
-		SubCategoryId,
-		SubCategoryName,
-		CategoryId,
-		Score ,
-		CategoryName ,
-		ColorId ,
-		ColorEngName ,
-		ColorName ,
-		UserPreferences ,
-		WarmLevel ,
-		ClothesStyle ,
-		UsageCounter ,
-		CreateTime ,
-		ModifyTime ,
-		FilePosition ,
-		IsFavorite
-	FROM
-		(
-																																								select
-				cnu.Id as ClothesNodeId,
-				cnu.Position,
-				cnu.SubCategoryId,
-				sc_u.Name as SubCategoryName,
-				sc_u.CategoryId,
-				sc_u.Score ,
-				category_u.CategoryName ,
-				cnu.ColorId ,
-				color_u.ColorEngName ,
-				color_u.ColorName ,
-				cnu.UserPreferences ,
-				cnu.WarmLevel ,
-				cnu.ClothesStyle ,
-				cnu.UsageCounter ,
-				cnu.CreateTime ,
-				cnu.ModifyTime ,
-				cnu.FilePosition ,
-				cnu.IsFavorite
-			from clothes_node_upper cnu
-				inner join sub_category sc_u on sc_u.Id = cnu.SubCategoryId
-				inner join category category_u on category_u.Id = sc_u.CategoryId
-				inner join color color_u on color_u.Id = cnu.ColorId
-		UNION all
-			select
-				cnl.Id as ClothesNodeId,
-				cnl.Position,
-				cnl.SubCategoryId,
-				sc_l.Name as SubCategoryName,
-				sc_l.CategoryId,
-				sc_l.Score ,
-				category_l.CategoryName ,
-				cnl.ColorId ,
-				color_l.ColorEngName ,
-				color_l.ColorName ,
-				cnl.UserPreferences ,
-				cnl.WarmLevel ,
-				cnl.ClothesStyle ,
-				cnl.UsageCounter ,
-				cnl.CreateTime ,
-				cnl.ModifyTime ,
-				cnl.FilePosition ,
-				cnl.IsFavorite
-			from clothes_node_lower cnl
-				inner join sub_category sc_l on sc_l.Id = cnl.SubCategoryId
-				inner join category category_l on category_l.Id = sc_l.CategoryId
-				inner join color color_l on color_l.Id = cnl.ColorId
-		UNION all
-			select
-				cno.Id as ClothesNodeId,
-				cno.Position,
-				cno.SubCategoryId,
-				sc_o.Name as SubCategoryName,
-				sc_o.CategoryId,
-				sc_o.Score ,
-				category_o.CategoryName ,
-				cno.ColorId ,
-				color_o.ColorEngName ,
-				color_o.ColorName ,
-				cno.UserPreferences ,
-				cno.WarmLevel ,
-				cno.ClothesStyle ,
-				cno.UsageCounter ,
-				cno.CreateTime ,
-				cno.ModifyTime ,
-				cno.FilePosition ,
-				cno.IsFavorite
-			from clothes_node_other cno
-				inner join sub_category sc_o on sc_o.Id = cno.SubCategoryId
-				inner join category category_o on category_o.Id = sc_o.CategoryId
-				inner join color color_o on color_o.Id = cno.ColorId
-)	A
+		cn.Id,
+		cn.Position,
+		cn.SubCategoryId,
+		sc.Name as SubCategoryName,
+		sc.CategoryId,
+		sc.Score ,
+		categorys.CategoryName ,
+		cn.ColorId ,
+		colors.ColorEngName ,
+		colors.ColorName ,
+		cn.UserPreferences ,
+		cn.WarmLevel ,
+		cn.ClothesStyle ,
+		cn.UsageCounter ,
+		cn.CreateTime ,
+		cn.ModifyTime ,
+		cn.FilePosition ,
+		cn.IsFavorite
+	from clothes_node cn
+		inner join sub_category sc on sc.Id = cn.SubCategoryId
+		inner join category categorys on categorys.Id = sc.CategoryId
+		inner join color colors on colors.Id = cn.ColorId
+
+----------------------------------------------------------
+
+CREATE view v_clothes_graph
+as
+	select
+		vcn_u.Id as UpperClothesId,
+		vcn_u.[Position] as UpperPosition,
+		vcn_u.SubCategoryId as UpperSubCategory,
+		vcn_u.ColorId as upperColorId,
+		vcn_u.UserPreferences as upperUserPreferences,
+		vcn_u.FilePosition as upperFilePosition,
+		-- vcn_u.IsFavorite as upperIsFavorite,
+
+		vcn_l.Id as LowerClothesId,
+		vcn_l.[Position] as LowerPosition,
+		vcn_l.SubCategoryId as LowerSubCategory,
+		vcn_l.ColorId as LowerColorId,
+		vcn_l.UserPreferences as LowerUserPreferences,
+		vcn_l.FilePosition as LowerFilePosition,
+		-- vcn_l.IsFavorite as LowerIsFavorite,
+
+		vcn_o.Id as OtherClothesId,
+		vcn_o.[Position] as OtherPosition,
+		vcn_o.SubCategoryId as OtherSubCategory,
+		vcn_o.ColorId as OtherColorId,
+		vcn_o.UserPreferences as OtherUserPreferences,
+		vcn_o.FilePosition as OtherFilePosition,
+		-- vcn_o.IsFavorite as OtherIsFavorite
+
+		coalesce(vcn_u.UserPreferences, 0) + coalesce(vcn_l.UserPreferences, 0) + coalesce(vcn_o.UserPreferences, 0) as TotalPreferences,
+		-- coalesce(vcn_u.UserPreferences, 0) + coalesce(vcn_l.UserPreferences, 0) + coalesce(vcn_o.UserPreferences, 0) as TotalColorCombs
+		ng.UserLike
+	from
+		node_graph ng
+		inner join v_clothes_node vcn_u on vcn_u.CategoryId = 1 and ng.UpperId = vcn_u.Id
+		inner join v_clothes_node vcn_l on vcn_l.CategoryId = 2 and ng.LowerId  = vcn_u.Id
+		inner join v_clothes_node vcn_o on vcn_o.CategoryId != 1 and vcn_u.CategoryId != 2 and ng.OtherId = vcn_o.Id
+
 
 ----------------------------------------------------------
 create view v_color_graph
@@ -1040,18 +1040,5 @@ AS
 		st.Work
 	from station as st
 		inner join city as ci on ci.Id = st.CityId
-
-----------------------------------------------------------
-create table clothes_graph
-(
-	Id bigint PRIMARY KEY NOT NULL IDENTITY,
-	-- 編號 ( 1, 2, 3 ... )
-	ClothesId1 bigint NOT NULL,
-	-- 衣服1號
-	ClothesId2 bigint NOT NULL,
-	-- 衣服2號
-	CombScore bigint
-	-- 組合分數
-);
 
 ----------------------------------------------------------

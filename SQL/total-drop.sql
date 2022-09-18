@@ -1,4 +1,10 @@
+------------------------- 20220919
+drop view v_clothes_node
+drop view v_clothes_graph
+
+
 -------------------------新版
+
 --使用者相關
 drop table  user_dashboard
 --衣服資訊相關
