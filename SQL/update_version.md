@@ -1,5 +1,7 @@
 ## 20220919
 
+增加clothes_node
+作用是為了不要拆表，全部都用同一張表來做存儲
 ```sql
 create table clothes_node
 (
@@ -48,7 +50,13 @@ VALUES(6, 8, 2, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_7.jpg', 0,
 INSERT INTO intelligence_closet.dbo.clothes_node
 	([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite, WarmLevel)
 VALUES(7, 9, 3, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_8.jpg', 0, 0);
+
+INSERT INTO intelligence_closet.dbo.clothes_node
+	([Position], SubCategoryId, ColorId, UserPreferences, ClothesStyle, UsageCounter, CreateTime, ModifyTime, FilePosition, IsFavorite, WarmLevel)
+VALUES(10, 11, 3, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_8.jpg', 0, 0);
 ```
+
+讓所有衣物分成上半身、下半身、其他並做計算
 ```sql
 drop view v_clothes_graph
 
@@ -92,15 +100,11 @@ left join v_clothes_node vcn_u on vcn_u.CategoryId = 1 and ng.UpperId = vcn_u.Id
 left join v_clothes_node vcn_l on vcn_l.CategoryId = 2 and ng.LowerId  = vcn_l.Id 
 left join v_clothes_node vcn_o on vcn_o.CategoryId != 1 and vcn_o.CategoryId != 2 and ng.OtherId = vcn_o.Id;
 
-
-
-
 ```
 
+整理節點的資料
 ```sql
-
 drop view v_clothes_node
-
 
 CREATE view v_clothes_node as
 SELECT 
@@ -129,7 +133,7 @@ inner join color colors on colors.Id = cn.ColorId
 
 ```
 
-
+新增graph假資料
 ```sql
 TRUNCATE TABLE node_graph
 
@@ -198,7 +202,8 @@ INSERT INTO intelligence_closet.dbo.node_graph
 	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
 VALUES(4, 8, null, 2, GETDATE(), GETDATE());
 
-
-
+INSERT INTO intelligence_closet.dbo.node_graph
+	(UpperId, LowerId, OtherId, UserLike, CreateTime, ModifyTime)
+VALUES(null, null, 9, 2, GETDATE(), GETDATE());
 ```
 -----
