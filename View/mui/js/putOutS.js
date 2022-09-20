@@ -172,14 +172,9 @@ app.controller('myCtrl', function ($scope) {
   }
 
   // 拿取衣物
-  $scope.getThePickUpList = function () {
-    // sigle
-    if ($scope.takeType == false) {
-      console.log("pick up the sigle clothes: ", $scope.siglePickUpList);
-    }
-    else {
-      console.log("pick up the pair clothes List: ", $scope.pairPickUpList);
-    }
+  $scope.getThePickUpList = async function (clothesID) {
+    console.log("pick up the sigle clothes: ", $scope.siglePickUpList);
+    $scope.info_clothesNode = await eel.query_clothesNode_byId(clothesID)();
   }
 
 
@@ -188,7 +183,7 @@ app.controller('myCtrl', function ($scope) {
   $scope.showInfo = function (clothesID) {
     //TODO:用clothesID呼叫衣物資料
     console.log(clothesID)
-
+    $scope.getThePickUpList(clothesID);
     $scope.putOStype = !$scope.putOStype;
   }
   $scope.backToMain = function () {

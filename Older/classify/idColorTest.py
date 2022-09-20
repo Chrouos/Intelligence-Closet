@@ -1,7 +1,9 @@
 import sys, os
 import numpy as np
 import collections
-sys.path.append(os.getcwd()) # 抓取路徑
+
+sys.path.append(os.getcwd())  # 抓取路徑
+
 
 def getColorList():
     dict = collections.defaultdict(list)
@@ -20,7 +22,7 @@ def getColorList():
     color_list = []
     color_list.append(lower_gray)
     color_list.append(upper_gray)
-    dict['gray']=color_list
+    dict['gray'] = color_list
 
     # 白色
     lower_white = np.array([0, 0, 221])
@@ -36,7 +38,7 @@ def getColorList():
     color_list = []
     color_list.append(lower_red)
     color_list.append(upper_red)
-    dict['red']=color_list
+    dict['red'] = color_list
 
     # 紅色2
     lower_red = np.array([0, 43, 46])
@@ -96,27 +98,27 @@ def getColorList():
 
     return dict
 
-import  cv2
 
-filename='UI/web/public/src/clothes_3.jpg'
+import cv2
 
 
 #處理圖片
 def get_color(frame):
-    hsv = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     maxsum = -100
     color = None
     color_dict = getColorList()
     for d in color_dict:
-        mask = cv2.inRange(hsv,color_dict[d][0],color_dict[d][1])
-        cv2.imwrite('./classify/images/tmp/' + d+'.jpg',mask)
+        mask = cv2.inRange(hsv, color_dict[d][0], color_dict[d][1])
+        cv2.imwrite('./Older/classify/colorFolder/' + d + '.jpg', mask)
         binary = cv2.threshold(mask, 127, 255, cv2.THRESH_BINARY)[1]
-        binary = cv2.dilate(binary,None,iterations=2)
-        cnts, hiera = cv2.findContours(binary.copy(),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+        binary = cv2.dilate(binary, None, iterations=2)
+        cnts, hiera = cv2.findContours(binary.copy(), cv2.RETR_EXTERNAL,
+                                       cv2.CHAIN_APPROX_SIMPLE)
         sum = 0
         for c in cnts:
-            sum+=cv2.contourArea(c)
-        if sum > maxsum :
+            sum += cv2.contourArea(c)
+        if sum > maxsum:
             maxsum = sum
             color = d
 
@@ -124,9 +126,7 @@ def get_color(frame):
 
 
 ######## can do it
+filename = './View/mui/public/src/clothes_10.jpg'
 
 frame = cv2.imread(filename)
 print(get_color(frame))
-    
-    
-    

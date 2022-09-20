@@ -232,6 +232,15 @@ def query_clothes_nodes_bySubCategoryId(categoryId):
     return v_clothes_dict
 
 
+@eel.expose
+def query_clothesNode_byId(clothesId):
+    viewClothesNodeService = ViewClothesNodeService()
+    v_clothes_dict = viewClothesNodeService.queryById(clothesId)
+    print("query_clothesNode_byId", v_clothes_dict)
+
+    return v_clothes_dict
+
+
 eel.init('View/mui')  # eel.init(網頁的資料夾)
 # eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))
 

@@ -145,26 +145,30 @@
     <!--TODO:連接資料-->
     <!-- 衣物照片 -->
     <div class="pictures-one">
-      <a><img src="./public/src/clothes_1.jpg"></a>
+      <a><img src=" {{info_clothesNode.FilePosition}}"></a>
     </div>
 
     <!-- 衣物資訊/設定 -->
     <div class="clothesInfo">
       <div>
-        <p style="display: inline;">顏色: 色色</p>
+        <p style="display: inline;">顏色: {{info_clothesNode.ColorName}}</p>
       </div>
       <div>
-        <p style="display: inline;">樣式: 木木梟</p>
+        <p style="display: inline;">樣式: {{info_clothesNode.SubCategoryName}}</p>
       </div>
       <div>
-        <p style="display: inline;">使用次數: 87次 </p>
+        <p style="display: inline;">使用次數: {{info_clothesNode.UsageCounter}} </p>
       </div>
       <div>
-        <p style="display: inline;">最後使用時間: 2022/07/10 </p>
+        <p style="display: inline;">最後使用時間: {{info_clothesNode.ModifyTime}} </p>
       </div>
 
       <div>
-        <span style="color: rgb(255, 0, 0);position:relative;left: 2px;"><i class="fa-solid fa-heart"></i>
+        <span ng-show="!info_clothesNode.IsFavorite" style="color: rgb(196, 196, 196);position:relative;left: 2px;"><i
+            class="fa-solid fa-heart"></i>
+        </span>
+        <span ng-show="info_clothesNode.IsFavorite" style="color: rgb(255, 0, 0);position:relative;left: 2px;"><i
+            class="fa-solid fa-heart"></i>
         </span>
       </div>
     </div>
