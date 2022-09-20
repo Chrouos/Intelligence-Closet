@@ -173,7 +173,7 @@
       </div>
     </div>
     <div>
-      <div class="btn-rb-one" ng-click="backToMain()"><a class="btm-rb-one-n" ng-click="backToMain()">返 回</a></div>
+      <div class="btn-rb-one" onclick="showMask()" ng-click="backToMain()"><a class="btm-rb-one-n" onclick="showMask()" ng-click="backToMain()">返 回</a></div>
     </div>
 
   </div>
@@ -182,6 +182,7 @@
 
   <!-- 遮罩 -->
   <div id="mask" style="visibility: hidden"></div>
+  <div id="maskT" style="visibility: hidden"></div>
 
   <!-- Menu -->
   <div id="menu">
@@ -235,6 +236,7 @@
     <script>
       let Mask = document.getElementById('mask');
       let Menu = document.getElementById('menu');
+      let MaskT = document.getElementById('maskT');
 
       function ClickMenu() {
         Menu.classList.toggle('active');
@@ -246,6 +248,15 @@
         } else {
           Mask.style.visibility = '';
           Mask.classList.toggle('active');
+        }
+      }
+      function showMask() {
+        if (MaskT.style.visibility == '') {
+          MaskT.style.visibility = 'hidden';
+          MaskT.classList.toggle('active');
+        } else {
+          MaskT.style.visibility = '';
+          MaskT.classList.toggle('active');
         }
       }
     </script>

@@ -123,8 +123,8 @@
           <!--TODO:衣物不在衣櫃時才顯示刪除選項-->
           <a class="si-btm-rb-three-n" ng-click="">刪 除</a>
         </div>
-        <div class="si-btn-rb-two" ng-click="clothes_Set()">
-          <a class="si-btm-rb-two-n" ng-click="clothes_Set()">設 定</a>
+        <div class="si-btn-rb-two" ng-click="clothes_Set()" onclick="showMask()">
+          <a class="si-btm-rb-two-n" ng-click="clothes_Set()" onclick="showMask()">設 定</a>
         </div>
         <div class="si-btn-rb-one" ng-click="backToMain()">
           <a class="si-btm-rb-one-n" ng-click="backToMain()">返 回</a>
@@ -221,7 +221,7 @@
       <!----------------------------------------------------------------->
     </div>
     <div>
-      <div class="st-btn-rb-one" ng-click="clothes_Set()"><a class="st-btm-rb-one-n" ng-click="clothes_Set()">返 回</a></div>
+      <div class="st-btn-rb-one" onclick="showMask()" ng-click="clothes_Set()"><a class="st-btm-rb-one-n" onclick="showMask()" ng-click="clothes_Set()">返 回</a></div>
     </div>
   </div>
   <!---------------------------------------------------------------------------------------------------------------->
@@ -229,7 +229,7 @@
 
   <!-- 遮罩 -->
   <div id="mask" style="visibility: hidden"></div>
-
+  <div id="maskT" style="visibility: hidden"></div>
   <!-- Menu -->
   <div id="menu">
     <ul>
@@ -282,6 +282,7 @@
     <script>
       let Mask = document.getElementById('mask');
       let Menu = document.getElementById('menu');
+      let MaskT = document.getElementById('maskT');
 
       function ClickMenu() {
         Menu.classList.toggle('active');
@@ -295,7 +296,15 @@
           Mask.classList.toggle('active');
         }
       }
-
+      function showMask() {
+        if (MaskT.style.visibility == '') {
+          MaskT.style.visibility = 'hidden';
+          MaskT.classList.toggle('active');
+        } else {
+          MaskT.style.visibility = '';
+          MaskT.classList.toggle('active');
+        }
+      }
       let classSet = document.getElementById('class-main');
       let lestClick = "none";
 

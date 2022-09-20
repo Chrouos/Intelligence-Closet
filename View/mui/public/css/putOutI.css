@@ -140,7 +140,7 @@ body {
   height: 70%;
   left: 20%;
   top: 15%;
-  z-index: 8;
+  z-index: 12;
   background-color: rgb(246,248,255);
   border-radius: 30px;
 }

@@ -5,6 +5,8 @@ function takeClick(a) {
     a.style.background.color = "white";
 }
 var timeStart, timeEnd, time;
+
+
 //獲取此刻時間
 function getTimeNow() {
   var now = new Date();
@@ -21,12 +23,14 @@ function holdDown(CID) {
       //呼叫衣物資訊
       var a = CID.id;
       angular.element(document.getElementById('hahaha')).scope().showInfo(a.substr(12));
+      showMask();
     }
   }, 100);
 }
 function holdUp() {
   clearInterval(time);
 }
+
 /* ----------------------------------------------------------------------------------------------------- */
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function ($scope) {

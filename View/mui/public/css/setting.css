@@ -384,7 +384,7 @@ body {
   height: 70%;
   left: 20%;
   top: 15%;
-  z-index: 9;
+  z-index: 12;
   background-color: rgb(246,248,255);
   border-radius: 30px;
 }
@@ -404,6 +404,7 @@ body {
   left: 44%;
   width: 45%;
   height: 65%;
+  z-index: 12;
   /* background-color: aqua; */
   display: flex;
   flex-direction: column;

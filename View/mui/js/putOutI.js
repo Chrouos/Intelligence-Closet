@@ -41,6 +41,7 @@ function holdDown(CID) {
             //呼叫衣物資訊
             var a = CID.id;
             angular.element(document.getElementById('putOutI_main')).scope().showInfo(a.substr(12));
+            showMask();
         }
     }, 100);
 }
