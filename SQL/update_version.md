@@ -61,14 +61,17 @@ VALUES(10, 11, 3, 0, '', 0, GETDATE(), GETDATE(), './public/src/clothes_8.jpg', 
 drop view v_clothes_graph
 
 
+
 CREATE view v_clothes_graph as
 select 
+	ROW_NUMBER() OVER (ORDER BY coalesce(vcn_u.UserPreferences, 0) + coalesce(vcn_l.UserPreferences, 0) + coalesce(vcn_o.UserPreferences, 0 + ng.UserLike) DESC) as Id,
+
 	vcn_u.Id as UpperClothesId, 
 	vcn_u.[Position] as UpperPosition,
 	vcn_u.SubCategoryId as UpperSubCategory,
-	vcn_u.ColorId as upperColorId,
-	vcn_u.UserPreferences as upperUserPreferences,
-	vcn_u.FilePosition as upperFilePosition,
+	vcn_u.ColorId as UpperColorId,
+	vcn_u.UserPreferences as UupperUserPreferences,
+	vcn_u.FilePosition as UupperFilePosition,
 	
 	-- vcn_u.IsFavorite as upperIsFavorite,
 	
@@ -90,7 +93,7 @@ select
 	 
 --	 vcn_o.IsFavorite as OtherIsFavorite
 	
-	 coalesce(vcn_u.UserPreferences, 0) + coalesce(vcn_l.UserPreferences, 0) + coalesce(vcn_o.UserPreferences, 0) as TotalPreferences,
+	coalesce(vcn_u.UserPreferences, 0) + coalesce(vcn_l.UserPreferences, 0) + coalesce(vcn_o.UserPreferences, 0) as TotalPreferences,
 	-- coalesce(vcn_u.UserPreferences, 0) + coalesce(vcn_l.UserPreferences, 0) + coalesce(vcn_o.UserPreferences, 0) as TotalColorCombs
 	ng.UserLike -- 權重須加重
 	

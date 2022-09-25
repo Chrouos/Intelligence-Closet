@@ -1,118 +1,111 @@
-
-
-
-
 class ViewClothesGraph:
-    
-    def __init__(self):
-        self.ViewId = -1
-        self.Clothes1Id = ""
-        self.Clothes2Id = ""
-        self.Clothes1Position = ""
-        self.Clothes2Position = ""
-        self.Clothes1CategoryId = ""
-        self.Clothes2CategoryId = ""
-        self.Clothes1ClothesName = ""
-        self.Clothes2ClothesName = ""
-        self.Clothes1WS = ""
-        self.Clothes2WS = ""
-        self.ColorScore = ""
-        self.Clothes1Color = ""
-        self.Clothes2Color = ""
-        self.Clothes1ColorName = ""
-        self.Clothes2ColorName = ""
-        self.AdaptationScore = ""
-        self.Clothes1UserPreferences = ""
-        self.Clothes2UserPreferences = ""
-        self.TotalPreferences = ""
-        
-    def print(self):
-        print("Id: {0}, Clothes1Position: {1}, Clothes2Position: {2}".format(self.Id, self.Clothes1Position, self.Clothes2Position))
-        print("Clothes1CategoryId: {0}, Clothes2CategoryId: {1}, Clothes1ClothesName: {2}, Clothes2ClothesName: {3}".format(self.Clothes1CategoryId, self.Clothes2CategoryId, self.Clothes1ClothesName, self.Clothes2ClothesName))
-        print("Clothes1WS:{0}, Clothes2WS:{1}, ColorScore: {2}, Clothes2Color:{3}, Clothes1ColorName: {4}, Clothes2ColorName: {5}").format(self.Clothes1WS,  self.Clothes2WS,  self.ColorScore,  self.Clothes1Color,  self.Clothes2Color,  self.Clothes1ColorName, self.Clothes2ColorName,)
-        print("AdaptationScore: {0}, Clothes1UserPreferences:{1}, Clothes2UserPreferences:{2}, TotalPreferences:{3}".format(self.AdaptationScore, self.Clothes1UserPreferences, self.Clothes2UserPreferences, self.TotalPreferences))
-        
-    def updateBySQL(self, data):
-        self.ViewId = data.ViewId
-        self.Clothes1Id = data.Clothes1Id
-        self.Clothes2Id = data.Clothes2Id
-        self.Clothes1Position = data.Clothes1Position
-        self.Clothes2Position = data.Clothes2Position
-        self.Clothes1CategoryId = data.Clothes1CategoryId
-        self.Clothes2CategoryId = data.Clothes2CategoryId
-        self.Clothes1ClothesName = data.Clothes1ClothesName
-        self.Clothes2ClothesName = data.Clothes2ClothesName
-        self.Clothes1WS = data.Clothes1WS
-        self.Clothes2WS = data.Clothes2WS
-        self.ColorScore = data.ColorScore
-        self.Clothes1Color = data.Clothes1Color
-        self.Clothes2Color = data.Clothes2Color
-        self.Clothes1ColorName = data.Clothes1ColorName
-        self.Clothes2ColorName = data.Clothes2ColorName
-        self.AdaptationScore = data.AdaptationScore
-        self.Clothes1UserPreferences = data.Clothes1UserPreferences
-        self.Clothes2UserPreferences = data.Clothes2UserPreferences
-        self.TotalPreferences = data.TotalPreferences
-        
-    def updateByDict(self, data):
-        if data.get("ViewId") != None: 
-            self.Id = data['ViewId']
-            
-        if data.get("Clothes1Id") != None: 
-            self.Clothes1Id = data['Clothes1Id']
-            
-        if data.get("Clothes2Id") != None: 
-            self.Clothes2Id = data['Clothes2Id']     
-            
-        if data.get("Clothes1Position") != None: 
-            self.Clothes1Position = data['Clothes1Position']
-            
-        if data.get("Clothes2Position") != None: 
-            self.Clothes2Position = data['Clothes2Position']        
-            
-        if data.get("Clothes1CategoryId") != None: 
-            self.Clothes1CategoryId = data['Clothes1CategoryId']
 
-        if data.get("Clothes2CategoryId") != None: 
-            self.Clothes2CategoryId = data['Clothes2CategoryId']
-            
-        if data.get("Clothes1ClothesName") != None: 
-            self.Clothes1ClothesName = data['Clothes1ClothesName']
-            
-        if data.get("Clothes2ClothesName") != None: 
-            self.Clothes2ClothesName = data['Clothes2ClothesName']
-            
-        if data.get("Clothes1WS") != None: 
-            self.Clothes1WS = data['Clothes1WS']  
-        
-        if data.get("Clothes2WS") != None: 
-            self.Clothes2WS = data['Clothes2WS']
-            
-        if data.get("ColorScore") != None: 
-            self.ColorScore = data['ColorScore']
-        
-        if data.get("Clothes1Color") != None: 
-            self.Clothes1Color = data['Clothes1Color']
-            
-        if data.get("Clothes2Color") != None: 
-            self.Clothes2Color = data['Clothes2Color']
-            
-        if data.get("Clothes1ColorName") != None: 
-            self.Clothes1ColorName = data['Clothes1ColorName']
-            
-        if data.get("Clothes2ColorName") != None: 
-            self.Clothes2ColorName = data['Clothes2ColorName']
-            
-        if data.get("AdaptationScore") != None: 
-            self.AdaptationScore = data['AdaptationScore']
-            
-        if data.get("Clothes1UserPreferences") != None: 
-            self.Clothes1UserPreferences = data['Clothes1UserPreferences']
-            
-        if data.get("Clothes2UserPreferences") != None: 
-            self.Clothes2UserPreferences = data['Clothes2UserPreferences']
-            
-        if data.get("TotalPreferences") != None: 
-            self.TotalPreferences = data['TotalPreferences']
-        
-        
+    def __init__(self):
+        self.Id = -1
+        self.UpperClothesId = ""
+        self.UpperPosition = ""
+        self.UpperSubCategory = ""
+        self.UpperColorId = ""
+        self.UpperUserPreferences = ""
+        self.UpperFilePosition = ""
+
+        self.LowerClothesId = ""
+        self.LowerPosition = ""
+        self.LowerSubCategory = ""
+        self.LowerColorId = ""
+        self.LowerUserPreferences = ""
+        self.LowerFilePosition = ""
+
+        self.OtherClothesId = ""
+        self.OtherPosition = ""
+        self.OtherSubCategory = ""
+        self.OtherColorId = ""
+        self.OtherUserPreferences = ""
+        self.OtherFilePosition = ""
+
+        self.TotalPreferences = 0
+        self.ColorScore = 0
+        self.UserLike = 0
+
+    def print(self):
+        print("ViewClothesGraph: ")
+
+    def updateBySQL(self, data):
+        self.Id = data.Id
+        self.UpperClothesId = data.UpperClothesId
+        self.UpperPosition = data.UpperPosition
+        self.UpperSubCategory = data.UpperSubCategory
+        self.UpperColorId = data.UpperColorId
+        self.UpperUserPreferences = data.UpperUserPreferences
+        self.UpperFilePosition = data.UpperFilePosition
+
+        self.LowerClothesId = data.LowerClothesId
+        self.LowerPosition = data.LowerPosition
+        self.LowerSubCategory = data.LowerSubCategory
+        self.LowerColorId = data.LowerColorId
+        self.LowerUserPreferences = data.LowerUserPreferences
+        self.LowerFilePosition = data.LowerFilePosition
+
+        self.OtherClothesId = data.OtherClothesId
+        self.OtherPosition = data.OtherPosition
+        self.OtherSubCategory = data.OtherSubCategory
+        self.OtherColorId = data.OtherColorId
+        self.OtherUserPreferences = data.OtherUserPreferences
+        self.OtherFilePosition = data.OtherFilePosition
+
+        self.TotalPreferences = data.TotalPreferences
+        self.ColorScore = data.ColorScore
+        self.UserLike = data.UserLike
+
+    def updateByDict(self, data):
+        if data.get("Id") != None:
+            self.Id = data['Id']
+
+        if data.get("Id") != None:
+            self.Id = data.Id
+        if data.get("UpperClothesId") != None:
+            self.UpperClothesId = data.UpperClothesId
+        if data.get("UpperPosition") != None:
+            self.UpperPosition = data.UpperPosition
+        if data.get("UpperSubCategory") != None:
+            self.UpperSubCategory = data.UpperSubCategory
+        if data.get("UpperColorId") != None:
+            self.UpperColorId = data.UpperColorId
+        if data.get("UpperUserPreferences") != None:
+            self.UpperUserPreferences = data.UpperUserPreferences
+        if data.get("UpperFilePosition") != None:
+            self.UpperFilePosition = data.UpperFilePosition
+
+        if data.get("LowerClothesId") != None:
+            self.LowerClothesId = data.LowerClothesId
+        if data.get("LowerPosition") != None:
+            self.LowerPosition = data.LowerPosition
+        if data.get("LowerSubCategory") != None:
+            self.LowerSubCategory = data.LowerSubCategory
+        if data.get("LowerColorId") != None:
+            self.LowerColorId = data.LowerColorId
+        if data.get("LowerUserPreferences") != None:
+            self.LowerUserPreferences = data.LowerUserPreferences
+        if data.get("LowerFilePosition") != None:
+            self.LowerFilePosition = data.LowerFilePosition
+
+        if data.get("OtherClothesId") != None:
+            self.OtherClothesId = data.OtherClothesId
+        if data.get("OtherPosition") != None:
+            self.OtherPosition = data.OtherPosition
+        if data.get("OtherSubCategory") != None:
+            self.OtherSubCategory = data.OtherSubCategory
+        if data.get("OtherColorId") != None:
+            self.OtherColorId = data.OtherColorId
+        if data.get("OtherUserPreferences") != None:
+            self.OtherUserPreferences = data.OtherUserPreferences
+        if data.get("OtherFilePosition") != None:
+            self.OtherFilePosition = data.OtherFilePosition
+
+        if data.get("TotalPreferences") != None:
+            self.TotalPreferences = data.TotalPreferences
+        if data.get("UserLike") != None:
+            self.UserLike = data.UserLike
+
+        if data.get("ColorScore") != None:
+            self.ColorScore = data.ColorScore
