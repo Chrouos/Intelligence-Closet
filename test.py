@@ -78,10 +78,10 @@ from Service.viewStationService import ViewStationService
 # print(clothesNodeOtherService.deleteByPosition(0))
 
 # 3-4 clothesNodeDAO
-clothesNodeService = ClothesNodeService()
-print(clothesNodeService.queryAll())
-print(clothesNodeService.queryById(2))
-print(clothesNodeService.queryByPosition(2))
+# # clothesNodeService = ClothesNodeService()
+# print(clothesNodeService.queryAll())
+# print(clothesNodeService.queryById(2))
+# print(clothesNodeService.queryByPosition(2))
 # clothesNodeService.updatePositionToNull(3)
 # clothesNode_create = '{ "SubCategoryId": 11, "ColorId": 8, "UserPreferences": 7,  "UsageCounter":4, "CreateTime": "2020/01/01","ModifyTime": "2020/01/01", "FilePosition": "aaa", "IsFavorite": 0 }'
 # print(clothesNodeService.create(clothesNode_create))
@@ -134,9 +134,9 @@ print(clothesNodeService.queryByPosition(2))
 # print("3. 依據類別搜尋: ", viewCategoryClothesService.queryByCategoryId(1))
 
 # 11. ViewClothesGraphService
-# viewClothesGraphService = ViewClothesGraphService()
-# print("1. 搜尋全部 LIST: ",viewClothesGraphService.queryAll())
-# print(viewClothesGraphService.queryById(2))
+viewClothesGraphService = ViewClothesGraphService()
+print("1. 搜尋全部 LIST: ", viewClothesGraphService.queryAll())
+print(viewClothesGraphService.queryById(2))
 
 # 12 ViewClothesNode
 # viewClothesNodeService = ViewClothesNodeService()

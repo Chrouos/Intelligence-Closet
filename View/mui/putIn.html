@@ -63,11 +63,12 @@
       <br />
       <div>
         <p style="display: inline;">樣式: </p>
-        <select ng-model="category"
+        <select ng-model="subCategory"
           ng-options="subCategory.ClothesType as subCategory.Name for subCategory in subCategoryList"
           ng-change="identify_save_sql()">
           <!-- <option value="" selected>請選擇</option> -->
         </select>
+
       </div>
       <br />
       <div>

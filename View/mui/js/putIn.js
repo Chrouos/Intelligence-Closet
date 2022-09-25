@@ -66,7 +66,7 @@ app.controller('myCtrl', function ($scope) {
     $scope.MainType = false;
     $scope.StartType = true;
 
-    $scope.category = "";
+    $scope.subCategory = "";
     $scope.color = "";
     $scope.path = "";
     $scope.isFavorite = 0;
@@ -74,7 +74,6 @@ app.controller('myCtrl', function ($scope) {
 
   /* ---------- 將資料儲存至料庫 Start ---------- */
   $scope.Send = function () { // 送出
-
 
     $scope.identify_save_sql();
 
@@ -86,7 +85,8 @@ app.controller('myCtrl', function ($scope) {
 
   // 把資料存到資料庫
   $scope.identify_save_sql = async function () {
-    console.log("[js] identify_save_sql: ", $scope.category, $scope.color, $scope.path, $scope.isFavorite)
+    // TODO: 壞了
+    console.log("[js] identify_save_sql: ", $scope.subCategory, $scope.color, $scope.path, $scope.isFavorite)
 
     // return await eel.identify_save_sql($scope.category, $scope.color, $scope.path, $scope.isFavorite)();
   }
@@ -94,9 +94,10 @@ app.controller('myCtrl', function ($scope) {
 
   /* ---------- 拍照 + 辨識 Start ---------- */
   $scope.get_camera_identify = async function () {
-    identify = await eel.get_camera_identify()();
+    console.log("get_camera_identify");
+    var identify = await eel.get_camera_identify()();
 
-    $scope.category = identify[0];
+    $scope.subCategory = identify[0];
     $scope.color = identify[1];
     $scope.path = identify[2];
     $scope.isFavorite = 0;

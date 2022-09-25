@@ -18,6 +18,7 @@ from Service.subCategoryService import SubCategoryService
 from Service.viewStationService import ViewStationService
 from Service.cityService import CityService
 from Service.userDashboardService import UserDashboardService
+from Service.ClothesNodeService import ClothesNodeService
 from Service.ClothesNodeLowerService import ClothesNodeLowerService
 from Service.ClothesNodeUpperService import ClothesNodeUpperService
 from Service.ClothesNodeOtherService import ClothesNodeOtherService
@@ -239,6 +240,15 @@ def query_clothesNode_byId(clothesId):
     print("query_clothesNode_byId", v_clothes_dict)
 
     return v_clothes_dict
+
+
+@eel.expose
+def updatePositionToNull(position):
+    clothesNodeService = ClothesNodeService()
+    result = clothesNodeService.updatePositionToNull(position)
+    print("query_clothesNode_byId", result)
+
+    return result
 
 
 eel.init('View/mui')  # eel.init(網頁的資料夾)

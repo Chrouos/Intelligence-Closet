@@ -89,8 +89,12 @@ class ClothesNodeService:
 
     ###################### UPDATE ######################
     def updatePositionToNull(self, position):
-        self.clothesNodeDAO.updatePositionToNull(position)
-        return True
+        try:
+            self.clothesNodeDAO.updatePositionToNull(position)
+            return True
+        except Exception as e:
+            print("updatePositionToNull Fail Beacuse: ", e)
+            return False
 
     ###################### DELETE ######################
     def deleteByPosition(self, position):

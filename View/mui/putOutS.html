@@ -11,8 +11,17 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
   <!-- Package -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   <script src="https://kit.fontawesome.com/8ede13235f.js" crossorigin="anonymous"></script>
   <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
 
@@ -107,7 +116,7 @@
       <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index" id="hahaha">
         <a ng-click="checkThePickUpList(clothesNode)">
           <img src="{{clothesNode.FilePosition}}" id="clothesNode_{{clothesNode.Id}}" onmousedown="holdDown(this)"
-            onmouseup="holdUp()">
+            onmouseup="holdUp()" ng-style="isPositionNull(clothesNode.Position)">
         </a>
       </div>
     </div>
@@ -121,8 +130,8 @@
         <a class="btm-rb-three-n">整套拿取</a>
       </div>
 
-      <div class="btn-rb-two" ng-click="">
-        <a class="btm-rb-two-n" ng-click="getThePickUpList()">拿 取</a>
+      <div class="btn-rb-two" ng-click="takeOut()">
+        <a class="btm-rb-two-n" ng-click="takeOut()">拿 取</a>
       </div>
     </div>
 
@@ -173,7 +182,8 @@
       </div>
     </div>
     <div>
-      <div class="btn-rb-one" onclick="showMask()" ng-click="backToMain()"><a class="btm-rb-one-n" onclick="showMask()" ng-click="backToMain()">返 回</a></div>
+      <div class="btn-rb-one" onclick="showMask()" ng-click="backToMain()"><a class="btm-rb-one-n" onclick="showMask()"
+          ng-click="backToMain()">返 回</a></div>
     </div>
 
   </div>
@@ -250,6 +260,7 @@
           Mask.classList.toggle('active');
         }
       }
+
       function showMask() {
         if (MaskT.style.visibility == '') {
           MaskT.style.visibility = 'hidden';
