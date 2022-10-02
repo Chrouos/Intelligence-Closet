@@ -64,8 +64,7 @@
       <div>
         <p style="display: inline;">樣式: </p>
         <select ng-model="subCategory"
-          ng-options="subCategory.ClothesType as subCategory.Name for subCategory in subCategoryList"
-          ng-change="identify_save_sql()">
+          ng-options="subCategory.ClothesType as subCategory.Name for subCategory in subCategoryList">
           <!-- <option value="" selected>請選擇</option> -->
         </select>
 
@@ -80,7 +79,7 @@
       <br />
       <!-- button -->
       <div>
-        <a class="btn-rb-two" ng-click="Send()"><a class="btm-rb-two-n">確認存入</a></a>
+        <a class="btn-rb-two" ng-click="Send(subCategory, color)"><a class="btm-rb-two-n">確認存入</a></a>
         <a class="btn-rb-one" ng-click="Back()"><a class="btm-rb-one-n">退 回</a></a>
       </div>
     </div>

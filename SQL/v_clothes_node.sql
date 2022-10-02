@@ -1,8 +1,17 @@
+-- dbo.v_clothes_node source
+
+-- dbo.v_clothes_node source
+
+-- dbo.v_clothes_node source
+
+-- dbo.v_clothes_node source
+
+-- dbo.v_clothes_node source
 
 CREATE view v_clothes_node
 as
 	SELECT
-		cn.Id as ClothesNodeId,
+		cn.Id,
 		cn.Position,
 		cn.SubCategoryId,
 		sc.Name as SubCategoryName,
@@ -23,4 +32,4 @@ as
 	from clothes_node cn
 		inner join sub_category sc on sc.Id = cn.SubCategoryId
 		inner join category categorys on categorys.Id = sc.CategoryId
-		inner join color colors on colors.Id = cn.ColorId  
+		inner join color colors on colors.Id = cn.ColorId;
