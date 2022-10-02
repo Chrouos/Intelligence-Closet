@@ -43,6 +43,7 @@
 
   <!-- 遮罩 -->
   <div id="mask" style="visibility: hidden"></div>
+  <div id="maskW" style="visibility: hidden"></div>
 
   <!-- Menu -->
   <div id="menu">
@@ -111,7 +112,44 @@
       }
     </script>
   </div>
+<!-- 天氣 -->
+<div id="weather">
+  <div id="weather_left">
+    <div id="weather_logo" onclick="ClickWeather()"><img src="./public/sun.png" style="width: 70px;"></div>
+    <div></div>
+  </div>
+  <div id="weather_right">
+    <h1 style="position: relative;left:15px">今 日 天 氣</h1>
+    <p>天氣:晴天</p>
+    <p>氣溫:26度</p>
+    <p>降雨機率:5%</p>
+    <p>最高溫度:30度</p>
+    <p>最高溫時間:14:21</p>
+    <p>最高溫度:20度</p>
+    <p>最高溫時間:00:42</p>
+    <p></p>
+    <p></p>
+  </div>
+  <!-- Weather class 更改 -->
+<script>
+  let Weather = document.getElementById('weather');
+  let WeatherR = document.getElementById('weather_right');
+  let MaskW = document.getElementById('maskW');
 
+  function ClickWeather() {
+    Weather.classList.toggle('active');
+    WeatherR.classList.toggle('active');
+    if (MaskW.style.visibility == '') {
+      MaskW.classList.toggle('active');
+      setTimeout(function () {
+        MaskW.style.visibility = 'hidden';
+      }, 500);
+    } else {
+      MaskW.style.visibility = '';
+      MaskW.classList.toggle('active');
+    }
+  }
+</script>
 
 </body>
 

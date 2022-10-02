@@ -160,3 +160,63 @@ body{
   background-color: rgba(0, 0, 0, 0.4);
   transition: 0.5s;
 }
+/********************************************/
+#weather{
+  position: fixed;/*固定位置(畫面)*/
+  right: 0%;
+  top: 5%;
+  width: 70px;
+  display: flex;
+  z-index: 12;
+  transition: 0.5s;
+  /* background-color: black; */
+}
+#weather.active{
+  height: 90%;
+  width: 33%;
+  transition: 0.5s;
+}
+#weather_left{
+  /* background-color: aqua; */
+}
+#weather_logo{
+  width: 70px;
+  height: 70px;
+  /* background-color: rgb(220, 124, 124); */
+}
+/******************************************/
+#weather_right{
+  width: 0px;
+  background-color: rgb(171, 180, 238);
+  overflow: hidden;/*隱藏邊界外的東西*/
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  transition: 0.5s;
+  /* align-items: center; */
+}
+#weather_right p{
+  overflow: hidden;
+  position: relative;
+  left: 15px;
+  font-size: 27px;
+}
+#weather_right.active{
+  overflow: hidden;
+  width: 85%;
+  transition: 0.5s;
+}
+/*******************************************/
+#maskW{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 11;
+  background-color: rgba(0, 0, 0, 0);
+  transition: 0.5s;
+}
+#maskW.active{
+
+  background-color: rgba(0, 0, 0, 0.4);
+  transition: 0.5s;
+}

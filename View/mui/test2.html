@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<!-- start tag -->
+<html ng-app="myApp" ng-controller="myCtrl">
+  <head>
+    <!-- Set -->
+    <title>測試用2</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+    <!-- Package -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script
+      type="text/javascript"
+      src="jslib/angular/angular-touch.min.js"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/8ede13235f.js"
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="/eel.js"></script>
+    <!-- eel.js 是使用eel的必須  -->
+
+    <!-- Connect -->
+    <script src="./js/test2.js"></script>
+
+    <!-- Css -->
+    <link rel="stylesheet" href="./public/css/test2.css" type="text/css" />
+  </head>
+
+  <body>
+    <!-- 遮罩 -->
+    <div id="maskW" style="visibility: hidden"></div>
+    <!-- 天氣 -->
+    <div id="weather">
+      <div id="weather_left">
+        <div id="weather_logo" onclick="ClickWeather()"><img src="./public/sun.png" style="width: 70px;"></div>
+        <div></div>
+      </div>
+      <div id="weather_right">
+        <h1 style="position: relative;left:15px">今 日 天 氣</h1>
+        <p>天氣:晴天</p>
+        <p>氣溫:26度</p>
+        <p>降雨機率:5%</p>
+        <p>最高溫度:30度</p>
+        <p>最高溫時間:14:21</p>
+        <p>最高溫度:20度</p>
+        <p>最高溫時間:00:42</p>
+        <p></p>
+        <p></p>
+      </div>
+      <!-- Weather class 更改 -->
+    <script>
+      let Weather = document.getElementById('weather');
+      let WeatherR = document.getElementById('weather_right');
+      let MaskW = document.getElementById('maskW');
+
+      function ClickWeather() {
+        Weather.classList.toggle('active');
+        WeatherR.classList.toggle('active');
+        if (MaskW.style.visibility == '') {
+          MaskW.classList.toggle('active');
+          setTimeout(function () {
+            MaskW.style.visibility = 'hidden';
+          }, 500);
+        } else {
+          MaskW.style.visibility = '';
+          MaskW.classList.toggle('active');
+        }
+      }
+    </script>
+  </body>
+</html>
+<!-- end tag -->
