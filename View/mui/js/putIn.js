@@ -73,9 +73,9 @@ app.controller('myCtrl', function ($scope) {
   }
 
   /* ---------- 將資料儲存至料庫 Start ---------- */
-  $scope.Send = function () { // 送出
+  $scope.Send = function (subCategory, color) { // 送出
 
-    $scope.identify_save_sql();
+    $scope.identify_save_sql(subCategory, color);
 
     //TODO bootbox: 衣服收入中...
     $scope.MainType = false;
@@ -84,9 +84,9 @@ app.controller('myCtrl', function ($scope) {
   /* ---------- 將資料儲存至料庫 Start ---------- */
 
   // 把資料存到資料庫
-  $scope.identify_save_sql = async function () {
+  $scope.identify_save_sql = async function (subCategory, color) {
     // TODO: 壞了
-    console.log("[js] identify_save_sql: ", $scope.subCategory, $scope.color, $scope.path, $scope.isFavorite)
+    console.log("[js] identify_save_sql: ", subCategory, color, $scope.path, $scope.isFavorite)
 
     // return await eel.identify_save_sql($scope.category, $scope.color, $scope.path, $scope.isFavorite)();
   }
