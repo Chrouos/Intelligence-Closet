@@ -1,3 +1,100 @@
+
+## 20221002
+
+```sql
+drop view v_color_graph
+create view v_color_graph
+as
+	select
+		cg.ColorId1 as 'UpperColorId',
+		cg.ColorId2 as 'LowerColorId',
+		c1.ColorEngName as 'UpperEngName',
+		c2.ColorEngName as 'LowerEngName',
+		c1.ColorName as 'UpperColor',
+		c2.ColorName as 'LowerColor',
+		cg.ColorScore
+	from color_graph as cg
+		inner join color as c1 on c1.Id = cg.ColorId1
+		inner join color as c2 on c2.Id = cg.ColorId2;
+
+drop view v_clothes_node
+CREATE view v_clothes_node
+as
+	SELECT
+		cn.Id,
+		cn.Position,
+		cn.SubCategoryId,
+		sc.Name as SubCategoryName,
+		sc.CategoryId,
+		sc.Score ,
+		categorys.CategoryName ,
+		cn.ColorId ,
+		colors.ColorEngName ,
+		colors.ColorName ,
+		cn.UserPreferences ,
+		cn.WarmLevel ,
+		cn.ClothesStyle ,
+		cn.UsageCounter ,
+		cn.CreateTime ,
+		cn.ModifyTime ,
+		cn.FilePosition ,
+		cn.IsFavorite
+	from clothes_node cn
+		inner join sub_category sc on sc.Id = cn.SubCategoryId
+		inner join category categorys on categorys.Id = sc.CategoryId
+		inner join color colors on colors.Id = cn.ColorId;
+
+drop view v_clothes_graph
+CREATE view v_clothes_graph
+as
+	select
+		ROW_NUMBER() OVER (ORDER BY coalesce(vcn_u.UserPreferences, 0) + coalesce(vcn_l.UserPreferences, 0) + coalesce(vcn_o.UserPreferences, 0 + ng.UserLike) DESC) as Id,
+
+		vcn_u.Id as UpperClothesId,
+		vcn_u.[Position] as UpperPosition,
+		vcn_u.SubCategoryId as UpperSubCategory,
+		vcn_u.ColorId as UpperColorId,
+		vcn_u.UserPreferences as UpperUserPreferences,
+		vcn_u.FilePosition as UpperFilePosition,
+
+		-- vcn_u.IsFavorite as upperIsFavorite,
+
+		vcn_l.Id as LowerClothesId,
+		vcn_l.[Position] as LowerPosition,
+		vcn_l.SubCategoryId as LowerSubCategory,
+		vcn_l.ColorId as LowerColorId,
+		vcn_l.UserPreferences as LowerUserPreferences,
+		vcn_l.FilePosition as LowerFilePosition,
+
+		-- vcn_l.IsFavorite as LowerIsFavorite,
+
+		vcn_o.Id as OtherClothesId,
+		vcn_o.[Position] as OtherPosition,
+		vcn_o.SubCategoryId as OtherSubCategory,
+		vcn_o.ColorId as OtherColorId,
+		vcn_o.UserPreferences as OtherUserPreferences,
+		vcn_o.FilePosition as OtherFilePosition,
+
+		--	 vcn_o.IsFavorite as OtherIsFavorite
+
+		coalesce(vcn_u.UserPreferences, 0) + coalesce(vcn_l.UserPreferences, 0) + coalesce(vcn_o.UserPreferences, 0) as TotalPreferences,
+		vcg.ColorScore,
+		-- 	coalesce(vcn_u.UserPreferences, 0) + coalesce(vcn_l.UserPreferences, 0) + coalesce(vcn_o.UserPreferences, 0) as TotalColorCombs,
+		ng.UserLike
+	-- 權重須加重
+
+	from
+		node_graph ng
+		left join v_clothes_node vcn_u on vcn_u.CategoryId = 1 and ng.UpperId = vcn_u.Id
+		left join v_clothes_node vcn_l on vcn_l.CategoryId = 2 and ng.LowerId  = vcn_l.Id
+		left join v_clothes_node vcn_o on vcn_o.CategoryId != 1 and vcn_o.CategoryId != 2 and ng.OtherId = vcn_o.Id
+		left join v_color_graph vcg on vcg.UpperColorId = vcn_u.ColorId and vcg.LowerColorId = vcn_l.ColorId;
+
+
+```
+
+
+---
 ## 20220919
 
 增加clothes_node
