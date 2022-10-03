@@ -76,14 +76,14 @@
     </div>
   </div>
   <!----------------------------------------------------------------------------------->
-  <div id="putOI-Info" ng-show="putOItype">
-    <!--TODO:連接資料-->
-    <!-- 衣物照片 -->
+  <!--TODO:連接資料-->
+  <!-- 衣物照片 -->
+
+  <!-- <div id="putOI-Info" ng-show="putOItype">
     <div class="pictures-one">
       <a><img src="./public/src/clothes_1.jpg"></a>
     </div>
 
-    <!-- 衣物資訊/設定 -->
     <div class="clothesInfo">
       <div>
         <p style="display: inline;">顏色: {{}}</p>
@@ -108,7 +108,7 @@
           ng-click="backToMain()">返 回</a></div>
     </div>
 
-  </div>
+  </div> -->
   <!----------------------------------------------------------------------------------->
   <!-- button -->
   <div>
@@ -137,16 +137,16 @@
           <span class="menu-button">收納</span>
         </a>
       </li>
-      <li>
+      <li style="background-color: rgb(255, 255, 255);">
         <a href="./putOutI.html">
-          <span class="icon"><i class="fa-solid fa-shirt"></i></span>
-          <span class="menu-button" ng-click="takeOut()">拿取(推薦)</span>
+          <span class="icon"><i class="fa-solid fa-shirt" style="color: rgb(161, 175, 255);"></i></span>
+          <span class="menu-button" ng-click="takeOut()" style="color: rgb(161, 175, 255);">拿取(推薦)</span>
         </a>
       </li>
-      <li style="background-color: rgb(255, 255, 255);">
+      <li>
         <a href="./putOutS.html">
-          <span class="icon"><i class="fa-solid fa-arrow-down-short-wide" style="color: rgb(161, 175, 255);"></i></span>
-          <span class="menu-button" style="color: rgb(161, 175, 255);">拿取(自選)</span>
+          <span class="icon"><i class="fa-solid fa-arrow-down-short-wide"></i></span>
+          <span class="menu-button">拿取(自選)</span>
         </a>
       </li>
       <li>
@@ -219,25 +219,25 @@
       <p></p>
     </div>
     <!-- Weather class 更改 -->
-  <script>
-    let Weather = document.getElementById('weather');
-    let WeatherR = document.getElementById('weather_right');
-    let MaskW = document.getElementById('maskW');
+    <script>
+      let Weather = document.getElementById('weather');
+      let WeatherR = document.getElementById('weather_right');
+      let MaskW = document.getElementById('maskW');
 
-    function ClickWeather() {
-      Weather.classList.toggle('active');
-      WeatherR.classList.toggle('active');
-      if (MaskW.style.visibility == '') {
-        MaskW.classList.toggle('active');
-        setTimeout(function () {
-          MaskW.style.visibility = 'hidden';
-        }, 500);
-      } else {
-        MaskW.style.visibility = '';
-        MaskW.classList.toggle('active');
+      function ClickWeather() {
+        Weather.classList.toggle('active');
+        WeatherR.classList.toggle('active');
+        if (MaskW.style.visibility == '') {
+          MaskW.classList.toggle('active');
+          setTimeout(function () {
+            MaskW.style.visibility = 'hidden';
+          }, 500);
+        } else {
+          MaskW.style.visibility = '';
+          MaskW.classList.toggle('active');
+        }
       }
-    }
-  </script>
+    </script>
 </body>
 
 </html>

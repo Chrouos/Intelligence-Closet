@@ -175,25 +175,25 @@
       <p></p>
     </div>
     <!-- Weather class 更改 -->
-  <script>
-    let Weather = document.getElementById('weather');
-    let WeatherR = document.getElementById('weather_right');
-    let MaskW = document.getElementById('maskW');
+    <script>
+      let Weather = document.getElementById('weather');
+      let WeatherR = document.getElementById('weather_right');
+      let MaskW = document.getElementById('maskW');
 
-    function ClickWeather() {
-      Weather.classList.toggle('active');
-      WeatherR.classList.toggle('active');
-      if (MaskW.style.visibility == '') {
-        MaskW.classList.toggle('active');
-        setTimeout(function () {
-          MaskW.style.visibility = 'hidden';
-        }, 500);
-      } else {
-        MaskW.style.visibility = '';
-        MaskW.classList.toggle('active');
+      function ClickWeather() {
+        Weather.classList.toggle('active');
+        WeatherR.classList.toggle('active');
+        if (MaskW.style.visibility == '') {
+          MaskW.classList.toggle('active');
+          setTimeout(function () {
+            MaskW.style.visibility = 'hidden';
+          }, 500);
+        } else {
+          MaskW.style.visibility = '';
+          MaskW.classList.toggle('active');
+        }
       }
-    }
-  </script>
+    </script>
 </body>
 
 </html>
