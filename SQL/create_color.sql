@@ -9,12 +9,10 @@ create table color
 
 );
 
-select *
-from color
 
 insert color
 values
-    ('Undefined', NULL)--1
+    ('Undefined', ' ')--1
 insert color
 values
     ('BLUE', '藍色')--2
@@ -44,13 +42,12 @@ values
     ('GRAY', '灰色')--10
 insert color
 values
-    ('CREAMY WHITE', '米白色')--11
+    ('PINK', '粉紅色')--11
 insert color
 values
-    ('ARMY GREEN', '軍綠色')--12
-insert color
-values
-    ('KHAKI', '卡其色')--13
-insert color
-values
-    ('CYAN', '青色') --14
+    ('CYAN', '青色')
+--12
+
+
+select *
+from color
