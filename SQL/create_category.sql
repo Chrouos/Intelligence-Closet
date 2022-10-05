@@ -2,9 +2,9 @@ drop TABLE category;
 
 create table category
 (
-	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- ½s¸¹ ( 1, 2, 3 ... )
-	CategoryName varchar(50) Not Null,-- ¦çª«¤ÀÃş
-	[Level] int Not Null-- ¦çª«¼h¯Å
+	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- ç·¨è™Ÿ( 1, 2, 3 ... )
+	CategoryName varchar(50) Not Null,-- è¡£ç‰©åç¨±
+	[ Level ] int Not Null-- è¡£ç‰©å±¤ç´š
 );
 
 insert into category
