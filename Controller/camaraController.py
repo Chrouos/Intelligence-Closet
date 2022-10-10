@@ -12,6 +12,7 @@ from keras_preprocessing import image
 import time
 
 from Service.colorService import ColorService
+from Service.ClothesNodeService import ClothesNodeService
 from Service.ClothesNodeUpperService import ClothesNodeUpperService
 from Service.ClothesNodeLowerService import ClothesNodeLowerService
 from Service.ClothesNodeOtherService import ClothesNodeOtherService
@@ -65,15 +66,18 @@ class CamaraController:
             subCategoryId, colorId, self.path, self.isFavorite)
         print("saveData:", clothesNode_create)
 
-        if categoryId == 1:
-            clothesNodeService = ClothesNodeUpperService()
-            clothesNodeService.create(clothesNode_create)
-        elif categoryId == 2:
-            clothesNodeService = ClothesNodeLowerService()
-            clothesNodeService.create(clothesNode_create)
-        else:
-            clothesNodeService = ClothesNodeOtherService()
-            clothesNodeService.create(clothesNode_create)
+        clothesNodeService = ClothesNodeService()
+        clothesNodeService.create(clothesNode_create)
+
+        # if categoryId == 1:
+        #     clothesNodeService = ClothesNodeUpperService()
+        #     clothesNodeService.create(clothesNode_create)
+        # elif categoryId == 2:
+        #     clothesNodeService = ClothesNodeLowerService()
+        #     clothesNodeService.create(clothesNode_create)
+        # else:
+        #     clothesNodeService = ClothesNodeOtherService()
+        #     clothesNodeService.create(clothesNode_create)
 
         return True
 
@@ -96,7 +100,7 @@ class CamaraController:
 
                 outputSize = cv2.resize(frame,
                                         (480, 640))  # to resize the image
-                cv2.imwrite(self.save_path, outputSize)
+                # cv2.imwrite(self.save_path, outputSize)
 
                 cap.release()
                 cv2.destroyAllWindows()  # 關閉視窗
@@ -188,15 +192,15 @@ class CamaraController:
         # {'red': [array([160,  43,  46]), array([179, 255, 255])]}
         dict = collections.defaultdict(list)
 
-        # 黑色
+        #黑色
         lower_black = np.array([0, 0, 0])
-        upper_black = np.array([180, 255, 46])
+        upper_black = np.array([250, 255, 30])
         color_list = []
         color_list.append(lower_black)
         color_list.append(upper_black)
         dict['BLACK'] = color_list
 
-        # #灰色
+        #灰色
         lower_gray = np.array([0, 0, 46])
         upper_gray = np.array([180, 43, 220])
         color_list = []
@@ -204,39 +208,39 @@ class CamaraController:
         color_list.append(upper_gray)
         dict['GRAY'] = color_list
 
-        # 白色
-        lower_white = np.array([0, 0, 221])
-        upper_white = np.array([180, 30, 255])
-        color_list = []
-        color_list.append(lower_white)
-        color_list.append(upper_white)
-        dict['WHITE'] = color_list
+        #白色
+        # lower_white = np.array([0, 0, 221])
+        # upper_white = np.array([180, 30, 255])
+        # color_list = []
+        # color_list.append(lower_white)
+        # color_list.append(upper_white)
+        # dict['WHITE'] = color_list
 
-        # 紅色
-        lower_red = np.array([156, 43, 46])
-        upper_red = np.array([180, 255, 255])
-        color_list = []
-        color_list.append(lower_red)
-        color_list.append(upper_red)
-        dict['RED'] = color_list
-
-        # 紅色2
-        lower_red = np.array([0, 43, 46])
+        #紅色
+        lower_red = np.array([0, 150, 50])
         upper_red = np.array([10, 255, 255])
         color_list = []
         color_list.append(lower_red)
         color_list.append(upper_red)
         dict['RED'] = color_list
 
-        # 橙色
-        lower_orange = np.array([11, 43, 46])
+        #粉紅色
+        lower_pink = np.array([156, 43, 46])
+        upper_pink = np.array([180, 255, 255])
+        color_list = []
+        color_list.append(lower_pink)
+        color_list.append(upper_pink)
+        dict['PINK'] = color_list
+
+        #橘色
+        lower_orange = np.array([15, 150, 0])
         upper_orange = np.array([25, 255, 255])
         color_list = []
         color_list.append(lower_orange)
         color_list.append(upper_orange)
         dict['ORANGE'] = color_list
 
-        # 黃色
+        #黃色
         lower_yellow = np.array([26, 43, 46])
         upper_yellow = np.array([34, 255, 255])
         color_list = []
@@ -244,15 +248,15 @@ class CamaraController:
         color_list.append(upper_yellow)
         dict['YELLOW'] = color_list
 
-        # 綠色
-        lower_green = np.array([35, 43, 46])
-        upper_green = np.array([77, 255, 255])
+        #綠色
+        lower_green = np.array([45, 150, 54])
+        upper_green = np.array([65, 255, 255])
         color_list = []
         color_list.append(lower_green)
         color_list.append(upper_green)
         dict['GREEN'] = color_list
 
-        # 青色
+        #青色
         lower_cyan = np.array([78, 43, 46])
         upper_cyan = np.array([99, 255, 255])
         color_list = []
@@ -260,7 +264,7 @@ class CamaraController:
         color_list.append(upper_cyan)
         dict['CYAN'] = color_list
 
-        # 藍色
+        #藍色
         lower_blue = np.array([100, 43, 46])
         upper_blue = np.array([124, 255, 255])
         color_list = []
@@ -268,7 +272,7 @@ class CamaraController:
         color_list.append(upper_blue)
         dict['BLUE'] = color_list
 
-        # 紫色
+        #紫色
         lower_purple = np.array([125, 43, 46])
         upper_purple = np.array([155, 255, 255])
         color_list = []
@@ -280,3 +284,7 @@ class CamaraController:
 
     # https://www.twblogs.net/a/5c36d389bd9eee35b21d46e3
     # https://blog.csdn.net/ruoshui_t/article/details/109310806
+
+    # https://stackoverflow.com/questions/10948589/choosing-the-correct-upper-and-lower-hsv-boundaries-for-color-detection-withcv
+
+    # https://stackoverflow.com/questions/47483951/how-to-define-a-threshold-value-to-detect-only-green-colour-objects-in-an-image/47483966#47483966
