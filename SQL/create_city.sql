@@ -1,4 +1,6 @@
-﻿drop table city
+﻿-- 負責存取有關於台灣目前開放中央氣象局所提供之API站別的所有縣市。
+
+drop table city
 
 create table city
 (

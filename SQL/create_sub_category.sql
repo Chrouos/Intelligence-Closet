@@ -1,3 +1,5 @@
+--sub_category 負責存取衣物種類及分數之間的關聯性，可隨時更新天氣分數來更新使用者們對衣物保暖度的概念，衣物種類的來源則是從可辨識標籤作為資料依據。
+
 drop table sub_category;
 
 create table sub_category

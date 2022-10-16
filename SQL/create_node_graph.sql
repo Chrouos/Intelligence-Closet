@@ -1,3 +1,5 @@
+--負責存取有關於衣物與衣物之間的關聯性，用無像圖的概念製作，不重複且無方向關係。
+
 CREATE TABLE intelligence_closet.dbo.node_graph
 (
 	Id bigint IDENTITY(1,1) NOT NULL,

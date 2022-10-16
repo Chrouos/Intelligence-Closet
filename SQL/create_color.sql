@@ -1,3 +1,5 @@
+-- 負責儲存顏色名稱的英文版本跟中文版本，資料來源為衣物辨識的顏色標籤。
+
 drop table color
 
 create table color

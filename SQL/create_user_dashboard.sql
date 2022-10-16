@@ -1,3 +1,4 @@
+-- 璽砫纗ㄏノㄏノ策篋ㄒゑ耕┤┪琌┤荐尺舧ぐ或摸︾ㄏノ策篋单单
 drop table user_dashboard
 
 create table user_dashboard
@@ -17,4 +18,5 @@ select *
 from user_dashboard
 
 insert into user_dashboard
-VALUES ('DiuDu', 5, GETDATE(), 0, GETDATE(), 0)
+VALUES
+	('DiuDu', 5, GETDATE(), 0, GETDATE(), 0)

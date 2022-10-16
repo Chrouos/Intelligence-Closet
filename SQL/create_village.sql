@@ -1,3 +1,5 @@
+-- 負責存取負責存取有關於台灣目前開放中央氣象局所提供之API鄉鎮資訊。
+
 drop table village
 
 create table village
