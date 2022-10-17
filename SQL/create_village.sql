@@ -2,11 +2,12 @@ drop table village
 
 create table village
 (
-	Id bigint PRIMARY KEY NOT NULL IDENTITY,
-	CityId bigint NOT NULL,
-	VillageName varchar(50)
+	Id bigint PRIMARY KEY NOT NULL IDENTITY,--編號
+	CityId bigint NOT NULL,--鄉鎮市區編號
+	VillageName varchar(50)--鄉鎮市區名稱
 );
 
+--宜蘭
 insert into village
 values
 	(1, '頭城鎮'),
@@ -22,6 +23,7 @@ values
 	(1, '南澳鄉'),
 	(1, '蘇澳鎮')
 
+--桃園
 insert into village
 values
 	(2, '大園區'),
@@ -38,6 +40,7 @@ values
 	(2, '龍潭區'),
 	(2, '復興區')
 
+--新竹縣
 insert into village
 values
 	(3, '新豐鄉'),
@@ -54,6 +57,7 @@ values
 	(3, '峨眉鄉'),
 	(3, '五峰鄉')
 
+--苗栗
 insert into village
 values
 	(4, '竹南鎮'),
@@ -75,6 +79,7 @@ values
 	(4, '三義鄉'),
 	(4, '卓蘭鎮')
 
+--彰化
 insert into village
 values
 	(5, '伸港鄉'),
@@ -104,6 +109,7 @@ values
 	(5, '溪州鄉'),
 	(5, '二水鄉')
 
+--南投
 insert into village
 values
 	(6, '仁愛鄉'),
@@ -120,6 +126,7 @@ values
 	(6, '竹山鎮'),
 	(6, '鹿谷鄉')
 
+--雲林
 insert into village
 values
 	(7, '麥寮鄉'),
@@ -143,6 +150,7 @@ values
 	(7, '水林鄉'),
 	(7, '斗六市')
 
+--嘉義
 insert into village
 values
 	(8, '大林鎮'),
@@ -164,6 +172,7 @@ values
 	(8, '義竹鄉'),
 	(8, '大埔鄉')
 
+--屏東
 insert into village
 values
 	(9, '高樹鄉'),
@@ -200,6 +209,7 @@ values
 	(9, '恆春鎮'),
 	(9, '枋寮鄉')
 
+--台東
 insert into village
 values
 	(10, '長濱鄉'),
@@ -219,6 +229,7 @@ values
 	(10, '蘭嶼鄉'),
 	(10, '金峰鄉')
 
+--花蓮
 insert into village
 values
 	(11, '秀林鄉'),
@@ -235,6 +246,7 @@ values
 	(11, '玉里鎮'),
 	(11, '富里鄉')
 
+--馬祖
 insert into village
 values
 	(12, '白沙鄉'),
@@ -244,6 +256,7 @@ values
 	(12, '望安鄉'),
 	(12, '七美鄉')
 
+--基隆
 insert into village
 values
 	(13, '安樂區'),
@@ -254,17 +267,20 @@ values
 	(13, '仁愛區'),
 	(13, '暖暖區')
 
+--新竹市
 insert into village
 values
 	(14, '北區'),
 	(14, '香山區'),
 	(14, '東區')
 
+
 insert into village
 values
 	(15, '東區'),
 	(15, '西區')
 
+--台北市
 insert into village
 values
 	(16, '北投區'),
@@ -280,6 +296,7 @@ values
 	(16, '大安區'),
 	(16, '文山區')
 
+--高雄市
 insert into village
 values
 	(17, '楠梓區'),
@@ -321,6 +338,7 @@ values
 	(17, '林園區'),
 	(17, '桃源區')
 
+--新北市
 insert into village
 values
 	(18, '石門區'),
@@ -353,6 +371,7 @@ values
 	(18, '三峽區'),
 	(18, '烏來區')
 
+--台中市
 insert into village
 values
 	(19, '北屯區'),
@@ -385,6 +404,7 @@ values
 	(19, '大里區'),
 	(19, '霧峰區')
 
+--台南市
 insert into village
 values
 	(20, '安南區'),
@@ -425,6 +445,7 @@ values
 	(20, '龍崎區'),
 	(20, '仁德區')
 
+--連江縣
 insert into village
 values
 	(21, '南竿鄉'),
@@ -432,6 +453,7 @@ values
 	(21, '莒光鄉'),
 	(21, '東引鄉')
 
+--金門縣
 insert into village
 values
 	(22, '金城鎮'),
