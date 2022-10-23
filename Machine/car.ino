@@ -1,27 +1,41 @@
 #include <Servo.h>
 
-const int entranceButton = 22;  // 入口的 button
+// 入口的微動開關
+const int entranceButton = 22;
 int entranceButtonState;
 int entranceButtonLastState = LOW;
-long entranceButtonlastDebounceTime = 0;  // entranceButton 最後一次被觸發
-long entranceButtondebounceDelay = 50;
+long entranceButtonlastDebounceTime = 0;  // 按键最后一次被触发
+long entranceButtondebounceDelay =
+    50;  // 为了滤去抖动暂停的时间，如果发现输出不正常增加这个值
 
-const int exportButton = 23;  // 結尾的 button
+// 出口的微動開關
+const int exportButton = 23;
 int exportButtonState;
 int exportButtonLastState = LOW;
-long exportButtonlastDebounceTime = 0;  // exportButton 最後一次被觸發
-long exportButtondebounceDelay = 50;
+long exportButtonlastDebounceTime = 0;  // 按键最后一次被触发
+long exportButtondebounceDelay =
+    50;  // 为了滤去抖动暂停的时间，如果发现输出不正常增加这个值
 
+// 開始的微動開關
 const int startButton = 31;  // 切換開始
 int startButtonState;
 int startButtonLastState = LOW;
-long startButtonlastDebounceTime = 0;  // startButton 最後一次被觸發
-long startButtondebounceDelay = 50;
+long startButtonlastDebounceTime = 0;  // 按键最后一次被触发
+long startButtondebounceDelay =
+    50;  // 为了滤去抖动暂停的时间，如果发现输出不正常增加这个值
 
+// 車車(減速馬達)的L298N
 const int entrance_L298N1_In1 = 2;
 const int entrance_L298N1_In2 = 3;
 const int export_L298N1_In3 = 4;
 const int export_L298N1_In4 = 5;
+
+// 超音波
+const int trigPin = 13;
+const int echoPin = 12;
+int Duration;
+int Distance;
+int isTri = true, trigNow = 0, echoNow = 0, isDone = false;
 
 void setup() {
     Serial.begin(9600);
@@ -32,6 +46,12 @@ void setup() {
     pinMode(export_L298N1_In4, OUTPUT);
 
     pinMode(entranceButton, INPUT);
+    pinMode(exportButton, INPUT);
+    pinMode(startButton, INPUT);
+
+    pinMode(trigPin, OUTPUT);
+    pinMode(echoPin, INPUT);
+    digitalWrite(trigPin, LOW);
 }
 
 int nowStep = 2;     // 1: 前進, 2: 後退
@@ -58,8 +78,6 @@ void loop() {
     startButtonLastState = startButtonnRead;  // 保存处理结果
     // -------------------- start button -------------------- //
 
-    // -------------------- start car -------------------- //
-
     if (nowStep == 1 && start == true) {
         digitalWrite(LED_BUILTIN, HIGH);
         mfront(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3,
@@ -72,7 +90,6 @@ void loop() {
         mstop(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3,
               export_L298N1_In4);
     }
-    // -------------------- start car -------------------- //
 
     // -------------------- entrance or export button -------------------- //
     int entranceButtonRead = digitalRead(entranceButton);
@@ -114,6 +131,30 @@ void loop() {
     }
     exportButtonLastState = exportButtonRead;  // 保存处理结果
     // -------------------- entrance button -------------------- //
+
+    if (nowStep == 1) {
+        if (isTri == true) {
+            digitalWrite(trigPin, HIGH);  //發射超音波
+            isTri = false;
+            trigNow = millis();
+        } else if (isTri == false && millis() - trigNow >= 1000) {
+            digitalWrite(trigPin, LOW);
+            Duration = pulseIn(echoPin, HIGH);  //超音波發射到接收的時間
+            Distance = Duration * 0.034 / 2;  //計算距離(cm)
+            isTri = true;
+
+            if (Distance <= 20 && isDone == false) {
+                mstop(entrance_L298N1_In1, entrance_L298N1_In2,
+                      export_L298N1_In3, export_L298N1_In4);
+                delay(2000);
+                mfront(entrance_L298N1_In1, entrance_L298N1_In2,
+                       export_L298N1_In3, export_L298N1_In4);
+                isDone = true;
+            }
+        }
+    } else if (nowStep == 2) {
+        isDone = false;
+    }
 }
 
 void mstop(int In1, int In2, int In3, int In4) {

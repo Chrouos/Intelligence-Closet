@@ -8,10 +8,13 @@ create table user_dashboard
 	UserName nvarchar(50) Null,--使用者名稱
 	WeatherLike int Not Null,--喜歡的天氣(5為最熱)
 	ModifyTime datetime Not Null,--異動時間
-	StationName nvarchar (50) Null,--可以記錄使用者目前所在城市
+	CityId bigint,
+	VilageName nvarchar (50) Null,--可以記錄使用者目前所在鄉鎮區
 	Clock datetime,
 	-- StationName, CityName 地區
-	CityId bigint
+	-- TODO: 把程式碼內(包含資料庫的)staionName改成VilageName
+	-- TODO: weatherController 內也要改API 
+
 );
 
 select *
