@@ -1,3 +1,1 @@
-*.h5 filter=lfs diff=lfs merge=lfs -text
-classify/eff_final.h5 filter=lfs diff=lfs merge=lfs -text
-classify/h5/eff_final.h5 filter=lfs diff=lfs merge=lfs -text
+
