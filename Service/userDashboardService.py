@@ -18,10 +18,9 @@ class UserDashboardService:
             userDashboard_dict.append({ 'Id': data.Id, 
                                         'UserName': data.UserName, 
                                         'WeatherLike': data.WeatherLike, 
-                                        'StationName': data.StationName, 
                                         'Clock': data.Clock,
                                         'ModifyTime': data.ModifyTime,
-                                        'CityId': data.CityId})
+                                        'VillageId': data.VillageId})
         
         return userDashboard_dict
     
@@ -31,11 +30,10 @@ class UserDashboardService:
         
         userDashboard_dict = {  'Id': data.Id, 
                                 'UserName': data.UserName, 
-                                'WeatherLike': data.WeatherLike, 
-                                'StationName': data.StationName, 
+                                'WeatherLike': data.WeatherLike,  
                                 'Clock': data.Clock,
                                 'ModifyTime': data.ModifyTime,
-                                'CityId': data.CityId}
+                                'VillageId': data.VillageId}
         return userDashboard_dict
 
     def updateById(self, request, id):

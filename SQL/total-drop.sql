@@ -21,13 +21,14 @@ drop table  clothes_graph
 --天氣相關
 drop table  city
 drop table  station
+drop table  village
 --show
 drop view   v_category_clothes
 drop view   v_clothes_graph
 drop view   v_clothes_node
 drop view   v_color_graph
 drop view   v_station
-
+drop view   v_village
 
 
 -------------------------舊版

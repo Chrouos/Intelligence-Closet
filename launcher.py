@@ -16,6 +16,7 @@ from Controller.weatherInformationAPI import WeatherInformationAPI
 from Service.colorService import ColorService
 from Service.subCategoryService import SubCategoryService
 from Service.viewStationService import ViewStationService
+from Service.viewVillageService import ViewVillageService
 from Service.cityService import CityService
 from Service.userDashboardService import UserDashboardService
 from Service.ClothesNodeService import ClothesNodeService
@@ -25,6 +26,7 @@ from Service.ClothesNodeOtherService import ClothesNodeOtherService
 from Service.viewClothesNodeService import ViewClothesNodeService
 from Service.viewClothesNodeService import ViewClothesNodeService
 from Service.viewCategoryClothesService import ViewCategoryClothesService
+from Service.viewUserDashboardService import ViewUserDashboardService
 
 user_id = 1
  
@@ -115,7 +117,7 @@ def weather_to_js(st):  # 傳送天氣資訊
 
 
 @eel.expose
-def station_city_to_js():  # 傳送所有縣市資訊
+def city_to_js():  # 傳送所有縣市資訊
 
     cityService = CityService()
     city_dict = cityService.queryAll()
@@ -133,13 +135,22 @@ def station_station_to_js(city):
     return station_dict
 
 
+@eel.expose
+def village_to_js(city):
+    viewVillageService = ViewVillageService()
+    village_dict = viewVillageService.queryByCityId(city)
+
+    print("village: ", village_dict, city)
+    return village_dict
+
+
 ################################################################################## user
 
 
 @eel.expose
 def user_by_id_to_js():
-    userDashboardService = UserDashboardService()
-    user_dict = userDashboardService.queryById(user_id)  # 預設為2
+    viewUserDashboardService = ViewUserDashboardService()
+    user_dict = viewUserDashboardService.queryById(user_id)  # 預設為2
 
     print("user_by_id_to_js: ", user_dict)
     return user_dict

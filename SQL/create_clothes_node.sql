@@ -1,5 +1,7 @@
 -- 在資料庫中負責存取有關於衣物節點有相關的資訊，目的在於為了管理與紀錄衣物資訊，包含衣物的資訊與使用紀錄等，也方便後續演算進行運算。
 
+drop table clothes_node
+
 create table clothes_node
 (
 	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- 編號 ( 1, 2, 3 ... )

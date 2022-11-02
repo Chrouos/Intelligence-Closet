@@ -3,25 +3,32 @@
 from asyncio.windows_events import NULL
 from datetime import datetime
 
-class UserDashboard:
+class ViewUserDashboard:
     
     def __init__(self):
         self.Id = -1
         self.UserName = ""
         self.WeatherLike = ""
-        self.VillageId = ""
-        self.Clock = ""
         self.ModifyTime = ""
+        self.Clock = ""
+        self.VillageId = ""
+        self.VillageName = ""
+        self.CityId = ""
+        self.CityName = ""
         
     def print(self):
         print("Id: {0}, UserName: {1}, WeatherLike: {2}".format(self.Id, self.UserName, self.WeatherLike))
-        print("VillageId: {0}, Clock: {1}, ModifyTime: {2}".format(self.VillageId, self.Clock, self.ModifyTime))
+        print("ModifyTime: {0}, Clock: {1}, VillageId: {2}".format(self.ModifyTime, self.Clock, self.VillageId))
+        print("VillageName: {0}, CityId: {1}, CityName: {2}".format(self.VillageName, self.CityId, self.CityName))
         
     def updateBySQL(self, data):
         self.Id = data.Id
         self.UserName = data.UserName
         self.WeatherLike = data.WeatherLike
         self.VillageId = data.VillageId
+        self.VillageName = data.VillageName
+        self.CityId = data.CityId
+        self.CityName = data.CityName
         print("CLOCK: ", data.Clock)
         if data.Clock != None:
             self.Clock = data.Clock.strftime("%H/%M")
@@ -40,6 +47,15 @@ class UserDashboard:
             
         if data.get("VillageId") != None: 
             self.VillageId = data['VillageId']
+
+        if data.get("VillageName") != None: 
+            self.VillageName = data['VillageName']
+
+        if data.get("CityId") != None: 
+            self.CityId = data['CityId']
+
+        if data.get("CityName") != None: 
+            self.CityName = data['CityName']
 
         try:
             if data.get("Clock") != None: 

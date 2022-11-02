@@ -1042,3 +1042,20 @@ AS
 		inner join city as ci on ci.Id = st.CityId
 
 ----------------------------------------------------------
+create view v_station
+AS
+	select
+		st.Id,
+		st.StationNumber,
+		st.StationName,
+		st.CityId,
+		ci.CityName,
+		st.Address,
+		st.Remark,
+		st.CreateTime,
+		st.ModifyTime,
+		st.Work
+	from station as st
+		inner join city as ci on ci.Id = st.CityId
+
+----------------------------------------------------------

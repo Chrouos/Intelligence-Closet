@@ -35,6 +35,7 @@ app.controller('myCtrl', function ($scope) {
 
     // 更新資料
     $scope.update_user = async function () {
+        //console.log($scope.user);
         var isSuccess = await eel.update_user_dashboard($scope.user)();
         if (isSuccess == true) {
             $scope.user_by_id_to_js();
@@ -42,16 +43,23 @@ app.controller('myCtrl', function ($scope) {
         $scope.closeEdit();
     }
 
-    // 從 Python中 獲得所有城鎮 顯示在 option 選項中
-    $scope.get_station_city = async function () {
-        $scope.allCitys = await eel.station_city_to_js()();
-        $scope.isCity_getStationByCity();
-    }; $scope.get_station_city();
+    // 從 Python中 獲得所有縣市 顯示在 option 選項中
+    $scope.get_city = async function () {
+        $scope.allCitys = await eel.city_to_js()();
+        // $scope.isCity_getStationByCity();
+        $scope.isCity_getVillageByCity();
+    }; $scope.get_city();
 
     // 從 Python中 獲得縣市氣象站別 顯示在 option 選項中
-    $scope.isCity_getStationByCity = async function () {
-        var stationByCity = await eel.station_station_to_js($scope.user.CityId)();
-        $scope.stationByCity = stationByCity;
+    // $scope.isCity_getStationByCity = async function () {
+    //     var stationByCity = await eel.station_station_to_js($scope.user.CityId)();
+    //     $scope.stationByCity = stationByCity;
+    // }
+
+     // 從 Python中 獲得所有鄉鎮 顯示在 option 選項中
+     $scope.isCity_getVillageByCity = async function () {
+        var villageByCity = await eel.village_to_js($scope.user.CityId)();
+        $scope.villageByCity = villageByCity;
     }
 
 });
