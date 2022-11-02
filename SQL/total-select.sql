@@ -1,17 +1,17 @@
---¨Ï¥ÎªÌ¬ÛÃö
+--ä½¿ç”¨è€…ç›¸é—œ
 select * from user_dashboard
---¦çªA¸ê°T¬ÛÃö
+--è¡£æœè³‡è¨Šç›¸é—œ
 select * from clothes_node_upper
 select * from clothes_node_lower
 select * from clothes_node_other
 select * from category
 select * from color
 select * from sub_category
---±ÀÂË¬ÛÃö
+--æ¨è–¦ç›¸é—œ
 select * from node_graph
 select * from color_graph
 select * from clothes_graph
---¤Ñ®ğ¬ÛÃö
+--å¤©æ°£ç›¸é—œ
 select * from city
 select * from station
 --show
@@ -20,3 +20,5 @@ select * from v_clothes_graph
 select * from v_clothes_node
 select * from v_color_graph
 select * from v_station
+select * from v_village
+select * from v_user_dashboard

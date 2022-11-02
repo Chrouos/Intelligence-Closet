@@ -1,12 +1,14 @@
---­t³d¦s¨ú¦³Ãö©ó¦çª«»P¦çª«¤§¶¡ªºÃöÁp©Ê¡A¥ÎµL¹³¹Ïªº·§©À»s§@¡A¤£­«½Æ¥BµL¤è¦VÃö«Y¡C
+--è² è²¬å­˜å–æœ‰é—œæ–¼è¡£ç‰©èˆ‡è¡£ç‰©ä¹‹é–“çš„é—œè¯æ€§ï¼Œç”¨ç„¡åƒåœ–çš„æ¦‚å¿µè£½ä½œï¼Œä¸é‡è¤‡ä¸”ç„¡æ–¹å‘é—œä¿‚ã€‚
+
+drop table node_graph
 
 CREATE TABLE intelligence_closet.dbo.node_graph
 (
 	Id bigint IDENTITY(1,1) NOT NULL,
-	UpperId bigint NULL,-- ¤W¥b¨­¦çª«Id
-	LowerId bigint NULL,-- ¤U¥b¨­¦çª«Id
-	OtherId bigint NULL,-- ¨ä¥L¦çª«Id
-	UserLike bigint NULL,-- ¨Ï¥ÎªÌ³ß¦n«×
+	UpperId bigint NULL,-- ä¸ŠåŠèº«è¡£ç‰©Id
+	LowerId bigint NULL,-- ä¸‹åŠèº«è¡£ç‰©Id
+	OtherId bigint NULL,-- å…¶ä»–è¡£ç‰©Id
+	UserLike bigint NULL,-- ä½¿ç”¨è€…å–œå¥½åº¦
 	CreateTime datetime NOT NULL,
 	ModifyTime datetime NOT NULL,
 	CONSTRAINT PK__node_gra__3214EC0755D155C9 PRIMARY KEY (Id)
