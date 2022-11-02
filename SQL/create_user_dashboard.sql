@@ -1,19 +1,17 @@
--- ­t³dÀx¦s¨Ï¥ÎªÌ¦Û¤vªº¨Ï¥Î²ßºD¡A¨Ò¦p¤ñ¸û©È§N©Î¬O©È¼ö¡A³ßÅw¬ï¤°»òÃş«¬ªº¦çª«¡A¨Ï¥Î²ßºDµ¥µ¥¡C
+-- è² è²¬å„²å­˜ä½¿ç”¨è€…è‡ªå·±çš„ä½¿ç”¨ç¿’æ…£ï¼Œä¾‹å¦‚æ¯”è¼ƒæ€•å†·æˆ–æ˜¯æ€•ç†±ï¼Œå–œæ­¡ç©¿ä»€éº¼é¡å‹çš„è¡£ç‰©ï¼Œä½¿ç”¨ç¿’æ…£ç­‰ç­‰ã€‚
 drop table user_dashboard
 
 create table user_dashboard
 (
 
-	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- ½s¸¹ ( 1, 2, 3 ... )
-	UserName nvarchar(50) Null,--¨Ï¥ÎªÌ¦WºÙ
-	WeatherLike int Not Null,--³ßÅwªº¤Ñ®ğ(5¬°³Ì¼ö)
-	ModifyTime datetime Not Null,--²§°Ê®É¶¡
-	CityId bigint,
-	VilageName nvarchar (50) Null,--¥i¥H°O¿ı¨Ï¥ÎªÌ¥Ø«e©Ò¦b¶mÂí°Ï
+	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- ç·¨è™Ÿ ( 1, 2, 3 ... )
+	UserName nvarchar(50) Null,--ä½¿ç”¨è€…åç¨±
+	WeatherLike int Not Null,--å–œæ­¡çš„å¤©æ°£(5ç‚ºæœ€ç†±)
+	ModifyTime datetime Not Null,--ç•°å‹•æ™‚é–“
+	VillageId bigint,--å¯ä»¥è¨˜éŒ„ä½¿ç”¨è€…ç›®å‰æ‰€åœ¨åŸå¸‚&é„‰é®
 	Clock datetime,
-	-- StationName, CityName ¦a°Ï
-	-- TODO: §âµ{¦¡½X¤º(¥]§t¸ê®Æ®wªº)staionName§ï¦¨VilageName
-	-- TODO: weatherController ¤º¤]­n§ïAPI 
+	-- TODO: æŠŠç¨‹å¼ç¢¼å…§(åŒ…å«è³‡æ–™åº«çš„)staionNameæ”¹æˆVilageId
+	-- TODO: weatherController å…§ä¹Ÿè¦æ”¹API 
 
 );
 
@@ -22,4 +20,4 @@ from user_dashboard
 
 insert into user_dashboard
 VALUES
-	('DiuDu', 5, GETDATE(), 0, GETDATE(), 0)
+	('DiuDu', 5, GETDATE(), 1, GETDATE())
