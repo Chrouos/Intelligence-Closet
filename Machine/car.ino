@@ -131,22 +131,24 @@ void loop() {
     }
     exportButtonLastState = exportButtonRead;  // 保存处理结果
     // -------------------- entrance button -------------------- //
+    Serial.println("nowStep " + String(nowStep) + ", start " + String(start));
 
-    if (nowStep == 1) {
-        if (isTri == true) {
+    if (nowStep == 1 && start == true) {
+        if (isTri == true && isDone == false) {
             digitalWrite(trigPin, HIGH);  //發射超音波
             isTri = false;
             trigNow = millis();
-        } else if (isTri == false && millis() - trigNow >= 1000) {
+        } else if (isTri == false && millis() - trigNow >= 500) {
             digitalWrite(trigPin, LOW);
             Duration = pulseIn(echoPin, HIGH);  //超音波發射到接收的時間
             Distance = Duration * 0.034 / 2;  //計算距離(cm)
             isTri = true;
+            Serial.println("Distance " + String(Distance));
 
-            if (Distance <= 20 && isDone == false) {
+            if (Distance <= 20) {
                 mstop(entrance_L298N1_In1, entrance_L298N1_In2,
                       export_L298N1_In3, export_L298N1_In4);
-                delay(2000);
+                delay(5000);
                 mfront(entrance_L298N1_In1, entrance_L298N1_In2,
                        export_L298N1_In3, export_L298N1_In4);
                 isDone = true;
