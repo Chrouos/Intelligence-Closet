@@ -1,25 +1,38 @@
-int const trigPin = 13;
-int const echoPin = 12;
-int Duration;
-int Distance;
+#include <Stepper.h>
+// 定義步進馬達轉一圈所需的步數及輸出的腳位
+Stepper stepper(200,
+                8,
+                9,
+                10,
+                11);  // 360 / 120(120步可以轉一圈) = 30(每一步30度)
+const int startButton = 33;  // 切換開始
+int startButtonState;
+int startButtonLastState = LOW;
+long startButtonlastDebounceTime = 0;  // 按键最后一次被触发
+long startButtondebounceDelay =
+    50;  // 为了滤去抖动暂停的时间，如果发现输出不正常增加这个值
 
 void setup() {
-    Serial.begin(9600);
-    pinMode(trigPin, OUTPUT);
-    pinMode(echoPin, INPUT);
-    digitalWrite(trigPin, LOW);
+    // 將馬達速度設定為每分鐘80轉(RPM)
+    stepper.setSpeed(52);
 }
-
-int isTri = true, trigNow = 0, echoNow = 0;
 void loop() {
-    if (isTri == true) {
-        digitalWrite(trigPin, HIGH);  //發射超音波
-        isTri = false;
-        trigNow = millis();
-    } else if (isTri == false && millis() - trigNow >= 1000) {
-        digitalWrite(trigPin, LOW);
-        Duration = pulseIn(echoPin, HIGH);  //超音波發射到接收的時間
-        Distance = Duration * 0.034 / 2;    //計算距離(cm)
-        isTri = true;
+    // -------------------- start button -------------------- //
+    int startButtonnRead = digitalRead(startButton);
+    if (startButtonnRead != startButtonLastState) {  // 如果按键状态和上次不同
+        startButtonlastDebounceTime = millis();  // 记录初始时间
     }
+    if ((millis() - startButtonlastDebounceTime) > startButtondebounceDelay) {
+        if (startButtonnRead != startButtonState) {  // 如果按键状态改变了
+            startButtonState = startButtonnRead;
+
+            // 切換了開始
+            if (startButtonnRead == HIGH) {
+                stepper.step(200 / 12);  //正半圈
+                Serial.println("1 ");
+            }
+        }
+    }
+    startButtonLastState = startButtonnRead;  // 保存处理结果
+                                              // 馬達行進步數
 }
