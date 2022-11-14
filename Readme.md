@@ -10,6 +10,7 @@ pip install regex
 pip install eel
 pip install matplotlib
 pip install opencv-python
+pip install machine
 ```
 
 # 安裝sql 環境
