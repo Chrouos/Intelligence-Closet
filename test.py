@@ -29,8 +29,9 @@ from Service.viewStationService import ViewStationService
 ## Controller
 # from Controller.crawlerStationController import CrawlerStationController
 # from Controller.camaraController import CamaraController
-from Controller.clothesGraphController import ClothesGraphController
+# from Controller.clothesGraphController import ClothesGraphController
 # from Controller.weatherInformationAPI import WeatherInformationAPI
+from Controller.weatherAPI import WeatherAPI
 
 # 1. Category
 # categoryService = CategoryService()
@@ -172,13 +173,17 @@ from Controller.clothesGraphController import ClothesGraphController
 # camaraController.printResult()
 
 # 圖形物件
-clothesGraphController = ClothesGraphController('板橋')
-clothesGraphController.updateNode()
-clothesGraphController.printNode()
-clothesGraphController.printEdge()
-clothesGraphController.getCombination()
+# clothesGraphController = ClothesGraphController('板橋')
+# clothesGraphController.updateNode()
+# clothesGraphController.printNode()
+# clothesGraphController.printEdge()
+# clothesGraphController.getCombination()
 
 ## 天氣物件
 # weatherInformationAPI = WeatherInformationAPI('花蓮')
 # weatherInformationAPI.getWeather()
 # weatherInformationAPI.printWeather()
+
+## 天氣物件
+weatherAPI = WeatherAPI(174)
+weatherAPI.getWeather()
