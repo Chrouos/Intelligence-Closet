@@ -192,3 +192,18 @@ class ViewClothesNodeDAO:
             viewClothesNodeLists.append(viewClothesNode)
 
         return viewClothesNodeLists
+    
+    def queryPositionExitNode(self):
+        execute_str = "SELECT * FROM v_clothes_node vcn WHERE Position != null;"
+        print("queryPositionExitNode: ", execute_str)
+
+        self.cursor.execute(execute_str)
+        datas = self.cursor.fetchall()
+
+        viewClothesNodeLists = []
+        for data in datas:
+            viewClothesNode = ViewClothesNode()
+            viewClothesNode.updateBySQL(data)
+            viewClothesNodeLists.append(viewClothesNode)
+
+        return viewClothesNodeLists

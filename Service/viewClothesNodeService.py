@@ -216,3 +216,33 @@ class ViewClothesNodeService:
             })
 
         return viewClothesNode_dict
+    
+    # 搜尋全部資料: 轉換成字典
+    def queryPositionExitNode(self):
+
+        viewClothesNode_dict = []
+        datas = self.viewClothesNodeDAO.queryPositionExitNode()
+
+        for data in datas:
+            viewClothesNode_dict.append({
+                'Id': data.Id,
+                'Position': data.Position,
+                'SubCategoryId': data.SubCategoryId,
+                'SubCategoryName': data.SubCategoryName,
+                'CategoryId': data.CategoryId,
+                'Score': data.Score,
+                'CategoryName': data.CategoryName,
+                'ColorId': data.ColorId,
+                'ColorEngName': data.ColorEngName,
+                'ColorName': data.ColorName,
+                'UserPreferences': data.UserPreferences,
+                'WarmLevel': data.WarmLevel,
+                'ClothesStyle': data.ClothesStyle,
+                'UsageCounter': data.UsageCounter,
+                'CreateTime': data.CreateTime,
+                'ModifyTime': data.ModifyTime,
+                'FilePosition': data.FilePosition,
+                'IsFavorite': data.IsFavorite,
+            })
+
+        return viewClothesNode_dict

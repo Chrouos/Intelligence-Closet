@@ -1,5 +1,4 @@
 import sys, os
-
 sys.dont_write_bytecode = True  # 不產生 pyc
 
 import json
@@ -30,7 +29,7 @@ from Service.viewStationService import ViewStationService
 ## Controller
 # from Controller.crawlerStationController import CrawlerStationController
 # from Controller.camaraController import CamaraController
-# from Controller.clothesGraphController import ClothesGraphController
+from Controller.clothesGraphController import ClothesGraphController
 # from Controller.weatherInformationAPI import WeatherInformationAPI
 
 # 1. Category
@@ -134,9 +133,9 @@ from Service.viewStationService import ViewStationService
 # print("3. 依據類別搜尋: ", viewCategoryClothesService.queryByCategoryId(1))
 
 # 11. ViewClothesGraphService
-viewClothesGraphService = ViewClothesGraphService()
-print("1. 搜尋全部 LIST: ", viewClothesGraphService.queryAll())
-print(viewClothesGraphService.queryById(2))
+# viewClothesGraphService = ViewClothesGraphService()
+# print("1. 搜尋全部 LIST: ", viewClothesGraphService.queryAll())
+# print(viewClothesGraphService.queryById(2))
 
 # 12 ViewClothesNode
 # viewClothesNodeService = ViewClothesNodeService()
@@ -173,11 +172,11 @@ print(viewClothesGraphService.queryById(2))
 # camaraController.printResult()
 
 # 圖形物件
-# clothesGraphController = ClothesGraphController('板橋')
-# clothesGraphController.updateNode()
-# clothesGraphController.printNode()
-# clothesGraphController.printEdge()
-# clothesGraphController.getCombination()
+clothesGraphController = ClothesGraphController('板橋')
+clothesGraphController.updateNode()
+clothesGraphController.printNode()
+clothesGraphController.printEdge()
+clothesGraphController.getCombination()
 
 ## 天氣物件
 # weatherInformationAPI = WeatherInformationAPI('花蓮')
