@@ -29,7 +29,6 @@ from Service.viewCategoryClothesService import ViewCategoryClothesService
 from Service.viewUserDashboardService import ViewUserDashboardService
 
 user_id = 1
- 
 
 # 衣物圖形
 @eel.expose

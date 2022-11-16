@@ -7,31 +7,31 @@ from Model.Domain.station import Station
 
 sys.path.append(os.getcwd())  # 抓取路徑
 
-from Service.categoryService import CategoryService
-from Service.cityService import CityService
-from Service.colorService import ColorService
-from Service.ClothesNodeLowerService import ClothesNodeLowerService
-from Service.ClothesNodeUpperService import ClothesNodeUpperService
-from Service.ClothesNodeOtherService import ClothesNodeOtherService
-from Service.ClothesNodeService import ClothesNodeService
+# from Service.categoryService import CategoryService
+# from Service.cityService import CityService
+# from Service.colorService import ColorService
+# from Service.ClothesNodeLowerService import ClothesNodeLowerService
+# from Service.ClothesNodeUpperService import ClothesNodeUpperService
+# from Service.ClothesNodeOtherService import ClothesNodeOtherService
+# from Service.ClothesNodeService import ClothesNodeService
 
-from Service.colorGraphService import ColorGraphService
-from Service.stationService import StationService
-from Service.subCategoryService import SubCategoryService
-from Service.nodeGraphService import NodeGraphService
-from Service.userDashboardService import UserDashboardService
-from Service.viewCategoryClothesService import ViewCategoryClothesService
-from Service.viewClothesGraphService import ViewClothesGraphService
+# from Service.colorGraphService import ColorGraphService
+# from Service.stationService import StationService
+# from Service.subCategoryService import SubCategoryService
+# from Service.nodeGraphService import NodeGraphService
+# from Service.userDashboardService import UserDashboardService
+# from Service.viewCategoryClothesService import ViewCategoryClothesService
+# from Service.viewClothesGraphService import ViewClothesGraphService
 # from Service.viewClothesNodeService import ViewClothesNodeService
-from Service.viewColorGraphService import ViewColorGraphService
-from Service.viewStationService import ViewStationService
+# from Service.viewColorGraphService import ViewColorGraphService
+# from Service.viewStationService import ViewStationService
 
 ## Controller
 # from Controller.crawlerStationController import CrawlerStationController
 # from Controller.camaraController import CamaraController
 # from Controller.clothesGraphController import ClothesGraphController
 # from Controller.weatherInformationAPI import WeatherInformationAPI
-from Controller.weatherAPI import WeatherAPI
+# from Controller.weatherAPI import WeatherAPI
 
 # 1. Category
 # categoryService = CategoryService()
@@ -173,19 +173,11 @@ from Controller.weatherAPI import WeatherAPI
 # camaraController.printResult()
 
 # 圖形物件
-<<<<<<< HEAD
-clothesGraphController = ClothesGraphController('板橋')
-clothesGraphController.updateNode()
-# clothesGraphController.printNode()
-# clothesGraphController.printEdge()
-clothesGraphController.getCombination()
-=======
 # clothesGraphController = ClothesGraphController('板橋')
 # clothesGraphController.updateNode()
 # clothesGraphController.printNode()
 # clothesGraphController.printEdge()
 # clothesGraphController.getCombination()
->>>>>>> f6a21ee0687fd22a48a3c333a980ff0269cbe6f2
 
 ## 天氣物件
 # weatherInformationAPI = WeatherInformationAPI('花蓮')
@@ -193,5 +185,5 @@ clothesGraphController.getCombination()
 # weatherInformationAPI.printWeather()
 
 ## 天氣物件
-weatherAPI = WeatherAPI(174)
-weatherAPI.getWeather()
+# weatherAPI = WeatherAPI(174)
+# weatherAPI.getWeather()

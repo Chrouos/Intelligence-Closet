@@ -9,7 +9,7 @@ AS
 		ci.CityName,
 		vi.VillageName,
 		ci.DayAPIId,
-		ci.WeekAPIID 
+		ci.WeekAPIId
 	from village as vi
 		inner join city as ci on ci.Id = vi.CityId;
 
