@@ -194,7 +194,7 @@ class ViewClothesNodeDAO:
         return viewClothesNodeLists
     
     def queryPositionExitNode(self):
-        execute_str = "SELECT * FROM v_clothes_node vcn WHERE Position != null;"
+        execute_str = "SELECT * FROM v_clothes_node vcn WHERE Position is not null;"
         print("queryPositionExitNode: ", execute_str)
 
         self.cursor.execute(execute_str)

@@ -41,6 +41,7 @@ class ClothesGraphController:
                 self.graphs.append([
                                     viewClothesNodeDAO.queryById(gNode['UpperClothesId']),
                                     viewClothesNodeDAO.queryById(gNode['LowerClothesId']),
+                                    gNode['TotalScore'],
                                     gNode['TotalPreferences'],
                                     gNode['UserLike']])
             # ^ 衣物節點1, 衣物節點2, 天氣分數總分, 喜好分數總分, 
@@ -48,13 +49,13 @@ class ClothesGraphController:
 
     def printNode(self):
         for n in self.nodes:
-            print("編號: {0}\n位置: {1}\n衣服種類:{2}".format(n['Id'], n['Position'], n['Name'])) 
+            print("編號: {0}\n位置: {1}\n衣服種類:{2}".format(n['Id'], n['Position'], n['SubCategoryName'])) 
             print("顏色:{0}\n檔案位置:{1}".format(n['ColorName'], n['FilePosition']))
             print("-------------")
             
     def printEdge(self):
         for graph in self.graphs:
-            print("位置: {0} & {1}, 樣式: {4}{2} & {5}{3}, 天氣分數:{6}, 喜好分數:{7}".format(graph[0].Position, graph[1].Position, graph[0].CategoryName, graph[1].CategoryName, graph[0].ColorName, graph[1].ColorName, graph[2], graph[3]))
+            print("位置: {0} & {1}, 樣式: {4}{2} & {5}{3}, 天氣分數:{6}, 喜好分數:{7}, 組合喜好分數: {8}".format(graph[0].Position, graph[1].Position, graph[0].CategoryName, graph[1].CategoryName, graph[0].ColorName, graph[1].ColorName, graph[2], graph[3], graph[4]))
             # print(gr[0].position, gr[1].position)
 
     def getCombination(self):
@@ -75,18 +76,19 @@ class ClothesGraphController:
         
         # 公式: ( 26 - 使用者喜好) - ( diff - 天氣分數總合)
         for graph in self.graphs:
-            result = math.floor((diff - graph[2]))
+            # result = math.floor((diff - graph[2]))
+            result = abs(diff -  - graph[2])
             print("result: ", result, graph[2])
             combs.append([  result,
                             graph[0].Position, graph[1].Position,
                             graph[0].ColorName, graph[1].ColorName,
-                            graph[0].CategoryName, graph[1].CategoryName,
+                            graph[0].SubCategoryName, graph[1].SubCategoryName,
                             graph[0].FilePosition, graph[1].FilePosition])
             
             combs_dict_list.append({'ResultScore': result,
                                     'Clothes1Position': graph[0].Position, 'Clothes2Position': graph[1].Position,
                                     'Clothes1Color': graph[0].ColorName, 'Clothes2Color': graph[1].ColorName,
-                                    'Clothes1Name': graph[0].CategoryName, 'Clothes2Name': graph[1].CategoryName,
+                                    'Clothes1Name': graph[0].SubCategoryName, 'Clothes2Name': graph[1].SubCategoryName,
                                     'Clothes1Path': graph[0].FilePosition, 'Clothes2Path': graph[1].FilePosition})
         
         # combs.sort(reverse = False)

@@ -174,8 +174,8 @@ from Controller.clothesGraphController import ClothesGraphController
 # 圖形物件
 clothesGraphController = ClothesGraphController('板橋')
 clothesGraphController.updateNode()
-clothesGraphController.printNode()
-clothesGraphController.printEdge()
+# clothesGraphController.printNode()
+# clothesGraphController.printEdge()
 clothesGraphController.getCombination()
 
 ## 天氣物件

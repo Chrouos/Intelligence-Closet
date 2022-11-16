@@ -26,6 +26,7 @@ class ViewClothesGraph:
         self.TotalPreferences = 0
         self.ColorScore = 0
         self.UserLike = 0
+        self.TotalScore = 0
 
     def print(self):
         print("ViewClothesGraph: ")
@@ -56,6 +57,8 @@ class ViewClothesGraph:
         self.TotalPreferences = data.TotalPreferences
         self.ColorScore = data.ColorScore
         self.UserLike = data.UserLike
+        
+        self.TotalScore = data.TotalScore
 
     def updateByDict(self, data):
         if data.get("Id") != None:
@@ -109,3 +112,6 @@ class ViewClothesGraph:
 
         if data.get("ColorScore") != None:
             self.ColorScore = data.ColorScore
+        
+        if data.get("TotalScore") != None:
+            self.TotalScore = data.TotalScore

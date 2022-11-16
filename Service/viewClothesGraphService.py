@@ -36,7 +36,8 @@ class ViewClothesGraphService:
                 'OtherFilePosition': data.OtherFilePosition,
                 'TotalPreferences': data.TotalPreferences,
                 'UserLike': data.UserLike,
-                'ColorScore': data.ColorScore
+                'ColorScore': data.ColorScore,
+                'TotalScore': data.TotalScore
             })
 
         return viewClothesGraph_dict
@@ -67,6 +68,7 @@ class ViewClothesGraphService:
             'OtherFilePosition': data.OtherFilePosition,
             'TotalPreferences': data.TotalPreferences,
             'UserLike': data.UserLike,
-            'ColorScore': data.ColorScore
+            'ColorScore': data.ColorScore,
+            'TotalScore': data.TotalScore
         }
         return viewClothesGraph_dict
