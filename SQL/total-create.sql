@@ -41,8 +41,10 @@ values
 ----------------------------------------------------------
 create table city
 (
-	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- ½s¸¹ ( 1, 2, 3 ... )
-	CityName varchar(50)-- «°Âí¦WºÙ
+	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- 編號 ( 1, 2, 3 ... )
+	CityName varchar(50), -- 縣市名稱
+	DayAPIId varchar(50), -- 縣市兩日API ID
+	WeekAPIId varchar(50) -- 縣市一周API ID
 );
 ----------------------------------------------------------
 create table clothes_node_upper
@@ -1071,6 +1073,19 @@ as
 		ci.CityName
 	from user_dashboard as ud
 		inner join village as vi on vi.Id = ud.VillageId 
+		inner join city as ci on ci.Id = vi.CityId;
+
+----------------------------------------------------------
+create view v_village
+AS
+	select
+		vi.Id,
+		vi.CityId,
+		ci.CityName,
+		vi.VillageName,
+		ci.DayAPIId,
+		ci.WeekAPIID 
+	from village as vi
 		inner join city as ci on ci.Id = vi.CityId;
 
 ----------------------------------------------------------
