@@ -30,3 +30,6 @@ pip install machine
 ## 辨識
 + 影像像素 640 * 480
 
+## Model Link
+https://drive.google.com/file/d/1v_6Fj4ZRIB9F6AiU6hXszEdE2_sMmrOk/view?usp=share_link
+
