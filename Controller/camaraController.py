@@ -1,33 +1,31 @@
 # Identify: 將相機和辨識衣物做成物件
-
-import collections
 import os
 import sys
-from unicodedata import category
 
 import cv2
 import numpy as np
-import tensorflow as tf
-from keras_preprocessing import image
-import time
+
+from fastai.vision.all import *
+from fastai.vision.widgets import *
+
+import pandas as pd
+import joblib
+import numpy as np
+import cv2
 
 from Service.colorService import ColorService
 from Service.ClothesNodeService import ClothesNodeService
-from Service.ClothesNodeUpperService import ClothesNodeUpperService
-from Service.ClothesNodeLowerService import ClothesNodeLowerService
-from Service.ClothesNodeOtherService import ClothesNodeOtherService
-from Service.nodeGraphService import NodeGraphService
-
 from Service.viewClothesNodeService import ViewClothesNodeService
-
 from Service.subCategoryService import SubCategoryService
 
 sys.path.append(os.getcwd())  # 抓取路徑
 
 
+
 class CamaraController:
 
-    def __init__(self, camara):
+    def __init__(self, camara, clf):
+        self.clf = clf
         self.newOneId = -1  # 抓取資料庫最後一位
 
         self.getLastId()
@@ -43,8 +41,7 @@ class CamaraController:
         clothesNodeService = ViewClothesNodeService()
 
         self.newOneId = clothesNodeService.lastId() + 1
-        self.save_path = 'View/mui/public/src/clothes_' + str(
-            self.newOneId) + '.jpg'
+        self.save_path = 'View/mui/public/src/clothes_' + str(self.newOneId) + '.jpg'
         self.path = "./public/src/clothes_" + str(self.newOneId) + ".jpg"
 
         return self.newOneId
@@ -69,15 +66,6 @@ class CamaraController:
         clothesNodeService = ClothesNodeService()
         clothesNodeService.create(clothesNode_create)
 
-        # if categoryId == 1:
-        #     clothesNodeService = ClothesNodeUpperService()
-        #     clothesNodeService.create(clothesNode_create)
-        # elif categoryId == 2:
-        #     clothesNodeService = ClothesNodeLowerService()
-        #     clothesNodeService.create(clothesNode_create)
-        # else:
-        #     clothesNodeService = ClothesNodeOtherService()
-        #     clothesNodeService.create(clothesNode_create)
 
         return True
 
@@ -95,11 +83,9 @@ class CamaraController:
             ret, frame = cap.read()  # 讀取鏡頭畫面
             cv2.imshow("capture", frame)  # 生成攝像頭視窗
             countDown = countDown - 0.1
-            if cv2.waitKey(1) & 0xFF == ord(
-                    'q') or countDown <= 0:  # 如果按下q 就截圖儲存並退出
+            if cv2.waitKey(1) & 0xFF == ord('q') or countDown <= 0:  # 如果按下q 就截圖儲存並退出
 
-                outputSize = cv2.resize(frame,
-                                        (480, 640))  # to resize the image
+                outputSize = cv2.resize(frame, (480, 640))  # to resize the image
                 # cv2.imwrite(self.save_path, outputSize)
 
                 cap.release()
@@ -109,50 +95,14 @@ class CamaraController:
                 break
 
     def identifyCategory(self):
-        cls_list = [
-            'Blazer', '', 'Body', 'Dress', 'Hat', 'Hoodie', 'Longsleeve',
-            'Not_sure', '', 'Outwear', 'Pants', 'Polo', 'Shirt', 'Shoes',
-            'Shorts', '', 'Skirt', 'T-Shirt', '', 'Undershirt'
-        ]
-
-        # 關閉GPU加速功能(建議安裝無GPU版本，縮短初始化時間)
-        os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-
-        # 開啟800字典
-        words_path = './Controller/classify/archive/images.csv'
-        file1 = open(words_path, 'rt', encoding='Big5')
-        labels = list(file1.read())
-        file1.close()
-
-        # 載入模型
-        model = tf.compat.v1.keras.models.load_model(
-            './Controller/classify/h5/training_model.h5')
-
-        cls_list = [
-            'Blazer(x)', 'Blouse', 'Body', 'Dress', 'Hat', 'Hoodie',
-            'Longsleeve', 'Not_sure', 'Other', 'Outwear', 'Pants', 'Polo',
-            'Shirt', 'Shoes', 'Shorts', 'Skip', 'Skirt', 'T-Shirt', 'Top',
-            'Undershirt'
-        ]
-
-        try:
-            img = image.load_img(self.save_path, target_size=(224, 224))
-        except Exception as e:
-            print(self.save_path, e)
-
-        # 圖檔預處理
-        img = np.expand_dims(img, axis=0)  # 轉換通道
-        img = img / 255  # rescale
-
-        pred = model.predict(img)[0]  # 計算機率與預測結果
-        #print(pred) # 機率list
-        index = np.argmax(pred)
-        prediction = cls_list[index]
-
-        self.category = prediction
+        pre = self.clf.predict(self.save_path)
+        prediction = self.ClassifierLoop(pre)
+        # self.category = prediction
+        
+        
+        # print("identifyCategory prediction", prediction)
 
         return self.category
-        # print("CATEGORY: ", self.category)
 
     def identifyColor(self):
         frame = cv2.imread(self.save_path)
@@ -281,7 +231,22 @@ class CamaraController:
         dict['PURPLE'] = color_list
 
         return dict
+    
 
+    
+    def ClassifierLoop(self, predict):
+        label_list = predict[0]
+        tensorBase = predict[2]
+        
+        tens_list = []
+        for base in tensorBase:
+            if base.item() > 0.5:
+                tens_list.append(base.item())
+            
+        # print(tens_list, label_list)
+        self.category = label_list[np.argmax(tens_list)]
+        
+        return  self.category
     # https://www.twblogs.net/a/5c36d389bd9eee35b21d46e3
     # https://blog.csdn.net/ruoshui_t/article/details/109310806
 

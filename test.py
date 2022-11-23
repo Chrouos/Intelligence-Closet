@@ -28,7 +28,8 @@ sys.path.append(os.getcwd())  # 抓取路徑
 
 ## Controller
 # from Controller.crawlerStationController import CrawlerStationController
-# from Controller.camaraController import CamaraController
+from Controller.camaraController import *
+
 # from Controller.clothesGraphController import ClothesGraphController
 # from Controller.weatherInformationAPI import WeatherInformationAPI
 # from Controller.weatherAPI import WeatherAPI
@@ -164,13 +165,17 @@ sys.path.append(os.getcwd())  # 抓取路徑
 # crawlerStationController.refreshAllData()
 
 # 相機物件
-# camaraController = CamaraController(0)
+def get_x(r): return './images_original/'+r['image'] # create path to open images in the original folder
+def get_y(r): return r['label'].split(' ') # split the labels using space as a delimitter
+# 讀取圖檔
+clf = joblib.load('./Controller/joblib_export.pkl')
+camaraController = CamaraController(0, clf)
 # camaraController.getLastId()
 # camaraController.useCamara()
 # camaraController.identifyColor()
-# camaraController.identifyCategory()
+camaraController.identifyCategory()
 # camaraController.saveToSql()
-# camaraController.printResult()
+camaraController.printResult()
 
 # 圖形物件
 # clothesGraphController = ClothesGraphController('板橋')
