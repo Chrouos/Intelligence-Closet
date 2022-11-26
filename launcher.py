@@ -13,6 +13,7 @@ from Controller.crawlerStationController import CrawlerStationController
 from Controller.camaraController import CamaraController
 from Controller.clothesGraphController import ClothesGraphController
 from Controller.weatherInformationAPI import WeatherInformationAPI
+from Controller.weatherAPI import WeatherAPI
 from Service.colorService import ColorService
 from Service.subCategoryService import SubCategoryService
 from Service.viewStationService import ViewStationService
@@ -102,14 +103,13 @@ def get_all_color():
 
 ################################################################################## weather
 @eel.expose
-def weather_to_js(st):  # 傳送天氣資訊
+def weather_to_js():  # 傳送天氣資訊
 
     userDashboardService = UserDashboardService()
     user_dict = userDashboardService.queryById(user_id)  # 預設為2
 
-    we = WeatherInformationAPI(user_dict['StationName'])  # 地點
-    we = WeatherInformationAPI(st)
-    weather_list = we.getWeather()  # 獲得陣列(6個資訊)
+    we = WeatherAPI(user_dict['VillageId'])  # 地點Id
+    weather_list = we.getWeather()  # 獲得陣列(11個資訊)
     print("weather_to_js", weather_list)
 
     return weather_list

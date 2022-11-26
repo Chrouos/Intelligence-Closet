@@ -28,7 +28,7 @@ app.controller('myCtrl', function ($scope) {
     }
     /* ---------- 頁面切換 End ---------- */
 
-    // 從 Python中 角色資訊
+    // 從 Python中 獲得角色資訊
     $scope.user_by_id_to_js = async function () {
         $scope.user = await eel.user_by_id_to_js()();
     }; $scope.user_by_id_to_js();
@@ -61,5 +61,10 @@ app.controller('myCtrl', function ($scope) {
         var villageByCity = await eel.village_to_js($scope.user.CityId)();
         $scope.villageByCity = villageByCity;
     }
+
+     // 從 Python中 獲得天氣資訊
+    $scope.weather_to_js = async function () {
+        $scope.weather = await eel.weather_to_js()();
+    }; $scope.weather_to_js();
 
 });

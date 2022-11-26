@@ -45,16 +45,14 @@ class WeatherAPI:
         weekLocationId = 'F-D0047-' + viewVillage['WeekAPIId']
 
         token = 'CWB-A69F077C-C940-4912-9FC2-99F44AA41A25'  # 授權碼
-        # 需要的項目：溫度、濕度、今日最高溫、今日最低溫、最高溫時間、最低溫時間、小時最大風速、最大風速時間
-        required_item = 'T,AT,MaxAT,MinAT,Wx,WS,RH,PoP12h,CI,WeatherDescription'
-
+        # 需要的項目：溫度、體感溫度、天氣現象、風速、相對溼度、12h降雨機率、舒適度、天氣描述
+        required_item = 'T,AT,Wx,WS,RH,PoP12h,CI,WeatherDescription'
+        # 每3小時
         # 搜尋的網址：回傳JSON (DONE)
-        url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-093?Authorization=' + token + '&locationId=' + dayLocationId+ '&locationName=' + urllib.parse.quote(viewVillage['VillageName'])+ '&elementName=' + required_item
+        url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-093?Authorization=' + token + '&locationId=' + dayLocationId+ '&locationName=' + urllib.parse.quote(viewVillage['VillageName']) + '&elementName=' + required_item
         # print(url)
         Data = requests.get(url)
         data_json = Data.json()
-        # print(data_json)
-
         locations = data_json['records']['locations'][0]['location'][0]['weatherElement']
 
         data_dict ={}
@@ -63,19 +61,23 @@ class WeatherAPI:
             elementName = location['elementName']
             value = location['time'][0]['elementValue'][0]['value']
             data_dict[elementName] = value
-
-        url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-093?Authorization=' + token + '&locationId=' + weekLocationId+ '&locationName=' + urllib.parse.quote(viewVillage['VillageName'])+ '&elementName=UVI'
+        
+        # 每12小時
+        # 需要的項目：紫外線指數、最高體感溫度、最低體感溫度
+        required_item = 'MaxAT,MinAT,UVI'
+        url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-093?Authorization=' + token + '&locationId=' + weekLocationId+ '&locationName=' + urllib.parse.quote(viewVillage['VillageName']) + '&elementName=' + required_item
 
         Data = requests.get(url)
         data_json = Data.json()
-        location = data_json['records']['locations'][0]['location'][0]['weatherElement'][0]
-        elementName = location['elementName']
-        value = location['time'][0]['elementValue'][0]['value']
-        data_dict[elementName] = value
-        
-        self.__dataText = data_dict
 
-    # 獲得天氣資訊：溫度、濕度、最高溫、最低溫
+        locations = data_json['records']['locations'][0]['location'][0]['weatherElement']
+
+        for location in locations:
+            elementName = location['elementName']
+            value = location['time'][0]['elementValue'][0]['value']
+            data_dict[elementName] = value
+
+        self.__dataText = data_dict
 
     def getWeather(self):
 
@@ -87,7 +89,7 @@ class WeatherAPI:
 
             print(weather_dict)
 
-            # 回傳溫度溫度、濕度、最高溫、最低溫、最高溫時間點、最低溫時間點
+            # 回傳溫度、體感溫度、紫外線指數、最高體感溫度、最低體感溫度、天氣現象、風速、相對溼度、12h降雨機率、舒適度、天氣描述
             return weather_dict
         except:
             return "此站未提供天氣資訊"
@@ -109,7 +111,7 @@ WS: 風速
 RH: 相對溼度
 PoP12h: 12h降雨機率
 CI: 舒適度
-
+WeatherDescription: 天氣描述
 
 方法包含:
 刷新網址:dataText_AutoRefresh(!! 註: 每次使用都要刷新) 
