@@ -20,7 +20,7 @@ try:
             sleep(0.5)  # 暫停0.5秒，再執行底下接收回應訊息的迴圈
         elif choice == '2':
             print('傳送拿取指令')
-            ser.write(b'GO_PickUp\n')
+            ser.write(b'GO_PickUp_1\n')
             sleep(0.5)
         elif choice == 'e':
             ser.close()
@@ -39,6 +39,12 @@ try:
 
             if "Photograph" in mcu_feedback:
                 print("拍個照片")
+            
+            if "Input_The_Position_1" in mcu_feedback:
+                position_1 = 1
+                ser.write(b'position_1\n')
+                sleep(0.5)
+                print("拿取位置", position_1, "的衣服")
 
 except KeyboardInterrupt:
     ser.close()

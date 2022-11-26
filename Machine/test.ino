@@ -7,35 +7,37 @@ LiquidCrystal_I2C lcd(0x27, 16, 2); // I2C位址，默認為0x27或0x3F，依據
 
 
 // ----------------------------------------------- 變數設定 ----------------------------------------------- //
-long globalDelayTime = 50;  // 消斗的時間
 
 const int entranceButton = 22; // 入口的微動開關
-int entranceButtonState;
-int entranceButtonLastState = LOW;
-long entranceButtonlastDebounceTime = 0;  // 按了最後一次被觸發
-
 const int exportButton = 23; // 出口的微動開關
-int exportButtonState;
-int exportButtonLastState = LOW;
-long exportButtonlastDebounceTime = 0;  // 按了最後一次被觸發
-
-// 開始的微動開關
 const int startButton = 31;  // 切換開始
-int startButtonState;
-int startButtonLastState = LOW;
-long startButtonlastDebounceTime = 0;  // 按了最後一次被觸發
-
 // 車車(減速馬達)的L298N
 const int entrance_L298N1_In1 = 2;
 const int entrance_L298N1_In2 = 3;
 const int export_L298N1_In3 = 4;
 const int export_L298N1_In4 = 5;
-
 // 超音波
 const int trigPin = 13;
 const int echoPin = 12;
-int Duration;
-int Distance;
+// 電磁鐵
+const int  electromagnet = 1;
+
+long globalDelayTime = 50;  // 消斗的時間
+
+int entranceButtonState; // 入口微動開關的狀態
+int entranceButtonLastState = LOW; // 入口微動開關的最後狀態
+long entranceButtonlastDebounceTime = 0;  // 按了最後一次被觸發
+
+int exportButtonState; // 出口微動開關的狀態
+int exportButtonLastState = LOW; // 出口微動開關的最後狀態
+long exportButtonlastDebounceTime = 0;  // 按了最後一次被觸發
+
+int startButtonState; // 開始微動開關的狀態
+int startButtonLastState = LOW; // 開始微動開關的最後狀態
+long startButtonlastDebounceTime = 0;  // 按了最後一次被觸發
+
+int Duration; // 超音波發射到接收的時間
+int Distance; // 距離
 int isTri = true, trigNow = 0, echoNow = 0, isDone = false;
 
 // 全域控制
@@ -78,23 +80,25 @@ void loop() {
         if (command == "GO_Storage" && nowStep == 2 && start == false) {
             Serial.println("GO Storage");
 
+            // TODO: 檢視口的伺服馬達鉤子烙下
+
             // 開始步驟   
             nowStep = 1;
             start = true;
             setUpLCD(1, 0, "start:" + String((start == true) ? "true " : "false"));
             setUpLCD(1, 1, "nowStep:" + String((nowStep == 1) ? "front" : "back " ));
-            
 
             // 動作
             digitalWrite(LED_BUILTIN, HIGH);
             while(start == true){
+
                 // mfront(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4); // 馬達前進
                 
                 // 準備拍照
                 if (isTri == true && isDone == false) { // 可發射 且 未完成拍照 (持續發射)
-                    digitalWrite(trigPin, HIGH);    // 發射超音波
-                    isTri = false;                  // 不可發射
-                    trigNow = millis();             // 計算發射時間(start)
+                    digitalWrite(trigPin, HIGH);        // 發射超音波
+                    isTri = false;                      // 不可發射
+                    trigNow = millis();                 // 計算發射時間(start)
                 } else if (isTri == false && millis() - trigNow >= 500) { // 不可發射 且 發射時間大於0.5s (停止發射)
                     isTri = true;                           // 可重新發射了
 
@@ -129,8 +133,21 @@ void loop() {
                     Serial.println("GO Storage Button True");
                     start = false;
                 }
+
             }
             // mstop(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4); // 馬達停下
+
+            // TODO: 伺服馬達鉤子抬起
+            // TODO: 反轉兩秒
+            // TODO: 圓盤轉至「位置為無」
+
+            // 正轉 ~ 停止
+            motor_running(1);
+            
+            // TODO: 伺服馬達鉤子落下
+
+            // 後退 ~ 停止
+            motor_running(2);
 
             // 結束步驟
             setUpLCD(1, 0, "start:" + String((start == true) ? "true " : "false"));
@@ -142,8 +159,10 @@ void loop() {
         // ---------------- 存放 END ---------------- //
 
         // ---------------- 拿取 START---------------- //
-        else if (command == "GO_PickUp" && nowStep == 1 && start == false) {
+        else if (command == "GO_PickUp_1" && nowStep == 1 && start == false) {
             Serial.println("GO PickUp");
+            Serial.println("Input_The_Position_1");
+            int position = Serial.readStringUntil('\n');
 
             // 開始步驟   
             nowStep = 2;
@@ -235,4 +254,27 @@ int checkTheBtnStatus(const int button, int& buttonState, int& buttonLastState, 
     }
     buttonLastState = buttonRead;  // 保存处理结果
     return false;
+}
+
+// type = 1: 前進, type = 2: 後退
+void motor_running(int type){
+
+    while(start == true){
+
+        if(type == 1 ){
+            // mfront(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4); // 馬達前進
+        }
+        else if (type == 1){
+            // mback(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4); // 馬達後退
+        }
+
+        // 是否到底(停下)
+        if( checkTheBtnStatus(entranceButton, entranceButtonState, entranceButtonLastState, entranceButtonlastDebounceTime, globalDelayTime) == true
+    //              ||  checkTheBtnStatus(exportButton, exportButtonState, exportButtonLastState, exportButtonlastDebounceTime, globalDelayTime) == true
+        ){
+            Serial.println("GO Storage Button True");
+            start = false;
+        }
+
+    }
 }
