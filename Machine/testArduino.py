@@ -2,7 +2,7 @@ import serial
 from time import sleep
 import sys
 
-COM_PORT = 'COM3'  # 請自行修改序列埠名稱
+COM_PORT = 'COM4'  # 請自行修改序列埠名稱
 BAUD_RATES = 9600
 ser = serial.Serial(COM_PORT, BAUD_RATES)
 choice = 'nothing'
@@ -11,7 +11,7 @@ try:
     while True:
         # 接收用戶的輸入值並轉成小寫
         if 'Done' in str(mcu_feedback):
-            choice = input('按1存放、按2拿出、按e關閉程式  ').lower()
+            choice = input('按1存放、按2拿出、按3轉圈，按e關閉程式  ').lower()
             mcu_feedback = "Reset"
 
         if choice == '1':
@@ -22,6 +22,10 @@ try:
             print('傳送拿取指令')
             ser.write(b'GO_PickUp_1\n')
             sleep(0.5)
+        elif choice == '3':
+            print('傳送拿取指令')
+            ser.write(b'GO_Disc\n')
+            sleep(0.5)
         elif choice == 'e':
             ser.close()
             print('再見！')
@@ -30,6 +34,7 @@ try:
             sleep(0.5)
         else:
             print('指令錯誤…')
+            mcu_feedback = "Done"
 
         while ser.in_waiting:
             choice = 'nothing'
@@ -41,8 +46,9 @@ try:
                 print("拍個照片")
             
             if "Input_The_Position_1" in mcu_feedback:
-                position_1 = 1
-                ser.write(b'position_1\n')
+                position_1 = 2
+                msg = str(position_1) + '\n'
+                ser.write(msg.encode())
                 sleep(0.5)
                 print("拿取位置", position_1, "的衣服")
 

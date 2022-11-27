@@ -86,11 +86,11 @@ class CamaraController:
             if cv2.waitKey(1) & 0xFF == ord('q') or countDown <= 0:  # 如果按下q 就截圖儲存並退出
 
                 outputSize = cv2.resize(frame, (480, 640))  # to resize the image
-                # cv2.imwrite(self.save_path, outputSize)
+                cv2.imwrite(self.save_path, outputSize)
 
                 cap.release()
                 cv2.destroyAllWindows()  # 關閉視窗
-                # print("save: ", self.save_path)
+                print("save: ", self.save_path)
 
                 break
 

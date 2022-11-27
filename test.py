@@ -169,10 +169,10 @@ def get_x(r): return './images_original/'+r['image'] # create path to open image
 def get_y(r): return r['label'].split(' ') # split the labels using space as a delimitter
 # 讀取圖檔
 clf = joblib.load('./Controller/joblib_export.pkl')
-camaraController = CamaraController(0, clf)
-# camaraController.getLastId()
-# camaraController.useCamara()
-# camaraController.identifyColor()
+camaraController = CamaraController(1, clf)
+camaraController.getLastId()
+camaraController.useCamara()
+camaraController.identifyColor()
 camaraController.identifyCategory()
 # camaraController.saveToSql()
 camaraController.printResult()

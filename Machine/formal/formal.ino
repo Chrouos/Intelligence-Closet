@@ -64,7 +64,7 @@ void setup() {
     digitalWrite(trigPin, LOW);
 
     pinMode(relay, OUTPUT);
-    digitalWrite(relay, HIGH);
+    digitalWrite(relay, LOW);
 
 
     // 步進馬達
@@ -226,16 +226,16 @@ void loop() {
         // ---------------- 直線到底(出來) END ---------------- //
         else if (command == "GO_Disc"){
 
+            digitalWrite(relay, HIGH);
+            // disc_stepper.step(200 / 50);  //正半圈
+            delay(5000);
             digitalWrite(relay, LOW);
-            disc_stepper.step(200 / 50);  //正半圈
-            delay(1000);
-            
+
             Serial.println("步進馬達 1/4");
             Serial.println("Done");
 
             lcd.clear();
             setUpLCD(1, 0, "stand by now");
-            digitalWrite(relay, HIGH);
         }
         else{
             Serial.println("Done");

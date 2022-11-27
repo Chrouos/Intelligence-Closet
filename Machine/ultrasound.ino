@@ -28,7 +28,7 @@ void loop() {
 
             // 切換了開始
             if (startButtonnRead == HIGH) {
-                stepper.step(200 / 12);  //正半圈
+                stepper.step(200 / 100);  //正半圈
                 Serial.println("1 ");
             }
         }
