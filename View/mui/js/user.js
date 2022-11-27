@@ -56,13 +56,13 @@ app.controller('myCtrl', function ($scope) {
     //     $scope.stationByCity = stationByCity;
     // }
 
-     // 從 Python中 獲得所有鄉鎮 顯示在 option 選項中
-     $scope.isCity_getVillageByCity = async function () {
+    // 從 Python中 獲得所有鄉鎮 顯示在 option 選項中
+    $scope.isCity_getVillageByCity = async function () {
         var villageByCity = await eel.village_to_js($scope.user.CityId)();
         $scope.villageByCity = villageByCity;
     }
 
-     // 從 Python中 獲得天氣資訊
+    // 從 Python中 獲得天氣資訊
     $scope.weather_to_js = async function () {
         $scope.weather = await eel.weather_to_js()();
     }; $scope.weather_to_js();

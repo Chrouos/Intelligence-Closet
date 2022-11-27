@@ -21,6 +21,11 @@ app.controller('myCtrl', function ($scope) {
   $scope.StartType = true; // 開始介面 bool
   $scope.MainType = false; // 主介面 bool
 
+  // 從 Python中 獲得天氣資訊
+  $scope.weather_to_js = async function () {
+    $scope.weather = await eel.weather_to_js()();
+  }; $scope.weather_to_js();
+
   // ----- 取得 子類別 和 顏色的資料 start ----- //
   $scope.getColorAndSubCategoryList = async function () {
     $scope.subCategoryList = await eel.get_all_sc_name()();

@@ -28,6 +28,7 @@ from Service.viewClothesNodeService import ViewClothesNodeService
 from Service.viewClothesNodeService import ViewClothesNodeService
 from Service.viewCategoryClothesService import ViewCategoryClothesService
 from Service.viewUserDashboardService import ViewUserDashboardService
+from Service.nodeGraphService import NodeGraphService
 
 user_id = 1
 
@@ -259,6 +260,37 @@ def updatePositionToNull(position):
     print("query_clothesNode_byId", result)
 
     return result
+
+################################################################################## clothes node graph
+
+@eel.expose
+def creat_node_graph(firstClohtesNode, secondClohtesNode, userLike):  # 新增node_graph
+    nodeGraph_dict = []
+    if(firstClohtesNode['CategoryId'] == 1):
+        nodeGraph_dict.append({
+                'UpperId': firstClohtesNode['Id'],
+                'LowerId': secondClohtesNode['Id'],
+                'OtherId': NULL,
+                'UserLike': userLike
+            })
+
+    elif(secondClohtesNode['CategoryId'] == 1):
+        nodeGraph_dict.append({
+                'UpperId': secondClohtesNode['Id'],
+                'LowerId': firstClohtesNode['Id'],
+                'OtherId': NULL,
+                'UserLike': userLike
+            })
+
+    # 儲存至node_graph sql的資料
+    nodeGraphService = NodeGraphService()
+    isSuccess = nodeGraphService.create(nodeGraph_dict[0])
+
+    print("creat_node_graph: ", firstClohtesNode, secondClohtesNode, userLike)
+
+    return isSuccess
+
+
 
 
 eel.init('View/mui')  # eel.init(網頁的資料夾)

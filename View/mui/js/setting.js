@@ -17,6 +17,11 @@ app.controller('myCtrl', function ($scope) {
     }, 15);
     /* ---------- 刷新頁面 End ---------- */
 
+    // 從 Python中 獲得天氣資訊
+    $scope.weather_to_js = async function () {
+        $scope.weather = await eel.weather_to_js()();
+    }; $scope.weather_to_js();
+
     // 抓取全部資料
     $scope.queryAllList = async function () {
         // $scope.upperList = await eel.upper_clothes_to_js()(); // 上半身的所有衣服
@@ -39,18 +44,55 @@ app.controller('myCtrl', function ($scope) {
         console.log($scope.nowSubCategory)
     }
 
-    $scope.pickUp_ClohtesNode = null; // 選擇的衣物
-    $scope.checkThePickUpList = function (clothesNode) {
+    $scope.pickUp_FirstClohtesNode = null; // 選擇的第一件衣物
+    $scope.checkTheFirstPickUpList = function (clothesNode) {
         // 如果為空 則選取
-        if ($scope.pickUp_ClohtesNode == null) {
+        if ($scope.pickUp_FirstClohtesNode == null) {
             document.getElementById("clothesNode_" + clothesNode.Id).style.border = "2px solid red";
-            $scope.pickUp_ClohtesNode = clothesNode;
+            $scope.pickUp_FirstClohtesNode = clothesNode;
         }
         // 如果點選同樣資料 就取消
-        else if ($scope.pickUp_ClohtesNode.Id == clothesNode.Id) {
+        else if ($scope.pickUp_FirstClohtesNode.Id == clothesNode.Id) {
             document.getElementById("clothesNode_" + clothesNode.Id).style.border = "";
-            $scope.pickUp_ClohtesNode = null;
+            $scope.pickUp_FirstClohtesNode = null;
         }
+        else{
+            //console.log('pickUp_FirstClohtesNode.Id',pickUp_FirstClohtesNode.Id)
+            document.getElementById("clothesNode_" + $scope.pickUp_FirstClohtesNode.Id).style.border = "";
+            document.getElementById("clothesNode_" + clothesNode.Id).style.border = "2px solid red";
+            $scope.pickUp_FirstClohtesNode = clothesNode;
+        }
+    }
+
+    $scope.pickUp_SecondClohtesNode = null; // 選擇的第二件衣物
+    $scope.checkTheSecondPickUpList = function (clothesNode) {
+        // 如果為空 則選取
+        if ($scope.pickUp_SecondClohtesNode == null) {
+            document.getElementById("clothesSecondNode_" + clothesNode.Id).style.border = "2px solid red";
+            $scope.pickUp_SecondClohtesNode = clothesNode;
+        }
+        // 如果點選同樣資料 就取消
+        else if ($scope.pickUp_SecondClohtesNode.Id == clothesNode.Id) {
+            document.getElementById("clothesSecondNode_" + clothesNode.Id).style.border = "";
+            $scope.pickUp_SecondClohtesNode = null;
+        }
+        else{
+            //console.log('pickUp_SecondClohtesNode.Id',pickUp_SecondClohtesNode.Id)
+            document.getElementById("clothesSecondNode_" + $scope.pickUp_SecondClohtesNode.Id).style.border = "";
+            document.getElementById("clothesSecondNode_" + clothesNode.Id).style.border = "2px solid red";
+            $scope.pickUp_SecondClohtesNode = clothesNode;
+        }
+    }
+
+    /* ---------- 將資料儲存至料庫 Start ---------- */
+    $scope.creatNodeGraph = async function () { // 送出
+        // console.log("$scope.pickUp_FirstClohtesNode",$scope.pickUp_FirstClohtesNode);
+        // console.log("$scope.pickUp_SecondClohtesNode",$scope.pickUp_SecondClohtesNode);
+        // console.log("$scope.clothesMath_like",$scope.clothesMath_like);
+        var isSuccess = await eel.creat_node_graph($scope.pickUp_FirstClohtesNode, $scope.pickUp_SecondClohtesNode, $scope.clothesMath_like);
+        
+        $scope.backToMain();
+        
     }
 
     /* ---------- 切換頁面 start ---------- */
@@ -65,8 +107,6 @@ app.controller('myCtrl', function ($scope) {
         $scope.settingType_Single = false;
         $scope.settingType_Match_st = false;
         $scope.settingType_Match_nd = false;
-
-        $scope.pickUp_ClohtesNode = null;
     }
 
     $scope.goToMatch = function () {
@@ -74,6 +114,11 @@ app.controller('myCtrl', function ($scope) {
         $scope.settingType_Match_st = true;
         $scope.settingType_Match_nd = false;
         $scope.settingType_Single = false;
+
+        if($scope.pickUp_SecondClohtesNode != null){
+            document.getElementById("clothesSecondNode_" + $scope.pickUp_SecondClohtesNode.Id).style.border = "";
+            $scope.pickUp_SecondClohtesNode = null;
+        }
     }
 
     $scope.goToSingle = function () {
@@ -96,8 +141,6 @@ app.controller('myCtrl', function ($scope) {
         $scope.clothesSetType = !$scope.clothesSetType;
     }
     /* ---------- 切換頁面 end ---------- */
-
-
 
 
 

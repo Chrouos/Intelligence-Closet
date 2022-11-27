@@ -120,7 +120,7 @@ class NodeGraphDAO:
 
     def create(self, combs):
         execute_str = "INSERT INTO intelligence_closet.dbo.node_graph (UpperId, LowerId, UserLike, CreateTime, ModifyTime) VALUES (" \
-            + "{0}, {1}, {2}, GETDATE(), GETDATE() )".format(combs.UpperId, combs.LowerId, combs.UserLike)
+            + "{0}, {1}, {2}, GETDATE(), GETDATE())".format(combs.UpperId, combs.LowerId, combs.UserLike)
 
         print("create: ", execute_str)
 

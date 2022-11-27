@@ -13,6 +13,11 @@ app.controller('myCtrl', function ($scope) {
 
     $scope.putOItype = false
 
+    // 從 Python中 獲得天氣資訊
+    $scope.weather_to_js = async function () {
+        $scope.weather = await eel.weather_to_js()();
+    }; $scope.weather_to_js();
+
     //衣物資料
     $scope.showInfo = function (clothesID) {
         //TODO:用clothesID呼叫衣物資料

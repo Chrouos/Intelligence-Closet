@@ -5,7 +5,7 @@ class NodeGraph:
         self.UpperId = ""
         self.LowerId = ""
         self.OtherId = ""
-        self.CombLike = ""
+        self.UserLike = ""
         self.CreateTime = ""
         self.ModifyTime = ""
         self.Position = ""
@@ -13,8 +13,8 @@ class NodeGraph:
     def print(self):
         print("Id: {0}, UpperId: {1}, LowerId: {2}".format(
             self.Id, self.UpperId, self.LowerId))
-        print("CombLike: {0}, CreateTime: {1}, ModifyTime: {2}".format(
-            self.CombLike, self.CreateTime, self.ModifyTime))
+        print("UserLike: {0}, CreateTime: {1}, ModifyTime: {2}".format(
+            self.UserLike, self.CreateTime, self.ModifyTime))
 
     def updateBySQL(self, data):
         self.Id = data.Id
@@ -40,10 +40,7 @@ class NodeGraph:
             self.OtherId = data['OtherId']
 
         if data.get("UserLike") != None:
-            self.CombLike = data['CombLike']
-
-        if data.get("Position") != None:
-            self.CombLike = data['Position']
+            self.UserLike = data['UserLike']
 
         if data.get("CreateTime") != None:
             self.CreateTime = data['CreateTime'].strftime("%m/%d/%Y")

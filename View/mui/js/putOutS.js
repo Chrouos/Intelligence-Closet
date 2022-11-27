@@ -45,6 +45,10 @@ app.controller('myCtrl', function ($scope) {
 
   $scope.takeType = false; //拿單件 or 整套, false: 單件, true: 整套
 
+  // 從 Python中 獲得天氣資訊
+  $scope.weather_to_js = async function () {
+    $scope.weather = await eel.weather_to_js()();
+  }; $scope.weather_to_js();
 
   /* ********************** 選單 *********************** */
 

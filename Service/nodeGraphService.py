@@ -96,7 +96,11 @@ class NodeGraphService:
         return True
 
     def create(self, jso):
-        nodeGraph_dict = json.loads(jso)
-        nodeGraph = NodeGraphDAO()
+        if isinstance(jso, str):
+            nodeGraph_dict = json.loads(jso)
+        else:
+            nodeGraph_dict = jso
+        
+        nodeGraph = NodeGraph()
         nodeGraph.updateByDict(nodeGraph_dict)
         return self.nodeGraphDAO.create(nodeGraph)
