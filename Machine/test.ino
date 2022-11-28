@@ -86,8 +86,8 @@ void loop() {
         
         String command = Serial.readStringUntil('\n'); // 收到的指令 // 讀取傳入的字串直到"\n"結尾
 
-        // ---------------- 存放 START---------------- //
-        if (command == "GO_Storage" && nowStep == 2 && start == false) {
+        // ---------------- 存放 START---------------- // && nowStep == 2
+        if (command == "GO_Storage"  && start == false) {
             lcd.clear();
             Serial.println("GO Storage");
 
@@ -172,28 +172,27 @@ void loop() {
         } 
         // ---------------- 存放 END ---------------- //
 
-        // ---------------- 拿取 START---------------- //
-        else if (command == "GO_PickUp_1" && nowStep == 1 && start == false) {
+        // ---------------- 拿取 START---------------- // && nowStep == 1
+        else if (command == "GO_PickUp_1" && start == false) {
             lcd.clear();
 
             Serial.println("GO PickUp");
-            Serial.println("Input_The_Position_1");
-            String get_position_1 =  Serial.readStringUntil('\n');
-            int position_1 = get_position_1.toInt();
-            Serial.println("輸入的位置 " + String(position_1));
-
-            // 開始步驟   
+//            Serial.println("Input_The_Position_1");
+//            String get_position_1 =  Serial.readStringUntil('\n');
+//            int position_1 = get_position_1.toInt();
+//            Serial.println("輸入的位置 " + String(position_1));
+//
+//            // 開始步驟   
             nowStep = 2;
             start = true;
             setUpLCD(1, 0, "start:" + String((start == true) ? "true " : "false"));
             setUpLCD(1, 1, "nowStep:" + String((nowStep == 1) ? "front" : "back " ));
-
-            // 動作
-            digitalWrite(LED_BUILTIN, HIGH);
+//
+//            // 動作
             Serial.println("等待撞到微動開關");
             while(start == true){
                 mback(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
-                // 是否到底(停下)
+//                // 是否到底(停下)
                 if( checkTheBtnStatus(entranceButton, entranceButtonState, entranceButtonLastState, entranceButtonlastDebounceTime, globalDelayTime) == true
                 ||  checkTheBtnStatus( tailButton, tailButtonState, tailButtonLastState, tailButtonlastDebounceTime, globalDelayTime) == true
                 ){
@@ -202,11 +201,10 @@ void loop() {
                 }
             }
             mstop(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4); // 馬達停下
-
-            // 結束步驟
+//
+//            // 結束步驟
             setUpLCD(1, 0, "start:" + String((start == true) ? "true " : "false"));
             setUpLCD(1, 1, "nowStep:" + String((nowStep == 1) ? "front" : "back " ));
-            digitalWrite(LED_BUILTIN, LOW);
 
             Serial.println("Done");
 
@@ -242,14 +240,18 @@ void loop() {
 
                 disc_stepper.step(20);  //正半圈
 
-                if( checkTheBtnStatus(discButtonState, discButtonState, discButtonLastState, discButtonlastDebounceTime, globalDelayTime) == true
+                if( checkTheBtnStatus(discButton, discButtonState, discButtonLastState, discButtonlastDebounceTime, globalDelayTime) == true
+                ){
+                    Serial.println("GO DISC Button True");
+                    disc_start = false;
+                }
+                if( checkTheBtnStatus(entranceButton, entranceButtonState, entranceButtonLastState, entranceButtonlastDebounceTime, globalDelayTime) == true
+                ||  checkTheBtnStatus(tailButton, tailButtonState, tailButtonLastState, tailButtonlastDebounceTime, globalDelayTime) == true
                 ){
                     Serial.println("GO DISC Button True");
                     disc_start = false;
                 }
             }
-
-            // disc_stepper.step(100);  //正半圈
 
             // 微動開關按了才結束
 
@@ -278,17 +280,17 @@ void mstop(int In1, int In2, int In3, int In4) {
 }
 // 步進馬達: 前進
 void mfront(int In1, int In2, int In3, int In4) {
-    digitalWrite(In1, HIGH);
-    digitalWrite(In2, LOW);
-    digitalWrite(In3, HIGH);
-    digitalWrite(In4, LOW);
-}
-// 步進馬達: 後退
-void mback(int In1, int In2, int In3, int In4) {
     digitalWrite(In1, LOW);
     digitalWrite(In2, HIGH);
     digitalWrite(In3, LOW);
     digitalWrite(In4, HIGH);
+}
+// 步進馬達: 後退
+void mback(int In1, int In2, int In3, int In4) {
+    digitalWrite(In1, HIGH);
+    digitalWrite(In2, LOW);
+    digitalWrite(In3, HIGH);
+    digitalWrite(In4, LOW);
 }
 // LCD 顯示畫面
 void setUpLCD(int column, int row, String text){
@@ -369,4 +371,3 @@ void stepper_front(int In1, int In2, int In3, int In4) {
     delay(t);
 
 }
-
