@@ -9,8 +9,8 @@ Stepper disc_stepper(200, 2, 3, 4, 5);  // 360 / 120(120步可以轉一圈) = 30
 
 // ----------------------------------------------- 變數設定 ----------------------------------------------- //
 
-const int tailButton = 24; // 尾巴的微動開關 // TO CHANGE
-const int entranceButton = 22; // 入口的微動開關
+const int tailButton = 22; // 尾巴的微動開關 
+const int entranceButton = 24; // 入口的微動開關
 const int discButton = 23;  // 圓盤的微動開關
 const int entrance_L298N1_In1 = 6; // 車車(減速馬達)的L298N in1
 const int entrance_L298N1_In2 = 7; // 車車(減速馬達)的L298N in2 
@@ -55,7 +55,7 @@ void setup() {
     pinMode(export_L298N1_In4, OUTPUT);
 
     pinMode(entranceButton, INPUT);
-    pinMode( tailButton, INPUT);
+    pinMode(tailButton, INPUT);
     pinMode(discButton, INPUT);
 
     pinMode(trigPin, OUTPUT);
@@ -66,15 +66,16 @@ void setup() {
     pinMode(relay, OUTPUT);
     digitalWrite(relay, LOW);
 
-
     // 步進馬達
-    disc_stepper.setSpeed(52);
+    disc_stepper.setSpeed(60);
 
     // 初始化 LCD
     lcd.init();
     lcd.backlight();
 
     setUpLCD(1, 0, "stand by now");
+
+    Serial.println("----------- 等待指令中 -----------");
 }
 
 void loop() {
@@ -82,7 +83,7 @@ void loop() {
     //Serial.println("now start: " + String(start) + ", step:" + String(nowStep));    
     
     if (Serial.available()) {
-
+        
         String command = Serial.readStringUntil('\n'); // 收到的指令 // 讀取傳入的字串直到"\n"結尾
 
         // ---------------- 存放 START---------------- //
@@ -139,7 +140,7 @@ void loop() {
                 
                 // 是否到底(停下)
                 if( checkTheBtnStatus(entranceButton, entranceButtonState, entranceButtonLastState, entranceButtonlastDebounceTime, globalDelayTime) == true
-//              ||  checkTheBtnStatus( tailButton, tailButtonState, tailButtonLastState, tailButtonlastDebounceTime, globalDelayTime) == true
+                ||  checkTheBtnStatus( tailButton, tailButtonState, tailButtonLastState, tailButtonlastDebounceTime, globalDelayTime) == true
                 ){
                     Serial.println("GO Storage Button True");
                     start = false;
@@ -192,14 +193,15 @@ void loop() {
             Serial.println("等待撞到微動開關");
             while(start == true){
                 mback(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
+                // 是否到底(停下)
                 if( checkTheBtnStatus(entranceButton, entranceButtonState, entranceButtonLastState, entranceButtonlastDebounceTime, globalDelayTime) == true
-                // ||  checkTheBtnStatus( tailButton, tailButtonState, tailButtonLastState, tailButtonlastDebounceTime, globalDelayTime) == true
+                ||  checkTheBtnStatus( tailButton, tailButtonState, tailButtonLastState, tailButtonlastDebounceTime, globalDelayTime) == true
                 ){
-                    Serial.println("GO PickUp Button True");
+                    Serial.println("GO PICKUP Button True");
                     start = false;
                 }
             }
-             mstop(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4); // 馬達停下
+            mstop(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4); // 馬達停下
 
             // 結束步驟
             setUpLCD(1, 0, "start:" + String((start == true) ? "true " : "false"));
@@ -224,18 +226,39 @@ void loop() {
             Serial.println("GO Straight Back");
         }
         // ---------------- 直線到底(出來) END ---------------- //
+
+        
         else if (command == "GO_Disc"){
 
-            digitalWrite(relay, HIGH);
-            // disc_stepper.step(200 / 50);  //正半圈
-            delay(5000);
-            digitalWrite(relay, LOW);
+            Serial.println("GO_Disc");
+            lcd.clear();
+            setUpLCD(1, 0, "disc around now");
 
-            Serial.println("步進馬達 1/4");
-            Serial.println("Done");
+            // 開始旋轉
+            digitalWrite(relay, HIGH); // 把繼電器打開
+            bool disc_start = true;  // true: start, false: stop
+            while(disc_start == true){
+                // stepper_front(disc_L298N1_In1, disc_L298N1_In2, disc_L298N1_In3, disc_L298N1_In4);
 
+                disc_stepper.step(20);  //正半圈
+
+                if( checkTheBtnStatus(discButtonState, discButtonState, discButtonLastState, discButtonlastDebounceTime, globalDelayTime) == true
+                ){
+                    Serial.println("GO DISC Button True");
+                    disc_start = false;
+                }
+            }
+
+            // disc_stepper.step(100);  //正半圈
+
+            // 微動開關按了才結束
+
+
+            // 結束
             lcd.clear();
             setUpLCD(1, 0, "stand by now");
+            digitalWrite(relay, LOW); // 繼電器關閉
+            Serial.println("Done");
         }
         else{
             Serial.println("Done");
@@ -295,23 +318,54 @@ int checkTheBtnStatus(const int button, int& buttonState, int& buttonLastState, 
 
 // type = 1: 前進, type = 2: 後退
 void motor_running(int type){
+    bool temp_start = true;  // true: start, false: stop
 
-    while(start == true){
+    while(temp_start == true){
 
         if(type == 1 ){
-            // mfront(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4); // 馬達前進
+            mfront(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4); // 馬達前進
         }
         else if (type == 2){
-            // mback(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4); // 馬達後退
+            mback(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4); // 馬達後退
         }
 
         // 是否到底(停下)
         if( checkTheBtnStatus(entranceButton, entranceButtonState, entranceButtonLastState, entranceButtonlastDebounceTime, globalDelayTime) == true
-    //              ||  checkTheBtnStatus( tailButton, tailButtonState, tailButtonLastState, tailButtonlastDebounceTime, globalDelayTime) == true
+            // ||  checkTheBtnStatus( tailButton, tailButtonState, tailButtonLastState, tailButtonlastDebounceTime, globalDelayTime) == true
         ){
             Serial.println("GO Storage Button True");
-            start = false;
+            temp_start = false;
         }
 
     }
 } 
+
+void stepper_front(int In1, int In2, int In3, int In4) {
+
+    int t = 2;
+
+    digitalWrite(In1, HIGH);
+    digitalWrite(In2, LOW);
+    digitalWrite(In3, LOW);
+    digitalWrite(In4, LOW);
+    delay(t);
+
+    digitalWrite(In1, LOW);
+    digitalWrite(In2, HIGH);
+    digitalWrite(In3, LOW);
+    digitalWrite(In4, LOW);
+    delay(t);
+
+    digitalWrite(In1, LOW);
+    digitalWrite(In2, LOW);
+    digitalWrite(In3, HIGH);
+    digitalWrite(In4, LOW);
+    delay(t);
+
+    digitalWrite(In1, LOW);
+    digitalWrite(In2, LOW);
+    digitalWrite(In3, LOW);
+    digitalWrite(In4, HIGH);
+    delay(t);
+
+}
