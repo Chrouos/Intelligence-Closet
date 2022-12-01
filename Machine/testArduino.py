@@ -23,8 +23,16 @@ try:
             ser.write(b'GO_PickUp_1\n')
             sleep(0.5)
         elif choice == '3':
-            print('傳送拿取指令')
+            print('傳送轉圈指令')
             ser.write(b'GO_Disc\n')
+            sleep(0.5)
+        elif choice == '4':
+            print('傳送衝到底指令')
+            ser.write(b'GO_Straight_Front\n')
+            sleep(0.5)
+        elif choice == '5':
+            print('傳送衝回來指令')
+            ser.write(b'GO_Straight_Back\n')
             sleep(0.5)
         elif choice == 'e':
             ser.close()
