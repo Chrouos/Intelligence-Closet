@@ -165,12 +165,31 @@ app.controller('myCtrl', function ($scope) {
     $scope.clothes_node_by_id = async function () {
         $scope.clothesNode = await eel.query_clothesNode_byId($scope.pickUp_FirstClohtesNode.Id)();
         // console.log("$scope.clothesNode",$scope.clothesNode);
+        $scope.set_isFavorite_color();
         
     }; $scope.clothes_node_by_id();
 
-
+    //更新clothes node
     $scope.update_clothes = async function () {
         var isSuccess = await eel.update_clothes_node($scope.clothesNode)();
+    }
+
+    //設定愛心顏色
+    $scope.set_isFavorite_color = function (){
+        if($scope.clothesNode.IsFavorite == 1)
+            return { color: "red" };     
+        else
+            return { color: "gray" };
+    }
+
+    //更新 IsFavorite
+    $scope.heartClicks = function(){
+        if($scope.clothesNode.IsFavorite == 1)
+            $scope.clothesNode.IsFavorite = 0;
+        else
+            $scope.clothesNode.IsFavorite = 1;
+
+        $scope.update_clothes();
     }
 
     /* ---------- 切換頁面 end ---------- */

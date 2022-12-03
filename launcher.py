@@ -265,7 +265,7 @@ def updatePositionToNull(position):
 
 
 @eel.expose
-def color_to_js():  # 傳送所有縣市資訊
+def color_to_js():  # 傳送所有顏色
 
     colorService = ColorService()
     color_dict = colorService.queryAll()
@@ -275,7 +275,7 @@ def color_to_js():  # 傳送所有縣市資訊
 
 
 @eel.expose
-def sub_category_to_js():  # 傳送所有縣市資訊
+def sub_category_to_js():  # 傳送所有sub catrgory
 
     subCategoryService = SubCategoryService()
     subCategory_dict = subCategoryService.queryAll()
@@ -316,9 +316,9 @@ def creat_node_graph(firstClohtesNode, secondClohtesNode, userLike):  # 新增no
 
 
 @eel.expose
-def update_clothes_node(clothesNode):
+def update_clothes_node(clothesNode): # 更新 clothes node
     clothesNodeService = ClothesNodeService()
-    isSuccess = clothesNodeService.updateById(clothesNode)  # 預設為2
+    isSuccess = clothesNodeService.updateById(clothesNode)
 
     print("update_user_dashboard", isSuccess)
 
