@@ -44,7 +44,6 @@ class UserDashboardService:
             
             if type(request) is str:
                 userDashboard_dic = json.loads(request)
-                userDashboard = UserDashboard()
                 userDashboard.updateByDict(userDashboard_dic)
             
             self.userDashboardDAO.updateById(userDashboard, id)

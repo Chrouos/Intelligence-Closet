@@ -1,4 +1,5 @@
 from Model.DAO.clothesNodeDAO import ClothesNodeDAO
+from Model.Domain.clothesNode import ClothesNode
 import json
 
 
@@ -88,6 +89,7 @@ class ClothesNodeService:
         return result
 
     ###################### UPDATE ######################
+
     def updatePositionToNull(self, position):
         try:
             self.clothesNodeDAO.updatePositionToNull(position)
@@ -96,7 +98,21 @@ class ClothesNodeService:
             print("updatePositionToNull Fail Beacuse: ", e)
             return False
 
+    def updateById(self, request):
+        # try:
+            clothesNode = ClothesNode()
+            if type(request) is dict:
+                clothesNode.updateByDict(request)
+            
+            if type(request) is str:
+                clothesNode_dic = json.loads(request)
+                clothesNode.updateByDict(clothesNode_dic)
+            
+            self.clothesNodeDAO.updateById(clothesNode)
+            return True
+
     ###################### DELETE ######################
+
     def deleteByPosition(self, position):
         self.clothesNodeDAO.deleteByPosition(position)
         return True

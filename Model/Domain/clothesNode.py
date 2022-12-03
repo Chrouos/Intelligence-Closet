@@ -10,7 +10,7 @@ class ClothesNode:
         self.Position = ""
         self.SubCategoryId = ""
         self.ColorId = ""
-        self.UserPreference = ""
+        self.UserPreferences = ""
         self.UsageCounter = ""
         self.CreateTime = ""
         self.ModifyTime = ""
@@ -24,8 +24,8 @@ class ClothesNode:
             .format(self.Id, self.Position, self.SubCategoryId, self.ColorId,
                     self.IsFavorite))
         print(
-            "UserPreference: {0}, UsageCounter: {1}, CreateTime: {2}, ModifyTime: {3}, FilePosition:{4}"
-            .format(self.UserPreference, self.UsageCounter, self.CreateTime,
+            "UserPreferences: {0}, UsageCounter: {1}, CreateTime: {2}, ModifyTime: {3}, FilePosition:{4}"
+            .format(self.UserPreferences, self.UsageCounter, self.CreateTime,
                     self.ModifyTime, self.FilePosition))
 
     def updateBySQL(self, data):
@@ -53,20 +53,22 @@ class ClothesNode:
             self.SubCategoryId = data['SubCategoryId']
         if data.get("ColorId") != None:
             self.ColorId = data['ColorId']
-        if data.get("UserPreference") != None:
-            self.UserPreference = data['UserPreference']
+        if data.get("UserPreferences") != None:
+            self.UserPreferences = data['UserPreferences']
         if data.get("ClothesStyle") != None:
             self.ClothesStyle = data['ClothesStyle']
         if data.get("UsageCounter") != None:
             self.UsageCounter = data['UsageCounter']
-        if data.get("CreateTime") != None:
-            self.CreateTime = data['CreateTime'].strftime("%m/%d/%Y")
-        if data.get("ModifyTime") != None:
-            self.ModifyTime = data['ModifyTime'].strftime("%m/%d/%Y")
         if data.get("FilePosition") != None:
             self.FilePosition = data['FilePosition']
         if data.get("WarmLevel") != None:
             self.WarmLevel = data['WarmLevel']
-
         if data.get("IsFavorite") != None:
             self.IsFavorite = data['IsFavorite']
+
+        try:
+            if data.get("ModifyTime") != None: 
+                self.ModifyTime = data['ModifyTime'].strftime("%m/%d/%Y")
+        except:
+            if data.get("ModifyTime") != None: 
+                self.ModifyTime = datetime.strptime(data['ModifyTime'], "%m/%d/%Y")

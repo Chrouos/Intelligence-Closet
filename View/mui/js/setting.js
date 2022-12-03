@@ -48,18 +48,18 @@ app.controller('myCtrl', function ($scope) {
     $scope.checkTheFirstPickUpList = function (clothesNode) {
         // 如果為空 則選取
         if ($scope.pickUp_FirstClohtesNode == null) {
-            document.getElementById("clothesNode_" + clothesNode.Id).style.border = "2px solid red";
+            document.getElementById("clothesFirstNode_" + clothesNode.Id).style.border = "2px solid red";
             $scope.pickUp_FirstClohtesNode = clothesNode;
         }
         // 如果點選同樣資料 就取消
         else if ($scope.pickUp_FirstClohtesNode.Id == clothesNode.Id) {
-            document.getElementById("clothesNode_" + clothesNode.Id).style.border = "";
+            document.getElementById("clothesFirstNode_" + clothesNode.Id).style.border = "";
             $scope.pickUp_FirstClohtesNode = null;
         }
         else{
             //console.log('pickUp_FirstClohtesNode.Id',pickUp_FirstClohtesNode.Id)
-            document.getElementById("clothesNode_" + $scope.pickUp_FirstClohtesNode.Id).style.border = "";
-            document.getElementById("clothesNode_" + clothesNode.Id).style.border = "2px solid red";
+            document.getElementById("clothesFirstNode_" + $scope.pickUp_FirstClohtesNode.Id).style.border = "";
+            document.getElementById("clothesFirstNode_" + clothesNode.Id).style.border = "2px solid red";
             $scope.pickUp_FirstClohtesNode = clothesNode;
         }
     }
@@ -83,6 +83,16 @@ app.controller('myCtrl', function ($scope) {
             $scope.pickUp_SecondClohtesNode = clothesNode;
         }
     }
+
+    // 從 Python中 獲得所有顏色 顯示在 option 選項中
+    $scope.get_color = async function () {
+        $scope.colors = await eel.color_to_js()();
+    }; $scope.get_color();
+
+    // 從 Python中 獲得所有樣式 顯示在 option 選項中
+    $scope.get_sub_category = async function () {
+        $scope.subCategorys = await eel.sub_category_to_js()();
+    }; $scope.get_sub_category();
 
     /* ---------- 將資料儲存至料庫 Start ---------- */
     $scope.creatNodeGraph = async function () { // 送出
@@ -115,6 +125,10 @@ app.controller('myCtrl', function ($scope) {
         $scope.settingType_Match_nd = false;
         $scope.settingType_Single = false;
 
+        if($scope.pickUp_FirstClohtesNode != null){
+            document.getElementById("clothesFirstNode_" + $scope.pickUp_FirstClohtesNode.Id).style.border = "";
+            $scope.pickUp_FirstClohtesNode = null;
+        }
         if($scope.pickUp_SecondClohtesNode != null){
             document.getElementById("clothesSecondNode_" + $scope.pickUp_SecondClohtesNode.Id).style.border = "";
             $scope.pickUp_SecondClohtesNode = null;
@@ -126,6 +140,11 @@ app.controller('myCtrl', function ($scope) {
         $scope.settingType_Match_st = false;
         $scope.settingType_Match_nd = false;
         $scope.settingType_Single = true;
+
+        if($scope.pickUp_FirstClohtesNode != null){
+            document.getElementById("clothesFirstNode_" + $scope.pickUp_FirstClohtesNode.Id).style.border = "";
+            $scope.pickUp_FirstClohtesNode = null;
+        }
     }
 
     $scope.goToMatchNd = function () {
@@ -139,10 +158,22 @@ app.controller('myCtrl', function ($scope) {
     $scope.clothesSetType = false;
     $scope.clothes_Set = function () {
         $scope.clothesSetType = !$scope.clothesSetType;
+        $scope.clothes_node_by_id();
     }
+
+    //Query clothesNode
+    $scope.clothes_node_by_id = async function () {
+        $scope.clothesNode = await eel.query_clothesNode_byId($scope.pickUp_FirstClohtesNode.Id)();
+        // console.log("$scope.clothesNode",$scope.clothesNode);
+        
+    }; $scope.clothes_node_by_id();
+
+
+    $scope.update_clothes = async function () {
+        var isSuccess = await eel.update_clothes_node($scope.clothesNode)();
+    }
+
     /* ---------- 切換頁面 end ---------- */
-
-
 
 });
 

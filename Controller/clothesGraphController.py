@@ -97,8 +97,9 @@ class ClothesGraphController:
         
         for c in combs:
             print(c)
-            
-        return combs_dict_list;
+
+        print("combs_dict_list: ", combs_dict_list)
+        return combs_dict_list
         
         
     def changeCity(self, city):

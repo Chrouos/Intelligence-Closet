@@ -102,19 +102,19 @@
 
         <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index">
           <a ng-click="checkTheFirstPickUpList(clothesNode)">
-            <img src="{{clothesNode.FilePosition}}" id="clothesNode_{{clothesNode.Id}}">
+            <img src="{{clothesNode.FilePosition}}" id="clothesFirstNode_{{clothesNode.Id}}">
           </a>
         </div>
       </div>
 
       <!--搭配設定頁面 button -->
       <div ng-show="settingType_Match_st">
-        <div class="maSt-btn-rb-two" ng-click="goToMatchNd()">
-          <a class="maSt-btm-rb-two-n" ng-click="goToMatchNd()">組合設定</a>
-        </div>
-        <div class="maSt-btn-rb-one" ng-click="backToMain()">
-          <a class="maSt-btm-rb-one-n" ng-click="backToMain()">返 回</a>
-        </div>
+        <button class="maSt-btn-rb-two" ng-click="goToMatchNd()" style="border:none;">
+          <a class="maSt-btm-rb-two-n">組合設定</a>
+        </button>
+        <button class="maSt-btn-rb-one" ng-click="backToMain()" style="border:none;">
+          <a class="maSt-btm-rb-one-n">返 回</a>
+        </button>
       </div>
 
       <!-- 衣物設定頁面 button -->
@@ -123,12 +123,12 @@
           <!--TODO:衣物不在衣櫃時才顯示刪除選項-->
           <a class="si-btm-rb-three-n" ng-click="">刪 除</a>
         </div>
-        <div class="si-btn-rb-two" ng-click="clothes_Set()" onclick="showMask()">
-          <a class="si-btm-rb-two-n" ng-click="clothes_Set()" onclick="showMask()">設 定</a>
-        </div>
-        <div class="si-btn-rb-one" ng-click="backToMain()">
-          <a class="si-btm-rb-one-n" ng-click="backToMain()">返 回</a>
-        </div>
+        <button class="si-btn-rb-two" ng-click="clothes_Set()" style="border:none;" onclick="showMask()">
+          <a class="si-btm-rb-two-n">設 定</a>
+        </button>
+        <button class="si-btn-rb-one" ng-click="backToMain()" style="border:none;">
+          <a class="si-btm-rb-one-n">返 回</a>
+        </button>
       </div>
 
     </div>
@@ -181,10 +181,9 @@
         <!-- <div class="maNd-btn-rb-two" ng-click="creatNodeGraph()">
           <a class="maNd-btm-rb-two-n" ng-click="creatNodeGraph()">新 增</a>
         </div> -->
-        <div class="maNd-btn-rb-one" ng-click="goToMatch()">
-          <a class="maNd-btm-rb-one-n" ng-click="goToMatch()">返 回</a>
-        </div>
-
+        <button class="maNd-btn-rb-one" ng-click="goToMatch()" style="border:none;">
+          <a class="maNd-btm-rb-one-n">返 回</a>
+        </button>
       </div>
     </div>
   </div>
@@ -193,37 +192,40 @@
   <div id="clothesSet-Scene" ng-show="clothesSetType">
     <!-- 衣物照片 -->
     <div class="pictures-one">
-      <a><img src="./public/src/clothes_1.jpg"></a>
+      <a><img src="{{pickUp_FirstClohtesNode.FilePosition}}"></a>
     </div>
     
     <!-- 衣物資訊/設定 -->
     <div class="clothesInfo">
       <!----------------------------------------------------------------->
       <div>
-
         <p style="display: inline;">顏色: </p>
-        <select ng-model="" ng-options="">
-          <!-- <option value="" selected>請選擇</option> -->
-        </select>
+        <select ng-model="clothesNode.ColorId" ng-change="update_clothes()"
+          ng-options="color.Id as color.ColorName for color in colors"></select>
       </div>
       <div>
         <p style="display: inline;">樣式: </p>
-        <select ng-model="" ng-options="">
-          <!-- <option value="" selected>請選擇</option> -->
-        </select>
+        <select ng-model="clothesNode.SubCategoryId" ng-change="update_clothes()"
+          ng-options="subCategory.Id as subCategory.Name for subCategory in subCategorys"></select>
       </div>
       <div>
-        <p>衣物喜好度: {{clothes_like}} <input style="width:300px" type="range" min="1" max="10" ng-model="clothes_like" /></p>
+        <p>衣物喜好度: {{clothesNode.UserPreferences}} 
+          <input style="width:300px" type="range" min="1" max="10" 
+            ng-model="clothesNode.UserPreferences" ng-change="update_clothes()"/>
+        </p>
       </div>
       <div>
         <p style="display: inline;">是否加入最愛: </p>
-        <span style="color: gray;" onclick="heartClick(this)" ng-click="heartClicks()"><i class="fa-solid fa-heart"></i>
+        <span style="color: gray;" onclick="heartClick(this)" ng-click="heartClicks()" ng-model="ccc">
+          <i class="fa-solid fa-heart"></i>
         </span>
       </div>
       <!----------------------------------------------------------------->
     </div>
     <div>
-      <div class="st-btn-rb-one" onclick="showMask()" ng-click="clothes_Set()"><a class="st-btm-rb-one-n" onclick="showMask()" ng-click="clothes_Set()">返 回</a></div>
+      <button class="st-btn-rb-one" ng-click="clothes_Set()"  style="border:none;" onclick="showMask()">
+        <a class="st-btm-rb-one-n">返 回</a>
+      </button>
     </div>
   </div>
   <!---------------------------------------------------------------------------------------------------------------->

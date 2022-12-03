@@ -151,6 +151,7 @@ class ClothesNodeDAO:
         return position
 
     ###################### UPDATE ######################
+
     def updatePositionToNull(self, position):
 
         if self.queryDataByPosition(position) == None:
@@ -166,7 +167,20 @@ class ClothesNodeDAO:
 
         return True
 
+    def updateById(self, clothesNode):
+
+        execute_str = "UPDATE intelligence_closet.dbo.clothes_node SET " \
+					+ "SubCategoryId={0}, ColorId={1}, ModifyTime = GETDATE(), ".format(clothesNode.SubCategoryId, clothesNode.ColorId)\
+					+ "UserPreferences={0}, IsFavorite={1} WHERE Id = {2};".format(clothesNode.UserPreferences, clothesNode.IsFavorite, clothesNode.Id)
+        print("updateById: ", execute_str)
+
+        self.cursor.execute(execute_str)
+        self.cnxn.commit()
+
+        return True
+
     ###################### DELETE ######################
+
     def deleteByPosition(self, position):
 
         if self.queryDataByPosition(position) == None:

@@ -103,6 +103,8 @@ def get_all_color():
 
 
 ################################################################################## weather
+
+
 @eel.expose
 def weather_to_js():  # 傳送天氣資訊
 
@@ -261,7 +263,29 @@ def updatePositionToNull(position):
 
     return result
 
+
+@eel.expose
+def color_to_js():  # 傳送所有縣市資訊
+
+    colorService = ColorService()
+    color_dict = colorService.queryAll()
+
+    print("color: ", color_dict)
+    return color_dict
+
+
+@eel.expose
+def sub_category_to_js():  # 傳送所有縣市資訊
+
+    subCategoryService = SubCategoryService()
+    subCategory_dict = subCategoryService.queryAll()
+
+    print("subCategory: ", subCategory_dict)
+    return subCategory_dict
+
+
 ################################################################################## clothes node graph
+
 
 @eel.expose
 def creat_node_graph(firstClohtesNode, secondClohtesNode, userLike):  # 新增node_graph
@@ -291,7 +315,14 @@ def creat_node_graph(firstClohtesNode, secondClohtesNode, userLike):  # 新增no
     return isSuccess
 
 
+@eel.expose
+def update_clothes_node(clothesNode):
+    clothesNodeService = ClothesNodeService()
+    isSuccess = clothesNodeService.updateById(clothesNode)  # 預設為2
 
+    print("update_user_dashboard", isSuccess)
+
+    return isSuccess
 
 eel.init('View/mui')  # eel.init(網頁的資料夾)
 # eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))
