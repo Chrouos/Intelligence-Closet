@@ -1,11 +1,3 @@
-
-function heartClick(a) {
-    if (a.style.color == "gray")
-        a.style.color = "red";
-    else
-        a.style.color = "gray";
-}
-
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function ($scope) {
 
