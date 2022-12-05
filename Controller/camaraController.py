@@ -26,16 +26,16 @@ class CamaraController:
 
     def __init__(self, camara, clf):
         self.clf = clf
-        self.newOneId = -1  # 抓取資料庫最後一位
 
-        self.getLastId()
-        self.color = ''
-        self.category = ''
-        self.isFavorite = 0
+        self.color = ''         # 顏色(辨識項目)
+        self.category = ''      # 子類別(辨識項目)
+        self.isFavorite = 0     # 預設「是否收藏」 
 
-        self.path = ""
-
-        self.chooseCamara = camara
+        self.save_path = ""     # 全域端: 儲存的位置
+        self.path = ""          # 資料庫: 儲存的位置
+        
+        self.newOneId = self.getLastId()        # 抓取資料庫的最後一筆Id, (並成為要命名的數字)
+        self.chooseCamara = camara  # 選擇照相機
 
     def getLastId(self):
         clothesNodeService = ViewClothesNodeService()
@@ -43,7 +43,7 @@ class CamaraController:
         self.newOneId = clothesNodeService.lastId() + 1
         self.save_path = 'View/mui/public/src/clothes_' + str(self.newOneId) + '.jpg'
         self.path = "./public/src/clothes_" + str(self.newOneId) + ".jpg"
-
+        
         return self.newOneId
 
     def saveToSql(self):
@@ -77,27 +77,33 @@ class CamaraController:
         print(" ---------- identify result ----------")
 
     def useCamara(self):
-        cap = cv2.VideoCapture(self.chooseCamara)  # 開啟攝像頭
+        cap = cv2.VideoCapture(self.chooseCamara, cv2.CAP_DSHOW)  # 開啟攝像頭
         countDown = 1
+        
         while True:
             ret, frame = cap.read()  # 讀取鏡頭畫面
             cv2.imshow("capture", frame)  # 生成攝像頭視窗
             countDown = countDown - 0.1
+            
             if cv2.waitKey(1) & 0xFF == ord('q') or countDown <= 0:  # 如果按下q 就截圖儲存並退出
 
                 outputSize = cv2.resize(frame, (480, 640))  # to resize the image
                 cv2.imwrite(self.save_path, outputSize)
-
-                cap.release()
-                cv2.destroyAllWindows()  # 關閉視窗
-                print("save: ", self.save_path)
-
                 break
+
+        cap.release()
+        cv2.destroyAllWindows()  # 關閉視窗
+        print("save: ", self.save_path)        
+
 
     def identifyCategory(self):
         pre = self.clf.predict(self.save_path)
-        prediction = self.ClassifierLoop(pre)
-        # self.category = prediction
+        prediction = "Not_sure"
+        if not pre[0]:
+            print("NOT SURE")
+        else:
+            prediction = self.ClassifierLoop(pre)
+        self.category = prediction
         
         
         # print("identifyCategory prediction", prediction)
@@ -243,13 +249,18 @@ class CamaraController:
             if base.item() > 0.5:
                 tens_list.append(base.item())
             
-        # print(tens_list, label_list)
+        print(tens_list, label_list)
         self.category = label_list[np.argmax(tens_list)]
         
         return  self.category
+    
     # https://www.twblogs.net/a/5c36d389bd9eee35b21d46e3
     # https://blog.csdn.net/ruoshui_t/article/details/109310806
 
     # https://stackoverflow.com/questions/10948589/choosing-the-correct-upper-and-lower-hsv-boundaries-for-color-detection-withcv
 
     # https://stackoverflow.com/questions/47483951/how-to-define-a-threshold-value-to-detect-only-green-colour-objects-in-an-image/47483966#47483966
+    
+    
+    # https://blog.csdn.net/weixin_43272781/article/details/103787735#
+    # (:~SourceReaderCB terminating async callback)

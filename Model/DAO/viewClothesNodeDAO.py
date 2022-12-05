@@ -88,17 +88,15 @@ class ViewClothesNodeDAO:
 
     # 透過位置找尋資料
     def queryDataByPosition(self, position):
-        execute_str = "SELECT * FROM intelligence_closet.dbo.v_clothes_node WHERE Position = '{0}' ".format(
-            position)
+        execute_str = "SELECT * FROM intelligence_closet.dbo.v_clothes_node WHERE Position = '{0}' ".format(position)
         self.cursor.execute(execute_str)
         data = self.cursor.fetchone()
         return data
 
     # 大到小分類: name 想找尋的分類
     def sortNameDESC(self, name):
-        execute_str = "SELECT * FROM intelligence_closet.dbo.v_clothes_node ORDER BY '{0}' DESC".format(
-            name)
-        print("sortNameDESC", execute_str)
+        execute_str = "SELECT * FROM intelligence_closet.dbo.v_clothes_node ORDER BY '{0}' DESC".format(name)
+        # print("sortNameDESC", execute_str)
 
         self.cursor.execute(execute_str)
         data = self.cursor.fetchone()
@@ -106,8 +104,7 @@ class ViewClothesNodeDAO:
 
     # 大到小分類: name 想找尋的分類
     def sortNameASC(self, name):
-        execute_str = "SELECT * FROM intelligence_closet.dbo.v_clothes_node ORDER BY '{0}' ASC".format(
-            name)
+        execute_str = "SELECT * FROM intelligence_closet.dbo.v_clothes_node ORDER BY '{0}' ASC".format(name)
 
         self.cursor.execute(execute_str)
         data = self.cursor.fetchone()
@@ -117,7 +114,7 @@ class ViewClothesNodeDAO:
     def lastId(self):
         data = self.sortNameDESC('Id')
 
-        print("data: ", data)
+        # print("data: ", data)
         if data == None:
             return 0
 
