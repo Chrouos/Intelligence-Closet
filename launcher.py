@@ -324,6 +324,17 @@ def update_clothes_node(clothesNode): # 更新 clothes node
 
     return isSuccess
 
+
+@eel.expose
+def delete_clothes_node(clothesNodeId): # clothes node 歸零
+    clothesNodeService = ClothesNodeService()
+    isSuccess = clothesNodeService.returnZeroById(clothesNodeId)
+
+    print("update_user_dashboard", isSuccess)
+
+    return isSuccess
+
+
 eel.init('View/mui')  # eel.init(網頁的資料夾)
 # eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))
 

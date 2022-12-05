@@ -179,6 +179,18 @@ class ClothesNodeDAO:
 
         return True
 
+    # clothes node 歸零
+    def returnZeroById(self, clothesNodeId):
+
+        execute_str = "UPDATE intelligence_closet.dbo.clothes_node SET " \
+					+ "UserPreferences=1, IsFavorite=0 WHERE Id = {0};".format(clothesNodeId)
+        print("returnZeroById: ", execute_str)
+
+        self.cursor.execute(execute_str)
+        self.cnxn.commit()
+
+        return True
+
     ###################### DELETE ######################
 
     def deleteByPosition(self, position):

@@ -184,6 +184,16 @@ app.controller('myCtrl', function ($scope) {
         $scope.update_clothes();
     }
 
+    // clothes node 歸零
+    $scope.deleteClothes = async function () {
+        var isSuccess = await eel.delete_clothes_node($scope.pickUp_FirstClohtesNode.Id)();
+    }
+
+    // clothes_node_graph 歸零
+    $scope.deleteNodeGraph = async function () {
+        var isSuccess = await eel.delete_clothes_node_graph($scope.pickUp_FirstClohtesNode.Id, $scope.pickUp_SecondClohtesNode.Id)();
+    }
+
     /* ---------- 切換頁面 end ---------- */
 
 });

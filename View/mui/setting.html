@@ -119,10 +119,10 @@
 
       <!-- 衣物設定頁面 button -->
       <div ng-show="settingType_Single">
-        <div class="si-btn-rb-three" ng-click="" ng-show="1">
+        <button class="si-btn-rb-three" ng-click="deleteClothes()" style="border:none;">
           <!--TODO:衣物不在衣櫃時才顯示刪除選項-->
-          <a class="si-btm-rb-three-n" ng-click="">刪 除</a>
-        </div>
+          <a class="si-btm-rb-three-n">刪 除</a>
+        </button>
         <button class="si-btn-rb-two" ng-click="clothes_Set()" style="border:none;" onclick="showMask()">
           <a class="si-btm-rb-two-n">設 定</a>
         </button>
@@ -172,15 +172,12 @@
       </div>
       <!-- 搭配設定頁面02 button -->
       <div>
-        <div class="maNd-btn-rb-three" ng-click="">
-          <a class="maNd-btm-rb-three-n" ng-click="">刪 除</a>
-        </div>
+        <button class="maNd-btn-rb-three" ng-click="deleteNodeGraph()" style="border:none;">
+          <a class="maNd-btm-rb-three-n">刪 除</a>
+        </button>
         <button class="maNd-btn-rb-two" ng-click="creatNodeGraph()" style="border:none;">
           <a class="maNd-btm-rb-two-n">新 增</a>
         </button>
-        <!-- <div class="maNd-btn-rb-two" ng-click="creatNodeGraph()">
-          <a class="maNd-btm-rb-two-n" ng-click="creatNodeGraph()">新 增</a>
-        </div> -->
         <button class="maNd-btn-rb-one" ng-click="goToMatch()" style="border:none;">
           <a class="maNd-btm-rb-one-n">返 回</a>
         </button>
