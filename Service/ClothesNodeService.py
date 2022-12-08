@@ -111,9 +111,9 @@ class ClothesNodeService:
             self.clothesNodeDAO.updateById(clothesNode)
             return True
 
-    # clothesNode 歸零
-    def returnZeroById(self, clothesNodeId):            
-            self.clothesNodeDAO.returnZeroById(clothesNodeId)
+    # Clothes Node 歸零
+    def deleteClothesNode(self, clothesNodeId):            
+            self.clothesNodeDAO.deleteClothesNode(clothesNodeId)
             return True
 
     ###################### DELETE ######################

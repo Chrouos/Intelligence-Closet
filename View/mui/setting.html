@@ -109,7 +109,7 @@
 
       <!--搭配設定頁面 button -->
       <div ng-show="settingType_Match_st">
-        <button class="maSt-btn-rb-two" ng-click="goToMatchNd()" style="border:none;">
+        <button class="maSt-btn-rb-two" ng-show="pickUp_FirstClohtesNode" ng-click="goToMatchNd()" style="border:none;">
           <a class="maSt-btm-rb-two-n">組合設定</a>
         </button>
         <button class="maSt-btn-rb-one" ng-click="backToMain()" style="border:none;">
@@ -119,11 +119,11 @@
 
       <!-- 衣物設定頁面 button -->
       <div ng-show="settingType_Single">
-        <button class="si-btn-rb-three" ng-click="deleteClothes()" style="border:none;">
+        <button class="si-btn-rb-three" ng-show="pickUp_FirstClohtesNode" ng-click="deleteClothes()" style="border:none;">
           <!--TODO:衣物不在衣櫃時才顯示刪除選項-->
           <a class="si-btm-rb-three-n">刪 除</a>
         </button>
-        <button class="si-btn-rb-two" ng-click="clothes_Set()" style="border:none;" onclick="showMask()">
+        <button class="si-btn-rb-two" ng-show="pickUp_FirstClohtesNode" ng-click="clothes_Set()" style="border:none;" onclick="showMask()">
           <a class="si-btm-rb-two-n">設 定</a>
         </button>
         <button class="si-btn-rb-one" ng-click="backToMain()" style="border:none;">
@@ -161,10 +161,10 @@
             <img src="{{pickUp_FirstClohtesNode.FilePosition}}">
           </div>
           <i class="fa-solid fa-plus"></i>
-          <div class="setM_nd_set_picture">
+          <div class="setM_nd_set_picture" ng-show="pickUp_SecondClohtesNode">
             <img src="{{pickUp_SecondClohtesNode.FilePosition}}">
           </div>
-          <div class="setM_nd_set_set">
+          <div class="setM_nd_set_set" ng-show="pickUp_SecondClohtesNode">
             <p>組合喜好度: {{clothesMath_like}} <input style="width: 200px" type="range" min="1" max="10" ng-model="clothesMath_like" /></p>
           </div>
         </div>
@@ -172,10 +172,10 @@
       </div>
       <!-- 搭配設定頁面02 button -->
       <div>
-        <button class="maNd-btn-rb-three" ng-click="deleteNodeGraph()" style="border:none;">
+        <button class="maNd-btn-rb-three" ng-show="pickUp_SecondClohtesNode" ng-click="deleteNodeGraph()" style="border:none;">
           <a class="maNd-btm-rb-three-n">刪 除</a>
         </button>
-        <button class="maNd-btn-rb-two" ng-click="creatNodeGraph()" style="border:none;">
+        <button class="maNd-btn-rb-two" ng-show="pickUp_SecondClohtesNode" ng-click="creatNodeGraph()" style="border:none;">
           <a class="maNd-btm-rb-two-n">新 增</a>
         </button>
         <button class="maNd-btn-rb-one" ng-click="goToMatch()" style="border:none;">

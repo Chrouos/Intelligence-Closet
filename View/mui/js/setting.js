@@ -88,13 +88,9 @@ app.controller('myCtrl', function ($scope) {
 
     /* ---------- 將資料儲存至料庫 Start ---------- */
     $scope.creatNodeGraph = async function () { // 送出
-        // console.log("$scope.pickUp_FirstClohtesNode",$scope.pickUp_FirstClohtesNode);
-        // console.log("$scope.pickUp_SecondClohtesNode",$scope.pickUp_SecondClohtesNode);
-        // console.log("$scope.clothesMath_like",$scope.clothesMath_like);
         var isSuccess = await eel.creat_node_graph($scope.pickUp_FirstClohtesNode, $scope.pickUp_SecondClohtesNode, $scope.clothesMath_like);
         
         $scope.backToMain();
-        
     }
 
     /* ---------- 切換頁面 start ---------- */
@@ -191,7 +187,9 @@ app.controller('myCtrl', function ($scope) {
 
     // clothes_node_graph 歸零
     $scope.deleteNodeGraph = async function () {
-        var isSuccess = await eel.delete_clothes_node_graph($scope.pickUp_FirstClohtesNode.Id, $scope.pickUp_SecondClohtesNode.Id)();
+        var isSuccess = await eel.delete_clothes_node_graph($scope.pickUp_FirstClohtesNode, $scope.pickUp_SecondClohtesNode)();
+
+        $scope.backToMain();
     }
 
     /* ---------- 切換頁面 end ---------- */

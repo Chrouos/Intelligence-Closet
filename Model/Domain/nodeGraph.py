@@ -8,7 +8,6 @@ class NodeGraph:
         self.UserLike = ""
         self.CreateTime = ""
         self.ModifyTime = ""
-        self.Position = ""
 
     def print(self):
         print("Id: {0}, UpperId: {1}, LowerId: {2}".format(
@@ -22,7 +21,6 @@ class NodeGraph:
         self.LowerId = data.LowerId
         self.OtherId = data.OtherId
         self.UserLike = data.UserLike
-        self.Position = data.Position
         self.CreateTime = data.CreateTime.strftime("%m/%d/%Y")
         self.ModifyTime = data.ModifyTime.strftime("%m/%d/%Y")
 

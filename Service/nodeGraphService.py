@@ -91,6 +91,22 @@ class NodeGraphService:
             })
         return nodeGraph_dict
 
+    def queryByUpperIdAndLowerId(self, upperId, lowerId):
+        datas = self.nodeGraphDAO.queryByUpperIdAndLowerId(upperId, lowerId)
+
+        nodeGraph_dict = []
+        for data in datas:
+            nodeGraph_dict.append({
+                'Id': data.Id,
+                'UpperId': data.UpperId,
+                'LowerId': data.LowerId,
+                'OtherId': data.OtherId,
+                'UserLike': data.UserLike,
+                'CreateTime': data.CreateTime,
+                'ModifyTime': data.ModifyTime
+            })
+        return nodeGraph_dict
+
     def updateUserLikeById(self, combLike, id):
         self.nodeGraphDAO.updateUserLikeById(combLike, id)
         return True
@@ -104,3 +120,15 @@ class NodeGraphService:
         nodeGraph = NodeGraph()
         nodeGraph.updateByDict(nodeGraph_dict)
         return self.nodeGraphDAO.create(nodeGraph)
+
+    def updateByUpperIdAndLowerId(self, request):
+        nodeGraph = NodeGraph()
+        if type(request) is dict:
+            nodeGraph.updateByDict(request)
+        
+        if type(request) is str:
+            nodeGraphd_dic = json.loads(request)
+            nodeGraph.updateByDict(nodeGraphd_dic)
+        
+        self.nodeGraphDAO.updateByUpperIdAndLowerId(nodeGraph)
+        return True
