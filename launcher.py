@@ -46,9 +46,10 @@ def comb_to_js():
     userDashboardService = UserDashboardService()
     user_dict = userDashboardService.queryById(user_id)  # 預設為2
 
-    clothesGraphController = ClothesGraphController(user_dict['StationName'])
+    clothesGraphController = ClothesGraphController(user_dict['VillageId'])
     graphComb = clothesGraphController.getCombination()
-    # print("comb_to_js: ", graphComb)
+    
+    print("comb_to_js: ", graphComb)
 
     return graphComb
 

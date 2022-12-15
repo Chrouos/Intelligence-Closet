@@ -21,12 +21,49 @@ app.controller('myCtrl', function ($scope) {
     //衣物資料
     $scope.showInfo = function (clothesID) {
         //TODO:用clothesID呼叫衣物資料
-        console.log(clothesID)
+        console.log("clothesID",clothesID)
+
+        //$scope.clothesNode = $scope.pageList[arr[1]];
+        //$scope.weather = await eel.query_clothesNode_byId()();
+
         $scope.putOItype = !$scope.putOItype;
     }
+
     $scope.backToMain = function () {
         $scope.putOItype = !$scope.putOItype;
     }
+
+    // 抓取全部資料
+    $scope.queryAllList = async function () {
+        $scope.clothesGraphList = await eel.comb_to_js()();
+        console.log("$scope.clothesGraphList", $scope.clothesGraphList);
+        $scope.maxPage = Math.ceil($scope.clothesGraphList.length/'5');
+        console.log("$scope.maxPage", $scope.maxPage )
+        $scope.setData();
+    }
+    $scope.queryAllList();
+
+    $scope.page = 1;
+    $scope.pageList = {};
+    $scope.setData = function () {
+        var count = 0;
+        for (var i = ($scope.page - 1) * 5; i < ($scope.page - 1) * 5 + 5; i++) {
+            $scope.pageList[count] = $scope.clothesGraphList[i];
+            count++;
+        }
+    }
+        
+    //上一頁
+    $scope.Previous = function () {
+        $scope.page = $scope.page - 1;
+        $scope.setData();
+    }
+    //下一頁
+    $scope.Next = function () {
+        $scope.page = $scope.page + 1;
+        $scope.setData();
+    };
+
 
 });
 

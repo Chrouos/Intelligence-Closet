@@ -1,6 +1,7 @@
 from Service.viewClothesNodeService import ViewClothesNodeService, ViewClothesNodeDAO
 from Service.viewClothesGraphService import ViewClothesGraphService
-from Controller.weatherInformationAPI import WeatherInformationAPI
+# from Controller.weatherInformationAPI import WeatherInformationAPI
+from Controller.weatherAPI import WeatherAPI
 
 # import random  # 亂數產生
 # import networkx as nx  # 生成圖與網路
@@ -9,8 +10,8 @@ import math
 
 
 class ClothesGraphController:
-    def __init__(self, city):
-        self.weatherInformationAPI = WeatherInformationAPI(city)  # 取得城市當日天氣資訊：溫度、濕度、最高溫、最低溫
+    def __init__(self, villageId):
+        self.weatherAPI = WeatherAPI(villageId)  # 取得城市當日天氣資訊：溫度、濕度、最高溫、最低溫
         
         # 利用資料庫更新所有節點資訊
         self.viewClothesNodeService = ViewClothesNodeService()
@@ -62,12 +63,11 @@ class ClothesGraphController:
         
         combs = []
         
-        self.weatherInformationAPI.dataText_AutoRefresh()
-        
+        weather_dict = self.weatherAPI.getWeather()
         # 還相差的溫度 abs((26 + user_weatherLike - now_weather) - weather_score)
-        diff = round(self.comfortableTemp - self.weatherInformationAPI.reTEMP(), 3)
-        self.weatherInformationAPI.printWeather()
-        print("最適合溫度 - 現在溫度 = 相差溫度: {} - {} = {}".format(self.comfortableTemp, self.weatherInformationAPI.reTEMP(), diff))
+        diff = round(self.comfortableTemp - int(weather_dict['T']), 3)
+        self.weatherAPI.printWeather()
+        print("最適合溫度 - 現在溫度 = 相差溫度: {} - {} = {}".format(self.comfortableTemp, weather_dict['T'], diff))
         
         
         # 弄成 dict增加可讀性
@@ -86,6 +86,7 @@ class ClothesGraphController:
                             graph[0].FilePosition, graph[1].FilePosition])
             
             combs_dict_list.append({'ResultScore': result,
+                                    'Clothes1Id': graph[0].Id, 'Clothes2Id': graph[1].Id,
                                     'Clothes1Position': graph[0].Position, 'Clothes2Position': graph[1].Position,
                                     'Clothes1Color': graph[0].ColorName, 'Clothes2Color': graph[1].ColorName,
                                     'Clothes1Name': graph[0].SubCategoryName, 'Clothes2Name': graph[1].SubCategoryName,
@@ -102,9 +103,9 @@ class ClothesGraphController:
         return combs_dict_list
         
         
-    def changeCity(self, city):
-        self.weatherInformationAPI.city = city
-        self.weatherInformationAPI.getWeather()
+    def changeCity(self, villageId):
+        self.weatherAPI.villageId = villageId
+        self.weatherAPI.getWeather()
     
 '''
 建立圖形物件

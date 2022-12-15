@@ -15,6 +15,7 @@
   <!-- Package -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+  <script src="http://apps.bdimg.com/libs/angular.js/1.5.0-beta.0/angular.js"></script>
   <script src="https://kit.fontawesome.com/8ede13235f.js" crossorigin="anonymous"></script>
   <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
 
@@ -36,50 +37,27 @@
     </div>
     <div id="recommend_main">
       <!--TODO:連接資料/改回圈模式-->
-      <div class="recommend_second">
-        <img class="recommend_third" id="clothesNode_1" src="./public/src/clothes_1.jpg" onmousedown="holdDown(this)"
-          onmouseup="holdUp()">
-        <img class="recommend_third" id="clothesNode_5" src="./public/src/clothes_5.jpg" onmousedown="holdDown(this)"
-          onmouseup="holdUp()">
-      </div>
-      <div class="recommend_second">
-        <img class="recommend_third" id="clothesNode_2" src="./public/src/clothes_2.jpg" onmousedown="holdDown(this)"
-          onmouseup="holdUp()">
-        <img class="recommend_third" id="clothesNode_6" src="./public/src/clothes_6.jpg" onmousedown="holdDown(this)"
-          onmouseup="holdUp()">
-      </div>
-      <div class="recommend_second">
-        <img class="recommend_third" id="clothesNode_3" src="./public/src/clothes_3.jpg" onmousedown="holdDown(this)"
-          onmouseup="holdUp()">
-        <img class="recommend_third" id="clothesNode_7" src="./public/src/clothes_7.jpg" onmousedown="holdDown(this)"
-          onmouseup="holdUp()">
-      </div>
-      <div class="recommend_second">
-        <img class="recommend_third" id="clothesNode_9" src="./public/src/clothes_9.jpg" onmousedown="holdDown(this)"
-          onmouseup="holdUp()">
-      </div>
-      <div class="recommend_second">
-        <img class="recommend_third" id="clothesNode_4" src="./public/src/clothes_4.jpg" onmousedown="holdDown(this)"
-          onmouseup="holdUp()">
-        <img class="recommend_third" id="clothesNode_8" src="./public/src/clothes_8.jpg" onmousedown="holdDown(this)"
-          onmouseup="holdUp()">
+      <div class="recommend_second"  class="grid-item" ng-repeat="clothesGraph in pageList"  ng-init="outerIndex = $index">
+        <img class="recommend_third" id="clothesGraph1_{{$index}}" src={{clothesGraph.Clothes1Path}} onmousedown="holdDown(this)"
+          onmouseup="holdUp()" ng-show="clothesGraph.Clothes1Path">
+        <img class="recommend_third" id="clothesGraph2_{{$index}}" src={{clothesGraph.Clothes2Path}} onmousedown="holdDown(this)"
+          onmouseup="holdUp()" ng-show="clothesGraph.Clothes2Path">
       </div>
     </div>
     <div id="page">
-      <a style="font-size: 20px;">第1頁</a>
+      <a style="font-size: 20px;">第{{page}}頁</a>
       <div>
-        <a>上一頁</a>
+        <a ng-click="Previous()" ng-show="page != 1">上一頁</a>
         <a style="font-size: 30px;">&nbsp / &nbsp</a>
-        <a>下一頁</a>
+        <a ng-click="Next()" ng-show="page != maxPage">下一頁</a>
       </div>
-
     </div>
   </div>
   <!----------------------------------------------------------------------------------->
   <!--TODO:連接資料-->
   <!-- 衣物照片 -->
 
-  <!-- <div id="putOI-Info" ng-show="putOItype">
+  <div id="putOI-Info" ng-show="putOItype">
     <div class="pictures-one">
       <a><img src="./public/src/clothes_1.jpg"></a>
     </div>
@@ -108,7 +86,7 @@
           ng-click="backToMain()">返 回</a></div>
     </div>
 
-  </div> -->
+  </div>
   <!----------------------------------------------------------------------------------->
   <!-- button -->
   <div>

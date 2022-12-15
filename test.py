@@ -177,7 +177,7 @@ from Controller.camaraController import *
 # camaraController.printResult()
 
 # 圖形物件
-# clothesGraphController = ClothesGraphController('板橋')
+# clothesGraphController = ClothesGraphController(182)
 # clothesGraphController.updateNode()
 # clothesGraphController.printNode()
 # clothesGraphController.printEdge()
