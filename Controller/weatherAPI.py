@@ -78,6 +78,17 @@ class WeatherAPI:
             data_dict[elementName] = value
 
         self.__dataText = data_dict
+        self.__T = data_dict['T']  # 溫度
+        self.__AT = data_dict['AT']  # 體感溫度
+        self.__UVI = data_dict['UVI']  # 紫外線指數
+        self.__MaxAT = data_dict['MaxAT']  # 最高體感溫度
+        self.__MinAT = data_dict['MinAT']  # 最低體感溫度
+        self.__Wx = data_dict['Wx']  # 天氣現象
+        self.__WS = data_dict['WS']  # 風速
+        self.__RH = data_dict['RH']  # 相對溼度
+        self.__PoP12h = data_dict['PoP12h']  # 12h降雨機率
+        self.__CI = data_dict['CI']  # 舒適度
+
 
     def getWeather(self):
 
@@ -93,6 +104,12 @@ class WeatherAPI:
             return weather_dict
         except:
             return "此站未提供天氣資訊"
+
+    def printWeather(self):
+
+        # 利用“正規化“只截取想要的資訊
+        print("T:", self.__T)
+
 
 
 '''
