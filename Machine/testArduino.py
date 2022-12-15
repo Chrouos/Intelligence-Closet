@@ -7,6 +7,7 @@ BAUD_RATES = 9600
 ser = serial.Serial(COM_PORT, BAUD_RATES)
 choice = 'nothing'
 mcu_feedback = 'Done'
+
 try:
     while True:
         # 接收用戶的輸入值並轉成小寫
