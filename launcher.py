@@ -296,28 +296,29 @@ def sub_category_to_js():  # 傳送所有sub catrgory
 
 @eel.expose
 def creat_node_graph(firstClohtesNode, secondClohtesNode, userLike):  # 新增node_graph
-    nodeGraph_dict = []
+    nodeGraph_dict = {}
     if(firstClohtesNode['CategoryId'] == 1):
-        nodeGraph_dict.append({
-                'UpperId': firstClohtesNode['Id'],
-                'LowerId': secondClohtesNode['Id'],
-                'OtherId': NULL,
-                'UserLike': userLike
-            })
+        nodeGraph_dict['UpperId'] = firstClohtesNode['Id']
+        nodeGraph_dict['LowerId'] = secondClohtesNode['Id']
+        nodeGraph_dict['OtherId'] = NULL
+        nodeGraph_dict['UserLike'] = userLike
+
 
     elif(secondClohtesNode['CategoryId'] == 1):
-        nodeGraph_dict.append({
-                'UpperId': secondClohtesNode['Id'],
-                'LowerId': firstClohtesNode['Id'],
-                'OtherId': NULL,
-                'UserLike': userLike
-            })
+        nodeGraph_dict['UpperId'] = secondClohtesNode['Id']
+        nodeGraph_dict['LowerId'] = firstClohtesNode['Id']
+        nodeGraph_dict['OtherId'] = NULL
+        nodeGraph_dict['UserLike'] = userLike
 
     # 儲存至node_graph sql的資料
     nodeGraphService = NodeGraphService()
-    isSuccess = nodeGraphService.create(nodeGraph_dict[0])
 
-    print("creat_node_graph: ", firstClohtesNode, secondClohtesNode, userLike)
+    if(nodeGraphService.queryByUpperIdAndLowerId(nodeGraph_dict['UpperId'], nodeGraph_dict['LowerId'])):
+        isSuccess = nodeGraphService.updateByUpperIdAndLowerId(nodeGraph_dict)
+        print("update_node_graph: ", firstClohtesNode, secondClohtesNode, userLike)
+    else:
+        isSuccess = nodeGraphService.create(nodeGraph_dict)
+        print("creat_node_graph: ", firstClohtesNode, secondClohtesNode, userLike)
 
     return isSuccess
 
@@ -335,9 +336,35 @@ def update_clothes_node(clothesNode): # 更新 clothes node
 @eel.expose
 def delete_clothes_node(clothesNodeId): # clothes node 歸零
     clothesNodeService = ClothesNodeService()
-    isSuccess = clothesNodeService.returnZeroById(clothesNodeId)
+    isSuccess = clothesNodeService.deleteClothesNode(clothesNodeId)
 
     print("update_user_dashboard", isSuccess)
+
+    return isSuccess
+
+@eel.expose
+def delete_clothes_node_graph(firstClohtesNode, secondClohtesNode): # clothes node graph 歸零
+    nodeGraph_dict = {}
+    if(firstClohtesNode['CategoryId'] == 1):
+        nodeGraph_dict['UpperId'] = firstClohtesNode['Id']
+        nodeGraph_dict['LowerId'] = secondClohtesNode['Id']
+        nodeGraph_dict['OtherId'] = NULL
+        nodeGraph_dict['UserLike'] = 0
+
+
+    elif(secondClohtesNode['CategoryId'] == 1):
+        nodeGraph_dict['UpperId'] = secondClohtesNode['Id']
+        nodeGraph_dict['LowerId'] = firstClohtesNode['Id']
+        nodeGraph_dict['OtherId'] = NULL
+        nodeGraph_dict['UserLike'] = 0
+
+    # 儲存至node_graph sql的資料
+    nodeGraphService = NodeGraphService()
+
+    if(nodeGraphService.queryByUpperIdAndLowerId(nodeGraph_dict['UpperId'], nodeGraph_dict['LowerId'])):
+        isSuccess = nodeGraphService.updateByUpperIdAndLowerId(nodeGraph_dict)
+        
+    print("delete_clothes_node_graph: ", firstClohtesNode, secondClohtesNode, 0)
 
     return isSuccess
 

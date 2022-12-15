@@ -108,6 +108,21 @@ class NodeGraphDAO:
             nodeGraphLists.append(nodeGraph)
         return nodeGraphLists
 
+    def queryByUpperIdAndLowerId(self, upperId, lowerId):
+        execute_str = "SELECT * FROM intelligence_closet.dbo.node_graph where UpperId = {0} AND LowerId = {1};".format(
+            upperId, lowerId)
+        print("queryByUpperIdAndLowerId: ", execute_str)
+
+        self.cursor.execute(execute_str)
+        datas = self.cursor.fetchall()
+
+        nodeGraphLists = []
+        for data in datas:
+            nodeGraph = NodeGraph()
+            nodeGraph.updateBySQL(data)
+            nodeGraphLists.append(nodeGraph)
+        return nodeGraphLists
+
     def updateCombLikeById(self, score, id):
         execute_str = "UPDATE intelligence_closet.dbo.node_graph SET CombLike = {0}, ModifyTime = GETDATE() WHERE Id = {1}".format(
             score, id)
@@ -134,6 +149,16 @@ class NodeGraphDAO:
             + "null, null, 0, GETDATE(), GETDATE() )".format()
 
         print("create: ", execute_str)
+
+        self.cursor.execute(execute_str)
+        self.cnxn.commit()
+
+        return True
+
+    def updateByUpperIdAndLowerId(self, nodeGraphd):
+        execute_str = "UPDATE intelligence_closet.dbo.node_graph SET UserLike = {0}, ModifyTime = GETDATE() WHERE UpperId = {1} AND LowerId = {2}".format(
+            nodeGraphd.UserLike, nodeGraphd.UpperId, nodeGraphd.LowerId)
+        print("updateByUpperIdAndLowerId: ", execute_str)
 
         self.cursor.execute(execute_str)
         self.cnxn.commit()
