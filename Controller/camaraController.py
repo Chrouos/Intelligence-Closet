@@ -41,6 +41,8 @@ class CamaraController:
         clothesNodeService = ViewClothesNodeService()
 
         self.newOneId = clothesNodeService.lastId() + 1
+        
+        self.newOneId = 2 # TODO: 要記得刪除
         self.save_path = 'View/mui/public/src/clothes_' + str(self.newOneId) + '.jpg'
         self.path = "./public/src/clothes_" + str(self.newOneId) + ".jpg"
         
@@ -88,7 +90,7 @@ class CamaraController:
             if cv2.waitKey(1) & 0xFF == ord('q') or countDown <= 0:  # 如果按下q 就截圖儲存並退出
 
                 outputSize = cv2.resize(frame, (480, 640))  # to resize the image
-                cv2.imwrite(self.save_path, outputSize)
+                # cv2.imwrite(self.save_path, outputSize)
                 break
 
         cap.release()

@@ -12,10 +12,7 @@ Stepper disc_stepper(200, 2, 3, 4, 5);  // 360 / 120(120步可以轉一圈) = 30
 const int tailButton = 22; // 尾巴的微動開關 
 const int entranceButton = 24; // 入口的微動開關
 const int discButton = 23;  // 圓盤的微動開關
-const int entrance_L298N1_In1 = 6; // 車車(減速馬達)的L298N in1
-const int entrance_L298N1_In2 = 7; // 車車(減速馬達)的L298N in2 
-const int export_L298N1_In3 = 8; // 車車(減速馬達)的L298N in3
-const int export_L298N1_In4 = 9; // 車車(減速馬達)的L298N in4
+const int entrance_L298N_car[4] = {6, 7, 8, 9};
 const int trigPin = 40; // 超音波 trig
 const int echoPin = 42; // 超音波 echo
 const int electromagnet = 45; // 電磁鐵
@@ -49,10 +46,9 @@ void setup() {
 
     Serial.begin(9600); 
 
-    pinMode(entrance_L298N1_In1, OUTPUT);
-    pinMode(entrance_L298N1_In2, OUTPUT);
-    pinMode(export_L298N1_In3, OUTPUT);
-    pinMode(export_L298N1_In4, OUTPUT);
+    for(int i=0; i<4; i++){
+        pinMode(entrance_L298N_car[i], OUTPUT);
+    }
 
     pinMode(entranceButton, INPUT);
     pinMode(tailButton, INPUT);
@@ -109,7 +105,7 @@ void loop() {
             Serial.println("等待超音波或微動開關");
             while(start == true){
 
-                mfront(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4); // 馬達前進
+                mfront(entrance_L298N_car); // 馬達前進
                 
                 // 準備拍照
                 if (isTri == true && isDone == false) { // 可發射 且 未完成拍照 (持續發射)
@@ -128,7 +124,7 @@ void loop() {
                     if (Distance <= 20) {                   // 距離小於 20cm
                         Serial.println("超音波感測距離 < 20!!");
                         // 稍微停止一下
-                        mstop(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
+                        mstop(entrance_L298N_car);
 
                         // 拍照
                         Serial.println("Photograph");
@@ -143,7 +139,7 @@ void loop() {
                         setUpLCD(1, 3, "Not Distance Now");
                         Serial.println("重新啟動 正轉");
 
-                        mfront(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
+                        mfront(entrance_L298N_car);
                         isDone = true;
                         
                     }
@@ -159,7 +155,7 @@ void loop() {
                 }
 
             }
-            mstop(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4); // 馬達停下
+            mstop(entrance_L298N_car); // 馬達停下
             setUpLCD(1, 2, "Stopping, Front");
 
 
@@ -170,7 +166,7 @@ void loop() {
 
             // 反轉兩秒
             setUpLCD(1, 2, "Running,  Back ");  Serial.println("反轉兩秒");
-            motor_back_with_time(2000, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4); 
+            motor_back_with_time(2000, entrance_L298N_car); 
             setUpLCD(1, 2, "Stopping,  Back");  Serial.println("反轉停止");
 
             // TODO: 圓盤轉至「位置為無」
@@ -180,7 +176,7 @@ void loop() {
 
             // 正轉 ~ 停止
             setUpLCD(1, 2, "Running,  Front");  Serial.println("正轉");
-            motor_running(1, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
+            motor_running(1, entrance_L298N_car);
             setUpLCD(1, 2, "Stopping, Front");  Serial.println("正轉停止");
 
             // 伺服馬達鉤子落下
@@ -190,7 +186,7 @@ void loop() {
 
             // 反轉 ~ 停止
             setUpLCD(1, 2, "Running,  Back ");  Serial.println("反轉至 碰到微動開關為止");
-            motor_running(2, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
+            motor_running(2, entrance_L298N_car);
             setUpLCD(1, 2, "Stopping,  Back");  Serial.println("反轉停止");
 
             // 伺服馬達鉤子抬起
@@ -226,7 +222,7 @@ void loop() {
 
             // 正轉 ~ 停止
             setUpLCD(1, 2, "Running,  Front");  Serial.println("正轉兩秒");
-            motor_running(1, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
+            motor_running(1, entrance_L298N_car);
             setUpLCD(1, 2, "Stopping, Front");  Serial.println("正轉停止");
 
             // 伺服馬達鉤子抬起
@@ -236,7 +232,7 @@ void loop() {
 
             // 反轉兩秒
             setUpLCD(1, 2, "Running,  Back ");  Serial.println("反轉兩秒");
-            motor_back_with_time(2000, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
+            motor_back_with_time(2000,entrance_L298N_car);
             setUpLCD(1, 2, "Stopping,  Back");  Serial.println("反轉停止");
 
             // TODO: 圓盤位置轉至「指定」
@@ -246,7 +242,7 @@ void loop() {
 
             // 正轉 ~ 停止
             setUpLCD(1, 2, "Running,  Front");  Serial.println("正轉兩秒");
-            motor_running(1, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
+            motor_running(1, entrance_L298N_car);
             setUpLCD(1, 2, "Stopping, Front");  Serial.println("正轉停止");
 
              // 伺服馬達鉤子落下
@@ -256,7 +252,7 @@ void loop() {
 
             // 反轉 ~ 停止
             setUpLCD(1, 2, "Running,  Back ");  Serial.println("反轉至 碰到微動開關為止");
-            motor_running(2, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
+            motor_running(2, entrance_L298N_car);
             setUpLCD(1, 2, "Stopping,  Back");  Serial.println("反轉停止");
 
             // 伺服馬達鉤子抬起
@@ -276,7 +272,7 @@ void loop() {
         else if (command == "GO_Straight_Front") {
             Serial.println("GO Straight Front");
 
-            motor_running(1, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
+            motor_running(1, entrance_L298N_car);
             Serial.println("Done");
         }
         // ---------------- 直線到底(前進) END ---------------- //
@@ -285,7 +281,7 @@ void loop() {
         else if (command == "GO_Straight_Back") {
             Serial.println("GO Straight Back");
 
-            motor_running(2, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
+            motor_running(2, entrance_L298N_car);
             Serial.println("Done");
         }
         // ---------------- 直線到底(出來) END ---------------- //
@@ -337,25 +333,25 @@ void loop() {
 }
 
 // 步進馬達: 停止
-void mstop(int In1, int In2, int In3, int In4) {
-    digitalWrite(In1, LOW);
-    digitalWrite(In2, LOW);
-    digitalWrite(In3, LOW);
-    digitalWrite(In4, LOW);
+void mstop(int l298n_car[4]) {
+    digitalWrite(l298n_car[0], LOW);
+    digitalWrite(l298n_car[1], LOW);
+    digitalWrite(l298n_car[2], LOW);
+    digitalWrite(l298n_car[3], LOW);
 }
 // 步進馬達: 前進
-void mfront(int In1, int In2, int In3, int In4) {
-    digitalWrite(In1, LOW);
-    digitalWrite(In2, HIGH);
-    digitalWrite(In3, LOW);
-    digitalWrite(In4, HIGH);
+void mfront(int l298n_car[4]) {
+    digitalWrite(l298n_car[0], LOW);
+    digitalWrite(l298n_car[1], HIGH);
+    digitalWrite(l298n_car[2], LOW);
+    digitalWrite(l298n_car[3], HIGH);
 }
 // 步進馬達: 後退
-void mback(int In1, int In2, int In3, int In4) {
-    digitalWrite(In1, HIGH);
-    digitalWrite(In2, LOW);
-    digitalWrite(In3, HIGH);
-    digitalWrite(In4, LOW);
+void mback(int l298n_car[4]) {
+    digitalWrite(l298n_car[0], HIGH);
+    digitalWrite(l298n_car[1], LOW);
+    digitalWrite(l298n_car[2], HIGH);
+    digitalWrite(l298n_car[3], LOW);
 }
 // LCD 顯示畫面
 void setUpLCD(int column, int row, String text){
@@ -384,16 +380,16 @@ int checkTheBtnStatus(const int button, int& buttonState, int& buttonLastState, 
 }
 
 // type = 1: 前進, type = 2: 後退
-void motor_running(int type, int In1, int In2, int In3, int In4){
+void motor_running(int type, int l298n_car[4]){
     bool temp_start = true;  // true: start, false: stop
 
     while(temp_start == true){
 
         if(type == 1 ){
-            mfront(In1, In2, In3, In4); // 馬達前進
+            mfront(l298n_car); // 馬達前進
         }
         else if (type == 2){
-            mback(In1, In2, In3, In4); // 馬達後退
+            mback(l298n_car); // 馬達後退
         }
 
         // 是否到底(停下)
@@ -404,56 +400,27 @@ void motor_running(int type, int In1, int In2, int In3, int In4){
             temp_start = false;
         }
     }
-    mstop(In1, In2, In3, In4);
+    mstop(l298n_car);
 } 
 
 // 反轉兩秒
-void motor_back_with_time(int backTime, int In1, int In2, int In3, int In4){
+void motor_back_with_time(int backTime, int l298n_car[4]){
     
     bool backMotor_start = true;
     int backMotor_startTime = millis();
     while(backMotor_start == true){
         
         int backMotor_nowTime = millis(); 
-        mback(In1, In2, In3, In4); // 馬達後退
+        mback(l298n_car); // 馬達後退
 
         // 計時兩秒
         if( backMotor_nowTime - backMotor_startTime >= 2000 ){
             backMotor_start = false;
         }
     }
-    mstop(In1, In2, In3, In4);
+    mstop(l298n_car);
 }     
-                
-void stepper_front(int In1, int In2, int In3, int In4) {
 
-    int t = 2;
-
-    digitalWrite(In1, HIGH);
-    digitalWrite(In2, LOW);
-    digitalWrite(In3, LOW);
-    digitalWrite(In4, LOW);
-    delay(t);
-
-    digitalWrite(In1, LOW);
-    digitalWrite(In2, HIGH);
-    digitalWrite(In3, LOW);
-    digitalWrite(In4, LOW);
-    delay(t);
-
-    digitalWrite(In1, LOW);
-    digitalWrite(In2, LOW);
-    digitalWrite(In3, HIGH);
-    digitalWrite(In4, LOW);
-    delay(t);
-
-    digitalWrite(In1, LOW);
-    digitalWrite(In2, LOW);
-    digitalWrite(In3, LOW);
-    digitalWrite(In4, HIGH);
-    delay(t);
-
-}
 
 void discRotate_withTimes(int times){
 

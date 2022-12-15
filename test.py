@@ -165,16 +165,16 @@ from Controller.camaraController import *
 # crawlerStationController.refreshAllData()
 
 # 相機物件
-def get_x(r): return './images_original/'+r['image'] # create path to open images in the original folder
-def get_y(r): return r['label'].split(' ') # split the labels using space as a delimitter
+# def get_x(r): return './images_original/'+r['image'] # create path to open images in the original folder
+# def get_y(r): return r['label'].split(' ') # split the labels using space as a delimitter
 # 讀取圖檔
-clf = joblib.load('Controller/joblib_export.pkl')
-camaraController = CamaraController(0, clf)
-camaraController.useCamara()
+# clf = joblib.load('Controller/joblib_export.pkl')
+# camaraController = CamaraController(0, clf)
+# camaraController.useCamara()
 # camaraController.identifyColor()
-camaraController.identifyCategory()
+# camaraController.identifyCategory()
 # camaraController.saveToSql()
-camaraController.printResult()
+# camaraController.printResult()
 
 # 圖形物件
 # clothesGraphController = ClothesGraphController('板橋')

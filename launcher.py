@@ -21,9 +21,9 @@ from Service.viewVillageService import ViewVillageService
 from Service.cityService import CityService
 from Service.userDashboardService import UserDashboardService
 from Service.ClothesNodeService import ClothesNodeService
-from Service.ClothesNodeLowerService import ClothesNodeLowerService
-from Service.ClothesNodeUpperService import ClothesNodeUpperService
-from Service.ClothesNodeOtherService import ClothesNodeOtherService
+# from Service.ClothesNodeLowerService import ClothesNodeLowerService
+# from Service.ClothesNodeUpperService import ClothesNodeUpperService
+# from Service.ClothesNodeOtherService import ClothesNodeOtherService
 from Service.viewClothesNodeService import ViewClothesNodeService
 from Service.viewClothesNodeService import ViewClothesNodeService
 from Service.viewCategoryClothesService import ViewCategoryClothesService
@@ -31,6 +31,14 @@ from Service.viewUserDashboardService import ViewUserDashboardService
 from Service.nodeGraphService import NodeGraphService
 
 user_id = 1
+camara_choose = 0
+
+from Controller.camaraController import *
+# 相機物件
+def get_x(r): return './images_original/'+r['image'] # create path to open images in the original folder
+def get_y(r): return r['label'].split(' ') # split the labels using space as a delimitter
+# 讀取圖檔
+clf = joblib.load('Controller/joblib_export.pkl')
 
 # 衣物圖形
 @eel.expose
@@ -48,8 +56,7 @@ def comb_to_js():
 @eel.expose
 def get_camera_identify():  # 拍照
     try:
-        idt = CamaraController(0)
-        idt.getLastId()  # 獲得ID，目的是為了建立存檔位置
+        idt = CamaraController(camara_choose, clf)
         idt.useCamara()  # 開啟攝象頭講圖片存檔
 
         idt.identifyCategory()  # 辨識樣式
@@ -68,7 +75,7 @@ def get_camera_identify():  # 拍照
 def identify_save_sql(category, color, path, isFavorite):  # 確定存檔
     try:
         # 儲存至sql的資料
-        idt = CamaraController(0)
+        idt = CamaraController(camara_choose, clf)
         idt.category = category
         idt.color = color
         idt.path = path
@@ -338,4 +345,4 @@ def delete_clothes_node(clothesNodeId): # clothes node 歸零
 eel.init('View/mui')  # eel.init(網頁的資料夾)
 # eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))
 
-eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))
+eel.start('User.html', size=(1920, 1080), mode='chrome')  # eel.start(html名稱, size=(起始大小))
