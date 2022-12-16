@@ -38,9 +38,9 @@
     <div id="recommend_main">
       <!--TODO:連接資料/改回圈模式-->
       <div class="recommend_second"  class="grid-item" ng-repeat="clothesGraph in pageList"  ng-init="outerIndex = $index">
-        <img class="recommend_third" id="clothesGraph1_{{$index}}" src={{clothesGraph.Clothes1Path}} onmousedown="holdDown(this)"
+        <img class="recommend_third" id="clothesGraph1_{{clothesGraph.Clothes1Id}}" src={{clothesGraph.Clothes1Path}} onmousedown="holdDown(this)"
           onmouseup="holdUp()" ng-show="clothesGraph.Clothes1Path">
-        <img class="recommend_third" id="clothesGraph2_{{$index}}" src={{clothesGraph.Clothes2Path}} onmousedown="holdDown(this)"
+        <img class="recommend_third" id="clothesGraph2_{{clothesGraph.Clothes2Id}}" src={{clothesGraph.Clothes2Path}} onmousedown="holdDown(this)"
           onmouseup="holdUp()" ng-show="clothesGraph.Clothes2Path">
       </div>
     </div>
@@ -59,25 +59,25 @@
 
   <div id="putOI-Info" ng-show="putOItype">
     <div class="pictures-one">
-      <a><img src="./public/src/clothes_1.jpg"></a>
+      <a><img src="{{clothesInfo.FilePosition}}"></a>
     </div>
 
     <div class="clothesInfo">
       <div>
-        <p style="display: inline;">顏色: {{}}</p>
+        <p style="display: inline;">顏色: {{clothesInfo.ColorName}}</p>
       </div>
       <div>
-        <p style="display: inline;">樣式: {{}}</p>
+        <p style="display: inline;">樣式: {{clothesInfo.SubCategoryName}}</p>
       </div>
       <div>
-        <p style="display: inline;">使用次數: {{}}</p>
+        <p style="display: inline;">使用次數: {{clothesInfo.UsageCounter}}</p>
       </div>
       <div>
-        <p style="display: inline;">最後使用時間: {{}}</p>
+        <p style="display: inline;">最後使用時間: {{clothesInfo.ModifyTime}}</p>
       </div>
 
       <div>
-        <span style="color: rgb(255, 0, 0);position:relative;left: 2px;"><i class="fa-solid fa-heart"></i>
+        <span ng-style="set_isFavorite_color()"><i class="fa-solid fa-heart"></i>
         </span>
       </div>
     </div>

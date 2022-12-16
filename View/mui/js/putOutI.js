@@ -19,14 +19,24 @@ app.controller('myCtrl', function ($scope) {
     }; $scope.weather_to_js();
 
     //衣物資料
-    $scope.showInfo = function (clothesID) {
+    $scope.showInfo = async function (clothesID) {
         //TODO:用clothesID呼叫衣物資料
-        console.log("clothesID",clothesID)
+        //console.log("clothesID",clothesID);
 
-        //$scope.clothesNode = $scope.pageList[arr[1]];
-        //$scope.weather = await eel.query_clothesNode_byId()();
+        $scope.clothesInfo = await eel.query_clothesNode_byId(clothesID)();
+        //console.log("$scope.clothesInfo",$scope.clothesInfo);
 
+        $scope.set_isFavorite_color();
         $scope.putOItype = !$scope.putOItype;
+    }
+
+    $scope.set_isFavorite_color = function (){
+        if($scope.clothesInfo != null){
+            if($scope.clothesInfo.IsFavorite == 1)
+                return { color: "red" };     
+            else
+                return { color: "gray" };
+        }
     }
 
     $scope.backToMain = function () {
@@ -36,9 +46,9 @@ app.controller('myCtrl', function ($scope) {
     // 抓取全部資料
     $scope.queryAllList = async function () {
         $scope.clothesGraphList = await eel.comb_to_js()();
-        console.log("$scope.clothesGraphList", $scope.clothesGraphList);
+        //console.log("$scope.clothesGraphList", $scope.clothesGraphList);
         $scope.maxPage = Math.ceil($scope.clothesGraphList.length/'5');
-        console.log("$scope.maxPage", $scope.maxPage )
+        //console.log("$scope.maxPage", $scope.maxPage )
         $scope.setData();
     }
     $scope.queryAllList();
@@ -63,8 +73,6 @@ app.controller('myCtrl', function ($scope) {
         $scope.page = $scope.page + 1;
         $scope.setData();
     };
-
-
 });
 
 //獲取此刻時間
@@ -82,7 +90,7 @@ function holdDown(CID) {
             clearInterval(time);
             //呼叫衣物資訊
             var a = CID.id;
-            angular.element(document.getElementById('putOutI_main')).scope().showInfo(a.substr(12));
+            angular.element(document.getElementById('putOutI_main')).scope().showInfo(a.substr(14));
             showMask();
         }
     }, 100);
