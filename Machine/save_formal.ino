@@ -3,24 +3,38 @@
 #include <Wire.h>
 #include <Stepper.h>
 
-// LCD, 20/21
-LiquidCrystal_I2C lcd(0x27, 16, 4); // I2C位址，默認為0x27或0x3F，依據背板的晶片不同而有差異，16、2為LCD顯示器大小。
-Stepper disc_stepper(200, 2, 3, 4, 5);  // 360 / 120(120步可以轉一圈) = 30(每一步30度)
 
-// ----------------------------------------------- 變數設定 ----------------------------------------------- //
+// ----------------------------------------------- 變數設定 v ----------------------------------------------- //
+
+LiquidCrystal_I2C lcd(0x27, 16, 4); // LCD, 20/21, I2C位址，默認為0x27或0x3F，依據背板的晶片不同而有差異，16、4為LCD顯示器大小。
+Stepper disc_stepper(200, 2, 3, 4, 5);  // (200步可以轉一圈) = 1.8度
+Servo biaxial_servo_x, biaxial_servo_y; // 機械手臂 伺服馬達
+Servo car_servo;    // 車車的伺服馬達
 
 const int tailButton = 22; // 尾巴的微動開關 
-const int entranceButton = 24; // 入口的微動開關
 const int discButton = 23;  // 圓盤的微動開關
-const int entrance_L298N1_In1 = 6; // 車車(減速馬達)的L298N in1
-const int entrance_L298N1_In2 = 7; // 車車(減速馬達)的L298N in2 
-const int export_L298N1_In3 = 8; // 車車(減速馬達)的L298N in3
-const int export_L298N1_In4 = 9; // 車車(減速馬達)的L298N in4
+const int entranceButton = 24; // 入口的微動開關
+
+const int biaxial_servo_x_control_btn_positive = 25;
+const int biaxial_servo_x_control_btn_negative = 27;
+const int biaxial_servo_y_control_btn_positive = 29;
+const int biaxial_servo_y_control_btn_negative = 31;
+const int car_front_btn = 33;
+const int car_back_btn = 35;
+const int disc_btn_back = 37;
+const int disc_btn_front = 39;
+
+const int entrance_L298N_car[4] = {6, 7, 8, 9};
 const int trigPin = 40; // 超音波 trig
 const int echoPin = 42; // 超音波 echo
-const int electromagnet = 45; // 電磁鐵
 const int relay = 48; // 繼電器
-const int car_servo_pin = A1; // 車車＿伺服馬達 腳位
+const int biaxial_servo_x_pin = A1, biaxial_servo_y_pin = A2;  // 雙軸: 機械手臂 X, Y軸
+const int car_servo_pin = A4;
+
+
+// ----------------------------------------------- 變數設定 ^ ----------------------------------------------- //
+
+// ----------------------------------------------- 狀態設定 v ----------------------------------------------- //
 
 long globalDelayTime = 50;  // 消斗的時間
 
@@ -40,19 +54,29 @@ int Duration; // 超音波發射到接收的時間
 int Distance; // 距離
 int isTri = true, trigNow = 0, echoNow = 0, isDone = false;
 
-// 車車上的伺服馬達
-Servo car_servo;  // create servo object to control a servo
+int Y_Track_Up = 130, Y_Track_Down = 0, Y_Disc_Up = 130, Y_Disc_Down = 0;
+int X_Track = 0, X_Disc = 130;
+int Car_Servo_Up = 165, Car_Servo_Down = 100;
+int angle_delayTime = 2000;
 
-// ----------------------------------------------- 變數設定 ----------------------------------------------- //
+// ----------------------------------------------- 狀態設定 ^ ----------------------------------------------- //
 
 void setup() {
 
     Serial.begin(9600); 
 
-    pinMode(entrance_L298N1_In1, OUTPUT);
-    pinMode(entrance_L298N1_In2, OUTPUT);
-    pinMode(export_L298N1_In3, OUTPUT);
-    pinMode(export_L298N1_In4, OUTPUT);
+    for(int i = 0; i < 4; i++ ){
+        pinMode(entrance_L298N_car[i], OUTPUT);
+    }
+
+    pinMode(biaxial_servo_x_control_btn_positive, INPUT);
+    pinMode(biaxial_servo_x_control_btn_negative, INPUT);
+    pinMode(biaxial_servo_y_control_btn_positive, INPUT);
+    pinMode(biaxial_servo_y_control_btn_negative, INPUT);
+    pinMode(car_front_btn, INPUT);
+    pinMode(car_back_btn, INPUT);
+    pinMode(disc_btn_back, INPUT);
+    pinMode(disc_btn_front, INPUT);
 
     pinMode(entranceButton, INPUT);
     pinMode(tailButton, INPUT);
@@ -60,13 +84,20 @@ void setup() {
 
     pinMode(trigPin, OUTPUT);
     pinMode(echoPin, INPUT);
-
     digitalWrite(trigPin, LOW);
 
     pinMode(relay, OUTPUT);
     digitalWrite(relay, LOW);
 
-    car_servo.attach(car_servo_pin);
+    // 雙軸伺服馬達
+    biaxial_servo_x.attach(biaxial_servo_x_pin);
+    biaxial_servo_y.attach(biaxial_servo_y_pin);
+    car_servo.attach(car_servo_pin); 
+
+    // 伺服馬達定位
+    biaxial_servo_x.write(0);
+    biaxial_servo_y.write(0);
+    car_servo.write(Car_Servo_Up);
 
     // 步進馬達
     disc_stepper.setSpeed(60);
@@ -75,10 +106,13 @@ void setup() {
     lcd.init();
     lcd.backlight();
 
-    setUpLCD(1, 0, "stand by now");
+    setUpLCD(1, 0, "wait instruction");
 
-    car_servo.write(0); // 初始化鉤子
-
+    // 最後歸位
+    delay(1000);
+    biaxial_servo_x.detach();
+    biaxial_servo_y.detach();
+    car_servo.detach();
     Serial.println("----------- 等待指令中 -----------");
 }
 
@@ -93,30 +127,26 @@ void loop() {
         if (command == "GO_Storage") {
             lcd.clear();
             Serial.println("GO Storage");
-            setUpLCD(1, 0, "GO Storage...");
-
-            // 檢視口的車車把伺服馬達鉤子落下
-            car_servo.write(90); // 鉤子落下 90度
-            delay(2000);
-            setUpLCD(1, 1, "Hook: O");
-            setUpLCD(1, 2, "Running,  Front");
+            setUpLCD(1, 0, "GO Storage");
+            setUpLCD(1, 2, "Y: Down, X: Track");  
 
 
-            // 開始步驟   
+            // 開始步驟 
             bool start = true; // true: start, false: stop
 
-            // 動作
+            // 開始動作 - 車子啟動
             Serial.println("等待超音波或微動開關");
             while(start == true){
 
-                mfront(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4); // 馬達前進
+                mfront(entrance_L298N_car); // 馬達前進
+                setUpLCD(1, 1, "Running,  Front ");
                 
                 // 準備拍照
                 if (isTri == true && isDone == false) { // 可發射 且 未完成拍照 (持續發射)
                     digitalWrite(trigPin, HIGH);        // 發射超音波
                     isTri = false;                      // 不可發射
                     trigNow = millis();                 // 計算發射時間(start)
-                } else if (isTri == false && millis() - trigNow >= 500) { // 不可發射 且 發射時間大於0.5s (停止發射)
+                } else if (isTri == false && millis() - trigNow >= 300) { // 不可發射 且 發射時間大於0.3s (停止發射)
                     isTri = true;                           // 可重新發射了
 
                     digitalWrite(trigPin, LOW);             // 停止發射超音波
@@ -125,16 +155,17 @@ void loop() {
 
                     setUpLCD(1, 3, "Distance " + String(Distance) + "    ");
 
-                    if (Distance <= 20) {                   // 距離小於 20cm
+                    if (Distance <= 30) {                   // 距離小於 20cm
                         Serial.println("超音波感測距離 < 20!!");
                         // 稍微停止一下
-                        mstop(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
+                        mstop(entrance_L298N_car);mstop(entrance_L298N_car); // 馬達停下
 
-                        // 拍照
-                        Serial.println("Photograph");
+                        
 
                         // 等待5秒
-                        int nowTempTime = millis();
+                        unsigned long nowTempTime = millis();
+                         // 拍照
+                        Serial.println("Photograph, tempTime: " + String(nowTempTime) + ", millis():" + String(millis()) );
 
                         Serial.println("等待5秒");
                         while (millis() - nowTempTime <= 5000) {
@@ -143,7 +174,7 @@ void loop() {
                         setUpLCD(1, 3, "Not Distance Now");
                         Serial.println("重新啟動 正轉");
 
-                        mfront(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
+                        mfront(entrance_L298N_car);
                         isDone = true;
                         
                     }
@@ -159,48 +190,51 @@ void loop() {
                 }
 
             }
-            mstop(entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4); // 馬達停下
-            setUpLCD(1, 2, "Stopping, Front");
+            mstop(entrance_L298N_car); // 馬達停下
+            setUpLCD(1, 1, "Stopping, Front ");
 
-
-            // 伺服馬達鉤子抬起
-            car_servo.write(0);
-            setUpLCD(1, 1, "Hook: X");  Serial.println("鉤子抬起");
-            delay(2000);
-
-            // 反轉兩秒
-            setUpLCD(1, 2, "Running,  Back ");  Serial.println("反轉兩秒");
-            motor_back_with_time(2000, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4); 
-            setUpLCD(1, 2, "Stopping,  Back");  Serial.println("反轉停止");
-
-            // TODO: 圓盤轉至「位置為無」
-            setUpLCD(1, 3, "Disc           " + String(3));  Serial.println("圓盤轉動位置至" + String(3));
-            discRotate_withTimes(3); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
             delay(1000);
 
-            // 正轉 ~ 停止
-            setUpLCD(1, 2, "Running,  Front");  Serial.println("正轉");
-            motor_running(1, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
-            setUpLCD(1, 2, "Stopping, Front");  Serial.println("正轉停止");
+            // 機械手臂Y軸上升: 提取衣物(軌道)
+            setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("機械手臂Y軸上升: 提取衣物(軌道)");
+            servo_with_time(biaxial_servo_y, biaxial_servo_y_pin, 5, Y_Track_Down, Y_Track_Up);
 
-            // 伺服馬達鉤子落下
-            car_servo.write(90); 
-            setUpLCD(1, 1, "Hook: O");  Serial.println("鉤子落下");
-            delay(2000);
+            delay(1000);
 
-            // 反轉 ~ 停止
-            setUpLCD(1, 2, "Running,  Back ");  Serial.println("反轉至 碰到微動開關為止");
-            motor_running(2, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
-            setUpLCD(1, 2, "Stopping,  Back");  Serial.println("反轉停止");
+            // 模型車掛臂收回
+            setUpLCD(1, 2, "Y: Up  , X: Disc ");  Serial.println("機械手臂X軸: 轉至圓盤");
+            servo_with_time(car_servo, car_servo_pin, 15, Car_Servo_Up, Car_Servo_Down);
 
-            // 伺服馬達鉤子抬起
-            car_servo.write(0);
-            setUpLCD(1, 1, "Hook: X");  Serial.println("鉤子抬起");
-            delay(2000);
+            // 反轉 ~ 停止(回到入口)
+            setUpLCD(1, 1, "Running,  Back ");  Serial.println("反轉至 碰到微動開關為止");
+            motor_running(2, entrance_L298N_car);
+            setUpLCD(1, 1, "Stopping,  Back");  Serial.println("反轉停止");
+
+            // 模型車掛臂露出
+            setUpLCD(1, 2, "Y: Up  , X: Disc ");  Serial.println("機械手臂X軸: 轉至圓盤");
+            servo_with_time(car_servo, car_servo_pin, 15, Car_Servo_Down, Car_Servo_Up);
+
+            // 機械手臂X軸: 轉至圓盤
+            setUpLCD(1, 2, "Y: Up  , X: Disc ");  Serial.println("機械手臂X軸: 轉至圓盤");
+            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, X_Track, X_Disc);
+
+            // 機械手臂Y軸下降: 放下衣物(圓盤)
+            setUpLCD(1, 2, "Y: Down, X: Disc ");  Serial.println("機械手臂Y軸下降: 放下衣物(圓盤)");
+            servo_with_time(biaxial_servo_y, biaxial_servo_y_pin, 5, Y_Disc_Up, Y_Disc_Down);
+
+            // 機械手臂X軸: 轉至軌道
+            setUpLCD(1, 2, "Y: Down, X: Track");  Serial.println("機械手臂X軸: 轉至軌道");
+            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 10, X_Disc, X_Track);
+
+            // TODO: 圓盤轉至「位置為無」
+            // setUpLCD(1, 3, "Disc           " + String(3));  Serial.println("圓盤轉動位置至" + String(3));
+            // discRotate_withTimes(3); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
+            // delay(1000);
 
             // 結束步驟            
             lcd.clear();
-            setUpLCD(1, 0, "stand by now");
+            setUpLCD(1, 0, "wait instruction");
+            isDone = false;
 
             Serial.println("Done");
         } 
@@ -210,63 +244,55 @@ void loop() {
         else if (command == "GO_PickUp_1") {
             lcd.clear();
 
-            Serial.println("GO PickUp");
-            setUpLCD(1, 0, "GO PickUp 1...");   
-            
+            Serial.println("GO PickUp 1");
+            setUpLCD(1, 0, "GO PickUp 1");   
+            setUpLCD(1, 2, "Y: Down, X: Track");  
+
             // 開始步驟
             Serial.println("Input_The_Position_1");
             String get_position_1 =  Serial.readStringUntil('\n');
             int position_1 = get_position_1.toInt();
             Serial.println("輸入的位置 " + String(position_1));
 
-            // 伺服馬達鉤子落下
-            car_servo.write(90); 
-            setUpLCD(1, 1, "Hook: O");  Serial.println("鉤子落下"); 
-            delay(2000);
+            // TODO: 圓盤轉至「位置指定」
 
-            // 正轉 ~ 停止
-            setUpLCD(1, 2, "Running,  Front");  Serial.println("正轉兩秒");
-            motor_running(1, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
-            setUpLCD(1, 2, "Stopping, Front");  Serial.println("正轉停止");
+            // 機械手臂X軸: 轉至圓盤
+            setUpLCD(1, 2, "Y: Down, X: Disc ");  Serial.println("機械手臂X軸: 轉至圓盤");
+            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 15, X_Track, X_Disc);
 
-            // 伺服馬達鉤子抬起
-            car_servo.write(0);
-            setUpLCD(1, 1, "Hook: X");  Serial.println("鉤子抬起");
-            delay(2000);
+            // 機械手臂Y軸上升: 提取衣物(圓盤)  
+            setUpLCD(1, 2, "Y: Up  , X: Disc ");  Serial.println("機械手臂Y軸上升: 提取衣物(圓盤)");
+            servo_with_time(biaxial_servo_y, biaxial_servo_y_pin, 5, Y_Disc_Down, Y_Disc_Up);
 
-            // 反轉兩秒
-            setUpLCD(1, 2, "Running,  Back ");  Serial.println("反轉兩秒");
-            motor_back_with_time(2000, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
-            setUpLCD(1, 2, "Stopping,  Back");  Serial.println("反轉停止");
+            // 模型車掛臂收回
+            setUpLCD(1, 2, "Y: Up  , X: Disc ");  Serial.println("機械手臂X軸: 轉至圓盤");
+            servo_with_time(car_servo, car_servo_pin, 15, Car_Servo_Up, Car_Servo_Down);
 
-            // TODO: 圓盤位置轉至「指定」
-            setUpLCD(1, 3, "Disc           " + String(position_1));  Serial.println("圓盤轉動位置至" + String(position_1));
-            discRotate_withTimes(position_1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
-            delay(1000);
+            // 正轉 ~ 停止(進入尾巴)
+            setUpLCD(1, 1, "Running,  Front");  Serial.println("正轉至 碰到微動開關為止");
+            motor_running(1, entrance_L298N_car);
+            setUpLCD(1, 1, "Stopping, Front");  Serial.println("正轉停止");
 
-            // 正轉 ~ 停止
-            setUpLCD(1, 2, "Running,  Front");  Serial.println("正轉兩秒");
-            motor_running(1, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
-            setUpLCD(1, 2, "Stopping, Front");  Serial.println("正轉停止");
+            // 機械手臂X軸: 轉至軌道
+            setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("機械手臂X軸: 轉至軌道");
+            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 10, X_Disc, X_Track);
 
-             // 伺服馬達鉤子落下
-            car_servo.write(90); Serial.println("鉤子落下");
-            setUpLCD(1, 1, "Hook: O");
-            delay(2000);
+            // 模型車掛臂露出
+            setUpLCD(1, 2, "Y: Up  , X: Disc ");  Serial.println("機械手臂X軸: 轉至圓盤");
+            servo_with_time(car_servo, car_servo_pin, 15, Car_Servo_Down, Car_Servo_Up);
+            
+            // 機械手臂Y軸下降: 放下衣物(軌道)
+            setUpLCD(1, 2, "Y: Down, X: Track");  Serial.println("機械手臂Y軸下降: 放下衣物(軌道)");
+            servo_with_time(biaxial_servo_y, biaxial_servo_y_pin, 5, Y_Track_Up, Y_Track_Down);
 
-            // 反轉 ~ 停止
-            setUpLCD(1, 2, "Running,  Back ");  Serial.println("反轉至 碰到微動開關為止");
-            motor_running(2, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
-            setUpLCD(1, 2, "Stopping,  Back");  Serial.println("反轉停止");
-
-            // 伺服馬達鉤子抬起
-            car_servo.write(0);
-            setUpLCD(1, 1, "Hook: X");  Serial.println("鉤子抬起");
-            delay(2000);
+            // 反轉 ~ 停止(回到入口)
+            setUpLCD(1, 1, "Running,  Back ");  Serial.println("反轉至 碰到微動開關為止");
+            motor_running(2, entrance_L298N_car);
+            setUpLCD(1, 1, "Stopping,  Back");  Serial.println("反轉停止");
 
             // 結束動作
             lcd.clear();
-            setUpLCD(1, 0, "stand by now");
+            setUpLCD(1, 0, "wait instruction");
 
             Serial.println("Done");
         }
@@ -276,7 +302,7 @@ void loop() {
         else if (command == "GO_Straight_Front") {
             Serial.println("GO Straight Front");
 
-            motor_running(1, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
+            motor_running(1, entrance_L298N_car);
             Serial.println("Done");
         }
         // ---------------- 直線到底(前進) END ---------------- //
@@ -285,7 +311,7 @@ void loop() {
         else if (command == "GO_Straight_Back") {
             Serial.println("GO Straight Back");
 
-            motor_running(2, entrance_L298N1_In1, entrance_L298N1_In2, export_L298N1_In3, export_L298N1_In4);
+            motor_running(2, entrance_L298N_car);
             Serial.println("Done");
         }
         // ---------------- 直線到底(出來) END ---------------- //
@@ -317,13 +343,11 @@ void loop() {
                     disc_start = false;
                 }
             }
-
             // 微動開關按了才結束
-
 
             // 結束
             lcd.clear();
-            setUpLCD(1, 0, "stand by now");
+            setUpLCD(1, 0, "wait instruction");
             digitalWrite(relay, LOW); // 繼電器關閉
             Serial.println("Done");
         }
@@ -337,25 +361,25 @@ void loop() {
 }
 
 // 步進馬達: 停止
-void mstop(int In1, int In2, int In3, int In4) {
-    digitalWrite(In1, LOW);
-    digitalWrite(In2, LOW);
-    digitalWrite(In3, LOW);
-    digitalWrite(In4, LOW);
+void mstop(int l298n_car[4]) {
+    digitalWrite(l298n_car[0], LOW);
+    digitalWrite(l298n_car[1], LOW);
+    digitalWrite(l298n_car[2], LOW);
+    digitalWrite(l298n_car[3], LOW);
 }
 // 步進馬達: 前進
-void mfront(int In1, int In2, int In3, int In4) {
-    digitalWrite(In1, LOW);
-    digitalWrite(In2, HIGH);
-    digitalWrite(In3, LOW);
-    digitalWrite(In4, HIGH);
+void mfront(int l298n_car[4]) {
+    digitalWrite(l298n_car[0], LOW);
+    digitalWrite(l298n_car[1], HIGH);
+    digitalWrite(l298n_car[2], LOW);
+    digitalWrite(l298n_car[3], HIGH);
 }
 // 步進馬達: 後退
-void mback(int In1, int In2, int In3, int In4) {
-    digitalWrite(In1, HIGH);
-    digitalWrite(In2, LOW);
-    digitalWrite(In3, HIGH);
-    digitalWrite(In4, LOW);
+void mback(int l298n_car[4]) {
+    digitalWrite(l298n_car[0], HIGH);
+    digitalWrite(l298n_car[1], LOW);
+    digitalWrite(l298n_car[2], HIGH);
+    digitalWrite(l298n_car[3], LOW);
 }
 // LCD 顯示畫面
 void setUpLCD(int column, int row, String text){
@@ -384,76 +408,31 @@ int checkTheBtnStatus(const int button, int& buttonState, int& buttonLastState, 
 }
 
 // type = 1: 前進, type = 2: 後退
-void motor_running(int type, int In1, int In2, int In3, int In4){
+void motor_running(int type, int l298n_car[4]){
     bool temp_start = true;  // true: start, false: stop
-
+    long temp_time = millis();
     while(temp_start == true){
 
         if(type == 1 ){
-            mfront(In1, In2, In3, In4); // 馬達前進
+            mfront(l298n_car); // 馬達前進
         }
         else if (type == 2){
-            mback(In1, In2, In3, In4); // 馬達後退
+            mback(l298n_car); // 馬達後退
         }
 
-        // 是否到底(停下)
-        if( checkTheBtnStatus(entranceButton, entranceButtonState, entranceButtonLastState, entranceButtonlastDebounceTime, globalDelayTime) == true
-        ||  checkTheBtnStatus( tailButton, tailButtonState, tailButtonLastState, tailButtonlastDebounceTime, globalDelayTime) == true
-        ){
-            Serial.println("GO Storage Button True");
-            temp_start = false;
+        if(millis() - temp_time > 1000){
+          // 是否到底(停下)
+            if( checkTheBtnStatus(entranceButton, entranceButtonState, entranceButtonLastState, entranceButtonlastDebounceTime, globalDelayTime) == true
+            ||  checkTheBtnStatus( tailButton, tailButtonState, tailButtonLastState, tailButtonlastDebounceTime, globalDelayTime) == true
+            ){
+                Serial.println("GO Storage Button True");
+                temp_start = false;
+            }
         }
     }
-    mstop(In1, In2, In3, In4);
+    mstop(l298n_car);
 } 
 
-// 反轉兩秒
-void motor_back_with_time(int backTime, int In1, int In2, int In3, int In4){
-    
-    bool backMotor_start = true;
-    int backMotor_startTime = millis();
-    while(backMotor_start == true){
-        
-        int backMotor_nowTime = millis(); 
-        mback(In1, In2, In3, In4); // 馬達後退
-
-        // 計時兩秒
-        if( backMotor_nowTime - backMotor_startTime >= 2000 ){
-            backMotor_start = false;
-        }
-    }
-    mstop(In1, In2, In3, In4);
-}     
-                
-void stepper_front(int In1, int In2, int In3, int In4) {
-
-    int t = 2;
-
-    digitalWrite(In1, HIGH);
-    digitalWrite(In2, LOW);
-    digitalWrite(In3, LOW);
-    digitalWrite(In4, LOW);
-    delay(t);
-
-    digitalWrite(In1, LOW);
-    digitalWrite(In2, HIGH);
-    digitalWrite(In3, LOW);
-    digitalWrite(In4, LOW);
-    delay(t);
-
-    digitalWrite(In1, LOW);
-    digitalWrite(In2, LOW);
-    digitalWrite(In3, HIGH);
-    digitalWrite(In4, LOW);
-    delay(t);
-
-    digitalWrite(In1, LOW);
-    digitalWrite(In2, LOW);
-    digitalWrite(In3, LOW);
-    digitalWrite(In4, HIGH);
-    delay(t);
-
-}
 
 void discRotate_withTimes(int times){
 
@@ -479,4 +458,24 @@ void discRotate_withTimes(int times){
     digitalWrite(relay, LOW); // 把繼電器關閉
 
     // 微動開關按了指定「次數」才結束
+}
+
+void servo_with_time(Servo servo_now, int servo_pin, int speed, int angle_now, int angle_need){
+    servo_now.attach(servo_pin);
+
+    if ( angle_now < angle_need){
+        for( int i = angle_now; i <= angle_need; i += speed ){
+            servo_now.write(i);
+            delay(15);
+    }
+    }else{
+        for( int i = angle_now; i >= angle_need; i -= speed ){
+            servo_now.write(i);
+            delay(15);
+        }
+    }
+    
+    // 結束連線
+    delay(angle_delayTime);
+    servo_now.detach();
 }
