@@ -66,7 +66,7 @@ void setup() {
     // 伺服馬達定位
     biaxial_servo_x.write(0);
     biaxial_servo_y.write(0);
-    car_servo.write(100);
+    car_servo.write(165);
 
     // 步進馬達
     // pinMode(relay, OUTPUT);
