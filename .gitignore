@@ -1,3 +1,5 @@
 *.pkl
 
 Model/DAO/crudAccount.py
+
+.vscode/
