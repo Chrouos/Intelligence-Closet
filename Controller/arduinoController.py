@@ -19,4 +19,7 @@ class ArduinoController:
                 self.mcu_feedback = self.ser.readline().decode()  # 接收回應訊息並解碼
                 self.mcu_feedback = self.mcu_feedback.replace("\n", "")
                 print('控制板回應：', self.mcu_feedback)
+                
+        self.mcu_feedback = "Reset"
+        print("Storage Function Done")
 

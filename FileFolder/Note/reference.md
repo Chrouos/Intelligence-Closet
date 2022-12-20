@@ -15,6 +15,10 @@
 15.	Proladon. (2019, December 24). 【Proladon】Python Eel GUI - EP2. Python Eel 安裝與基本專案建置. Youtube. https://www.youtube.com/watch?v=FNPW2ZFksCQ&t= 
 16.	黃俊壹 (阿壹). (2022). 圖像 Angular 開發入門：打造高靈活度的網頁應用程式（iT邦幫忙鐵人賽系列書）. 博碩. 
 17.	趙英傑 . (2020). 超圖解 Arduino 互動設計入門 第四版. 旗標.
+  
+
+
+
 
 ---
 
@@ -27,3 +31,10 @@
 24. https://www.digikey.tw/zh/resources/conversion-calculators/conversion-calculator-resistor-color-code: 電阻計算
 25. https://www.youtube.com/watch?v=7MRaNhBQ3Kc: TinkerCAD教程：开关
 26. https://medium.com/jeasee%E9%9A%A8%E7%AD%86/python-%E5%8F%8A-firmata-c8d104c1cf00: Python 及 Firmata
+
+---
+
++ 室內溫度、濕度與風速對 29~60 歲人員感知與舒適度之 研究-以人員閱讀狀態為例，張慧君，指導教授：周伯丞，中華民國九十九年六月
++ http://hb.cma.gov.cn/qxfw/qxbk/201907/t20190730_964982.html 温度和湿度：影响人体舒适度的最大CP，2019-07-30，中国气象报
++ https://hk.news.yahoo.com/%E7%A7%8B%E5%86%AC%E7%A9%BF%E6%90%AD%E4%B8%A8%E8%A1%A3%E7%89%A9%E4%B9%9F%E6%9C%89%E5%B0%88%E5%B1%AC%E6%BA%AB%E5%BA%A6-%E5%AD%B8%E6%9C%83%E5%A4%A7%E7%86%B1-26-%E5%BA%A6%E7%A9%BF%E8%A1%A3%E6%B3%95-%E6%8F%80%E8%A1%AB%E4%B8%8D%E5%86%8D%E7%B3%BE%E7%B5%90-104939493.html 秋冬穿搭丨衣物也有專屬溫度！學會大熱「26­度穿衣法」揀衫不再糾結：針織衫3度、冷帽X度
++ 
