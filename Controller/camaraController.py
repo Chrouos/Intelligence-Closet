@@ -243,6 +243,9 @@ class CamaraController:
 
     
     def ClassifierLoop(self, predict):
+        if not predict[0]:
+            return "Not_Sure"
+        
         label_list = predict[0]
         tensorBase = predict[2]
         

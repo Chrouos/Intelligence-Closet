@@ -30,7 +30,7 @@ int car_lastState = false;
 const  int car_servo_btn_negative = 39, car_servo_btn_positive = 37;
 int car_servo_lastStatus = false;
 
-int servo_x_pos = 0, servo_y_pos = 0, servo_car_pos = 0;
+int servo_x_pos = 0, servo_y_pos = 0, servo_car_pos = 165;
 int angle = 1, angle_delayTime = 15;
 
 // ----------------------------- 控制腳位 end ----------------------------- //
@@ -66,7 +66,7 @@ void setup() {
     // 伺服馬達定位
     biaxial_servo_x.write(0);
     biaxial_servo_y.write(0);
-    car_servo.write(165);
+    car_servo.write(servo_car_pos);
 
     // 步進馬達
     // pinMode(relay, OUTPUT);
