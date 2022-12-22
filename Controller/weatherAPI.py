@@ -103,6 +103,7 @@ class WeatherAPI:
             # 回傳溫度、體感溫度、紫外線指數、最高體感溫度、最低體感溫度、天氣現象、風速、相對溼度、12h降雨機率、舒適度、天氣描述
             return weather_dict
         except:
+            print("此站未提供天氣資訊")
             return "此站未提供天氣資訊"
 
     def printWeather(self):
