@@ -11,9 +11,13 @@ class ArduinoController:
     
     def storage(self):
         ser = serial.Serial(self.COM_PORT, self.BAUD_RATES)
+        mcu_feedback = 'Reset'
         try:
             sleep(1)
             while mcu_feedback != "Done":
+                
+                if 'Done' in str(mcu_feedback):
+                    break
 
                 if mcu_feedback == 'Reset':
                     print('傳送存放指令')
@@ -33,13 +37,42 @@ class ArduinoController:
         
     def pickUp_one_clothes(self):
         ser = serial.Serial(self.COM_PORT, self.BAUD_RATES)
+        mcu_feedback = 'Reset'
         try:
             sleep(1)
             while mcu_feedback != "Done":
-
+                
+                if 'Done' in str(mcu_feedback):
+                    break
+                
                 if mcu_feedback == 'Reset':
                     print('傳送存放指令')
-                    ser.write(b'GO_PickUp_1\n')  # 訊息必須是位元組類型
+                    ser.write(b'GO_Storage\n')  # 訊息必須是位元組類型
+                    sleep(0.5)  # 暫停0.5秒，再執行底下接收回應訊息的迴圈
+                    mcu_feedback = "Doing"
+
+                while ser.in_waiting:
+                    mcu_feedback = ser.readline().decode()  # 接收回應訊息並解碼
+                    mcu_feedback = mcu_feedback.replace("\n", "")
+                    print('控制板回應：', mcu_feedback)
+        except KeyboardInterrupt:
+            print('再見！')
+            
+        ser.close()
+        
+    def storgage_first_half(self):
+        ser = serial.Serial(self.COM_PORT, self.BAUD_RATES)
+        mcu_feedback = 'Reset'
+        try:
+            sleep(1)
+            while mcu_feedback != "Done":
+                
+                if 'Done' in str(mcu_feedback):
+                    break
+
+                if mcu_feedback == 'Reset':
+                    print('傳送存放指令 前半部')
+                    ser.write(b'GO_TakeAPhoto_S1\n')  # 訊息必須是位元組類型
                     sleep(0.5)  # 暫停0.5秒，再執行底下接收回應訊息的迴圈
                     mcu_feedback = "Doing"
 
@@ -52,7 +85,30 @@ class ArduinoController:
             
         ser.close()
             
-        
+    def storgage_second_half(self):
+        ser = serial.Serial(self.COM_PORT, self.BAUD_RATES)
+        mcu_feedback = 'Reset'
+        try:
+            sleep(1)
+            while mcu_feedback != "Done":
+                
+                if 'Done' in str(mcu_feedback):
+                    break
+
+                if mcu_feedback == 'Reset':
+                    print('傳送存放指令 後半部')
+                    ser.write(b'GO_Storage_S2\n')  # 訊息必須是位元組類型
+                    sleep(0.5)  # 暫停0.5秒，再執行底下接收回應訊息的迴圈
+                    mcu_feedback = "Doing"
+
+                while ser.in_waiting:
+                    mcu_feedback = ser.readline().decode()  # 接收回應訊息並解碼
+                    mcu_feedback = mcu_feedback.replace("\n", "")
+                    print('控制板回應：', mcu_feedback)
+        except KeyboardInterrupt:
+            print('再見！')
+            
+        ser.close()    
 
 '''
 

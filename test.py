@@ -6,4 +6,4 @@ sys.path.append(os.getcwd())  # 抓取路徑
 from Controller.arduinoController import ArduinoController
 
 arduinoController = ArduinoController()
-arduinoController.storage()
+arduinoController.storgage_first_half()

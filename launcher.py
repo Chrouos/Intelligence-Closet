@@ -56,6 +56,11 @@ def comb_to_js():
 @eel.expose
 def get_camera_identify():  # 拍照
     try:
+        
+        # 將機器送到超音波前(準備拍照)
+        arduinoController = ArduinoController()
+        arduinoController.storgage_first_half()
+        
         idt = CamaraController(camara_choose, clf)
         idt.useCamara()  # 開啟攝象頭講圖片存檔
 
@@ -74,16 +79,20 @@ def get_camera_identify():  # 拍照
 @eel.expose
 def identify_save_sql(category, color, path, isFavorite):  # 確定存檔
     try:
+        arduinoController = ArduinoController()
+        
         # 儲存至sql的資料
         idt = CamaraController(camara_choose, clf)
         idt.category = category
         idt.color = color
         idt.path = path
         idt.isFavorite = isFavorite
-
         print("identify_save_sql: ", category, color, path, isFavorite)
 
         idt.saveToSql()  # 存到資料庫
+
+        # 將衣服送入圓盤(後半段)
+        arduinoController.storgage_second_half()
 
         return True
     except Exception as e:
