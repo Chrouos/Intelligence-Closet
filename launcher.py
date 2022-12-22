@@ -21,14 +21,13 @@ from Service.viewVillageService import ViewVillageService
 from Service.cityService import CityService
 from Service.userDashboardService import UserDashboardService
 from Service.ClothesNodeService import ClothesNodeService
-# from Service.ClothesNodeLowerService import ClothesNodeLowerService
-# from Service.ClothesNodeUpperService import ClothesNodeUpperService
-# from Service.ClothesNodeOtherService import ClothesNodeOtherService
 from Service.viewClothesNodeService import ViewClothesNodeService
 from Service.viewClothesNodeService import ViewClothesNodeService
 from Service.viewCategoryClothesService import ViewCategoryClothesService
 from Service.viewUserDashboardService import ViewUserDashboardService
 from Service.nodeGraphService import NodeGraphService
+from Controller.arduinoController import ArduinoController
+
 
 user_id = 1
 camara_choose = 0

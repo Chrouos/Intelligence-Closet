@@ -37,20 +37,13 @@ app.controller('myCtrl', function ($scope) {
 
   $scope.start_identify = function () { // 開始辨識
 
-    /* ----- step 1. 等待衣物放入階段 ----- */
-    // var dialog = bootbox.dialog({
-    //   message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> 等待衣物放入中... </p>',
-    //   closeButton: false
-    // });
+    
 
-    // // do something in the background
-    // dialog.modal('hide');
-
-    /* ----- step2. 接收衣物放入 等待辨識階段 ----- */
     var dialog = bootbox.dialog({
-      message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> 辨識中，請稍等... </p>',
+      message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> 存放與辨識中，請稍等... </p>',
       closeButton: false
     });
+
     // 辨識
     $scope.get_camera_identify().then(function () {
       dialog.modal('hide'); // 等待時間到就將bootbox隱藏
