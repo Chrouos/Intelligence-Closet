@@ -60,7 +60,7 @@ app.controller('myCtrl', function ($scope) {
   }
 
   // 取消
-  $scope.Back = function () {
+  $scope.Back = async function () {
     $scope.MainType = false;
     $scope.StartType = true;
 
@@ -68,6 +68,8 @@ app.controller('myCtrl', function ($scope) {
     $scope.color = "";
     $scope.path = "";
     $scope.isFavorite = 0;
+
+    await eel.arduino_car_back_now()();
   }
 
   /* ---------- 將資料儲存至料庫 Start ---------- */

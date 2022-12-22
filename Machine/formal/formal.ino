@@ -199,8 +199,6 @@ void loop() {
             setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("機械手臂Y軸上升: 提取衣物(軌道)");
             servo_with_time(biaxial_servo_y, biaxial_servo_y_pin, 5, Y_Track_Down, Y_Track_Up);
 
-            delay(1000);
-
             // 模型車掛臂收回
             setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("模型車掛臂收回");
             servo_with_time(car_servo, car_servo_pin, 10, Car_Servo_Up, Car_Servo_Down);
@@ -312,6 +310,8 @@ void loop() {
             Serial.println("GO Straight Back");
 
             motor_running(2, entrance_L298N_car);
+            
+            // 結束動作
             Serial.println("Done");
         }
         // ---------------- 直線到底(出來) END ---------------- //
@@ -438,6 +438,8 @@ void loop() {
             setUpLCD(1, 1, "Running,  Front");  Serial.println("正轉至 碰到微動開關為止");
             motor_running(1, entrance_L298N_car);
             setUpLCD(1, 1, "Stopping, Front");  Serial.println("正轉停止");
+
+            delay(500);
 
             // 機械手臂Y軸上升: 提取衣物(軌道)
             setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("機械手臂Y軸上升: 提取衣物(軌道)");

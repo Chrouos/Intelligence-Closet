@@ -377,6 +377,13 @@ def delete_clothes_node_graph(firstClohtesNode, secondClohtesNode): # clothes no
 
     return isSuccess
 
+@eel.expose
+def arduino_car_back_now():
+    
+    arduinoController = ArduinoController()
+    arduinoController.car_back_now()
+    
+    return true
 
 eel.init('View/mui')  # eel.init(網頁的資料夾)
 # eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))

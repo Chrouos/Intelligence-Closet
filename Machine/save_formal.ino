@@ -55,8 +55,8 @@ int Distance; // 距離
 int isTri = true, trigNow = 0, echoNow = 0, isDone = false;
 
 int Y_Track_Up = 160, Y_Track_Down = 70, Y_Disc_Up = 160, Y_Disc_Down = 70;
-int X_Track = 0, X_Disc = 95;
-int Car_Servo_Up = 160, Car_Servo_Down = 100;
+int X_Track = 3, X_Disc = 95;
+int Car_Servo_Up = 162, Car_Servo_Down = 120;
 int angle_delayTime = 2000;
 
 // ----------------------------------------------- 狀態設定 ^ ----------------------------------------------- //
@@ -155,7 +155,7 @@ void loop() {
 
                     setUpLCD(1, 3, "Distance " + String(Distance) + "    ");
 
-                    if (Distance <= 30) {                   // 距離小於 20cm
+                    if (Distance <= 20) {                   // 距離小於 20cm
                         Serial.println("超音波感測距離 < 20!!");
                         // 稍微停止一下
                         mstop(entrance_L298N_car);mstop(entrance_L298N_car); // 馬達停下
@@ -608,6 +608,8 @@ void servo_with_time(Servo servo_now, int servo_pin, int speed, int angle_now, i
             delay(15);
         }
     }
+
+    delay(1000);
     
     // 結束連線
     delay(angle_delayTime);
