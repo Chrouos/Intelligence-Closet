@@ -33,3 +33,14 @@ pip install machine
 2022/12/16更新  
 https://drive.google.com/file/d/1v_6Fj4ZRIB9F6AiU6hXszEdE2_sMmrOk/view?usp=share_link
 
+# 目前已有的功能
++ 天氣辨識   
++ 衣物辨識
++ 天氣推薦演算法
++ 人機介面
+
+## 預計新增
++ [ ] 樹梅派
++ [ ] 排行榜功能
++ [ ] 公式+上濕度風速
++ [ ] 
