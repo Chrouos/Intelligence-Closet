@@ -1,48 +1,48 @@
---sub_category ­t³d¦s¨ú¦çª«ºØÃş¤Î¤À¼Æ¤§¶¡ªºÃöÁp©Ê¡A¥iÀH®É§ó·s¤Ñ®ğ¤À¼Æ¨Ó§ó·s¨Ï¥ÎªÌ­Ì¹ï¦çª««O·x«×ªº·§©À¡A¦çª«ºØÃşªº¨Ó·½«h¬O±q¥i¿ëÃÑ¼ĞÅÒ§@¬°¸ê®Æ¨Ì¾Ú¡C
+--sub_category è² è²¬å­˜å–è¡£ç‰©ç¨®é¡åŠåˆ†æ•¸ä¹‹é–“çš„é—œè¯æ€§ï¼Œå¯éš¨æ™‚æ›´æ–°å¤©æ°£åˆ†æ•¸ä¾†æ›´æ–°ä½¿ç”¨è€…å€‘å°è¡£ç‰©ä¿æš–åº¦çš„æ¦‚å¿µï¼Œè¡£ç‰©ç¨®é¡çš„ä¾†æºå‰‡æ˜¯å¾å¯è¾¨è­˜æ¨™ç±¤ä½œç‚ºè³‡æ–™ä¾æ“šã€‚
 
 drop table sub_category;
 
 create table sub_category
 (
-	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- ½s¸¹ ( 1, 2, 3 ... )
-	CategoryId bigint NOT NULL,-- ¦çª«¤ÀÃş( 0, 1, 2 )
-	ClothesType varchar(255) NOT NULL,--¦çª«ºØÃş ( short, long skirt... )
-	Score bigint NOT NULL,-- ¤Ñ®ğ¤À¼Æ(¦çª«¥»¨­ªº«O·xµ{«×)
-	Name nvarchar(255)-- ¦çª«¦WºÙ
+	Id bigint PRIMARY KEY NOT NULL IDENTITY,-- ç·¨è™Ÿ ( 1, 2, 3 ... )
+	CategoryId bigint NOT NULL,-- è¡£ç‰©åˆ†é¡( 0, 1, 2 )
+	ClothesType varchar(255) NOT NULL,--è¡£ç‰©ç¨®é¡ ( short, long skirt... )
+	Score bigint NOT NULL,-- å¤©æ°£åˆ†æ•¸(è¡£ç‰©æœ¬èº«çš„ä¿æš–ç¨‹åº¦)
+	Name nvarchar(255)-- è¡£ç‰©åç¨±
 );
 
 INSERT INTO sub_category
-VALUES(1, 'T-Shirt', 1, 'T«ò')
+VALUES(1, 'T-Shirt', 1, 'Tæ¤')
 INSERT INTO sub_category
-VALUES(1, 'Undershirt', 1, '­I¤ß')
+VALUES(1, 'Undershirt', 1, 'èƒŒå¿ƒ')
 INSERT INTO sub_category
-VALUES(1, 'Shirt', 1, 'Å¨­m')
+VALUES(1, 'Shirt', 1, 'è¥¯è¡«')
 INSERT INTO sub_category
-VALUES(1, 'Polo', 1, '¹B°Ê­m')
+VALUES(1, 'Polo', 1, 'é‹å‹•è¡«')
 INSERT INTO sub_category
-VALUES(1, 'Longsleeve', 3, 'ªø³S')
+VALUES(1, 'Longsleeve', 3, 'é•·è¢–')
 INSERT INTO sub_category
-VALUES(1, 'Hoodie', 4, '´UT')
+VALUES(1, 'Hoodie', 4, 'å¸½T')
 INSERT INTO sub_category
-VALUES(4, 'Outwear', 4, '¥~®M')
+VALUES(4, 'Outwear', 4, 'å¤–å¥—')
 
 INSERT INTO sub_category
-VALUES(2, 'Shorts', 1, 'µu¿Ç')
+VALUES(2, 'Shorts', 1, 'çŸ­è¤²')
 INSERT INTO sub_category
-VALUES(2, 'Pants', 3, 'ªø¿Ç')
+VALUES(2, 'Pants', 3, 'é•·è¤²')
 INSERT INTO sub_category
-VALUES(2, 'Skirt', 2, '¸È¤l')
+VALUES(2, 'Skirt', 2, 'è£™å­')
 
 INSERT INTO sub_category
-VALUES(3, 'Dress', 3, '¬v¸Ë')
+VALUES(3, 'Dress', 3, 'æ´‹è£')
 INSERT INTO sub_category
-VALUES(3, 'Body', 2, '³s¨­¦ç')
+VALUES(3, 'Body', 2, 'é€£èº«è¡£')
 
 INSERT INTO sub_category
-VALUES(4, 'Blazer', 4, '¦è¸Ë¥~®M')
+VALUES(4, 'Blazer', 4, 'è¥¿è£å¤–å¥—')
 
 INSERT INTO sub_category
-VALUES(8, 'Not_sure', 0, '¤£½T©w')
+VALUES(8, 'Not_sure', 0, 'ä¸ç¢ºå®š')
 
 
 select *

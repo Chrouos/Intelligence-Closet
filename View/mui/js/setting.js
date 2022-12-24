@@ -49,6 +49,7 @@ app.controller('myCtrl', function ($scope) {
             $scope.pickUp_FirstClohtesNode = null;
         }
         else{
+        // 如果點選不同資料 就選取
             //console.log('pickUp_FirstClohtesNode.Id',pickUp_FirstClohtesNode.Id)
             document.getElementById("clothesFirstNode_" + $scope.pickUp_FirstClohtesNode.Id).style.border = "";
             document.getElementById("clothesFirstNode_" + clothesNode.Id).style.border = "2px solid red";
@@ -69,6 +70,7 @@ app.controller('myCtrl', function ($scope) {
             $scope.pickUp_SecondClohtesNode = null;
         }
         else{
+        // 如果點選不同資料 就選取
             //console.log('pickUp_SecondClohtesNode.Id',pickUp_SecondClohtesNode.Id)
             document.getElementById("clothesSecondNode_" + $scope.pickUp_SecondClohtesNode.Id).style.border = "";
             document.getElementById("clothesSecondNode_" + clothesNode.Id).style.border = "2px solid red";
@@ -181,13 +183,15 @@ app.controller('myCtrl', function ($scope) {
     }
 
     // clothes node 歸零
-    $scope.deleteClothes = async function () {
-        var isSuccess = await eel.delete_clothes_node($scope.pickUp_FirstClohtesNode.Id)();
+    $scope.returnZeroClothes = async function () {
+        var isSuccess = await eel.return_zero_clothes_node($scope.pickUp_FirstClohtesNode.Id)();
+
+        $scope.backToMain();
     }
 
     // clothes_node_graph 歸零
-    $scope.deleteNodeGraph = async function () {
-        var isSuccess = await eel.delete_clothes_node_graph($scope.pickUp_FirstClohtesNode, $scope.pickUp_SecondClohtesNode)();
+    $scope.returnZeroNodeGraph = async function () {
+        var isSuccess = await eel.return_zero_clothes_node_graph($scope.pickUp_FirstClohtesNode, $scope.pickUp_SecondClohtesNode)();
 
         $scope.backToMain();
     }

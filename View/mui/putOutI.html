@@ -36,7 +36,7 @@
       <a>衣 物 推 薦</a>
     </div>
     <div id="recommend_main">
-      <!--TODO:連接資料/改回圈模式-->
+      <!--TODO:連接資料/改回圈模式/other還未寫-->
       <div class="recommend_second"  class="grid-item" ng-repeat="clothesGraph in pageList"  ng-init="outerIndex = $index">
         <img class="recommend_third" id="clothesGraph1_{{clothesGraph.Clothes1Id}}" src={{clothesGraph.Clothes1Path}} onmousedown="holdDown(this)"
           onmouseup="holdUp()" ng-show="clothesGraph.Clothes1Path">
@@ -54,7 +54,6 @@
     </div>
   </div>
   <!----------------------------------------------------------------------------------->
-  <!--TODO:連接資料-->
   <!-- 衣物照片 -->
 
   <div id="putOI-Info" ng-show="putOItype">
@@ -118,7 +117,7 @@
       <li style="background-color: rgb(255, 255, 255);">
         <a href="./putOutI.html">
           <span class="icon"><i class="fa-solid fa-shirt" style="color: rgb(161, 175, 255);"></i></span>
-          <span class="menu-button" ng-click="takeOut()" style="color: rgb(161, 175, 255);">拿取(推薦)</span>
+          <span class="menu-button" style="color: rgb(161, 175, 255);">拿取(推薦)</span>
         </a>
       </li>
       <li>
@@ -131,6 +130,12 @@
         <a href="./setting.html">
           <span class="icon"><i class="fa-solid fa-gear"></i></span>
           <span class="menu-button">衣物設定</span>
+        </a>
+      </li>
+      <li>
+        <a href="./history.html">
+          <span class="icon"><i class="fa-solid fa-clock"></i></span>
+          <span class="menu-button">歷史存放</span>
         </a>
       </li>
       <li>

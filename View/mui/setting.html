@@ -119,9 +119,8 @@
 
       <!-- 衣物設定頁面 button -->
       <div ng-show="settingType_Single">
-        <button class="si-btn-rb-three" ng-show="pickUp_FirstClohtesNode" ng-click="deleteClothes()" style="border:none;">
-          <!--TODO:衣物不在衣櫃時才顯示刪除選項-->
-          <a class="si-btm-rb-three-n">刪 除</a>
+        <button class="si-btn-rb-three" ng-show="pickUp_FirstClohtesNode" ng-click="returnZeroClothes()" style="border:none;">
+          <a class="si-btm-rb-three-n">歸 零</a>
         </button>
         <button class="si-btn-rb-two" ng-show="pickUp_FirstClohtesNode" ng-click="clothes_Set()" style="border:none;" onclick="showMask()">
           <a class="si-btm-rb-two-n">設 定</a>
@@ -135,7 +134,7 @@
     <!-------------------------------------------------------------------------->
 
     <div id="settingMatch_nd" ng-show="settingType_Match_nd">
-      <!--搭配設定頁面02--><!--TODO:接資料-->
+      <!--搭配設定頁面02-->
       <div id="setM_nd_now">
         <a><img src="{{pickUp_FirstClohtesNode.FilePosition}}"></a>
       </div>
@@ -172,11 +171,11 @@
       </div>
       <!-- 搭配設定頁面02 button -->
       <div>
-        <button class="maNd-btn-rb-three" ng-show="pickUp_SecondClohtesNode" ng-click="deleteNodeGraph()" style="border:none;">
-          <a class="maNd-btm-rb-three-n">刪 除</a>
+        <button class="maNd-btn-rb-three" ng-show="pickUp_SecondClohtesNode" ng-click="returnZeroNodeGraph()" style="border:none;">
+          <a class="maNd-btm-rb-three-n">歸 零</a>
         </button>
         <button class="maNd-btn-rb-two" ng-show="pickUp_SecondClohtesNode" ng-click="creatNodeGraph()" style="border:none;">
-          <a class="maNd-btm-rb-two-n">新 增</a>
+          <a class="maNd-btm-rb-two-n">更 新</a>
         </button>
         <button class="maNd-btn-rb-one" ng-click="goToMatch()" style="border:none;">
           <a class="maNd-btm-rb-one-n">返 回</a>
@@ -185,7 +184,7 @@
     </div>
   </div>
   <!---------------------------------------------------------------------------------------------------------------->
-  <!--衣物設定視窗--><!--TODO:接資料-->
+  <!--衣物設定視窗-->
   <div id="clothesSet-Scene" ng-show="clothesSetType">
     <!-- 衣物照片 -->
     <div class="pictures-one">
@@ -220,7 +219,7 @@
       <!----------------------------------------------------------------->
     </div>
     <div>
-      <button class="st-btn-rb-one" ng-click="clothes_Set()"  style="border:none;" onclick="showMask()">
+      <button class="st-btn-rb-one" ng-click="clothes_Set()" style="border:none;" onclick="showMask()">
         <a class="st-btm-rb-one-n">返 回</a>
       </button>
     </div>
@@ -263,6 +262,12 @@
         <a href="./setting.html">
           <span class="icon"><i class="fa-solid fa-gear" style="color: rgb(161, 175, 255);"></i></span>
           <span class="menu-button" style="color: rgb(161, 175, 255);">衣物設定</span>
+        </a>
+      </li>
+      <li>
+        <a href="./history.html">
+          <span class="icon"><i class="fa-solid fa-clock"></i></span>
+          <span class="menu-button">歷史存放</span>
         </a>
       </li>
       <li>

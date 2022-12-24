@@ -79,8 +79,12 @@
       <br />
       <!-- button -->
       <div>
-        <a class="btn-rb-two" ng-click="Send(subCategory, color)"><a class="btm-rb-two-n">確認存入</a></a>
-        <a class="btn-rb-one" ng-click="Back()"><a class="btm-rb-one-n">退 回</a></a>
+        <button class="btn-rb-two" ng-click="Send(subCategory, color)" style="border:none;">
+          <a class="btm-rb-two-n">確認存入</a>
+        </button>
+        <button class="btn-rb-one" ng-click="Back()" style="border:none;">
+          <a class="btm-rb-one-n">退 回</a>
+        </button>
       </div>
     </div>
   </div>
@@ -119,6 +123,12 @@
         <a href="./setting.html">
           <span class="icon"><i class="fa-solid fa-gear"></i></span>
           <span class="menu-button">衣物設定</span>
+        </a>
+      </li>
+      <li>
+        <a href="./history.html">
+          <span class="icon"><i class="fa-solid fa-clock"></i></span>
+          <span class="menu-button">歷史存放</span>
         </a>
       </li>
       <li>

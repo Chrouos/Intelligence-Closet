@@ -5,7 +5,7 @@
 <head>
 
   <!-- Set -->
-  <title>拿取(自選)</title>
+  <title>歷史紀錄</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -26,17 +26,16 @@
   <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
 
   <!-- Connect -->
-  <script src="./js/putOutS.js"></script>
+  <script src="./js/history.js"></script>
 
   <!-- Css -->
-  <link rel="stylesheet" href="./public/css/putOutS.css" type="text/css">
+  <link rel="stylesheet" href="./public/css/history.css" type="text/css">
 
 </head>
 
 <body>
 
-  <div id="putOS-main">
-
+  <div id="historyMain">
     <!--選單-->
     <div id="class-main">
       <div id="btn-class-main" onclick="clickClass_main()"><a style="position:relative; left: 10px;"><i
@@ -113,7 +112,7 @@
 
     <!-- 衣物列表 -->
     <div class="grid-container">
-      <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index" ng-show="clothesNode.Position">
+      <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index" ng-show="!clothesNode.Position">
         <a ng-click="checkThePickUpList(clothesNode)">
           <img src="{{clothesNode.FilePosition}}" id="clothesNode_{{clothesNode.Id}}" onmousedown="holdDown(this)"
             onmouseup="holdUp()" ng-style="isPositionNull(clothesNode.Position)">
@@ -123,30 +122,13 @@
 
     <!-- button -->
     <div>
-      <div class="btn-rb-three" ng-click="changePickUpType()" ng-show="!takeType">
-        <a class="btm-rb-three-n">單件拿取</a>
-      </div>
-      <div class="btn-rb-three" ng-click="changePickUpType()" ng-show="takeType">
-        <a class="btm-rb-three-n">整套拿取</a>
-      </div>
-
-      <div class="btn-rb-two" ng-click="takeOut()">
-        <a class="btm-rb-two-n" ng-click="takeOut()">拿 取</a>
-      </div>
+      <button class="si-btn-rb-three" ng-click="deleteClothes()" style="border:none;" ng-show="pickUp_ClohtesNode">
+        <a class="si-btm-rb-three-n">刪 除</a>
+      </button>
+      <button class="si-btn-rb-two" ng-click="clothesRestore()" style="border:none;" ng-show="pickUp_ClohtesNode">
+        <a class="si-btm-rb-two-n">重新存放</a>
+      </button>
     </div>
-
-    <!-- 選取預覽 -->
-    <div id="preview" ng-show="takeType">
-      <div class="preview-i">
-        <i class="fa-solid fa-plus"></i>
-        <img ng-show="pairPickUpList[0]" src="{{pairPickUpList[0].FilePosition}}">
-      </div>
-      <div class="preview-i">
-        <i class="fa-solid fa-plus"></i>
-        <img ng-show="pairPickUpList[1]" src="{{pairPickUpList[1].FilePosition}}">
-      </div>
-    </div>
-
   </div>
 
   <!---------------------------------------------------------------------------------------------------------------->
@@ -214,10 +196,10 @@
           <span class="menu-button">拿取(推薦)</span>
         </a>
       </li>
-      <li style="background-color: rgb(255, 255, 255);">
+      <li>
         <a href="./putOutS.html">
-          <span class="icon"><i class="fa-solid fa-arrow-down-short-wide" style="color: rgb(161, 175, 255);"></i></span>
-          <span class="menu-button" style="color: rgb(161, 175, 255);">拿取(自選)</span>
+          <span class="icon"><i class="fa-solid fa-arrow-down-short-wide"></i></span>
+          <span class="menu-button">拿取(自選)</span>
         </a>
       </li>
       <li>
@@ -226,10 +208,10 @@
           <span class="menu-button">衣物設定</span>
         </a>
       </li>
-      <li>
+      <li style="background-color: rgb(255, 255, 255);">
         <a href="./history.html">
-          <span class="icon"><i class="fa-solid fa-clock"></i></span>
-          <span class="menu-button">歷史存放</span>
+          <span class="icon"><i class="fa-solid fa-clock" style="color: rgb(161, 175, 255);"></i></span>
+          <span class="menu-button" style="color: rgb(161, 175, 255);">歷史存放</span>
         </a>
       </li>
       <li>

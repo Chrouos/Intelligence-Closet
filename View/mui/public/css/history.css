@@ -1,0 +1,284 @@
+@import "menu.css";
+
+/*底色*/
+body {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(to bottom right, rgb(255, 255, 255) , rgb(140, 140, 254));
+  display: flex;
+  flex-direction: column;
+}
+#historyMain{
+  position: fixed;
+  height: 84%;
+  width: 85%;
+  top: 5%;
+  left: 12%;
+  overflow: hidden;
+  z-index: 7;
+  /*background-color: #2196F3;*/
+}
+/****************************************************************************************//*照片*/
+.grid-container{
+    position: relative;
+    top: 25px;
+    display: grid;
+    grid-template-columns: 132px 132px 132px 132px 132px 132px;
+    grid-template-rows: 165px 165px;
+    grid-column-gap: 15px;
+    grid-row-gap: 20px;
+    padding-left: 15px;/*內部空間*/
+    z-index: 7;
+    /*background-color: #2196F3;*/
+
+  }
+.grid-item {
+  background-color: white;
+  border-radius: 20px;
+}
+.grid-item img{
+  height: 165px;
+  width: 132px;
+  border-radius: 20px;
+}
+/****************************************************************************************//*按鈕*/
+.btn-rb-two{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 3%;
+  bottom: 3%;
+
+}
+.btm-rb-two-n{
+  position: fixed;
+  right: 8%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}
+.btn-rb-three{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 20%;
+  bottom: 3%;
+
+}
+.btm-rb-three-n{
+  position: fixed;
+  right: 23.5%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}
+/**************************************************//*預覽*/
+#preview{
+  position: absolute;
+  /*background-color: rgb(255, 90, 90);*/
+  height: 85px;
+  width: 140px;
+  right: 21.2%;
+  bottom: -1%;
+  display: flex;
+  justify-content: space-between;
+}
+.preview-i{
+  background-color: rgba(255, 255, 255, 0.854);
+  height: 80px;
+  width: 64px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  z-index: 6;
+}
+.preview-i i{
+  position: absolute;
+  color: rgb(166, 166, 166);
+  font-size: 30px;
+  z-index: 7;
+}
+.preview-i img{
+  position: absolute;
+  height: 80px;
+  width: 64px;
+  border-radius: 10px;
+  z-index: 8;
+}
+/****************************************************************************************//*選單*/
+#class-main{
+  height: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition:  0.5s;
+  /*background-color: antiquewhite;*/
+  z-index: 7;
+}
+#class-main.active{
+  height: 60%;
+}
+#btn-class-main{
+  font-size: 30px;
+  width: 250px;
+}
+#class-st{
+  height: 80%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  /*background-color: beige;*/
+}
+.class-nd{
+  height: 100%;
+  width: 20%;
+  /*background-color: rgb(243, 255, 193);*/
+}
+.class-rd{
+  position: relative;
+  left: 8px;
+  font-size: 18px;
+  color: rgb(122, 122, 122);
+  margin: 5px;
+}
+.class-rd.active{
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+}
+.hrSet{
+  border: 0px;
+  border-top: 1.5px solid rgb(128, 128, 128);
+  margin: 5px;
+}
+
+
+
+/************************************************************************************/
+
+#putInStart{
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 85%;
+  height: 90%;
+  left: 10%;
+  top: 5%;
+  z-index: 7;
+  /*background-color: aquamarine*/;
+}
+
+#btn-start{
+  border: 3px solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  font-size: 60px;
+  border-radius: 5px;
+
+  position: absolute;
+  bottom: 5%;
+}
+
+/****************************************************/
+#putOS-Info{
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  /*align-items: center;*/
+  transition: 0.5s;
+  width: 65%;
+  height: 70%;
+  left: 20%;
+  top: 15%;
+  z-index: 12;
+  background-color: rgb(246,248,255);
+  border-radius: 30px;
+}
+
+.pictures-one img{
+  position: absolute;
+  height: 70%;
+  top: 15%;
+  left: 8%;
+  border-radius: 20px;
+}
+
+.clothesInfo{
+  position: absolute;
+  font-size: 30px;
+  top: 18%;
+  left: 45%;
+
+  height: 65%;
+  /* background-color: aqua; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.clothesInfo-Set select{
+  top: 0;
+  width: 150px;
+  height: 35px;
+  font-size: 25px;
+}
+.btn-rb-one{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  border-radius: 10px;
+  width: 120px;
+  height: 30px;
+  right: 18%;
+  bottom: 19%;
+
+}
+.btm-rb-one-n{
+  position: fixed;
+  right: 22%;
+  bottom: 20%;
+  font-size: 15px;
+  color: aliceblue;
+}
+.si-btn-rb-three{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 20%;
+  bottom: 3%;
+}
+.si-btm-rb-three-n{
+  position: fixed;
+  right: 24.6%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}
+.si-btn-rb-two{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  font-size: 40px;
+  border-radius: 10px;
+  width: 160px;
+  height: 40px;
+  right: 3%;
+  bottom: 3%;
+
+}
+.si-btm-rb-two-n{
+  position: fixed;
+  right: 6.2%;
+  bottom: 4%;
+  font-size: 20px;
+  color: aliceblue;
+}

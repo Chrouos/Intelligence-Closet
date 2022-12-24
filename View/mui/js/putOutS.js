@@ -97,6 +97,7 @@ app.controller('myCtrl', function ($scope) {
       console.log("updateThePickUpListToNull ", $scope.siglePickUpList.Position)
       $scope.info_clothesNode = await eel.updatePositionToNull($scope.siglePickUpList.Position)();
       $scope.clothesNodeList = await eel.clothes_to_js()();
+      $scope.siglePickUpList = null;
     }
     // 一套
     else if ($scope.takeType == true) {
@@ -109,6 +110,7 @@ app.controller('myCtrl', function ($scope) {
   $scope.chosen = false;
   $scope.checkThePickUpList = function (clothesNode) {
 
+    /*
     if (clothesNode.Position == null) {
 
       var dialog = bootbox.alert({
@@ -116,8 +118,8 @@ app.controller('myCtrl', function ($scope) {
         locale: 'ar'
       });
 
-    }
-    else {
+    }*/
+    //else {
       // step 1. Judging how to take it
       // 單件
       if ($scope.takeType == false) {
@@ -154,7 +156,7 @@ app.controller('myCtrl', function ($scope) {
       }
 
       $scope.pickUpTheStyle();
-    }
+    //}
   }
 
   $scope.pickUpTheStyle = function () {

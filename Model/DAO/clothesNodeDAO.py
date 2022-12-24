@@ -180,11 +180,11 @@ class ClothesNodeDAO:
         return True
 
     # clothes node 歸零
-    def deleteClothesNode(self, clothesNodeId):
+    def returnZeroClothesNode(self, clothesNodeId):
 
         execute_str = "UPDATE intelligence_closet.dbo.clothes_node SET " \
-					+ "UserPreferences=1, IsFavorite=0 WHERE Id = {0};".format(clothesNodeId)
-        print("deleteClothesNode: ", execute_str)
+					+ "UserPreferences=0, IsFavorite=0 WHERE Id = {0};".format(clothesNodeId)
+        print("returnZeroClothesNode: ", execute_str)
 
         self.cursor.execute(execute_str)
         self.cnxn.commit()
@@ -201,6 +201,16 @@ class ClothesNodeDAO:
 
         execute_str = "DELETE FROM clothes_node WHERE Position = {0}".format(
             position)
+        print(execute_str)
+
+        self.cursor.execute(execute_str)
+        self.cnxn.commit()
+
+        return True
+
+    def deleteById(self, id):
+
+        execute_str = "DELETE FROM clothes_node WHERE Id = {0}".format(id)
         print(execute_str)
 
         self.cursor.execute(execute_str)

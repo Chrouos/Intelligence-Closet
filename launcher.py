@@ -343,16 +343,16 @@ def update_clothes_node(clothesNode): # 更新 clothes node
 
 
 @eel.expose
-def delete_clothes_node(clothesNodeId): # clothes node 歸零
+def return_zero_clothes_node(clothesNodeId): # clothes node 歸零
     clothesNodeService = ClothesNodeService()
-    isSuccess = clothesNodeService.deleteClothesNode(clothesNodeId)
+    isSuccess = clothesNodeService.returnZeroClothesNode(clothesNodeId)
 
-    print("update_user_dashboard", isSuccess)
+    print("return_zero_clothes_node", isSuccess)
 
     return isSuccess
 
 @eel.expose
-def delete_clothes_node_graph(firstClohtesNode, secondClohtesNode): # clothes node graph 歸零
+def return_zero_clothes_node_graph(firstClohtesNode, secondClohtesNode): # clothes node graph 歸零
     nodeGraph_dict = {}
     if(firstClohtesNode['CategoryId'] == 1):
         nodeGraph_dict['UpperId'] = firstClohtesNode['Id']
@@ -373,7 +373,16 @@ def delete_clothes_node_graph(firstClohtesNode, secondClohtesNode): # clothes no
     if(nodeGraphService.queryByUpperIdAndLowerId(nodeGraph_dict['UpperId'], nodeGraph_dict['LowerId'])):
         isSuccess = nodeGraphService.updateByUpperIdAndLowerId(nodeGraph_dict)
         
-    print("delete_clothes_node_graph: ", firstClohtesNode, secondClohtesNode, 0)
+    print("return_zero_clothes_node_graph: ", firstClohtesNode, secondClohtesNode, 0)
+
+    return isSuccess
+
+@eel.expose
+def delete_clothes_node(clothesNodeId): # clothes node 歸零
+    clothesNodeService = ClothesNodeService()
+    isSuccess = clothesNodeService.deleteById(clothesNodeId)
+
+    print("delete_clothes_node", isSuccess)
 
     return isSuccess
 
