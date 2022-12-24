@@ -36,8 +36,8 @@
       <a>衣 物 推 薦</a>
     </div>
     <div id="recommend_main">
-      <!--TODO:連接資料/改回圈模式/other還未寫-->
-      <div class="recommend_second"  class="grid-item" ng-repeat="clothesGraph in pageList"  ng-init="outerIndex = $index">
+      <!--TODO:other還未寫-->
+      <div class="recommend_second" class="grid-item" ng-repeat="clothesGraph in pageList" ng-init="outerIndex = $index" ng-click="checkPickUpList($index)" ng-style="set_pickUp_color()" id="clothesGraph_{{$index}}">
         <img class="recommend_third" id="clothesGraph1_{{clothesGraph.Clothes1Id}}" src={{clothesGraph.Clothes1Path}} onmousedown="holdDown(this)"
           onmouseup="holdUp()" ng-show="clothesGraph.Clothes1Path">
         <img class="recommend_third" id="clothesGraph2_{{clothesGraph.Clothes2Id}}" src={{clothesGraph.Clothes2Path}} onmousedown="holdDown(this)"
@@ -81,16 +81,40 @@
       </div>
     </div>
     <div>
-      <div class="btn-rb-one" onclick="showMask()" ng-click="backToMain()"><a class="btm-rb-one-n" onclick="showMask()"
-          ng-click="backToMain()">返 回</a></div>
+      <buttom class="btn-rb-one" onclick="showMask()" ng-click="backToMain()">
+        <a class="btm-rb-one-n">返 回</a>
+      </buttom>
+    </div>
+
+  </div>
+  <!----------------------------------------------------------------------------------->
+  <!-- 衣物照片 -->
+
+  <div id="check-Take" ng-show="checkShow">
+    <div class="check-n">
+      <a>確認選取</a>
+    </div>
+    <div class="check-pictures-one">
+      <a><img src="{{pickUp_clothesGraph.Clothes1Path}}"></a>
+    </div>
+    <div class="check-pictures-two">
+      <a><img src="{{pickUp_clothesGraph.Clothes2Path}}"></a>
+    </div>
+    <div>
+      <buttom class="check-send-btn-rb-one">
+        <a class="check-send-btm-rb-one-n">確 認</a>
+      </buttom>
+      <buttom class="check-btn-rb-one" onclick="showMask()" ng-click="backToMain()">
+        <a class="check-btm-rb-one-n">返 回</a>
+      </buttom>
     </div>
 
   </div>
   <!----------------------------------------------------------------------------------->
   <!-- button -->
   <div>
-    <div class="si-btn-rb-one" ng-click="backToMain()">
-      <a class="si-btm-rb-one-n" ng-click="backToMain()">拿 取</a>
+    <div class="si-btn-rb-one" ng-click="checkTake()" ng-show="pickUp_clothesGraph">
+      <a class="si-btm-rb-one-n">拿 取</a>
     </div>
   </div>
   <!----------------------------------------------------------------------------------->

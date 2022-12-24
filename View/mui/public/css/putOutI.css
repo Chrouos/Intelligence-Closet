@@ -73,7 +73,9 @@ body {
   height: 190px;
   border-radius: 5%;
 }
+
 /***************************************************************************************//*按鈕*/
+
 .si-btn-rb-one{
   position: fixed;
   background-color: rgb(124, 124, 255);
@@ -83,7 +85,6 @@ body {
   height: 40px;
   right: 3%;
   bottom: 3%;
-
 }
 .si-btm-rb-one-n{
   position: fixed;
@@ -101,7 +102,6 @@ body {
   height: 40px;
   right: 20%;
   bottom: 3%;
-
 }
 .si-btm-rb-two-n{
   position: fixed;
@@ -119,7 +119,6 @@ body {
   height: 40px;
   right: 37%;
   bottom: 3%;
-
 }
 .si-btm-rb-three-n{
   position: fixed;
@@ -130,6 +129,7 @@ body {
 }
 
 /****************************************************/
+
 #putOI-Info{
   display: flex;
   position: absolute;
@@ -144,15 +144,16 @@ body {
   background-color: rgb(246,248,255);
   border-radius: 30px;
 }
-
+.check-n{
+  font-size: 30px;
+}
 .pictures-one img{
   position: absolute;
   height: 70%;
   top: 15%;
-  left: 8%;
+  left: 9%;
   border-radius: 20px;
 }
-
 .clothesInfo{
   position: absolute;
   font-size: 20px;
@@ -179,12 +180,74 @@ body {
   height: 30px;
   right: 18%;
   bottom: 19%;
-
 }
 .btm-rb-one-n{
   position: fixed;
   right: 22%;
   bottom: 20%;
+  font-size: 15px;
+  color: aliceblue;
+}
+
+/****************************************************/
+
+#check-Take{
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  /*align-items: center;*/
+  transition: 0.5s;
+  width: 52%;
+  height: 70%;
+  left: 27%;
+  top: 15%;
+  z-index: 12;
+  background-color: rgb(246,248,255);
+  border-radius: 30px;
+}
+.check-pictures-one img{
+  position: absolute;
+  height: 70%;
+  top: 15%;
+  left: 8%;
+  border-radius: 20px;
+}
+.check-pictures-two img{
+  position: absolute;
+  height: 70%;
+  top: 15%;
+  left: 55%;
+  border-radius: 20px;
+}
+.check-send-btn-rb-one{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  border-radius: 10px;
+  width: 120px;
+  height: 30px;
+  right: 38%;
+  bottom: 18%;
+}
+.check-send-btm-rb-one-n{
+  position: fixed;
+  right: 41.5%;
+  bottom: 19%;
+  font-size: 15px;
+  color: aliceblue;
+}
+.check-btn-rb-one{
+  position: fixed;
+  background-color: rgb(124, 124, 255);
+  border-radius: 10px;
+  width: 120px;
+  height: 30px;
+  right: 25%;
+  bottom: 18%;
+}
+.check-btm-rb-one-n{
+  position: fixed;
+  right: 28.4%;
+  bottom: 19%;
   font-size: 15px;
   color: aliceblue;
 }

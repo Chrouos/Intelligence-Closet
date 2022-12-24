@@ -12,6 +12,7 @@ app.controller('myCtrl', function ($scope) {
     /* ---------- 刷新頁面 End ---------- */
 
     $scope.putOItype = false
+    $scope.checkShow = false
 
     // 從 Python中 獲得天氣資訊
     $scope.weather_to_js = async function () {
@@ -40,7 +41,8 @@ app.controller('myCtrl', function ($scope) {
     }
 
     $scope.backToMain = function () {
-        $scope.putOItype = !$scope.putOItype;
+        $scope.putOItype = false;
+        $scope.checkShow = false;
     }
 
     // 抓取全部資料
@@ -66,13 +68,62 @@ app.controller('myCtrl', function ($scope) {
     //上一頁
     $scope.Previous = function () {
         $scope.page = $scope.page - 1;
+
+        // 換頁取消選取
+        if($scope.pickUp_index != null){
+            document.getElementById("clothesGraph_" + $scope.pickUp_index).style.border = "";
+            $scope.pickUp_index = null;
+            $scope.pickUp_clothesGraph = null;
+        }
         $scope.setData();
     }
     //下一頁
     $scope.Next = function () {
         $scope.page = $scope.page + 1;
+
+        // 換頁取消選取
+        if($scope.pickUp_index != null){
+            document.getElementById("clothesGraph_" + $scope.pickUp_index).style.border = "";
+            $scope.pickUp_index= null;
+            $scope.pickUp_clothesGraph = null;
+        }
         $scope.setData();
-    };
+    }
+
+    $scope.pickUp_index = null; // 選擇的衣物id
+    $scope.pickUp_clothesGraph = null; // 選擇的衣物
+    $scope.checkPickUpList = function (index) {
+        if((($scope.page-1)*5+index) < $scope.clothesGraphList.length){
+            // 如果還未選取 就選取
+            if ($scope.pickUp_index == null) {
+                document.getElementById("clothesGraph_" + index).style.border = "2px solid red";
+                $scope.pickUp_index = index;
+                $scope.pickUp_clothesGraph = $scope.clothesGraphList[($scope.page-1)*5+index];
+            }
+            // 如果點選同樣資料 就取消
+            else if ($scope.pickUp_index == index) {
+                document.getElementById("clothesGraph_" + index).style.border = "";
+                $scope.pickUp_index = null;
+                $scope.pickUp_clothesGraph = null;
+            }
+            else{
+            // 如果點選不同資料 就選取
+                //console.log('pickUp_ClohtesGraph.Id',pickUp_ClohtesGraph.Id)
+                document.getElementById("clothesGraph_" + $scope.pickUp_index).style.border = "";
+                document.getElementById("clothesGraph_" + index).style.border = "2px solid red";
+                $scope.pickUp_index = index;
+                $scope.pickUp_clothesGraph = $scope.clothesGraphList[($scope.page-1)*5+index];
+            }
+        }
+        console.log("$scope.pickUp_clothesGraph", $scope.pickUp_clothesGraph);
+    }
+
+    $scope.checkTake = function () {
+        console.log("check");
+        $scope.checkShow = !$scope.checkShow;
+        showMask();
+    }
+
 });
 
 //獲取此刻時間
