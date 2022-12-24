@@ -133,10 +133,25 @@ class NodeGraphDAO:
 
         return True
 
-    def create(self, combs):
-        execute_str = "INSERT INTO intelligence_closet.dbo.node_graph (UpperId, LowerId, UserLike, CreateTime, ModifyTime) VALUES (" \
-            + "{0}, {1}, {2}, GETDATE(), GETDATE())".format(combs.UpperId, combs.LowerId, combs.UserLike)
+    def create(self, nodeGraph_dict):
+        
+        print("nodeGraph_dict", nodeGraph_dict)
 
+        execute_str = ""
+
+        if(nodeGraph_dict['CategoryId'] == 1):
+            execute_str = "INSERT INTO intelligence_closet.dbo.node_graph (UpperId, LowerId, CreateTime, ModifyTime) SELECT " \
+                + "{0}, Id, GETDATE(), GETDATE() FROM intelligence_closet.dbo.v_clothes_node WHERE CategoryId = 2;".format(
+                    nodeGraph_dict['ClothesNodeLastId'])
+        
+        elif(nodeGraph_dict['CategoryId'] == 2):
+            execute_str = "INSERT INTO intelligence_closet.dbo.node_graph (UpperId, LowerId, CreateTime, ModifyTime) SELECT " \
+                + "Id, {0}, GETDATE(), GETDATE() FROM intelligence_closet.dbo.v_clothes_node WHERE CategoryId = 1;".format(
+                    nodeGraph_dict['ClothesNodeLastId'])
+        else:
+            execute_str = "INSERT INTO intelligence_closet.dbo.node_graph (OtherId, CreateTime, ModifyTime) VALUES (" \
+            + "{0}, GETDATE(), GETDATE())".format(nodeGraph_dict['ClothesNodeLastId'])
+        
         print("create: ", execute_str)
 
         self.cursor.execute(execute_str)

@@ -117,9 +117,10 @@ class NodeGraphService:
         else:
             nodeGraph_dict = jso
         
-        nodeGraph = NodeGraph()
-        nodeGraph.updateByDict(nodeGraph_dict)
-        return self.nodeGraphDAO.create(nodeGraph)
+        # nodeGraph = NodeGraph()
+        # nodeGraph.updateByDict(nodeGraph_dict)
+
+        return self.nodeGraphDAO.create(nodeGraph_dict)
 
     def updateByUpperIdAndLowerId(self, request):
         nodeGraph = NodeGraph()

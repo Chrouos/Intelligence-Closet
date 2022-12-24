@@ -15,6 +15,7 @@ import cv2
 
 from Service.colorService import ColorService
 from Service.ClothesNodeService import ClothesNodeService
+from Service.nodeGraphService import NodeGraphService
 from Service.viewClothesNodeService import ViewClothesNodeService
 from Service.subCategoryService import SubCategoryService
 
@@ -63,11 +64,22 @@ class CamaraController:
 
         clothesNode_create = '{{"SubCategoryId": {0}, "ColorId": {1}, "FilePosition": "{2}", "IsFavorite": {3}}}'.format(
             subCategoryId, colorId, self.path, self.isFavorite)
-        print("saveData:", clothesNode_create)
+        print("saveClothesNode_Data:", clothesNode_create)
 
         clothesNodeService = ClothesNodeService()
-        clothesNodeService.create(clothesNode_create)
+        result = clothesNodeService.create(clothesNode_create)
 
+        #新增clothesGraph
+        if(result != False):
+            clothesNode = clothesNodeService.queryAll()
+            clothesNodeLastId = clothesNode[len(clothesNode)-1]["Id"]
+
+            clothesGraph_create = '{{"ClothesNodeLastId": {0}, "CategoryId": {1}}}'.format(
+                clothesNodeLastId, categoryId, self.path, self.isFavorite)
+            print("saveClothesGraph_Data:", clothesGraph_create)
+            
+            nodeGraphService = NodeGraphService()
+            nodeGraphService.create(clothesGraph_create)
 
         return True
 
