@@ -11,8 +11,6 @@ create table user_dashboard
 	VillageId bigint,--可以記錄使用者目前所在城市&鄉鎮
 	Clock datetime,
 	LastPositon bigint NULL
-	-- TODO: 把程式碼內(包含資料庫的)staionName改成VilageId
-	-- TODO: weatherController 內也要改API 
 
 );
 
