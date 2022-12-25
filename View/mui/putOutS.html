@@ -48,10 +48,10 @@
         <div class="class-nd">
           <div style="position:relative; left: 8px; font-size:25px;"><a>收藏</a></div>
           <hr class="hrSet" />
-          <div class="class-rd" onclick="clickClass_set(this)"><a>全部</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>上半身</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>下半身</a></div>
-          <div class="class-rd" onclick="clickClass_set(this)"><a>其他</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)" ng-click="queryClothesByIsFavorite(0)"><a>全部</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)" ng-click="queryClothesByIsFavorite(1)"><a>上半身</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)" ng-click="queryClothesByIsFavorite(2)"><a>下半身</a></div>
+          <div class="class-rd" onclick="clickClass_set(this)" ng-click="queryClothesByIsFavorite(3)"><a>其他</a></div>
         </div>
 
         <!--上半身-->
@@ -78,7 +78,6 @@
             <a>全部</a>
           </div>
 
-
           <div ng-repeat="lower in lowerList" class="class-rd" onclick="clickClass_set(this)"
             ng-click="queryClothesBySubCategory(lower.Id,lower.Name)">
             <a>{{lower.Name}}</a>
@@ -91,10 +90,9 @@
           <div style="position:relative; left: 8px; font-size:25px;"><a>其他</a></div>
           <hr class="hrSet" />
 
-          <div class="class-rd" onclick="clickClass_set(this)" ng-click="queryClothesByCategory(3 )">
+          <div class="class-rd" onclick="clickClass_set(this)" ng-click="queryClothesByCategory(3)">
             <a>全部</a>
           </div>
-
 
           <div ng-repeat="other in otherList" class="class-rd" onclick="clickClass_set(this)"
             ng-click="queryClothesBySubCategory(other.Id,other.Name)">
@@ -113,7 +111,7 @@
 
     <!-- 衣物列表 -->
     <div class="grid-container">
-      <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index" ng-show="clothesNode.Position">
+      <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index" ng-show="clothesNode.Position == 0 || clothesNode.Position">
         <a ng-click="checkThePickUpList(clothesNode)">
           <img src="{{clothesNode.FilePosition}}" id="clothesNode_{{clothesNode.Id}}" onmousedown="holdDown(this)"
             onmouseup="holdUp()" ng-style="isPositionNull(clothesNode.Position)">

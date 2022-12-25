@@ -207,7 +207,30 @@ class ViewClothesNodeDAO:
 
     def queryPositionIsNull(self):
         execute_str = "SELECT * FROM v_clothes_node vcn WHERE Position is null;"
-        print("queryPositionExitNode: ", execute_str)
+        print("queryPositionIsNull: ", execute_str)
+
+        self.cursor.execute(execute_str)
+        datas = self.cursor.fetchall()
+
+        viewClothesNodeLists = []
+        for data in datas:
+            viewClothesNode = ViewClothesNode()
+            viewClothesNode.updateBySQL(data)
+            viewClothesNodeLists.append(viewClothesNode)
+
+        return viewClothesNodeLists
+
+    def queryIsFavoriteByCategory(self, category):
+        execute_str = ""
+        if(category == 0):
+            execute_str = "SELECT * FROM v_clothes_node vcn WHERE IsFavorite = 1;"
+        elif(category == 1):
+            execute_str = "SELECT * FROM v_clothes_node vcn WHERE IsFavorite = 1 AND CategoryId = 1;"
+        elif(category == 2):
+            execute_str = "SELECT * FROM v_clothes_node vcn WHERE IsFavorite = 1 AND CategoryId = 2;"
+        elif(category == 3):
+            execute_str = "SELECT * FROM v_clothes_node vcn WHERE IsFavorite = 1 AND CategoryId != 1 AND CategoryId != 2;"
+        print("queryIsFavoriteByCategory: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()

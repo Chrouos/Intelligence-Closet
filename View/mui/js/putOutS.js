@@ -72,6 +72,7 @@ app.controller('myCtrl', function ($scope) {
     console.log($scope.nowSubCategory)
   }
 
+  // 搜尋衣物 by.類別
   $scope.queryClothesByCategory = async function (categoryId) {
     if (categoryId == 1)
       $scope.clothesNodeList = await eel.upper_clothes_to_js()();
@@ -85,6 +86,12 @@ app.controller('myCtrl', function ($scope) {
     $scope.nowSubCategory = null;
   }
 
+  // 搜尋衣物 by.最愛&類別
+  $scope.queryClothesByIsFavorite = async function (isFavorite) {
+    $scope.clothesNodeList = await eel.isFavorite_clothes_to_js(isFavorite)();
+
+    $scope.nowSubCategory = null;
+  }
 
   // 拿取衣物: 
   $scope.takeOut = async function () {

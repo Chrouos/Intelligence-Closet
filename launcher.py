@@ -243,6 +243,16 @@ def other_clothes_to_js():
 
 
 @eel.expose
+def isFavorite_clothes_to_js(category):
+    viewClothesNodeService = ViewClothesNodeService()
+    v_clothes_dict = viewClothesNodeService.queryIsFavoriteByCategory(category)
+
+    print("other_clothes_to_js", v_clothes_dict)
+
+    return v_clothes_dict
+
+
+@eel.expose
 def query_clothes_nodes_byPositionIsNull():
     viewClothesNodeService = ViewClothesNodeService()
     v_clothes_dict = viewClothesNodeService.queryPositionIsNull()

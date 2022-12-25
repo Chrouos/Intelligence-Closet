@@ -33,8 +33,54 @@ app.controller('myCtrl', function ($scope) {
     $scope.queryClothesBySubCategory = async function (subCategoryId, subCategoryName) {
         $scope.clothesNodeList = await eel.query_clothes_nodes_bySubCategoryId(subCategoryId)();
         $scope.nowSubCategory = subCategoryName;
-        console.log($scope.nowSubCategory)
+        //console.log($scope.nowSubCategory)
+
+        if($scope.pickUp_FirstClohtesNode != null){
+            document.getElementById("clothesFirstNode_" + $scope.pickUp_FirstClohtesNode.Id).style.border = "";
+            $scope.pickUp_FirstClohtesNode = null;
+        }
+        if($scope.pickUp_SecondClohtesNode != null){
+            document.getElementById("clothesSecondNode_" + $scope.pickUp_SecondClohtesNode.Id).style.border = "";
+            $scope.pickUp_SecondClohtesNode = null;
+        }
     }
+
+    // 搜尋衣物 by.類別
+    $scope.queryClothesByCategory = async function (categoryId) {
+        if (categoryId == 1)
+          $scope.clothesNodeList = await eel.upper_clothes_to_js()();
+        else if (categoryId == 2)
+          $scope.clothesNodeList = await eel.lower_clothes_to_js()();
+        else if (categoryId == 3)
+          $scope.clothesNodeList = await eel.other_clothes_to_js()();
+        else if (categoryId == 0)
+          $scope.clothesNodeList = await eel.clothes_to_js()();
+    
+        $scope.nowSubCategory = null;
+        if($scope.pickUp_FirstClohtesNode != null){
+            document.getElementById("clothesFirstNode_" + $scope.pickUp_FirstClohtesNode.Id).style.border = "";
+            $scope.pickUp_FirstClohtesNode = null;
+        }
+        if($scope.pickUp_SecondClohtesNode != null){
+            document.getElementById("clothesSecondNode_" + $scope.pickUp_SecondClohtesNode.Id).style.border = "";
+            $scope.pickUp_SecondClohtesNode = null;
+        }
+      }
+
+    // 搜尋衣物 by.最愛&類別
+    $scope.queryClothesByIsFavorite = async function (isFavorite) {
+        $scope.clothesNodeList = await eel.isFavorite_clothes_to_js(isFavorite)();
+    
+        $scope.nowSubCategory = null;
+        if($scope.pickUp_FirstClohtesNode != null){
+            document.getElementById("clothesFirstNode_" + $scope.pickUp_FirstClohtesNode.Id).style.border = "";
+            $scope.pickUp_FirstClohtesNode = null;
+        }
+        if($scope.pickUp_SecondClohtesNode != null){
+            document.getElementById("clothesSecondNode_" + $scope.pickUp_SecondClohtesNode.Id).style.border = "";
+            $scope.pickUp_SecondClohtesNode = null;
+        }
+      }
 
     $scope.pickUp_FirstClohtesNode = null; // 選擇的第一件衣物
     $scope.checkTheFirstPickUpList = function (clothesNode) {
@@ -138,6 +184,7 @@ app.controller('myCtrl', function ($scope) {
     }
 
     $scope.goToMatchNd = function () {
+        $scope.queryAllList();
         $scope.settingType_Main = false;
         $scope.settingType_Match_st = false;
         $scope.settingType_Match_nd = true;

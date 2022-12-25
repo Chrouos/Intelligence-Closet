@@ -83,26 +83,27 @@ app.controller('myCtrl', function ($scope) {
     console.log($scope.nowSubCategory)
   }
 
+  // 搜尋衣物 by.類別
   $scope.queryClothesByCategory = async function (categoryId) {
     if (categoryId == 1)
-      $scope.clothesNodes = await eel.upper_clothes_to_js()();
+      $scope.clothesNodeList = await eel.upper_clothes_to_js()();
     else if (categoryId == 2)
-      $scope.clothesNodes = await eel.lower_clothes_to_js()();
+      $scope.clothesNodeList = await eel.lower_clothes_to_js()();
     else if (categoryId == 3)
-      $scope.clothesNodes = await eel.other_clothes_to_js()();
+      $scope.clothesNodeList = await eel.other_clothes_to_js()();
     else if (categoryId == 0)
-      $scope.clothesNodes = await eel.clothes_to_js()();
+      $scope.clothesNodeList = await eel.clothes_to_js()();
 
-    console.log("$scope.clothesNodeList", $scope.clothesNodeList);
-    $scope.clothesNodeList = [];
-    for(var i = 0; i<$scope.clothesNodes.length; i++){
-      if($scope.clothesNodes[i].Position == null){
-        $scope.clothesNodeList.push($scope.clothesNodes[i]);
-      }
-    }
     $scope.nowSubCategory = null;
   }
-  
+
+  // 搜尋衣物 by.最愛&類別
+  $scope.queryClothesByIsFavorite = async function (isFavorite) {
+    $scope.clothesNodeList = await eel.isFavorite_clothes_to_js(isFavorite)();
+
+    $scope.nowSubCategory = null;
+  }
+
   // 拿取衣物
   $scope.queryThePickUpList = async function (clothesID) {
     $scope.info_clothesNode = await eel.query_clothesNode_byId(clothesID)();
