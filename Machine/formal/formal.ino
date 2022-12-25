@@ -55,7 +55,7 @@ int Distance; // 距離
 int isTri = true, trigNow = 0, echoNow = 0, isDone = false;
 
 int Y_Track_Up = 160, Y_Track_Down = 70, Y_Disc_Up = 160, Y_Disc_Down = 70;
-int X_Track = 3, X_Disc = 95;
+int X_Track = 0, X_Disc = 90;
 int Car_Servo_Up = 162, Car_Servo_Down = 120;
 int angle_delayTime = 2000;
 
@@ -87,7 +87,7 @@ void setup() {
     digitalWrite(trigPin, LOW);
 
     pinMode(relay, OUTPUT);
-    digitalWrite(relay, LOW);
+    digitalWrite(relay, HIGH);
 
     // 雙軸伺服馬達
     biaxial_servo_x.attach(biaxial_servo_x_pin);
@@ -100,7 +100,7 @@ void setup() {
     car_servo.write(Car_Servo_Up);
 
     // 步進馬達
-    disc_stepper.setSpeed(20);
+    disc_stepper.setSpeed(10);
 
     // 初始化 LCD
     lcd.init();
@@ -190,6 +190,7 @@ void loop() {
                 }
 
             }
+            time_for_car(2000, 1, entrance_L298N_car);
             mstop(entrance_L298N_car); // 馬達停下
             setUpLCD(1, 1, "Stopping, Front ");
 
@@ -325,31 +326,35 @@ void loop() {
 
             // 開始旋轉
             digitalWrite(relay, HIGH); // 把繼電器打開
+            long temp_time = millis();
             bool disc_start = true;  // true: start, false: stop
             while(disc_start == true){
                 // stepper_front(disc_L298N1_In1, disc_L298N1_In2, disc_L298N1_In3, disc_L298N1_In4);
 
-                disc_stepper.step(5);  // 20/200 = 1/10
+                disc_stepper.step(-5);  // 20/200 = 1/10
 
-                if( checkTheBtnStatus(discButton, discButtonState, discButtonLastState, discButtonlastDebounceTime, globalDelayTime) == true
-                ){
-                    Serial.println("GO DISC Button True");
-                    disc_start = false;
-                }
-                if( checkTheBtnStatus(entranceButton, entranceButtonState, entranceButtonLastState, entranceButtonlastDebounceTime, globalDelayTime) == true
-                ||  checkTheBtnStatus(tailButton, tailButtonState, tailButtonLastState, tailButtonlastDebounceTime, globalDelayTime) == true
-                ){
-                    Serial.println("GO DISC Button True");
-                    disc_start = false;
+                if(millis() - temp_time > 1000){
+
+                  if( checkTheBtnStatus(discButton, discButtonState, discButtonLastState, discButtonlastDebounceTime, globalDelayTime) == true
+                  ){
+                      Serial.println("discButton");
+                      disc_start = false;
+                  }
+                  if( checkTheBtnStatus(entranceButton, entranceButtonState, entranceButtonLastState, entranceButtonlastDebounceTime, globalDelayTime) == true
+                  ||  checkTheBtnStatus(tailButton, tailButtonState, tailButtonLastState, tailButtonlastDebounceTime, globalDelayTime) == true
+                  ){
+                      Serial.println("entranceButton");
+                      disc_start = false;
+                  }
                 }
             }
             // 微動開關按了才結束
 
             // 結束
-            delay(1000);
+            delay(3000);
             lcd.clear();
             setUpLCD(1, 0, "wait instruction");
-            // digitalWrite(relay, LOW); // 繼電器關閉
+            digitalWrite(relay, LOW); // 把繼電器打開
             Serial.println("Done");
         }
 
@@ -542,6 +547,21 @@ int checkTheBtnStatus(const int button, int& buttonState, int& buttonLastState, 
     return false;
 }
 
+void time_for_car(int timesecond, int type, int l298n_car[4]){
+    bool temp_start = true;  // true: start, false: stop
+    long temp_time = millis();
+    while(millis() - temp_time <= timesecond){
+
+        if(type == 1 ){
+            mfront(l298n_car); // 馬達前進
+        }
+        else if (type == 2){
+            mback(l298n_car); // 馬達後退
+        }
+    }
+    mstop(l298n_car);
+}
+
 // type = 1: 前進, type = 2: 後退
 void motor_running(int type, int l298n_car[4]){
     bool temp_start = true;  // true: start, false: stop
@@ -574,7 +594,7 @@ void discRotate_withTimes(int times){
     Serial.println("discRotate_withTimes have to rotate " + String(times) + " Times");
     long temp_time = millis();
     // 開始旋轉
-    digitalWrite(relay, HIGH); // 把繼電器打開
+    /// digitalWrite(relay, HIGH); // 把繼電器打開
     int nowTimes = 0;
     bool disc_start = true;  // true: start, false: stop
     while(disc_start == true){
@@ -591,7 +611,6 @@ void discRotate_withTimes(int times){
         
         if( nowTimes >= times) disc_start = false;
     }
-    digitalWrite(relay, LOW); // 把繼電器關閉
 
     // 微動開關按了指定「次數」才結束
 }

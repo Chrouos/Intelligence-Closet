@@ -22,10 +22,10 @@ const int entrance_L298N_car[4] = {6, 7, 8, 9};
 const int car_front_btn = 33, car_back_btn = 35;
 int car_lastState = false;
 //步進馬達
-// Stepper disc_stepper(200, 2, 3, 4, 5); 
-// const int disc_btn_front = 39, disc_btn_back = 37;
-// const int relay = 48; // 繼電器
-// int disc_lastState = false;
+Stepper disc_stepper(200, 2, 3, 4, 5); 
+const int disc_btn_front = 24, disc_btn_stop = 23;
+const int relay = 48; // 繼電器
+int disc_lastState = false;
 // 車車的伺服馬達(掛勾)
 const  int car_servo_btn_negative = 39, car_servo_btn_positive = 37;
 int car_servo_lastStatus = false;
@@ -52,8 +52,8 @@ void setup() {
 
     pinMode(car_servo_btn_negative, INPUT);
     pinMode(car_servo_btn_positive, INPUT);
-    // pinMode(disc_btn_front, INPUT);
-    // pinMode(disc_btn_back, INPUT);
+    pinMode(disc_btn_front, INPUT);
+    pinMode(disc_btn_stop, INPUT);
     
     for(int i=0; i<4; i++){
         pinMode(entrance_L298N_car[i], OUTPUT);
@@ -69,9 +69,9 @@ void setup() {
     car_servo.write(servo_car_pos);
 
     // 步進馬達
-    // pinMode(relay, OUTPUT);
-    // digitalWrite(relay, LOW);
-    // disc_stepper.setSpeed(30);
+    pinMode(relay, OUTPUT);
+    digitalWrite(relay, LOW);
+    disc_stepper.setSpeed(10);
 
     // 初始化 LCD
     lcd.init();
@@ -188,7 +188,7 @@ void loop() {
     else if (servo_y_lastStatus == true 
                 && digitalRead(biaxial_servo_y_control_btn_negative) == LOW
                 && digitalRead(biaxial_servo_y_control_btn_positive) == LOW){
-         biaxial_servo_y.detach();
+        biaxial_servo_y.detach();
         servo_y_lastStatus = false;
     }
 
@@ -211,30 +211,7 @@ void loop() {
         car_lastState = false;
     }
 
-
-    /*
-    // 圓盤 - 正轉
-    if ( digitalRead(disc_btn_front) == HIGH){
-        
-        // 開始旋轉
-        digitalWrite(relay, HIGH); // 把繼電器打開
-        disc_stepper.step(20);  //正半圈
-        Serial.println("disc front. ");
-        disc_lastState = true;
-    }
-    // 圓盤 - 反轉
-    else if ( digitalRead(disc_btn_back) == HIGH){
-        // 開始旋轉
-        digitalWrite(relay, HIGH);  // 把繼電器打開
-        disc_stepper.step(-20);     //正半圈
-        Serial.println("disc back. ");
-        disc_lastState = true;
-    }
-    else if (disc_lastState == true && digitalRead(disc_btn_back) == LOW  && digitalRead(disc_btn_front) == LOW){
-        digitalWrite(relay, LOW); // 把繼電器關閉
-        disc_lastState = false;
-    }
-    */
+  
 
    // 車車伺服馬達 - 負
     if ( digitalRead(car_servo_btn_negative) == HIGH){
@@ -273,6 +250,31 @@ void loop() {
         car_servo.detach();
         car_servo_lastStatus = false;
     }
+
+    if ( digitalRead(disc_btn_front) == HIGH){
+        long temp_time = millis();
+
+        // 開始旋轉 
+        digitalWrite(relay, HIGH); // 把繼電器打開
+        bool disc_start = true;  // true: start, false: stop
+        while(disc_start == true){
+            // stepper_front(disc_L298N1_In1, disc_L298N1_In2, disc_L298N1_In3, disc_L298N1_In4);
+
+            disc_stepper.step(-5);  // 20/200 = 1/10
+            if(millis() - temp_time > 1000){
+              if( digitalRead(disc_btn_stop) == true){
+                  disc_start = false;
+              }
+            }
+        }
+        // 微動開關按了才結束
+
+        // 結束
+        delay(2000);
+        digitalWrite(relay, LOW);
+        
+      }
+    
 }
 
 // 步進馬達: 停止
@@ -317,6 +319,8 @@ int checkTheBtnStatus(const int button, int& buttonState, int& buttonLastState, 
     buttonLastState = buttonRead;  // 保存处理结果
     return false;
 }
+
+
 
 // LCD 顯示畫面
 void setUpLCD(int column, int row, String text){
