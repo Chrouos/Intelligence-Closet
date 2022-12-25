@@ -51,7 +51,7 @@
       <li>
         <a href="./user.html">
           <span class="icon"><i class="fa-solid fa-user"></i></span>
-          <span class="menu-button">登入/登出</span>
+          <span class="menu-button">使用者</span>
         </a>
       </li>
       <li>
@@ -84,12 +84,14 @@
           <span class="menu-button">歷史存放</span>
         </a>
       </li>
+      <!--
       <li>
         <a href="./other.html">
           <span class="icon"><i class="fa-solid fa-clock"></i></span>
           <span class="menu-button">其他</span>
         </a>
       </li>
+      -->
       <li style="background-color: rgb(255, 255, 255);">
         <a href="./instruction.html">
           <span class="icon"><i class="fa-solid fa-person-chalkboard" style="color: rgb(161, 175, 255);"></i></span>
@@ -118,45 +120,46 @@
       }
     </script>
   </div>
-<!-- 天氣 -->
-<div id="weather">
-  <div id="weather_left">
-    <div id="weather_logo" onclick="ClickWeather()"><img src="./public/sun.png" style="width: 70px;"></div>
-    <div></div>
-  </div>
-  <div id="weather_right">
-    <h1 style="position: relative;left:15px">今 日 天 氣</h1>
-    <p>天氣: {{weather.Wx}}</p>
-    <p>溫度: {{weather.T}} °C</p>
-    <p>體感溫度: {{weather.AT}} °C</p>
-    <p>最高體感溫度: {{weather.MaxAT}} °C</p>
-    <p>最低體感溫度: {{weather.MinAT}} °C</p>
-    <p>12小時降雨機率: {{weather.PoP12h}} %</p>
-    <p>紫外線指數: {{weather.UVI}} 級</p>
-    <p>風速: {{weather.WS}} 級</p>
-    <p>相對溼度: {{weather.RH}} %</p>
-    <p>舒適度: {{weather.CI}}</p>
+  <!-- 天氣 -->
+  <div id="weather">
+    <div id="weather_left">
+      <div id="weather_logo" onclick="ClickWeather()"><img src="./public/sun.png" style="width: 70px;"></div>
+      <div></div>
+    </div>
+    <div id="weather_right">
+      <h1 style="position: relative;left:15px">今 日 天 氣</h1>
+      <p>天氣: {{weather.Wx}}</p>
+      <p>溫度: {{weather.T}} °C</p>
+      <p>體感溫度: {{weather.AT}} °C</p>
+      <p>最高體感溫度: {{weather.MaxAT}} °C</p>
+      <p>最低體感溫度: {{weather.MinAT}} °C</p>
+      <p>12小時降雨機率: {{weather.PoP12h}} %</p>
+      <p>紫外線指數: {{weather.UVI}} 級</p>
+      <p>風速: {{weather.WS}} 級</p>
+      <p>相對溼度: {{weather.RH}} %</p>
+      <p>舒適度: {{weather.CI}}</p>
+    </div>
   </div>
   <!-- Weather class 更改 -->
-<script>
-  let Weather = document.getElementById('weather');
-  let WeatherR = document.getElementById('weather_right');
-  let MaskW = document.getElementById('maskW');
+  <script>
+    let Weather = document.getElementById('weather');
+    let WeatherR = document.getElementById('weather_right');
+    let MaskW = document.getElementById('maskW');
 
-  function ClickWeather() {
-    Weather.classList.toggle('active');
-    WeatherR.classList.toggle('active');
-    if (MaskW.style.visibility == '') {
-      MaskW.classList.toggle('active');
-      setTimeout(function () {
-        MaskW.style.visibility = 'hidden';
-      }, 500);
-    } else {
-      MaskW.style.visibility = '';
-      MaskW.classList.toggle('active');
+    function ClickWeather() {
+      Weather.classList.toggle('active');
+      WeatherR.classList.toggle('active');
+      if (MaskW.style.visibility == '') {
+        MaskW.classList.toggle('active');
+        setTimeout(function () {
+          MaskW.style.visibility = 'hidden';
+        }, 500);
+      } else {
+        MaskW.style.visibility = '';
+        MaskW.classList.toggle('active');
+      }
     }
-  }
-</script>
+  </script>
 
 </body>
 
