@@ -39,9 +39,13 @@
 
 <body>
 
-  <div id="putInStart" ng-if="StartType">
+  <div id="putInStart" ng-if="StartType" ng-show="!vacancy">
     <p style="font-size: 50px;">請掛入衣服並點擊開始存放</p>
     <button id="btn-start" style="background-color: transparent;" ng-click="start_identify()">開始存放</button>
+  </div>
+
+  <div id="vacancyFull" ng-if="StartType" ng-show="vacancy">
+    <p style="font-size: 50px;">衣櫃已滿 無法存入</p>
   </div>
 
   <!-- main -->

@@ -79,6 +79,9 @@ class ClothesNodeService:
     # def lastId(self):
     #     return self.clothesNodeDAO.lastId()
 
+    def vacancyPosition(self):
+        return self.clothesNodeDAO.vacancyPosition()
+
     ###################### CREATE ######################
 
     def create(self, jso):

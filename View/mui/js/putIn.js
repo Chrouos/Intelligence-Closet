@@ -34,10 +34,14 @@ app.controller('myCtrl', function ($scope) {
   $scope.getColorAndSubCategoryList();
   // ----- 取得 子類別 和 顏色的資料 end ----- //
 
+  // ----- 取得 衣櫃位置是否放滿 start ----- //
+  $scope.getVacancyPosition = async function () {
+    $scope.vacancy = await eel.vacancyPosition()();
+    console.log("$scope.vacancy", $scope.vacancy);
+  };$scope.getVacancyPosition();
+  // ----- 取得 衣櫃位置是否放滿 end ----- //
 
   $scope.start_identify = function () { // 開始辨識
-
-    
 
     var dialog = bootbox.dialog({
       message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> 存放與辨識中，請稍等... </p>',
@@ -90,7 +94,6 @@ app.controller('myCtrl', function ($scope) {
     return await eel.identify_save_sql(subCategory, color, $scope.path, $scope.isFavorite)();
   }
 
-
   /* ---------- 拍照 + 辨識 Start ---------- */
   $scope.get_camera_identify = async function () {
     console.log("get_camera_identify");
@@ -106,11 +109,8 @@ app.controller('myCtrl', function ($scope) {
   };
   /* ---------- 拍照 + 辨識 Start ---------- */
 
-
-
   $scope.heartClicks = function () {
     $scope.isFavorite = ($scope.isFavorite == 0) ? 1 : 0;
   }
-
 
 });

@@ -23,6 +23,20 @@ body {
   /*background-color: aquamarine*/;
 }
 
+#vacancyFull{
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 85%;
+  height: 90%;
+  left: 10%;
+  top: 5%;
+  z-index: 7;
+  /*background-color: aquamarine*/;
+}
+
 #btn-start{
   border: 3px solid rgb(255, 255, 255);
   color: rgb(255, 255, 255);

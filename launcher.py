@@ -300,6 +300,15 @@ def sub_category_to_js():  # 傳送所有sub catrgory
     return subCategory_dict
 
 
+@eel.expose
+def vacancyPosition():
+    clothesNodeService = ClothesNodeService()
+    result = clothesNodeService.vacancyPosition()
+    print("vacancyPosition", result)
+
+    return result
+
+
 ################################################################################## clothes node graph
 
 
