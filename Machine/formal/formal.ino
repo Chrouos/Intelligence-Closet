@@ -335,17 +335,17 @@ void loop() {
 
                 if(millis() - temp_time > 1000){
 
-                  if( checkTheBtnStatus(discButton, discButtonState, discButtonLastState, discButtonlastDebounceTime, globalDelayTime) == true
-                  ){
-                      Serial.println("discButton");
-                      disc_start = false;
-                  }
-                  if( checkTheBtnStatus(entranceButton, entranceButtonState, entranceButtonLastState, entranceButtonlastDebounceTime, globalDelayTime) == true
-                  ||  checkTheBtnStatus(tailButton, tailButtonState, tailButtonLastState, tailButtonlastDebounceTime, globalDelayTime) == true
-                  ){
-                      Serial.println("entranceButton");
-                      disc_start = false;
-                  }
+                    if( checkTheBtnStatus(discButton, discButtonState, discButtonLastState, discButtonlastDebounceTime, globalDelayTime) == true
+                    ){
+                        Serial.println("discButton");
+                        disc_start = false;
+                    }
+                    if( checkTheBtnStatus(entranceButton, entranceButtonState, entranceButtonLastState, entranceButtonlastDebounceTime, globalDelayTime) == true
+                    ||  checkTheBtnStatus(tailButton, tailButtonState, tailButtonLastState, tailButtonlastDebounceTime, globalDelayTime) == true
+                    ){
+                        Serial.println("entranceButton");
+                        disc_start = false;
+                    }
                 }
             }
             // 微動開關按了才結束
