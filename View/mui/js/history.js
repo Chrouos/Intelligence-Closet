@@ -72,21 +72,34 @@ app.controller('myCtrl', function ($scope) {
   // 搜尋衣物 by.子類別ID
   $scope.nowSubCategory = "";
   $scope.queryClothesBySubCategory = async function (subCategoryId, subCategoryName) {
-    $scope.clothesNodeList = await eel.query_clothes_nodes_bySubCategoryId(subCategoryId)();
+    $scope.clothesNodes = await eel.query_clothes_nodes_bySubCategoryId(subCategoryId)();
     $scope.nowSubCategory = subCategoryName;
+    $scope.clothesNodeList = [];
+    for(var i = 0; i<$scope.clothesNodes.length; i++){
+      if($scope.clothesNodes[i].Position == null){
+        $scope.clothesNodeList.push($scope.clothesNodes[i]);
+      }
+    }
     console.log($scope.nowSubCategory)
   }
 
   $scope.queryClothesByCategory = async function (categoryId) {
     if (categoryId == 1)
-      $scope.clothesNodeList = await eel.upper_clothes_to_js()();
+      $scope.clothesNodes = await eel.upper_clothes_to_js()();
     else if (categoryId == 2)
-      $scope.clothesNodeList = await eel.lower_clothes_to_js()();
+      $scope.clothesNodes = await eel.lower_clothes_to_js()();
     else if (categoryId == 3)
-      $scope.clothesNodeList = await eel.other_clothes_to_js()();
+      $scope.clothesNodes = await eel.other_clothes_to_js()();
     else if (categoryId == 0)
-      $scope.clothesNodeList = await eel.clothes_to_js()();
+      $scope.clothesNodes = await eel.clothes_to_js()();
 
+    console.log("$scope.clothesNodeList", $scope.clothesNodeList);
+    $scope.clothesNodeList = [];
+    for(var i = 0; i<$scope.clothesNodes.length; i++){
+      if($scope.clothesNodes[i].Position == null){
+        $scope.clothesNodeList.push($scope.clothesNodes[i]);
+      }
+    }
     $scope.nowSubCategory = null;
   }
   

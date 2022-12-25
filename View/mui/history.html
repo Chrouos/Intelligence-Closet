@@ -37,7 +37,7 @@
 
   <div id="historyMain">
     <!--選單-->
-    <div id="class-main">
+    <div id="class-main" ng-show="!clothesNodeStatus">
       <div id="btn-class-main" onclick="clickClass_main()"><a style="position:relative; left: 10px;"><i
             class="fa fa-list-ul" aria-hidden="true"></i> 篩選器</a><a
           style="display:inline; font-size: 25px;">&nbsp&nbsp&nbsp{{nowSubCategory}}</a></div>
@@ -90,7 +90,7 @@
           <div style="position:relative; left: 8px; font-size:25px;"><a>其他</a></div>
           <hr class="hrSet" />
 
-          <div class="class-rd" onclick="clickClass_set(this)" ng-click="queryClothesByCategory(3 )">
+          <div class="class-rd" onclick="clickClass_set(this)" ng-click="queryClothesByCategory(3)">
             <a>全部</a>
           </div>
 
@@ -112,7 +112,7 @@
 
     <!-- 衣物列表 -->
     <div class="grid-container">
-      <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index" ng-show="!clothesNode.Position">
+      <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index">
         <a ng-click="checkThePickUpList(clothesNode)">
           <img src="{{clothesNode.FilePosition}}" id="clothesNode_{{clothesNode.Id}}" onmousedown="holdDown(this)"
             onmouseup="holdUp()" ng-style="isPositionNull(clothesNode.Position)">

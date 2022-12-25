@@ -36,8 +36,13 @@ app.controller('myCtrl', function ($scope) {
 
   // ----- 取得 衣櫃位置是否放滿 start ----- //
   $scope.getVacancyPosition = async function () {
+    $scope.vacancyStatus = false;
     $scope.vacancy = await eel.vacancyPosition()();
-    console.log("$scope.vacancy", $scope.vacancy);
+    
+    if($scope.vacancy == -1){
+      $scope.vacancyStatus = true;
+    }
+    console.log("$scope.vacancyStatus", $scope.vacancyStatus);
   };$scope.getVacancyPosition();
   // ----- 取得 衣櫃位置是否放滿 end ----- //
 
