@@ -258,14 +258,14 @@ void loop() {
         digitalWrite(relay, HIGH); // 把繼電器打開
         bool disc_start = true;  // true: start, false: stop
         while(disc_start == true){
-            // stepper_front(disc_L298N1_In1, disc_L298N1_In2, disc_L298N1_In3, disc_L298N1_In4);
-
-            disc_stepper.step(-5);  // 20/200 = 1/10
+          
+            disc_stepper.step(-1);  // 20/200 = 1/10
             if(millis() - temp_time > 1000){
               if( digitalRead(disc_btn_stop) == true){
                   disc_start = false;
               }
             }
+            
         }
         // 微動開關按了才結束
 

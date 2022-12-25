@@ -3,3 +3,7 @@
 + GO_Disc: 步進馬達轉圈圈
 + GO_TakeAPhoto_S1: 存放流程只到超音波那
 + GO_Storage_S2: 存放流程從超音波結束後開始
++ test_put: 測試存放位置
++ test_get: 測試拿取位置
++ GO_Straight_Back: 直線到底出來
++ GO_Straight_Front: 直線到底進去

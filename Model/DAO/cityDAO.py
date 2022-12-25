@@ -35,7 +35,7 @@ class CityDAO:
 	# 搜尋所有資料: tuple
 	def queryAll(self):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.city;"
-		print("queryAll: ", execute_str)
+		# print("queryAll: ", execute_str)
 	
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()
@@ -51,7 +51,7 @@ class CityDAO:
 	# 透過Id查找一筆資料: tuple
 	def queryById(self, id):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.city WHERE Id = {0}".format(id)
-		print("queryById: ", execute_str)
+		# print("queryById: ", execute_str)
 	
 		self.cursor.execute(execute_str)
 		data = self.cursor.fetchone()
@@ -63,7 +63,7 @@ class CityDAO:
     
 	def queryByName(self, cityName):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.city WHERE CityName = '{0}'".format(cityName)
-		print("queryByName: ", execute_str)
+		# print("queryByName: ", execute_str)
 	
 		self.cursor.execute(execute_str)
 		data = self.cursor.fetchone()
@@ -82,7 +82,7 @@ class CityDAO:
 			return False
 		
 		execute_str = "INSERT INTO city VALUES ('{0}')".format(cityName)
-		print("create: ", execute_str)
+		# print("create: ", execute_str)
 		self.cnxn.cursor().execute(execute_str)
 		self.cnxn.commit()
 
@@ -90,7 +90,7 @@ class CityDAO:
 
 	def queryIdByName(self, cityName):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.city WHERE CityName = '{0}'".format(cityName)
-		print("queryByName: ", execute_str)
+		# print("queryByName: ", execute_str)
 	
 		self.cursor.execute(execute_str)
 		data = self.cursor.fetchone()
@@ -100,7 +100,7 @@ class CityDAO:
 
 	def deleteAllData(self):
 		execute_str = "TRUNCATE TABLE intelligence_closet.dbo.city "
-		print("deleteAllData: ", execute_str)
+		# print("deleteAllData: ", execute_str)
 		self.cnxn.cursor().execute(execute_str)
 		self.cnxn.commit()
 	

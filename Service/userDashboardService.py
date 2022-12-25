@@ -20,7 +20,8 @@ class UserDashboardService:
                                         'WeatherLike': data.WeatherLike, 
                                         'Clock': data.Clock,
                                         'ModifyTime': data.ModifyTime,
-                                        'VillageId': data.VillageId})
+                                        'VillageId': data.VillageId,
+                                        'LastPosition': data.LastPosition})
         
         return userDashboard_dict
     
@@ -33,7 +34,8 @@ class UserDashboardService:
                                 'WeatherLike': data.WeatherLike,  
                                 'Clock': data.Clock,
                                 'ModifyTime': data.ModifyTime,
-                                'VillageId': data.VillageId}
+                                'VillageId': data.VillageId,
+                                'LastPosition': data.LastPosition}
         return userDashboard_dict
 
     def updateById(self, request, id):

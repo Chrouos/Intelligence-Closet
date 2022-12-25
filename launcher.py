@@ -43,7 +43,7 @@ clf = joblib.load('Controller/joblib_export.pkl')
 @eel.expose
 def comb_to_js():
     userDashboardService = UserDashboardService()
-    user_dict = userDashboardService.queryById(user_id)  # 預設為2
+    user_dict = userDashboardService.queryById(user_id)  # 預設為1
 
     clothesGraphController = ClothesGraphController(user_dict['VillageId'])
     graphComb = clothesGraphController.getCombination()
@@ -291,10 +291,21 @@ def query_clothesNode_byId(clothesId):
     return v_clothes_dict
 
 
+# 拿取衣物
 @eel.expose
 def updatePositionToNull(position):
+    arduinoController = ArduinoController()
+    
+    userDashboardService = UserDashboardService()
+    user_dict = userDashboardService.queryById(user_id)  # 預設為1
+    
+    dist_roundTimes = position - user_dict['LastPosition']
+    print("最後要存放的位置: position - user_dict['LastPosition']", dist_roundTimes)
+    arduinoController.pickUp_one_clothes(dist_roundTimes)
+    
     clothesNodeService = ClothesNodeService()
     result = clothesNodeService.updatePositionToNull(position)
+    
     print("query_clothesNode_byId", result)
 
     return result
@@ -415,6 +426,9 @@ def delete_clothes_node(clothesNodeId): # clothes node 歸零
 
     return isSuccess
 
+
+# 硬體啟動
+
 @eel.expose
 def arduino_car_back_now():
     
@@ -422,6 +436,8 @@ def arduino_car_back_now():
     arduinoController.car_back_now()
     
     return true
+
+
 
 eel.init('View/mui')  # eel.init(網頁的資料夾)
 # eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))

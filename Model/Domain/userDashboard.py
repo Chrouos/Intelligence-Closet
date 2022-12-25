@@ -12,6 +12,7 @@ class UserDashboard:
         self.VillageId = ""
         self.Clock = ""
         self.ModifyTime = ""
+        self.LastPosition = ""
         
     def print(self):
         print("Id: {0}, UserName: {1}, WeatherLike: {2}".format(self.Id, self.UserName, self.WeatherLike))
@@ -22,6 +23,7 @@ class UserDashboard:
         self.UserName = data.UserName
         self.WeatherLike = data.WeatherLike
         self.VillageId = data.VillageId
+        self.LastPosition = data.LastPosition
         print("CLOCK: ", data.Clock)
         if data.Clock != None:
             self.Clock = data.Clock.strftime("%H/%M")
@@ -40,6 +42,9 @@ class UserDashboard:
             
         if data.get("VillageId") != None: 
             self.VillageId = data['VillageId']
+            
+        if data.get("LastPosition") != None: 
+            self.LastPosition = data['LastPosition']
 
         try:
             if data.get("Clock") != None: 
