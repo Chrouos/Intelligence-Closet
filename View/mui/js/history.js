@@ -59,15 +59,13 @@ app.controller('myCtrl', function ($scope) {
     $scope.lowerList = await eel.query_subCategory_byCategoryId(2)(); // 下半身的子類別
     $scope.otherList = await eel.query_subCategory_byCategoryId(3)(); // 下半身的子類別
 
-    $scope.clothesNodeList = await eel.clothes_to_js()();
-    
+    $scope.clothesNodeList = await eel.query_clothes_nodes_byPositionIsNull()();
+    //console.log("$scope.clothesNodeList", $scope.clothesNodeList);
+
     $scope.clothesNodeStatus = true;
-    for(var i = 0; i < $scope.clothesNodeList.length; i++){
-      if($scope.clothesNodeList[i].Position == null){
-        $scope.clothesNodeStatus = false;
-      }
+    if($scope.clothesNodeList.length > 0){
+      $scope.clothesNodeStatus = false;
     }
-    console.log("$scope.clothesNodeStatus", $scope.clothesNodeStatus);
   }
   $scope.queryAllList();
 

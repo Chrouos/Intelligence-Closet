@@ -243,6 +243,16 @@ def other_clothes_to_js():
 
 
 @eel.expose
+def query_clothes_nodes_byPositionIsNull():
+    viewClothesNodeService = ViewClothesNodeService()
+    v_clothes_dict = viewClothesNodeService.queryPositionIsNull()
+
+    print("clothes_to_js", v_clothes_dict)
+
+    return v_clothes_dict
+
+
+@eel.expose
 def query_subCategory_byCategoryId(categoryId):
     viewCategoryClothesService = ViewCategoryClothesService()
     v_subCategory_dict = viewCategoryClothesService.queryByCategoryId(
