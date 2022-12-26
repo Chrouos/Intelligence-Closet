@@ -103,7 +103,7 @@ def identify_save_sql(category, color, path, isFavorite):  # 確定存檔
         if position > user_dict['LastPosition']:
             dist_roundTimes = position - user_dict['LastPosition']
         elif position < user_dict['LastPosition']:
-            dist_roundTimes = user_dict['LastPosition'] - position
+            dist_roundTimes = 8 - user_dict['LastPosition'] + position
         print("要轉動的次數", dist_roundTimes)
         
         userDashboardService.updateLastPosition(user_id, position)
@@ -113,7 +113,7 @@ def identify_save_sql(category, color, path, isFavorite):  # 確定存檔
 
         return True
     except Exception as e:
-        # print("identify_save_sql exception: ", e)
+        print("identify_save_sql exception: ", e)
         return False
 
 
@@ -316,9 +316,11 @@ def updatePositionToNull(position):
     userDashboardService = UserDashboardService()
     user_dict = userDashboardService.queryById(user_id)  # 預設為1
     
-    dist_roundTimes = position - user_dict['LastPosition']
-    if dist_roundTimes == 0:
-        dist_roundTimes = 8
+    dist_roundTimes = 8
+    if position > user_dict['LastPosition']:
+        dist_roundTimes = position - user_dict['LastPosition']
+    elif position < user_dict['LastPosition']:
+        dist_roundTimes = 8 - user_dict['LastPosition'] + position
     print("要轉動的次數", dist_roundTimes)
     arduinoController.pickUp_one_clothes(dist_roundTimes)
     userDashboardService.updateLastPosition(user_id, position)
@@ -486,7 +488,7 @@ def storage_old_clothes(clothesNode):
         if position > user_dict['LastPosition']:
             dist_roundTimes = position - user_dict['LastPosition']
         elif position < user_dict['LastPosition']:
-            dist_roundTimes = user_dict['LastPosition'] - position
+            dist_roundTimes = 8 - user_dict['LastPosition'] + position
         print("要轉動的次數", dist_roundTimes)
         print(clothesNode)
         

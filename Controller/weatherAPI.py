@@ -106,6 +106,9 @@ class WeatherAPI:
             print("此站未提供天氣資訊")
             return "此站未提供天氣資訊"
 
+    def print_dataText(self):
+        print(self.__dataText)
+        
     def printWeather(self):
 
         # 利用“正規化“只截取想要的資訊

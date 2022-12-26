@@ -22,16 +22,17 @@ sys.path.append(os.getcwd())  # 抓取路徑
 # arduinoController.pickUp_one_clothes(1)
 
 
-from Controller.clothesGraphController import ClothesGraphController
-clothesGraphController = ClothesGraphController(1)
-clothesGraphController.printEdge()
-clothesGraphController.getCombination()
+# from Controller.clothesGraphController import ClothesGraphController
+# clothesGraphController = ClothesGraphController(1)
+# clothesGraphController.printEdge()
+# clothesGraphController.getCombination()
 
-# from Controller.weatherAPI import WeatherAPI
-# we = WeatherAPI(12)
-# we.getDataText()
-# we.getWeather()
-# we.printWeather()
+from Controller.weatherAPI import WeatherAPI
+we = WeatherAPI(12)
+we.getDataText()
+we.getWeather()
+we.print_dataText()
+
 
 # from Controller.camaraController import CamaraController
 # import joblib

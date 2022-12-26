@@ -83,8 +83,17 @@ app.controller('myCtrl', function ($scope) {
 
   /* ---------- 將資料儲存至料庫 Start ---------- */
   $scope.Send = function (subCategory, color) { // 送出
+    
+    var dialog = bootbox.dialog({
+      message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> 存放中... </p>',
+      closeButton: false
+    });
 
-    $scope.identify_save_sql(subCategory, color);
+    // 辨識
+    $scope.identify_save_sql(subCategory, color).then(function () {
+      dialog.modal('hide'); // 等待時間到就將bootbox隱藏
+    })
+
 
     //TODO bootbox: 衣服收入中...
     $scope.MainType = false;
