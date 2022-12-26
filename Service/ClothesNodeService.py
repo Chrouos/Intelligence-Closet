@@ -101,9 +101,17 @@ class ClothesNodeService:
             print("updatePositionToNull Fail Beacuse: ", e)
             return False
         
-    def updateIdInPosition(self, position, id):
+    def updateIdInPosition(self, position, request):
         try:
-            self.clothesNodeDAO.updateIdInPosition(position, id)
+            clothesNode = ClothesNode()
+            if type(request) is dict:
+                clothesNode.updateByDict(request)
+            
+            if type(request) is str:
+                clothesNode_dic = json.loads(request)
+                clothesNode.updateByDict(clothesNode_dic)
+                
+            self.clothesNodeDAO.updateIdInPosition(position, clothesNode.Id)
             return True
         except Exception as e:
             print("updateIdInPosition Fail Beacuse: ", e)

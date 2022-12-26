@@ -479,10 +479,9 @@ def storage_old_clothes(clothesNode):
         elif position < user_dict['LastPosition']:
             dist_roundTimes = user_dict['LastPosition'] - position
         print("要轉動的次數", dist_roundTimes)
-        print(clothesNode)
         
         userDashboardService.updateLastPosition(user_id, position)
-        clothesNodeService.updateIdInPosition(position, clothesNode.Id) #TODO: 
+        clothesNodeService.updateIdInPosition(position, clothesNode) #TODO: 
         # arduinoController.storgage_second_half(dist_roundTimes)
         
         # clothesNode = clothesNodeService.queryAll()
