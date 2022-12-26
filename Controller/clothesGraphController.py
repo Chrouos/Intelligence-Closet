@@ -1,5 +1,6 @@
 from Service.viewClothesNodeService import ViewClothesNodeService, ViewClothesNodeDAO
 from Service.viewClothesGraphService import ViewClothesGraphService
+from Service.userDashboardService import UserDashboardService
 # from Controller.weatherInformationAPI import WeatherInformationAPI
 from Controller.weatherAPI import WeatherAPI
 
@@ -22,8 +23,12 @@ class ClothesGraphController:
         self.viewClothesGraphService = ViewClothesGraphService()
         self.graphs = []
         self.updateGraph()
+        
+        # 更新使用者喜好
+        self.userDashboardService = UserDashboardService()
+        self.user_info = self.userDashboardService.queryById(1)
 
-        self.comfortableTemp = 26
+        self.comfortableTemp = 26 + self.user_info['WeatherLike']
         self.comfortableHumd = 60
         
     
@@ -78,15 +83,16 @@ class ClothesGraphController:
         print("最適合溫度 - 現在溫度 = 相差溫度: {} - {} = {}".format(self.comfortableTemp, weather_dict['T'], diff_temp))
         print("最適合濕度 - 現在濕度 = 相差濕度: {} - {} = {}".format(self.comfortableHumd, weather_dict['RH'], diff_rh))
         
-        
         # 弄成 dict增加可讀性
         combs_dict_list = []
         
         
         # 公式: ( 26 - 使用者喜好) - ( diff - 天氣分數總合)
         for graph in self.graphs:
-            # result = math.floor((diff - graph[2]))
-            result = abs(diff_temp - graph[2])
+            
+            diff = diff_temp - graph[2]
+            result = round((    abs(diff) * 1.3
+                        +   abs(((diff) + ( 5 - graph[2])) / 25 * 45 + (diff_rh   ) / 100 * 60 + ( 5 - graph[2]) ) * 1.5), 2)
             combs.append([  result,
                             graph[0].Position, graph[1].Position,
                             graph[0].ColorName, graph[1].ColorName,

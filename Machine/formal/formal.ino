@@ -46,9 +46,9 @@ int Duration; // 超音波發射到接收的時間
 int Distance; // 距離
 int isTri = true, trigNow = 0, echoNow = 0, isDone = false;
 
-int Y_Track_Up = 170, Y_Track_Down = 40, Y_Disc_Up = 170, Y_Disc_Down = 40;
+int Y_Track_Up = 165, Y_Track_Down = 40, Y_Disc_Up = 165, Y_Disc_Down = 40;
 int X_Track = 15, X_Disc = 100;
-int Car_Servo_Up = 162, Car_Servo_Down = 120;
+int Car_Servo_Up = 168, Car_Servo_Down = 120;
 int angle_delayTime = 2000;
 
 // ----------------------------------------------- 狀態設定 ^ ----------------------------------------------- //
@@ -445,7 +445,13 @@ void loop() {
             lcd.clear();  
             Serial.println("GO_Storage_S2");
             setUpLCD(1, 0, "GO_Storage_S2");
-            setUpLCD(1, 2, "Y: Down, X: Track");  
+            setUpLCD(1, 2, "Y: Down, X: Track");
+
+            // 開始步驟
+            Serial.println("Input_The_Position_1");
+            String get_position_1 =  Serial.readStringUntil('\n');
+            int position_1 = get_position_1.toInt();
+            Serial.println("輸入的位置 " + String(position_1));
 
             setUpLCD(1, 3, "Disc           " + String(position_1));  Serial.println("圓盤轉動位置至" + String(position_1));
             discRotate_withTimes(1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
@@ -466,7 +472,7 @@ void loop() {
 
             // 機械手臂Y軸上升: 提取衣物(軌道)
             setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("機械手臂Y軸上升: 提取衣物(軌道)");
-            servo_with_time(biaxial_servo_y, biaxial_servo_y_pin, 5, Y_Track_Down, Y_Track_Up);
+            servo_with_time(biaxial_servo_y, biaxial_servo_y_pin, 1, Y_Track_Down, Y_Track_Up);
 
             // 模型車掛臂收回
             setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("模型車掛臂收回");
@@ -479,7 +485,7 @@ void loop() {
 
             // 模型車掛臂露出
             setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("模型車掛臂露出");
-            servo_with_time(car_servo, car_servo_pin, 10, Car_Servo_Down, Car_Servo_Up);
+            servo_with_time(car_servo, car_servo_pin, 5, Car_Servo_Down, Car_Servo_Up);
 
              // 機械手臂X軸: 轉至圓盤
             setUpLCD(1, 2, "Y: Up  , X: Disc ");  Serial.println("機械手臂X軸: 轉至圓盤");
@@ -514,7 +520,7 @@ void loop() {
 
             // 機械手臂Y軸上升: 提取衣物(軌道)
             setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("機械手臂Y軸上升: 提取衣物(軌道)");
-            servo_with_time(biaxial_servo_y, biaxial_servo_y_pin, 5, Y_Track_Down, Y_Track_Up);
+            servo_with_time(biaxial_servo_y, biaxial_servo_y_pin, 1, Y_Track_Down, Y_Track_Up);
 
             delay(1000);
             discRotate_withTimes(1);
@@ -554,7 +560,7 @@ void loop() {
             setUpLCD(1, 0, "test_get");
 
             // TODO: 圓盤轉至「位置指定」
-            setUpLCD(1, 3, "Disc           " + String(position_1));  Serial.println("圓盤轉動位置至" + String(position_1));
+            setUpLCD(1, 3, "Disc           " + String(1));  Serial.println("圓盤轉動位置至" + String(1));
             discRotate_withTimes(1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
             delay(1000);
             
@@ -692,7 +698,7 @@ void discRotate_withTimes(int times){
     while( now_times != times){
 
         disc_stepper.step(-1);  // 20/200 = 1/10
-        if(millis() - temp_time > 500){
+        if(millis() - temp_time > 1000){
           if( checkTheBtnStatus(discButton, discButtonState, discButtonLastState, discButtonlastDebounceTime, globalDelayTime) == true){
               disc_start = false;
               now_times++;

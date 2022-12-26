@@ -314,7 +314,7 @@ def updatePositionToNull(position):
     dist_roundTimes = position - user_dict['LastPosition']
     if dist_roundTimes == 0:
         dist_roundTimes = 8
-    # print("要轉動的次數", dist_roundTimes)
+    print("要轉動的次數", dist_roundTimes)
     arduinoController.pickUp_one_clothes(dist_roundTimes)
     userDashboardService.updateLastPosition(user_id, position)
     

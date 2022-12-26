@@ -13,16 +13,18 @@ sys.path.append(os.getcwd())  # 抓取路徑
 
 # from Controller.arduinoController import ArduinoController
 # arduinoController = ArduinoController()
-# arduinoController.storgage_first_half()
 # arduinoController.car_back_now()
+
+# arduinoController.storgage_first_half()
 # arduinoController.Test_get()
 # arduinoController.storgage_first_half()
 # arduinoController.pickUp_one_clothes(1)
 
 
-from Controller.clothesGraphController import ClothesGraphController
-clothesGraphController = ClothesGraphController(1)
-clothesGraphController.printEdge()
+# from Controller.clothesGraphController import ClothesGraphController
+# clothesGraphController = ClothesGraphController(1)
+# clothesGraphController.printEdge()
+# clothesGraphController.getCombination()
 # clothesGraphController.getCombination()
 
 # from Controller.weatherAPI import WeatherAPI

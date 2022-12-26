@@ -37,15 +37,17 @@ class CamaraController:
         
         self.newOneId = self.getLastId()        # 抓取資料庫的最後一筆Id, (並成為要命名的數字)
         self.chooseCamara = camara  # 選擇照相機
+        print("newone", self.newOneId)
 
     def getLastId(self):
         clothesNodeService = ViewClothesNodeService()
 
         self.newOneId = clothesNodeService.lastId() + 1
         
-        self.newOneId = 9 # TODO: 要記得刪除
+        self.newOneId = 6 # TODO: 要記得刪除
         self.save_path = 'View/mui/public/src/clothes_' + str(self.newOneId) + '.jpg'
         self.path = "./public/src/clothes_" + str(self.newOneId) + ".jpg"
+        print(self.save_path)
         
         return self.newOneId
 

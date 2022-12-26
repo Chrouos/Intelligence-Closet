@@ -41,6 +41,7 @@ app.controller('myCtrl', function ($scope) {
             $scope.user_by_id_to_js();
         }
         $scope.closeEdit();
+        $scope.weather_to_js();
     }
 
     // 從 Python中 獲得所有縣市 顯示在 option 選項中
@@ -67,4 +68,14 @@ app.controller('myCtrl', function ($scope) {
         $scope.weather = await eel.weather_to_js()();
     }; $scope.weather_to_js();
 
+
+    $scope.isRequired = function (data){
+        // console.log(data)
+        if(data == null){
+            return {"background-color": "gray"};
+        }
+        else{
+            return {"background-color": "rgb(124, 124, 255)"};
+        }
+    }
 });

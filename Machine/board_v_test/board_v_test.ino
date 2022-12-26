@@ -23,7 +23,7 @@ const int car_front_btn = 33, car_back_btn = 35;
 int car_lastState = false;
 //步進馬達
 Stepper disc_stepper(200, 2, 3, 4, 5); 
-const int disc_btn_front = 24, disc_btn_stop = 23;
+const int disc_btn_front = 24, discButton = 23;
 const int relay = 48; // 繼電器
 int disc_lastState = false;
 // 車車的伺服馬達(掛勾)
@@ -32,6 +32,10 @@ int car_servo_lastStatus = false;
 
 int servo_x_pos = 0, servo_y_pos = 0, servo_car_pos = 165;
 int angle = 1, angle_delayTime = 15;
+
+int discButtonState; // 圓盤微動開關的狀態
+int discButtonLastState = LOW; // 圓盤微動開關的最後狀態
+long discButtonlastDebounceTime = 0;  // 按了最後一次被觸發
 
 // ----------------------------- 控制腳位 end ----------------------------- //
 
@@ -53,7 +57,7 @@ void setup() {
     pinMode(car_servo_btn_negative, INPUT);
     pinMode(car_servo_btn_positive, INPUT);
     pinMode(disc_btn_front, INPUT);
-    pinMode(disc_btn_stop, INPUT);
+    pinMode(discButton, INPUT);
     
     for(int i=0; i<4; i++){
         pinMode(entrance_L298N_car[i], OUTPUT);
@@ -252,22 +256,24 @@ void loop() {
     }
 
     if ( digitalRead(disc_btn_front) == HIGH){
-        long temp_time = millis();
-
-        // 開始旋轉 
-        digitalWrite(relay, HIGH); // 把繼電器打開
-        bool disc_start = true;  // true: start, false: stop
-        while(disc_start == true){
-          
-            disc_stepper.step(-1);  // 20/200 = 1/10
-            if(millis() - temp_time > 1000){
-              if( digitalRead(disc_btn_stop) == true){
-                  disc_start = false;
-              }
-            }
-            
-        }
-        // 微動開關按了才結束
+          digitalWrite(relay, HIGH);
+          discRotate_withTimes(1);
+//        long temp_time = millis();
+//
+//        // 開始旋轉 
+//        digitalWrite(relay, HIGH); // 把繼電器打開
+//        bool disc_start = true;  // true: start, false: stop
+//        while(disc_start == true){
+//          
+//            disc_stepper.step(-1);  // 20/200 = 1/10
+//            if(millis() - temp_time > 1000){
+//              if( digitalRead(disc_btn_stop) == true){
+//                  disc_start = false;
+//              }
+//            }
+//            
+//        }
+//        // 微動開關按了才結束
 
         // 結束
         delay(2000);
@@ -299,7 +305,16 @@ void mback(int l298n_car[4]) {
     digitalWrite(l298n_car[3], LOW);
 }
 
+
+
+// LCD 顯示畫面
+void setUpLCD(int column, int row, String text){
+    lcd.setCursor(column, row);  // (colum, row) 
+    lcd.print(text);
+}
+
 // 確認按鈕狀況
+
 int checkTheBtnStatus(const int button, int& buttonState, int& buttonLastState, long& buttonlastDebounceTime, long delayTime){
     int buttonRead = digitalRead(button);
     if (buttonRead != buttonLastState) {  // 如果按键状态和上次不同
@@ -319,11 +334,26 @@ int checkTheBtnStatus(const int button, int& buttonState, int& buttonLastState, 
     buttonLastState = buttonRead;  // 保存处理结果
     return false;
 }
+void discRotate_withTimes(int times){
+  long globalDelayTime = 50;  // 消斗的時間
 
+    Serial.println("discRotate_withTimes have to rotate " + String(times) + " Times");
+    long temp_time = millis();
+    int now_times = 0;
+    // 開始旋轉 
+    
+    bool disc_start = true;  // true: start, false: stop
+    //disc_start == true | now_times <= times
+    while( now_times != times){
 
-
-// LCD 顯示畫面
-void setUpLCD(int column, int row, String text){
-    lcd.setCursor(column, row);  // (colum, row) 
-    lcd.print(text);
+        disc_stepper.step(-1);  // 20/200 = 1/10
+        if(millis() - temp_time > 1000){
+          if( checkTheBtnStatus(discButton, discButtonState, discButtonLastState, discButtonlastDebounceTime, globalDelayTime) == true){
+              disc_start = false;
+              now_times++;
+          }
+        }
+       
+    }
+    // 微動開關按了才結束
 }
