@@ -189,6 +189,22 @@ class ClothesNodeDAO:
         self.cnxn.commit()
 
         return True
+    
+    
+    def ChangeCategory_UpdateTheGraph(self, clothesNode):
+        
+        # 上半身
+        if clothesNode.CategoryId == 1:
+            execute_str = "delete from node_graph where UpperId = {}".format(clothesNode.Id)
+        # 下半身
+        elif clothesNode.CategoryId == 2:
+            execute_str = "delete from node_graph where LowerId = {}".format(clothesNode.Id)
+        # print("ChangeCategory_UpdateTheGraph: ", execute_str)
+
+        self.cursor.execute(execute_str)
+        self.cnxn.commit()
+
+        return True
 
     # clothes node 歸零
     def returnZeroClothesNode(self, clothesNodeId):

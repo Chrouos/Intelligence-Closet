@@ -227,7 +227,9 @@ app.controller('myCtrl', function ($scope) {
     $scope.update_clothes = async function () {
         // console.log("$scope.clothesNode", $scope.clothesNode);
         if($scope.clothesNode.Id != null)
-        var isSuccess = await eel.update_clothes_node($scope.clothesNode)();
+            var isSuccess = await eel.update_clothes_node($scope.clothesNode)();
+
+        
     }
 
     //設定愛心顏色

@@ -1,6 +1,10 @@
 from Model.DAO.clothesNodeDAO import ClothesNodeDAO
+from Model.DAO.viewClothesNodeDAO import ViewClothesNodeDAO
 from Model.Domain.clothesNode import ClothesNode
 import json
+
+from Model.Domain.viewClothesNode import ViewClothesNode
+from Service.nodeGraphService import NodeGraphService
 
 
 class ClothesNodeService:
@@ -119,16 +123,43 @@ class ClothesNodeService:
 
     def updateById(self, request):
         # try:
-            clothesNode = ClothesNode()
-            if type(request) is dict:
-                clothesNode.updateByDict(request)
+        clothesNode = ClothesNode()
+        if type(request) is dict:
+            clothesNode.updateByDict(request)
+        
+        if type(request) is str:
+            clothesNode_dic = json.loads(request)
+            clothesNode.updateByDict(clothesNode_dic)
+        
+        self.clothesNodeDAO.updateById(clothesNode)
+        return True
+    
+    # 修改衣物時若修改了類別
+    def ChangeCategory_UpdateTheGraph(self, request):
+        viewClothesNode = ViewClothesNode()
+        viewClothesNodeDAO = ViewClothesNodeDAO()
+        
+        if type(request) is dict:
+            viewClothesNode.updateByDict(request)
+        
+        if type(request) is str:
+            viewClothesNode_dic = json.loads(request)
+            viewClothesNode.updateByDict(viewClothesNode_dic)
+        
+        
+        clothesNode_aft = viewClothesNodeDAO.queryById(viewClothesNode.Id)
+        print(clothesNode_aft.CategoryId, viewClothesNode.CategoryId)
+        # 如果分類不一樣才要update graph
+        if clothesNode_aft.CategoryId != viewClothesNode.CategoryId:     
+            self.clothesNodeDAO.ChangeCategory_UpdateTheGraph(clothesNode_aft)
+            clothesGraph_create = '{{"ClothesNodeLastId": {0}, "CategoryId": {1}}}'.format(
+            clothesNode_aft.Id, clothesNode_aft.CategoryId)
+            print("saveClothesGraph_Data:", clothesGraph_create)
             
-            if type(request) is str:
-                clothesNode_dic = json.loads(request)
-                clothesNode.updateByDict(clothesNode_dic)
+            nodeGraphService = NodeGraphService()
+            nodeGraphService.create(clothesGraph_create)
             
-            self.clothesNodeDAO.updateById(clothesNode)
-            return True
+        return True
 
     # Clothes Node 歸零
     def returnZeroClothesNode(self, clothesNodeId):            

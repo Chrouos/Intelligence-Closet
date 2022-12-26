@@ -98,10 +98,14 @@ def identify_save_sql(category, color, path, isFavorite):  # 確定存檔
         position = clothesNodeService.vacancyPosition() # 剩餘的位置
         # print("剩餘位置", position)
         
-        dist_roundTimes = position - user_dict['LastPosition']
-        if dist_roundTimes == 0:
-            dist_roundTimes = 8
-        # print("要轉動的次數", dist_roundTimes)
+        print("資料庫目前存放在:", user_dict['LastPosition'], ", 目前衣物空缺位置:", position)
+        dist_roundTimes = 8
+        if position > user_dict['LastPosition']:
+            dist_roundTimes = position - user_dict['LastPosition']
+        elif position < user_dict['LastPosition']:
+            dist_roundTimes = user_dict['LastPosition'] - position
+        print("要轉動的次數", dist_roundTimes)
+        
         userDashboardService.updateLastPosition(user_id, position)
         arduinoController.storgage_second_half(dist_roundTimes)
         
@@ -391,9 +395,14 @@ def creat_node_graph(firstClohtesNode, secondClohtesNode, userLike):  # 新增no
 @eel.expose
 def update_clothes_node(clothesNode): # 更新 clothes node
     clothesNodeService = ClothesNodeService()
+    
     isSuccess = clothesNodeService.updateById(clothesNode)
+    
+    # 修改衣物時若修改了類別
+    clothesNodeService.ChangeCategory_UpdateTheGraph(clothesNode)
+    
 
-    print("update_user_dashboard", isSuccess)
+    print("update_clothes_node", isSuccess)
 
     return isSuccess
 
@@ -492,8 +501,7 @@ def storage_old_clothes(clothesNode):
         
         userDashboardService.updateLastPosition(user_id, position)
         clothesNodeService.updateIdInPosition(position, clothesNode) #TODO: 
-        # arduinoController.storgage_second_half(dist_roundTimes)
-        
+        arduinoController.storgage_second_half(dist_roundTimes)
 
         clothesGraph_create = '{{"ClothesNodeLastId": {0}, "CategoryId": {1}}}'.format(
             viewClothesNode.Id, viewClothesNode.CategoryId)
