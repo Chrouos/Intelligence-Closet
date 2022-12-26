@@ -48,7 +48,7 @@ int isTri = true, trigNow = 0, echoNow = 0, isDone = false;
 
 int Y_Track_Up = 165, Y_Track_Down = 40, Y_Disc_Up = 165, Y_Disc_Down = 40;
 int X_Track = 15, X_Disc = 100;
-int Car_Servo_Up = 168, Car_Servo_Down = 120;
+int Car_Servo_Up = 155, Car_Servo_Down = 120;
 int angle_delayTime = 2000;
 
 // ----------------------------------------------- 狀態設定 ^ ----------------------------------------------- //

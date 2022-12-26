@@ -11,9 +11,10 @@ sys.path.append(os.getcwd())  # 抓取路徑
 # user_dict = userDashboardService.queryById(1)  # 預設為1
 # print(user_dict['LastPosition'])
 
-# from Controller.arduinoController import ArduinoController
-# arduinoController = ArduinoController()
-# arduinoController.car_back_now()
+from Controller.arduinoController import ArduinoController
+arduinoController = ArduinoController()
+arduinoController.car_back_now()
+# arduinoController.car_front_now()
 
 # arduinoController.storgage_first_half()
 # arduinoController.Test_get()
@@ -33,7 +34,7 @@ sys.path.append(os.getcwd())  # 抓取路徑
 # we.getWeather()
 # we.printWeather()
 
-# from Controller.camaraController import CamaraController
+from Controller.camaraController import CamaraController
 # import joblib
 # # 相機物件
 # def get_x(r): return './images_original/'+r['image'] # create path to open images in the original folder

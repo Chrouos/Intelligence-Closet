@@ -167,6 +167,17 @@ class ClothesNodeDAO:
 
         return True
 
+    def updateIdInPosition(self, position, id):
+
+        execute_str = "UPDATE clothes_node SET Position = {} WHERE Id = {}".format(
+            position, id)
+        print(execute_str)
+
+        self.cursor.execute(execute_str)
+        self.cnxn.commit()
+
+        return True
+
     def updateById(self, clothesNode):
 
         execute_str = "UPDATE intelligence_closet.dbo.clothes_node SET " \

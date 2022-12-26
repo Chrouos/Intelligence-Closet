@@ -460,6 +460,48 @@ def query_node_graph_setting(upperId, lowerId):
     
     return v_node_graph
 
+@eel.expose
+def storage_old_clothes(clothesNode):
+    try:
+        arduinoController = ArduinoController()
+
+        # 將衣服送入圓盤(後半段)
+        userDashboardService = UserDashboardService()
+        user_dict = userDashboardService.queryById(user_id)  # 預設為1
+        
+        clothesNodeService = ClothesNodeService()
+        position = clothesNodeService.vacancyPosition() # 剩餘的位置
+        # print("剩餘位置", position)
+        print("資料庫目前存放在:", user_dict['LastPosition'], ", 目前衣物空缺位置:", position)
+        dist_roundTimes = 8
+        if position > user_dict['LastPosition']:
+            dist_roundTimes = position - user_dict['LastPosition']
+        elif position < user_dict['LastPosition']:
+            dist_roundTimes = user_dict['LastPosition'] - position
+        print("要轉動的次數", dist_roundTimes)
+        print(clothesNode)
+        
+        userDashboardService.updateLastPosition(user_id, position)
+        clothesNodeService.updateIdInPosition(position, clothesNode.Id) #TODO: 
+        # arduinoController.storgage_second_half(dist_roundTimes)
+        
+        # clothesNode = clothesNodeService.queryAll()
+        # clothesNodeLastId = clothesNode[len(clothesNode)-1]["Id"]
+
+        # clothesGraph_create = '{{"ClothesNodeLastId": {0}, "CategoryId": {1}}}'.format(
+        #     clothesNodeLastId, categoryId, self.path, self.isFavorite)
+        # print("saveClothesGraph_Data:", clothesGraph_create)
+        
+        # nodeGraphService = NodeGraphService()
+        # nodeGraphService.create(clothesGraph_create)
+        
+        
+
+        return True
+    except Exception as e:
+        print("storage_old_clothes exception: ", e)
+        return False
+
 eel.init('View/mui')  # eel.init(網頁的資料夾)
 # eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))
 

@@ -100,6 +100,14 @@ class ClothesNodeService:
         except Exception as e:
             print("updatePositionToNull Fail Beacuse: ", e)
             return False
+        
+    def updateIdInPosition(self, position, id):
+        try:
+            self.clothesNodeDAO.updateIdInPosition(position, id)
+            return True
+        except Exception as e:
+            print("updateIdInPosition Fail Beacuse: ", e)
+            return False
 
     def updateById(self, request):
         # try:
