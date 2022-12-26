@@ -23,7 +23,7 @@ class ViewUserDashboardDAO:
 									+ ';UID=' + username
 									+ ';PWD=' + password)
 			self.cursor = cnxn.cursor()
-			print('ViewUserDashboardDAO 操作成功')
+			# print('ViewUserDashboardDAO 操作成功')
 
 		except:
 			print('ViewUserDashboardDAO 操作錯誤')
@@ -34,7 +34,7 @@ class ViewUserDashboardDAO:
 	# 搜尋所有資料: tuple
 	def queryAll(self):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.v_user_dashboard;"
-		print("queryAll: ", execute_str)
+		# print("queryAll: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()
@@ -49,7 +49,7 @@ class ViewUserDashboardDAO:
 	# 透過Id查找一筆資料: tuple
 	def queryById(self, id):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.v_user_dashboard WHERE Id = {0}".format(id)
-		print("queryById: ", execute_str)
+		# print("queryById: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		data = self.cursor.fetchone()
@@ -65,7 +65,7 @@ class ViewUserDashboardDAO:
 					+ "UserName='{0}', WeatherLike={1}, ModifyTime = GETDATE(), ".format(viewUserDashboard.UserName, viewUserDashboard.WeatherLike)\
 					+ "Clock='{0}', VillageId={1}, VillageName = {2}, ".format(viewUserDashboard.Clock, viewUserDashboard.VillageId, viewUserDashboard.VillageName)\
 					+ "CityId={0}, CityName='{1}' WHERE Id = {2};".format(viewUserDashboard.CityId, viewUserDashboard.CityName, id)
-		print("updateById: ", execute_str)
+		# print("updateById: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		self.cnxn.commit()

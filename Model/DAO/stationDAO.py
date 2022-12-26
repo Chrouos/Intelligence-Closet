@@ -23,7 +23,7 @@ class StationDAO:
 									+ ';UID=' + username
 									+ ';PWD=' + password)
 			self.cursor = cnxn.cursor()
-			print('StationDAO 操作成功')
+			# print('StationDAO 操作成功')
 
 		except:
 			print('StationDAO 操作錯誤')
@@ -34,7 +34,7 @@ class StationDAO:
 	# 搜尋所有資料: tuple
 	def queryAll(self):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.station;"
-		print("queryAll: ", execute_str)
+		# print("queryAll: ", execute_str)
 	
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()
@@ -50,7 +50,7 @@ class StationDAO:
 	# 透過Id查找一筆資料: tuple
 	def queryById(self, id):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.station WHERE Id = {0}".format(id)
-		print("queryById: ", execute_str)
+		# print("queryById: ", execute_str)
 	
 		self.cursor.execute(execute_str)
 		data = self.cursor.fetchone()
@@ -62,7 +62,7 @@ class StationDAO:
 		
 	def queryByCityId(self, cityId):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.station WHERE CityId = '{0}'".format(cityId)
-		print("queryByCityId: ", execute_str)
+		# print("queryByCityId: ", execute_str)
 	
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()
@@ -77,7 +77,7 @@ class StationDAO:
 		return stationLists
 
 	def create(self, station):
-		print(station)
+		# print(station)
 		execute_str = "INSERT INTO station (StationNumber, StationName, CityId, [Address], CreateTime,  Remark, ModifyTime, Work) VALUES (" \
 					+ "'{0}', '{1}', {2}, '{3}', GETDATE(), '{4}', GETDATE(), '{5}')".format(	station.StationNumber, 
 																								station.StationName, 
@@ -85,7 +85,7 @@ class StationDAO:
 																								station.Address,
 																								station.Remark, 
 																								station.Work)
-		print("create: ", execute_str)
+		# print("create: ", execute_str)
 		self.cnxn.cursor().execute(execute_str)
 		self.cnxn.commit()
 
@@ -93,7 +93,7 @@ class StationDAO:
 
 	def deleteAllData(self):
 		execute_str = "TRUNCATE TABLE intelligence_closet.dbo.station "
-		print("deleteAllData: ", execute_str)
+		# print("deleteAllData: ", execute_str)
 		self.cnxn.cursor().execute(execute_str)
 		self.cnxn.commit()
 	
@@ -101,7 +101,7 @@ class StationDAO:
 
 	def deleteById(self, id):
 		execute_str = "DELETE FROM intelligence_closet.dbo.station WHERE Id = {0};".format(id)
-		print("deleteById: ", execute_str)
+		# print("deleteById: ", execute_str)
 		self.cnxn.cursor().execute(execute_str)
 		self.cnxn.commit()
 	

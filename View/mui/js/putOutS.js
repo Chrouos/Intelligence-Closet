@@ -102,7 +102,14 @@ app.controller('myCtrl', function ($scope) {
     // 單件 // 
     if ($scope.takeType == false) {
       console.log("updateThePickUpListToNull ", $scope.siglePickUpList.Position)
-      $scope.info_clothesNode = await eel.updatePositionToNull($scope.siglePickUpList.Position)();
+
+      var dialog = bootbox.dialog({
+        message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> 等待衣物拿取中... </p>',
+        closeButton: false
+      });
+      $scope.info_clothesNode = await eel.updatePositionToNull($scope.siglePickUpList.Position)().then(function () {
+        dialog.modal('hide'); // 等待時間到就將bootbox隱藏
+      });
       $scope.clothesNodeList = await eel.clothes_to_js()();
       $scope.siglePickUpList = null;
     }

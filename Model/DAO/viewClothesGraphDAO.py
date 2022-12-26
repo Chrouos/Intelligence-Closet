@@ -23,7 +23,7 @@ class ViewClothesGraphDAO:
                 ';DATABASE=' + database + ';UID=' + username + ';PWD=' +
                 password)
             self.cursor = cnxn.cursor()
-            print('ViewClothesGraphDAO 操作成功')
+            # print('ViewClothesGraphDAO 操作成功')
 
         except:
             print('ViewClothesGraphDAO 操作錯誤')
@@ -34,7 +34,7 @@ class ViewClothesGraphDAO:
     # 搜尋所有資料: tuple
     def queryAll(self):
         execute_str = "SELECT * FROM intelligence_closet.dbo.v_clothes_graph;"
-        print("queryAll: ", execute_str)
+        # print("queryAll: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
@@ -51,7 +51,7 @@ class ViewClothesGraphDAO:
     def queryById(self, id):
         execute_str = "SELECT * FROM intelligence_closet.dbo.v_clothes_graph WHERE Id = {0}".format(
             id)
-        print("queryById: ", execute_str)
+        # print("queryById: ", execute_str)
 
         self.cursor.execute(execute_str)
         data = self.cursor.fetchone()

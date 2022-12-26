@@ -24,7 +24,7 @@ class ClothesNodeDAO:
                 ';DATABASE=' + database + ';UID=' + username + ';PWD=' +
                 password)
             self.cursor = cnxn.cursor()
-            print('ClothesNodeDAO 操作成功')
+            # print('ClothesNodeDAO 操作成功')
 
         except:
             print('ClothesNodeDAO 操作錯誤')
@@ -37,7 +37,7 @@ class ClothesNodeDAO:
     # 搜尋所有資料: tuple
     def queryAll(self):
         execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node;"
-        print("queryAll: ", execute_str)
+        # print("queryAll: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
@@ -54,7 +54,7 @@ class ClothesNodeDAO:
     def queryById(self, id):
         execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node WHERE Id = {0}".format(
             id)
-        print("queryById: ", execute_str)
+        # print("queryById: ", execute_str)
 
         self.cursor.execute(execute_str)
         data = self.cursor.fetchone()
@@ -67,7 +67,7 @@ class ClothesNodeDAO:
     def queryNodeByPosition(self, position):
         execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node WHERE [Position]  = {0}".format(
             position)
-        print("queryNodeByPosition: ", execute_str)
+        # print("queryNodeByPosition: ", execute_str)
 
         self.cursor.execute(execute_str)
         data = self.cursor.fetchone()
@@ -101,7 +101,7 @@ class ClothesNodeDAO:
     def sortNameDESC(self, name):
         execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node ORDER BY '{0}' DESC".format(
             name)
-        print("sortNameDESC", execute_str)
+        # print("sortNameDESC", execute_str)
 
         self.cursor.execute(execute_str)
         data = self.cursor.fetchone()
@@ -144,7 +144,7 @@ class ClothesNodeDAO:
             clothesNode_dict['FilePosition'],
             clothesNode_dict['IsFavorite'])
 
-        print("create", execute_str)
+        # print("create", execute_str)
         self.cnxn.cursor().execute(execute_str)
         self.cnxn.commit()
 

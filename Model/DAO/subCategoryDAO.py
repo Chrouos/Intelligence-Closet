@@ -24,7 +24,7 @@ class SubCategoryDAO:
 									+ ';UID=' + username
 									+ ';PWD=' + password)
 			self.cursor = cnxn.cursor()
-			print('SubCategoryDAO 操作成功')
+			# print('SubCategoryDAO 操作成功')
 
 		except:
 			print('SubCategoryDAO 操作錯誤')
@@ -35,7 +35,7 @@ class SubCategoryDAO:
 	# 搜尋所有資料: tuple
 	def queryAll(self):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.sub_category;"
-		print("queryAll: ", execute_str)
+		# print("queryAll: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()
@@ -50,7 +50,7 @@ class SubCategoryDAO:
 	# 透過Id查找一筆資料: tuple
 	def queryById(self, id):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.sub_category WHERE Id = {0}".format(id)
-		print("queryById: ", execute_str)
+		# print("queryById: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		data = self.cursor.fetchone()
@@ -62,7 +62,7 @@ class SubCategoryDAO:
 
 	def queryByCategoryId(self, id):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.sub_category where CategoryId = {0};".format(id)
-		print("queryByCategoryId: ", execute_str)
+		# print("queryByCategoryId: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()
@@ -76,7 +76,7 @@ class SubCategoryDAO:
 
 	def queryByClothesType(self, clothesType):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.sub_category WHERE ClothesType = '{0}'".format(clothesType)
-		print("queryqueryByClothesTypeById: ", execute_str)
+		# print("queryqueryByClothesTypeById: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		data = self.cursor.fetchone()
@@ -89,7 +89,7 @@ class SubCategoryDAO:
 
 	def updateScoreById(self, score, id):
 		execute_str = "UPDATE intelligence_closet.dbo.sub_category SET Score = {0} WHERE Id = {1}".format(score, id)
-		print("updateScoreById: ", execute_str)
+		# print("updateScoreById: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		self.cnxn.commit()

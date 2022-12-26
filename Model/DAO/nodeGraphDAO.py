@@ -24,7 +24,7 @@ class NodeGraphDAO:
                 ';DATABASE=' + database + ';UID=' + username + ';PWD=' +
                 password)
             self.cursor = cnxn.cursor()
-            print('NodeGraphDAO 操作成功')
+            # print('NodeGraphDAO 操作成功')
 
         except:
             print('NodeGraphDAO 操作錯誤')
@@ -35,7 +35,7 @@ class NodeGraphDAO:
     # 搜尋所有資料: tuple
     def queryAll(self):
         execute_str = "SELECT * FROM intelligence_closet.dbo.node_graph;"
-        print("queryAll: ", execute_str)
+        # print("queryAll: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
@@ -51,7 +51,7 @@ class NodeGraphDAO:
     def queryById(self, id):
         execute_str = "SELECT * FROM intelligence_closet.dbo.node_graph WHERE Id = {0}".format(
             id)
-        print("queryById: ", execute_str)
+        # print("queryById: ", execute_str)
 
         self.cursor.execute(execute_str)
         data = self.cursor.fetchone()
@@ -65,7 +65,7 @@ class NodeGraphDAO:
     def queryByUpperId(self, id):
         execute_str = "SELECT * FROM intelligence_closet.dbo.node_graph where UpperId = {0};".format(
             id)
-        print("queryByUpperId: ", execute_str)
+        # print("queryByUpperId: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
@@ -81,7 +81,7 @@ class NodeGraphDAO:
     def queryByLowerId(self, id):
         execute_str = "SELECT * FROM intelligence_closet.dbo.node_graph where LowerId = {0};".format(
             id)
-        print("queryByLowerId: ", execute_str)
+        # print("queryByLowerId: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
@@ -96,7 +96,7 @@ class NodeGraphDAO:
     def queryByOtherId(self, id):
         execute_str = "SELECT * FROM intelligence_closet.dbo.node_graph where OtherId = {0};".format(
             id)
-        print("queryByOtherId: ", execute_str)
+        # print("queryByOtherId: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
@@ -111,7 +111,7 @@ class NodeGraphDAO:
     def queryByUpperIdAndLowerId(self, upperId, lowerId):
         execute_str = "SELECT * FROM intelligence_closet.dbo.node_graph where UpperId = {0} AND LowerId = {1};".format(
             upperId, lowerId)
-        print("queryByUpperIdAndLowerId: ", execute_str)
+        # print("queryByUpperIdAndLowerId: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
@@ -126,7 +126,7 @@ class NodeGraphDAO:
     def updateCombLikeById(self, score, id):
         execute_str = "UPDATE intelligence_closet.dbo.node_graph SET CombLike = {0}, ModifyTime = GETDATE() WHERE Id = {1}".format(
             score, id)
-        print("updateCombLikeById: ", execute_str)
+        # print("updateCombLikeById: ", execute_str)
 
         self.cursor.execute(execute_str)
         self.cnxn.commit()
@@ -135,7 +135,7 @@ class NodeGraphDAO:
 
     def create(self, nodeGraph_dict):
         
-        print("nodeGraph_dict", nodeGraph_dict)
+        # print("nodeGraph_dict", nodeGraph_dict)
 
         execute_str = ""
 
@@ -152,7 +152,7 @@ class NodeGraphDAO:
             execute_str = "INSERT INTO intelligence_closet.dbo.node_graph (OtherId, CreateTime, ModifyTime) VALUES (" \
             + "{0}, GETDATE(), GETDATE())".format(nodeGraph_dict['ClothesNodeLastId'])
         
-        print("create: ", execute_str)
+        # print("create: ", execute_str)
 
         self.cursor.execute(execute_str)
         self.cnxn.commit()
@@ -163,7 +163,7 @@ class NodeGraphDAO:
         execute_str = "INSERT INTO intelligence_closet.dbo.node_graph (UpperId, LowerId, UserLike, CreateTime, ModifyTime) VALUES (" \
             + "null, null, 0, GETDATE(), GETDATE() )".format()
 
-        print("create: ", execute_str)
+        # print("create: ", execute_str)
 
         self.cursor.execute(execute_str)
         self.cnxn.commit()
@@ -173,7 +173,7 @@ class NodeGraphDAO:
     def updateByUpperIdAndLowerId(self, nodeGraphd):
         execute_str = "UPDATE intelligence_closet.dbo.node_graph SET UserLike = {0}, ModifyTime = GETDATE() WHERE UpperId = {1} AND LowerId = {2}".format(
             nodeGraphd.UserLike, nodeGraphd.UpperId, nodeGraphd.LowerId)
-        print("updateByUpperIdAndLowerId: ", execute_str)
+        # print("updateByUpperIdAndLowerId: ", execute_str)
 
         self.cursor.execute(execute_str)
         self.cnxn.commit()

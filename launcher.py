@@ -30,7 +30,7 @@ from Controller.arduinoController import ArduinoController
 
 
 user_id = 1
-camara_choose = 0
+camara_choose = 1
 
 from Controller.camaraController import *
 # 相機物件
@@ -89,14 +89,26 @@ def identify_save_sql(category, color, path, isFavorite):  # 確定存檔
         idt.isFavorite = isFavorite
         print("identify_save_sql: ", category, color, path, isFavorite)
 
-        idt.saveToSql()  # 存到資料庫
-
         # 將衣服送入圓盤(後半段)
-        arduinoController.storgage_second_half()
+        userDashboardService = UserDashboardService()
+        user_dict = userDashboardService.queryById(user_id)  # 預設為1
+        
+        clothesNodeService = ClothesNodeService()
+        position = clothesNodeService.vacancyPosition() # 剩餘的位置
+        print("剩餘位置", position)
+        
+        dist_roundTimes = position - user_dict['LastPosition']
+        if dist_roundTimes == 0:
+            dist_roundTimes = 8
+        print("要轉動的次數", dist_roundTimes)
+        userDashboardService.updateLastPosition(user_id, position)
+        arduinoController.storgage_second_half(dist_roundTimes)
+        
+        idt.saveToSql()  # 存到資料庫
 
         return True
     except Exception as e:
-        print("GET CAMARA FALSE", e)
+        print("identify_save_sql exception: ", e)
         return False
 
 
@@ -300,8 +312,11 @@ def updatePositionToNull(position):
     user_dict = userDashboardService.queryById(user_id)  # 預設為1
     
     dist_roundTimes = position - user_dict['LastPosition']
-    print("最後要存放的位置: position - user_dict['LastPosition']", dist_roundTimes)
+    if dist_roundTimes == 0:
+        dist_roundTimes = 8
+    print("要轉動的次數", dist_roundTimes)
     arduinoController.pickUp_one_clothes(dist_roundTimes)
+    userDashboardService.updateLastPosition(user_id, position)
     
     clothesNodeService = ClothesNodeService()
     result = clothesNodeService.updatePositionToNull(position)

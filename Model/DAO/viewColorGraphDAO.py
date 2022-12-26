@@ -23,7 +23,7 @@ class ViewColorGraphDAO:
 									+ ';UID=' + username
 									+ ';PWD=' + password)
 			self.cursor = cnxn.cursor()
-			print('ViewColorGraphDAO 操作成功')
+			# print('ViewColorGraphDAO 操作成功')
 
 		except:
 			print('ViewColorGraphDAO 操作錯誤')
@@ -34,7 +34,7 @@ class ViewColorGraphDAO:
 	# 搜尋所有資料: tuple
 	def queryAll(self):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.v_color_graph;"
-		print("queryAll: ", execute_str)
+		# print("queryAll: ", execute_str)
 	
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()
@@ -50,7 +50,7 @@ class ViewColorGraphDAO:
 	# 透過Id查找一筆資料: tuple
 	def queryByUpperColorId(self, id):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.v_color_graph WHERE UpperColorId = {0}".format(id)
-		print("queryById: ", execute_str)
+		# print("queryById: ", execute_str)
 	
 		self.cursor.execute(execute_str)
 		data = self.cursor.fetchone()
@@ -63,7 +63,7 @@ class ViewColorGraphDAO:
 	# 透過Id查找一筆資料: tuple
 	def queryByLowerColorId(self, id):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.v_color_graph WHERE LowerColorId = {0}".format(id)
-		print("queryById: ", execute_str)
+		# print("queryById: ", execute_str)
 	
 		self.cursor.execute(execute_str)
 		data = self.cursor.fetchone()

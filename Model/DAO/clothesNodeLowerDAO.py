@@ -24,7 +24,7 @@ class ClothesNodeLowerDAO:
                 ';DATABASE=' + database + ';UID=' + username + ';PWD=' +
                 password)
             self.cursor = cnxn.cursor()
-            print('ClothesNodeDAO 操作成功')
+            # print('ClothesNodeDAO 操作成功')
 
         except:
             print('ClothesNodeDAO 操作錯誤')
@@ -37,7 +37,7 @@ class ClothesNodeLowerDAO:
     # 搜尋所有資料: tuple
     def queryAll(self):
         execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node_lower;"
-        print("queryAll: ", execute_str)
+        # print("queryAll: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
@@ -54,7 +54,7 @@ class ClothesNodeLowerDAO:
     def queryById(self, id):
         execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node_lower WHERE Id = {0}".format(
             id)
-        print("queryById: ", execute_str)
+        # print("queryById: ", execute_str)
 
         self.cursor.execute(execute_str)
         data = self.cursor.fetchone()
@@ -67,7 +67,7 @@ class ClothesNodeLowerDAO:
     def queryNodeByPosition(self, position):
         execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node_lower WHERE [Position]  = {0}".format(
             position)
-        print("queryNodeByPosition: ", execute_str)
+        # print("queryNodeByPosition: ", execute_str)
 
         self.cursor.execute(execute_str)
         data = self.cursor.fetchone()
@@ -101,7 +101,7 @@ class ClothesNodeLowerDAO:
     def sortNameDESC(self, name):
         execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node_lower ORDER BY '{0}' DESC".format(
             name)
-        print("sortNameDESC", execute_str)
+        # print("sortNameDESC", execute_str)
 
         self.cursor.execute(execute_str)
         data = self.cursor.fetchone()

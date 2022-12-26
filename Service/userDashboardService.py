@@ -60,3 +60,8 @@ class UserDashboardService:
         userDashboard = UserDashboard()
         userDashboard.updateByDict(userDashboard_dic)
         return self.stationDAO.create(userDashboard)
+    
+    
+    def updateLastPosition(self, id, lastPosition):
+        self.userDashboardDAO.updateLastPosition(id, lastPosition)
+        return True

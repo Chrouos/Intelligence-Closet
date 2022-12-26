@@ -9,7 +9,7 @@ class ArduinoController:
         self.BAUD_RATES = 9600
         
     
-    def storage(self):
+    def storage(self, times):
         ser = serial.Serial(self.COM_PORT, self.BAUD_RATES)
         mcu_feedback = 'Reset'
         try:
@@ -29,6 +29,13 @@ class ArduinoController:
                     mcu_feedback = ser.readline().decode()  # 接收回應訊息並解碼
                     mcu_feedback = mcu_feedback.replace("\n", "")
                     print('控制板回應：', mcu_feedback)
+                    
+                    if "Input_The_Position_1" in mcu_feedback:
+                        position_1 = times
+                        msg = str(position_1) + '\n'
+                        ser.write(msg.encode())
+                        sleep(0.5)
+                        print("拿取距離位置為", position_1, "的衣服")
         except KeyboardInterrupt:
             print('再見！')
             
@@ -92,7 +99,7 @@ class ArduinoController:
             
         ser.close()
             
-    def storgage_second_half(self):
+    def storgage_second_half(self, times):
         ser = serial.Serial(self.COM_PORT, self.BAUD_RATES)
         mcu_feedback = 'Reset'
         try:
@@ -112,6 +119,13 @@ class ArduinoController:
                     mcu_feedback = ser.readline().decode()  # 接收回應訊息並解碼
                     mcu_feedback = mcu_feedback.replace("\n", "")
                     print('控制板回應：', mcu_feedback)
+                    
+                    if "Input_The_Position_1" in mcu_feedback:
+                        position_1 = times
+                        msg = str(position_1) + '\n'
+                        ser.write(msg.encode())
+                        sleep(0.5)
+                        print("拿取距離位置為", position_1, "的衣服")
         except KeyboardInterrupt:
             print('再見！')
             

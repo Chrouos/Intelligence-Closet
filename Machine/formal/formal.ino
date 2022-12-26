@@ -109,14 +109,20 @@ void loop() {
         // ---------------- 存放 START---------------- // 
         if (command == "GO_Storage") {
             digitalWrite(relay, HIGH); // 把繼電器打開
+
+            // 開始步驟
+            Serial.println("Input_The_Position_1");
+            String get_position_1 =  Serial.readStringUntil('\n');
+            int position_1 = get_position_1.toInt();
+            Serial.println("輸入的位置 " + String(position_1));
             
             lcd.clear();  
             Serial.println("GO Storage");
             setUpLCD(1, 0, "GO Storage");
             setUpLCD(1, 2, "Y: Down, X: Track");  
 
-            setUpLCD(1, 3, "Disc           " + String(3));  Serial.println("圓盤轉動位置至" + String(3));
-            discRotate_withTimes(1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
+            setUpLCD(1, 3, "Disc           " + String(position_1));  Serial.println("圓盤轉動位置至" + String(position_1));
+            discRotate_withTimes(position_1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
             delay(1000);
 
             // 開始步驟 
@@ -214,7 +220,7 @@ void loop() {
             servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 5, X_Disc, X_Track);
 
             // TODO: 圓盤轉至「位置為無」
-//            setUpLCD(1, 3, "Disc           " + String(3));  Serial.println("圓盤轉動位置至" + String(3));
+//            setUpLCD(1, 3, "Disc           " + String(position_1));  Serial.println("圓盤轉動位置至" + String(position_1));
 //            discRotate_withTimes(1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
 //            delay(1000);
 
@@ -244,8 +250,8 @@ void loop() {
             Serial.println("輸入的位置 " + String(position_1));
 
             // TODO: 圓盤轉至「位置指定」
-            setUpLCD(1, 3, "Disc           " + String(1));  Serial.println("圓盤轉動位置至" + String(3));
-            discRotate_withTimes(1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
+            setUpLCD(1, 3, "Disc           " + String(position_1));  Serial.println("圓盤轉動位置至" + String(position_1));
+            discRotate_withTimes(position_1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
             delay(1000);
 
             // 機械手臂X軸: 轉至圓盤
@@ -441,7 +447,7 @@ void loop() {
             setUpLCD(1, 0, "GO_Storage_S2");
             setUpLCD(1, 2, "Y: Down, X: Track");  
 
-            setUpLCD(1, 3, "Disc           " + String(3));  Serial.println("圓盤轉動位置至" + String(3));
+            setUpLCD(1, 3, "Disc           " + String(position_1));  Serial.println("圓盤轉動位置至" + String(position_1));
             discRotate_withTimes(1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
             delay(1000);
 
@@ -548,7 +554,7 @@ void loop() {
             setUpLCD(1, 0, "test_get");
 
             // TODO: 圓盤轉至「位置指定」
-            setUpLCD(1, 3, "Disc           " + String(1));  Serial.println("圓盤轉動位置至" + String(3));
+            setUpLCD(1, 3, "Disc           " + String(position_1));  Serial.println("圓盤轉動位置至" + String(position_1));
             discRotate_withTimes(1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
             delay(1000);
             

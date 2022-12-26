@@ -24,7 +24,7 @@ class ColorDAO:
 									+ ';UID=' + username
 									+ ';PWD=' + password)
 			self.cursor = cnxn.cursor()
-			print('ColorDAO 操作成功')
+			# print('ColorDAO 操作成功')
 
 		except:
 			print('ColorDAO 操作錯誤')
@@ -35,7 +35,7 @@ class ColorDAO:
 	# 搜尋所有資料: tuple
 	def queryAll(self):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.color;"
-		print("queryAll: ", execute_str)
+		# print("queryAll: ", execute_str)
 	
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()
@@ -51,7 +51,7 @@ class ColorDAO:
 	# 透過Id查找一筆資料: tuple
 	def queryById(self, id):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.color WHERE Id = {0}".format(id)
-		print("queryById: ", execute_str)
+		# print("queryById: ", execute_str)
 	
 		self.cursor.execute(execute_str)
 		data = self.cursor.fetchone()
@@ -63,7 +63,7 @@ class ColorDAO:
     
 	def queryIdByEngName(self, colorName):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.color WHERE ColorEngName = '{0}'".format(colorName)
-		print("queryIdByEngName: ", execute_str)
+		# print("queryIdByEngName: ", execute_str)
 	
 		self.cursor.execute(execute_str)
 		colorId = self.cursor.fetchone()

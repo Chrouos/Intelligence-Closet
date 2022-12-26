@@ -23,7 +23,7 @@ class VillageDAO:
 									+ ';UID=' + username
 									+ ';PWD=' + password)
 			self.cursor = cnxn.cursor()
-			print('VillageDAO 操作成功')
+			# print('VillageDAO 操作成功')
 
 		except:
 			print('VillageDAO 操作錯誤')
@@ -34,7 +34,7 @@ class VillageDAO:
 	# 搜尋所有資料: tuple
 	def queryAll(self):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.village;"
-		print("queryAll: ", execute_str)
+		# print("queryAll: ", execute_str)
 	
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()
@@ -50,7 +50,7 @@ class VillageDAO:
 	# 透過Id查找一筆資料: tuple
 	def queryById(self, id):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.village WHERE Id = {0}".format(id)
-		print("queryById: ", execute_str)
+		# print("queryById: ", execute_str)
 	
 		self.cursor.execute(execute_str)
 		data = self.cursor.fetchone()
@@ -62,7 +62,7 @@ class VillageDAO:
 		
 	def queryByCityId(self, cityId):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.village WHERE CityId = '{0}'".format(cityId)
-		print("queryByCityId: ", execute_str)
+		# print("queryByCityId: ", execute_str)
 	
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()

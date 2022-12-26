@@ -81,3 +81,14 @@ class UserDashboardDAO:
 		self.cnxn.commit()
 
 		return True
+
+
+	def updateLastPosition(self, id, lastPosition):
+		
+		execute_str = "UPDATE intelligence_closet.dbo.user_dashboard SET LastPosition = {} WHERE Id = {};".format(lastPosition, id)
+		print("updateLastPosition: ", execute_str)
+
+		self.cursor.execute(execute_str)
+		self.cnxn.commit()
+
+		return True

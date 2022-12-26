@@ -25,7 +25,7 @@ class ViewClothesNodeDAO:
                 ';DATABASE=' + database + ';UID=' + username + ';PWD=' +
                 password)
             self.cursor = cnxn.cursor()
-            print('ClothesNodeDAO 操作成功')
+            # print('ClothesNodeDAO 操作成功')
 
         except:
             print('ClothesNodeDAO 操作錯誤')
@@ -38,7 +38,7 @@ class ViewClothesNodeDAO:
     # 搜尋所有資料: tuple
     def queryAll(self):
         execute_str = "SELECT * FROM intelligence_closet.dbo.v_clothes_node;"
-        print("queryAll: ", execute_str)
+        # print("queryAll: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
@@ -55,7 +55,7 @@ class ViewClothesNodeDAO:
     def queryById(self, id):
         execute_str = "SELECT * FROM intelligence_closet.dbo.v_clothes_node WHERE Id = {0}".format(
             id)
-        print("queryById: ", execute_str)
+        # print("queryById: ", execute_str)
 
         self.cursor.execute(execute_str)
         data = self.cursor.fetchone()
@@ -68,7 +68,7 @@ class ViewClothesNodeDAO:
     def queryNodeByPosition(self, position):
         execute_str = "SELECT * FROM intelligence_closet.dbo.v_clothes_node WHERE [Position]  = {0}".format(
             position)
-        print("queryNodeByPosition: ", execute_str)
+        # print("queryNodeByPosition: ", execute_str)
 
         self.cursor.execute(execute_str)
         data = self.cursor.fetchone()
@@ -96,7 +96,7 @@ class ViewClothesNodeDAO:
     # 大到小分類: name 想找尋的分類
     def sortNameDESC(self, name):
         execute_str = "SELECT * FROM intelligence_closet.dbo.v_clothes_node ORDER BY '{0}' DESC".format(name)
-        # print("sortNameDESC", execute_str)
+        # # print("sortNameDESC", execute_str)
 
         self.cursor.execute(execute_str)
         data = self.cursor.fetchone()
@@ -114,7 +114,7 @@ class ViewClothesNodeDAO:
     def lastId(self):
         data = self.sortNameDESC('Id')
 
-        # print("data: ", data)
+        # # print("data: ", data)
         if data == None:
             return 0
 
@@ -127,7 +127,7 @@ class ViewClothesNodeDAO:
     def queryBySubCategoryId(self, subCategoryId):
         execute_str = "SELECT * FROM intelligence_closet.dbo.v_clothes_node where SubCategoryId = {0};".format(
             subCategoryId)
-        print("queryBySubCategoryId: ", execute_str)
+        # print("queryBySubCategoryId: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
@@ -143,7 +143,7 @@ class ViewClothesNodeDAO:
     # 搜尋所有資料: tuple
     def queryUpperAll(self):
         execute_str = "SELECT * FROM v_clothes_node vcn WHERE CategoryId = 1;"
-        print("queryUpperAll: ", execute_str)
+        # print("queryUpperAll: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
@@ -160,7 +160,7 @@ class ViewClothesNodeDAO:
 
     def queryLowerAll(self):
         execute_str = "SELECT * FROM v_clothes_node vcn WHERE CategoryId = 2;"
-        print("queryLowerAll: ", execute_str)
+        # print("queryLowerAll: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
@@ -177,7 +177,7 @@ class ViewClothesNodeDAO:
 
     def queryOtherAll(self):
         execute_str = "SELECT * FROM v_clothes_node vcn WHERE CategoryId != 1 AND CategoryId != 2;"
-        print("queryOtherAll: ", execute_str)
+        # print("queryOtherAll: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
@@ -192,7 +192,7 @@ class ViewClothesNodeDAO:
     
     def queryPositionExitNode(self):
         execute_str = "SELECT * FROM v_clothes_node vcn WHERE Position is not null;"
-        print("queryPositionExitNode: ", execute_str)
+        # print("queryPositionExitNode: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
@@ -207,7 +207,7 @@ class ViewClothesNodeDAO:
 
     def queryPositionIsNull(self):
         execute_str = "SELECT * FROM v_clothes_node vcn WHERE Position is null;"
-        print("queryPositionIsNull: ", execute_str)
+        # print("queryPositionIsNull: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
@@ -230,7 +230,7 @@ class ViewClothesNodeDAO:
             execute_str = "SELECT * FROM v_clothes_node vcn WHERE IsFavorite = 1 AND CategoryId = 2;"
         elif(category == 3):
             execute_str = "SELECT * FROM v_clothes_node vcn WHERE IsFavorite = 1 AND CategoryId != 1 AND CategoryId != 2;"
-        print("queryIsFavoriteByCategory: ", execute_str)
+        # print("queryIsFavoriteByCategory: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()

@@ -24,7 +24,7 @@ class CityDAO:
 									+ ';UID=' + username
 									+ ';PWD=' + password)
 			self.cursor = cnxn.cursor()
-			print('CityDAO 操作成功')
+			# print('CityDAO 操作成功')
 
 		except:
 			print('CityDAO 操作錯誤')

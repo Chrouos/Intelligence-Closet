@@ -24,7 +24,7 @@ class ColorGraphDAO:
 									+ ';UID=' + username
 									+ ';PWD=' + password)
 			self.cursor = cnxn.cursor()
-			print('ColorGraphDAO 操作成功')
+			# print('ColorGraphDAO 操作成功')
 
 		except:
 			print('ColorGraphDAO 操作錯誤')
@@ -35,7 +35,7 @@ class ColorGraphDAO:
 	# 搜尋所有資料: tuple
 	def queryAll(self):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.color_graph;"
-		print("queryAll: ", execute_str)
+		# print("queryAll: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()
@@ -52,7 +52,7 @@ class ColorGraphDAO:
 	# 透過Id查找一筆資料: tuple
 	def queryById(self, id):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.color_graph WHERE Id = {0}".format(id)
-		print("queryById: ", execute_str)
+		# print("queryById: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		data = self.cursor.fetchone()
@@ -64,7 +64,7 @@ class ColorGraphDAO:
 
 	def queryUpperByColorId(self, id):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.color_graph where ColorId1 = {0};".format(id)
-		print("queryUpperByColorId: ", execute_str)
+		# print("queryUpperByColorId: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()
@@ -78,7 +78,7 @@ class ColorGraphDAO:
 
 	def queryLowerByColorId(self, id):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.color_graph where ColorId2 = {0};".format(id)
-		print("queryUpperByColorId: ", execute_str)
+		# print("queryUpperByColorId: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()
@@ -92,7 +92,7 @@ class ColorGraphDAO:
 
 	def updateColorScoreById(self, colorScore, id):
 		execute_str = "UPDATE intelligence_closet.dbo.color_graph SET ColorScore = {0} WHERE Id = {1}".format(colorScore, id)
-		print("updateColorScoreById: ", execute_str)
+		# print("updateColorScoreById: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		self.cnxn.commit()
