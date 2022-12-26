@@ -69,6 +69,7 @@ class ArduinoController:
                         ser.write(msg.encode())
                         sleep(0.5)
                         print("拿取距離位置為", position_1, "的衣服")
+                        
         except KeyboardInterrupt:
             print('再見！')
             
