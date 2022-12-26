@@ -134,9 +134,12 @@ app.controller('myCtrl', function ($scope) {
           $scope.pickUp_ClohtesNode = null;
       }
       else{
-      // 如果點選不同資料 就選取
+          // 如果點選不同資料 就選取
           //console.log('pickUp_ClohtesNode.Id',pickUp_ClohtesNode.Id)
-          document.getElementById("clothesNode_" + $scope.pickUp_ClohtesNode.Id).style.border = "";
+          if (document.getElementById("clothesNode_" + $scope.pickUp_ClohtesNode.Id)){
+            document.getElementById("clothesNode_" + $scope.pickUp_ClohtesNode.Id).style.border = "";
+          }
+          
           document.getElementById("clothesNode_" + clothesNode.Id).style.border = "2px solid red";
           $scope.pickUp_ClohtesNode = clothesNode;
       }

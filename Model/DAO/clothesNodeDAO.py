@@ -24,7 +24,7 @@ class ClothesNodeDAO:
                 ';DATABASE=' + database + ';UID=' + username + ';PWD=' +
                 password)
             self.cursor = cnxn.cursor()
-            # print('ClothesNodeDAO 操作成功')
+            # # print('ClothesNodeDAO 操作成功')
 
         except:
             print('ClothesNodeDAO 操作錯誤')
@@ -37,7 +37,7 @@ class ClothesNodeDAO:
     # 搜尋所有資料: tuple
     def queryAll(self):
         execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node;"
-        # print("queryAll: ", execute_str)
+        # # print("queryAll: ", execute_str)
 
         self.cursor.execute(execute_str)
         datas = self.cursor.fetchall()
@@ -54,7 +54,7 @@ class ClothesNodeDAO:
     def queryById(self, id):
         execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node WHERE Id = {0}".format(
             id)
-        # print("queryById: ", execute_str)
+        # # print("queryById: ", execute_str)
 
         self.cursor.execute(execute_str)
         data = self.cursor.fetchone()
@@ -67,7 +67,7 @@ class ClothesNodeDAO:
     def queryNodeByPosition(self, position):
         execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node WHERE [Position]  = {0}".format(
             position)
-        # print("queryNodeByPosition: ", execute_str)
+        # # print("queryNodeByPosition: ", execute_str)
 
         self.cursor.execute(execute_str)
         data = self.cursor.fetchone()
@@ -101,7 +101,7 @@ class ClothesNodeDAO:
     def sortNameDESC(self, name):
         execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node ORDER BY '{0}' DESC".format(
             name)
-        # print("sortNameDESC", execute_str)
+        # # print("sortNameDESC", execute_str)
 
         self.cursor.execute(execute_str)
         data = self.cursor.fetchone()
@@ -120,7 +120,7 @@ class ClothesNodeDAO:
     # def lastId(self):
     #     data = self.sortNameDESC('Id')
 
-    #     print("data: ", data)
+    #     # print("data: ", data)
     #     if data == None:
     #         return 0
 
@@ -144,7 +144,7 @@ class ClothesNodeDAO:
             clothesNode_dict['FilePosition'],
             clothesNode_dict['IsFavorite'])
 
-        # print("create", execute_str)
+        # # print("create", execute_str)
         self.cnxn.cursor().execute(execute_str)
         self.cnxn.commit()
 
@@ -155,12 +155,12 @@ class ClothesNodeDAO:
     def updatePositionToNull(self, position):
 
         if self.queryDataByPosition(position) == None:
-            print('沒有此衣物')
+            # print('沒有此衣物')
             return False
 
         execute_str = "UPDATE clothes_node SET Position = NULL WHERE Position = {0}".format(
             position)
-        print(execute_str)
+        # print(execute_str)
 
         self.cursor.execute(execute_str)
         self.cnxn.commit()
@@ -172,7 +172,7 @@ class ClothesNodeDAO:
         execute_str = "UPDATE intelligence_closet.dbo.clothes_node SET " \
 					+ "SubCategoryId={0}, ColorId={1}, ModifyTime = GETDATE(), ".format(clothesNode.SubCategoryId, clothesNode.ColorId)\
 					+ "UserPreferences={0}, IsFavorite={1} WHERE Id = {2};".format(clothesNode.UserPreferences, clothesNode.IsFavorite, clothesNode.Id)
-        print("updateById: ", execute_str)
+        # print("updateById: ", execute_str)
 
         self.cursor.execute(execute_str)
         self.cnxn.commit()
@@ -184,7 +184,7 @@ class ClothesNodeDAO:
 
         execute_str = "UPDATE intelligence_closet.dbo.clothes_node SET " \
 					+ "UserPreferences=0, IsFavorite=0 WHERE Id = {0};".format(clothesNodeId)
-        print("returnZeroClothesNode: ", execute_str)
+        # print("returnZeroClothesNode: ", execute_str)
 
         self.cursor.execute(execute_str)
         self.cnxn.commit()
@@ -196,12 +196,12 @@ class ClothesNodeDAO:
     def deleteByPosition(self, position):
 
         if self.queryDataByPosition(position) == None:
-            print('沒有此衣物')
+            # print('沒有此衣物')
             return False
 
         execute_str = "DELETE FROM clothes_node WHERE Position = {0}".format(
             position)
-        print(execute_str)
+        # print(execute_str)
 
         self.cursor.execute(execute_str)
         self.cnxn.commit()
@@ -211,7 +211,7 @@ class ClothesNodeDAO:
     def deleteById(self, id):
 
         execute_str = "DELETE FROM clothes_node WHERE Id = {0}".format(id)
-        print(execute_str)
+        # print(execute_str)
 
         self.cursor.execute(execute_str)
         self.cnxn.commit()

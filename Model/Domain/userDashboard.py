@@ -24,7 +24,7 @@ class UserDashboard:
         self.WeatherLike = data.WeatherLike
         self.VillageId = data.VillageId
         self.LastPosition = data.LastPosition
-        print("CLOCK: ", data.Clock)
+        # print("CLOCK: ", data.Clock)
         if data.Clock != None:
             self.Clock = data.Clock.strftime("%H/%M")
         if data.ModifyTime != None:

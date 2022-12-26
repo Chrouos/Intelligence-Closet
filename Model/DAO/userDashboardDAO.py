@@ -23,7 +23,7 @@ class UserDashboardDAO:
 									+ ';UID=' + username
 									+ ';PWD=' + password)
 			self.cursor = cnxn.cursor()
-			print('UserDashboardDAO 操作成功')
+			# print('UserDashboardDAO 操作成功')
 
 		except:
 			print('UserDashboardDAO 操作錯誤')
@@ -34,7 +34,7 @@ class UserDashboardDAO:
 	# 搜尋所有資料: tuple
 	def queryAll(self):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.user_dashboard;"
-		print("queryAll: ", execute_str)
+		# print("queryAll: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		datas = self.cursor.fetchall()
@@ -49,7 +49,7 @@ class UserDashboardDAO:
 	# 透過Id查找一筆資料: tuple
 	def queryById(self, id):
 		execute_str = "SELECT * FROM intelligence_closet.dbo.user_dashboard WHERE Id = {0}".format(id)
-		print("queryById: ", execute_str)
+		# print("queryById: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		data = self.cursor.fetchone()
@@ -64,7 +64,7 @@ class UserDashboardDAO:
 		execute_str = "UPDATE intelligence_closet.dbo.user_dashboard SET " \
 					+ "UserName='{0}', WeatherLike={1}, ModifyTime = GETDATE(), ".format(userDashboard.UserName, userDashboard.WeatherLike)\
 					+ "VillageId={2}, Clock='{0}' WHERE Id = {1};".format(userDashboard.Clock, id, userDashboard.VillageId)
-		print("updateById: ", execute_str)
+		# print("updateById: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		self.cnxn.commit()
@@ -75,7 +75,7 @@ class UserDashboardDAO:
 		execute_str = "INSERT INTO intelligence_closet.dbo.user_dashboard " \
 					+ "(UserName, WeatherLike, ModifyTime, VillageId, Clock) " \
 					+ "VALUES('{0}', {1}, GETDATE(), '{2}', '{3}');".format(userDashboard.UserName, userDashboard.WeatherLike, userDashboard.StationName, userDashboard.Clock, userDashboard.CityId)
-		print("create: ", execute_str)
+		# print("create: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		self.cnxn.commit()
@@ -86,7 +86,7 @@ class UserDashboardDAO:
 	def updateLastPosition(self, id, lastPosition):
 		
 		execute_str = "UPDATE intelligence_closet.dbo.user_dashboard SET LastPosition = {} WHERE Id = {};".format(lastPosition, id)
-		print("updateLastPosition: ", execute_str)
+		# print("updateLastPosition: ", execute_str)
 
 		self.cursor.execute(execute_str)
 		self.cnxn.commit()

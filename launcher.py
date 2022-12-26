@@ -48,7 +48,7 @@ def comb_to_js():
     clothesGraphController = ClothesGraphController(user_dict['VillageId'])
     graphComb = clothesGraphController.getCombination()
     
-    print("comb_to_js: ", graphComb)
+    # print("comb_to_js: ", graphComb)
 
     return graphComb
 
@@ -68,7 +68,7 @@ def get_camera_identify():  # 拍照
         idt.identifyColor()  # 辨識顏色
         idt.printResult()  # 輸出結果
 
-        print("path:", idt.path)
+        # print("path:", idt.path)
         return [idt.category, idt.color, idt.path, True]
 
     except Exception as e:
@@ -87,7 +87,7 @@ def identify_save_sql(category, color, path, isFavorite):  # 確定存檔
         idt.color = color
         idt.path = path
         idt.isFavorite = isFavorite
-        print("identify_save_sql: ", category, color, path, isFavorite)
+        # print("identify_save_sql: ", category, color, path, isFavorite)
 
         # 將衣服送入圓盤(後半段)
         userDashboardService = UserDashboardService()
@@ -95,12 +95,12 @@ def identify_save_sql(category, color, path, isFavorite):  # 確定存檔
         
         clothesNodeService = ClothesNodeService()
         position = clothesNodeService.vacancyPosition() # 剩餘的位置
-        print("剩餘位置", position)
+        # print("剩餘位置", position)
         
         dist_roundTimes = position - user_dict['LastPosition']
         if dist_roundTimes == 0:
             dist_roundTimes = 8
-        print("要轉動的次數", dist_roundTimes)
+        # print("要轉動的次數", dist_roundTimes)
         userDashboardService.updateLastPosition(user_id, position)
         arduinoController.storgage_second_half(dist_roundTimes)
         
@@ -108,7 +108,7 @@ def identify_save_sql(category, color, path, isFavorite):  # 確定存檔
 
         return True
     except Exception as e:
-        print("identify_save_sql exception: ", e)
+        # print("identify_save_sql exception: ", e)
         return False
 
 
@@ -117,7 +117,7 @@ def get_all_sc_name():
     scCrud = SubCategoryService()
     datas = scCrud.queryAll()
 
-    print("get_all_sc_name", datas)
+    # print("get_all_sc_name", datas)
     return datas
 
 
@@ -126,7 +126,7 @@ def get_all_color():
     colorService = ColorService()
     datas = colorService.queryAll()
 
-    print("get_all_color", datas)
+    # print("get_all_color", datas)
     return datas
 
 
@@ -141,7 +141,7 @@ def weather_to_js():  # 傳送天氣資訊
 
     we = WeatherAPI(user_dict['VillageId'])  # 地點Id
     weather_list = we.getWeather()  # 獲得陣列(11個資訊)
-    print("weather_to_js", weather_list)
+    # print("weather_to_js", weather_list)
 
     return weather_list
 
@@ -152,7 +152,7 @@ def city_to_js():  # 傳送所有縣市資訊
     cityService = CityService()
     city_dict = cityService.queryAll()
 
-    print("city: ", city_dict)
+    # print("city: ", city_dict)
     return city_dict
 
 
@@ -161,7 +161,7 @@ def station_station_to_js(city):
     viewStationService = ViewStationService()
     station_dict = viewStationService.queryByCityId(city)
 
-    print("station: ", station_dict, city)
+    # print("station: ", station_dict, city)
     return station_dict
 
 
@@ -170,7 +170,7 @@ def village_to_js(city):
     viewVillageService = ViewVillageService()
     village_dict = viewVillageService.queryByCityId(city)
 
-    print("village: ", village_dict, city)
+    # print("village: ", village_dict, city)
     return village_dict
 
 
@@ -182,7 +182,7 @@ def user_by_id_to_js():
     viewUserDashboardService = ViewUserDashboardService()
     user_dict = viewUserDashboardService.queryById(user_id)  # 預設為2
 
-    print("user_by_id_to_js: ", user_dict)
+    # print("user_by_id_to_js: ", user_dict)
     return user_dict
 
 
@@ -191,7 +191,7 @@ def all_user_to_js():
     userDashboardService = UserDashboardService()
     user_dict = userDashboardService.queryAll()
 
-    print("all_user_to_js: ", user_dict)
+    # print("all_user_to_js: ", user_dict)
     return user_dict
 
 
@@ -200,7 +200,7 @@ def update_user_dashboard(user):
     userDashboardService = UserDashboardService()
     isSuccess = userDashboardService.updateById(user, user_id)  # 預設為2
 
-    print("update_user_dashboard", isSuccess)
+    # print("update_user_dashboard", isSuccess)
 
     return isSuccess
 
@@ -219,7 +219,7 @@ def clothes_to_js():
     viewClothesNodeService = ViewClothesNodeService()
     v_clothes_dict = viewClothesNodeService.queryAll()
 
-    print("clothes_to_js", v_clothes_dict)
+    # print("clothes_to_js", v_clothes_dict)
 
     return v_clothes_dict
 
@@ -229,7 +229,7 @@ def upper_clothes_to_js():
     viewClothesNodeService = ViewClothesNodeService()
     v_clothes_dict = viewClothesNodeService.queryUpperAll()
 
-    print("upper_clothes_to_js", v_clothes_dict)
+    # print("upper_clothes_to_js", v_clothes_dict)
 
     return v_clothes_dict
 
@@ -239,7 +239,7 @@ def lower_clothes_to_js():
     viewClothesNodeService = ViewClothesNodeService()
     v_clothes_dict = viewClothesNodeService.queryLowerAll()
 
-    print("lower_clothes_to_js", v_clothes_dict)
+    # print("lower_clothes_to_js", v_clothes_dict)
 
     return v_clothes_dict
 
@@ -249,7 +249,7 @@ def other_clothes_to_js():
     viewClothesNodeService = ViewClothesNodeService()
     v_clothes_dict = viewClothesNodeService.queryOtherAll()
 
-    print("other_clothes_to_js", v_clothes_dict)
+    # print("other_clothes_to_js", v_clothes_dict)
 
     return v_clothes_dict
 
@@ -259,7 +259,7 @@ def isFavorite_clothes_to_js(category):
     viewClothesNodeService = ViewClothesNodeService()
     v_clothes_dict = viewClothesNodeService.queryIsFavoriteByCategory(category)
 
-    print("other_clothes_to_js", v_clothes_dict)
+    # print("other_clothes_to_js", v_clothes_dict)
 
     return v_clothes_dict
 
@@ -269,7 +269,7 @@ def query_clothes_nodes_byPositionIsNull():
     viewClothesNodeService = ViewClothesNodeService()
     v_clothes_dict = viewClothesNodeService.queryPositionIsNull()
 
-    print("clothes_to_js", v_clothes_dict)
+    # print("clothes_to_js", v_clothes_dict)
 
     return v_clothes_dict
 
@@ -279,7 +279,7 @@ def query_subCategory_byCategoryId(categoryId):
     viewCategoryClothesService = ViewCategoryClothesService()
     v_subCategory_dict = viewCategoryClothesService.queryByCategoryId(
         categoryId)  # 利用類別搜尋子類別 # 1:上半身, 2:下半身, 3:裙裝, 4:大衣
-    print("query_subCategory_byCategoryId", v_subCategory_dict)
+    # print("query_subCategory_byCategoryId", v_subCategory_dict)
 
     return v_subCategory_dict
 
@@ -289,7 +289,7 @@ def query_clothes_nodes_bySubCategoryId(categoryId):
     viewClothesNodeService = ViewClothesNodeService()
     v_clothes_dict = viewClothesNodeService.queryBySubCategoryId(
         categoryId)  # 利用類別搜尋子類別 # 1:上半身, 2:下半身, 3:裙裝, 4:大衣
-    print("query_clothes_nodes_bySubCategoryId", v_clothes_dict)
+    # print("query_clothes_nodes_bySubCategoryId", v_clothes_dict)
 
     return v_clothes_dict
 
@@ -298,7 +298,7 @@ def query_clothes_nodes_bySubCategoryId(categoryId):
 def query_clothesNode_byId(clothesId):
     viewClothesNodeService = ViewClothesNodeService()
     v_clothes_dict = viewClothesNodeService.queryById(clothesId)
-    print("query_clothesNode_byId", v_clothes_dict)
+    # print("query_clothesNode_byId", v_clothes_dict)
 
     return v_clothes_dict
 
@@ -314,14 +314,14 @@ def updatePositionToNull(position):
     dist_roundTimes = position - user_dict['LastPosition']
     if dist_roundTimes == 0:
         dist_roundTimes = 8
-    print("要轉動的次數", dist_roundTimes)
+    # print("要轉動的次數", dist_roundTimes)
     arduinoController.pickUp_one_clothes(dist_roundTimes)
     userDashboardService.updateLastPosition(user_id, position)
     
     clothesNodeService = ClothesNodeService()
     result = clothesNodeService.updatePositionToNull(position)
     
-    print("query_clothesNode_byId", result)
+    # print("query_clothesNode_byId", result)
 
     return result
 
@@ -332,7 +332,7 @@ def color_to_js():  # 傳送所有顏色
     colorService = ColorService()
     color_dict = colorService.queryAll()
 
-    print("color: ", color_dict)
+    # print("color: ", color_dict)
     return color_dict
 
 
@@ -342,7 +342,7 @@ def sub_category_to_js():  # 傳送所有sub catrgory
     subCategoryService = SubCategoryService()
     subCategory_dict = subCategoryService.queryAll()
 
-    print("subCategory: ", subCategory_dict)
+    # print("subCategory: ", subCategory_dict)
     return subCategory_dict
 
 
@@ -350,7 +350,7 @@ def sub_category_to_js():  # 傳送所有sub catrgory
 def vacancyPosition():
     clothesNodeService = ClothesNodeService()
     result = clothesNodeService.vacancyPosition()
-    print("vacancyPosition", result)
+    # print("vacancyPosition", result)
 
     return result
 
@@ -402,7 +402,7 @@ def return_zero_clothes_node(clothesNodeId): # clothes node 歸零
     clothesNodeService = ClothesNodeService()
     isSuccess = clothesNodeService.returnZeroClothesNode(clothesNodeId)
 
-    print("return_zero_clothes_node", isSuccess)
+    # print("return_zero_clothes_node", isSuccess)
 
     return isSuccess
 
@@ -428,7 +428,7 @@ def return_zero_clothes_node_graph(firstClohtesNode, secondClohtesNode): # cloth
     if(nodeGraphService.queryByUpperIdAndLowerId(nodeGraph_dict['UpperId'], nodeGraph_dict['LowerId'])):
         isSuccess = nodeGraphService.updateByUpperIdAndLowerId(nodeGraph_dict)
         
-    print("return_zero_clothes_node_graph: ", firstClohtesNode, secondClohtesNode, 0)
+    # print("return_zero_clothes_node_graph: ", firstClohtesNode, secondClohtesNode, 0)
 
     return isSuccess
 
@@ -437,7 +437,7 @@ def delete_clothes_node(clothesNodeId): # clothes node 歸零
     clothesNodeService = ClothesNodeService()
     isSuccess = clothesNodeService.deleteById(clothesNodeId)
 
-    print("delete_clothes_node", isSuccess)
+    # print("delete_clothes_node", isSuccess)
 
     return isSuccess
 
@@ -452,9 +452,19 @@ def arduino_car_back_now():
     
     return true
 
-
+@eel.expose
+def query_node_graph_setting(upperId, lowerId):
+    nodeGraphService = NodeGraphService()
+    v_node_graph = nodeGraphService.queryByUpperIdAndLowerId(upperId, lowerId)
+    print("query_node_graph_setting", v_node_graph)
+    
+    return v_node_graph
 
 eel.init('View/mui')  # eel.init(網頁的資料夾)
 # eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))
 
-eel.start('User.html', size=(1920, 1080), mode='chrome')  # eel.start(html名稱, size=(起始大小))
+# eel.start('User.html',mode='chrome-app', size=(1920, 1080), cmdline_args=['--start-fullscreen', '--browser-startup-dialog'])  # eel.start(html名稱, size=(起始大小))
+
+eel.start('User.html', mode='chrome-app', port=8080, cmdline_args=['--start-fullscreen', '--browser-startup-dialog'])
+
+# eel.start('User.html', mode='chrome', cmdline_args=['--kiosk'])

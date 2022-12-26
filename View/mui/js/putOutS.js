@@ -22,7 +22,8 @@ function holdDown(CID) {
       clearInterval(time);
       //呼叫衣物資訊
       var a = CID.id;
-      angular.element(document.getElementById('hahaha')).scope().showInfo(a.substr(12));
+      // console.log(a)
+      angular.element(document.getElementById('putOS-Info')).scope().showInfo(a.substr(12));
       showMask();
     }
   }, 100);

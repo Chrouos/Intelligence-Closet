@@ -23,7 +23,7 @@ app.controller('myCtrl', function ($scope) {
         $scope.otherList = await eel.query_subCategory_byCategoryId(3)(); // 下半身的子類別
 
         $scope.clothesNodeList = await eel.clothes_to_js()();
-        console.log("clothesNodeList: ", $scope.clothesNodeList)
+        // console.log("clothesNodeList: ", $scope.clothesNodeList)
 
     }
     $scope.queryAllList();
@@ -48,13 +48,13 @@ app.controller('myCtrl', function ($scope) {
     // 搜尋衣物 by.類別
     $scope.queryClothesByCategory = async function (categoryId) {
         if (categoryId == 1)
-          $scope.clothesNodeList = await eel.upper_clothes_to_js()();
+            $scope.clothesNodeList = await eel.upper_clothes_to_js()();
         else if (categoryId == 2)
-          $scope.clothesNodeList = await eel.lower_clothes_to_js()();
+            $scope.clothesNodeList = await eel.lower_clothes_to_js()();
         else if (categoryId == 3)
-          $scope.clothesNodeList = await eel.other_clothes_to_js()();
+            $scope.clothesNodeList = await eel.other_clothes_to_js()();
         else if (categoryId == 0)
-          $scope.clothesNodeList = await eel.clothes_to_js()();
+            $scope.clothesNodeList = await eel.clothes_to_js()();
     
         $scope.nowSubCategory = null;
         if($scope.pickUp_FirstClohtesNode != null){
@@ -65,7 +65,7 @@ app.controller('myCtrl', function ($scope) {
             document.getElementById("clothesSecondNode_" + $scope.pickUp_SecondClohtesNode.Id).style.border = "";
             $scope.pickUp_SecondClohtesNode = null;
         }
-      }
+    }
 
     // 搜尋衣物 by.最愛&類別
     $scope.queryClothesByIsFavorite = async function (isFavorite) {
@@ -80,7 +80,7 @@ app.controller('myCtrl', function ($scope) {
             document.getElementById("clothesSecondNode_" + $scope.pickUp_SecondClohtesNode.Id).style.border = "";
             $scope.pickUp_SecondClohtesNode = null;
         }
-      }
+    }
 
     $scope.pickUp_FirstClohtesNode = null; // 選擇的第一件衣物
     $scope.checkTheFirstPickUpList = function (clothesNode) {
@@ -122,6 +122,22 @@ app.controller('myCtrl', function ($scope) {
             document.getElementById("clothesSecondNode_" + clothesNode.Id).style.border = "2px solid red";
             $scope.pickUp_SecondClohtesNode = clothesNode;
         }
+        // console.log($scope.pickUp_FirstClohtesNode, $scope.pickUp_SecondClohtesNode);
+        $scope.get_clothes_graph();
+        
+    }
+
+    $scope.get_clothes_graph = async function (){
+        if($scope.pickUp_FirstClohtesNode != null && $scope.pickUp_SecondClohtesNode != null){
+            if($scope.pickUp_FirstClohtesNode.CategoryId == 1){
+                $scope.pick_up_graph = await eel.query_node_graph_setting($scope.pickUp_FirstClohtesNode.Id, $scope.pickUp_SecondClohtesNode.Id)();
+            }
+            else if($scope.pickUp_FirstClohtesNode.CategoryId == 2){
+                $scope.pick_up_graph = await eel.query_node_graph_setting($scope.pickUp_SecondClohtesNode.Id, $scope.pickUp_FirstClohtesNode.Id)();
+            }
+            $scope.clothesMath_like = $scope.pick_up_graph[0].UserLike;
+        }
+        // console.log($scope.pick_up_graph);
     }
 
     // 從 Python中 獲得所有顏色 顯示在 option 選項中
@@ -138,7 +154,7 @@ app.controller('myCtrl', function ($scope) {
     $scope.creatNodeGraph = async function () { // 送出
         var isSuccess = await eel.creat_node_graph($scope.pickUp_FirstClohtesNode, $scope.pickUp_SecondClohtesNode, $scope.clothesMath_like);
         
-        $scope.backToMain();
+        // $scope.backToMain();
     }
 
     /* ---------- 切換頁面 start ---------- */
@@ -204,10 +220,13 @@ app.controller('myCtrl', function ($scope) {
         // console.log("$scope.clothesNode",$scope.clothesNode);
         $scope.set_isFavorite_color();
         
-    }; $scope.clothes_node_by_id();
+    };
+    // $scope.clothes_node_by_id();
 
     //更新clothes node
     $scope.update_clothes = async function () {
+        // console.log("$scope.clothesNode", $scope.clothesNode);
+        if($scope.clothesNode.Id != null)
         var isSuccess = await eel.update_clothes_node($scope.clothesNode)();
     }
 
@@ -232,15 +251,15 @@ app.controller('myCtrl', function ($scope) {
     // clothes node 歸零
     $scope.returnZeroClothes = async function () {
         var isSuccess = await eel.return_zero_clothes_node($scope.pickUp_FirstClohtesNode.Id)();
-
-        $scope.backToMain();
+        
+        // $scope.backToMain();
     }
 
     // clothes_node_graph 歸零
     $scope.returnZeroNodeGraph = async function () {
         var isSuccess = await eel.return_zero_clothes_node_graph($scope.pickUp_FirstClohtesNode, $scope.pickUp_SecondClohtesNode)();
-
-        $scope.backToMain();
+        $scope.get_clothes_graph();
+        // $scope.backToMain();
     }
 
     /* ---------- 切換頁面 end ---------- */

@@ -112,7 +112,7 @@
       <!-- 選擇列表 -->
       <div class="grid-container">
 
-        <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index">
+        <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index" ng-if = "clothesNode.Position != NULL">
           <a ng-click="checkTheFirstPickUpList(clothesNode)">
             <img src="{{clothesNode.FilePosition}}" id="clothesFirstNode_{{clothesNode.Id}}">
           </a>
@@ -157,7 +157,7 @@
         <div id="setM_nd_have">
           <div id="setM_nd_have_line">
             <div class="grid-item" ng-repeat="clothesNode in clothesNodeList"  ng-init="outerIndex = $index"
-              ng-if="clothesNode.CategoryId != pickUp_FirstClohtesNode.CategoryId">
+              ng-if="clothesNode.CategoryId != pickUp_FirstClohtesNode.CategoryId && clothesNode.Position != NULL">
               <a ng-click="checkTheSecondPickUpList(clothesNode)">
                 <img src="{{clothesNode.FilePosition}}" id="clothesSecondNode_{{clothesNode.Id}}">
               </a>
