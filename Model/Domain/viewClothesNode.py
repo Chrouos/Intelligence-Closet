@@ -52,7 +52,7 @@ class ViewClothesNode:
         self.UsageCounter = data.UsageCounter
         self.FilePosition = data.FilePosition
         self.IsFavorite = data.IsFavorite
-
+        
         if data.CreateTime != None:
             self.CreateTime = data.CreateTime.strftime("%m/%d/%Y")
         if data.ModifyTime != None:
@@ -91,10 +91,18 @@ class ViewClothesNode:
             self.ClothesStyle = data['ClothesStyle']
         if data.get("UsageCounter") != None:
             self.UsageCounter = data['UsageCounter']
-        if data.get("CreateTime") != None:
-            self.CreateTime = data['CreateTime'].strftime("%m/%d/%Y")
-        if data.get("ModifyTime") != None:
-            self.ModifyTime = data['ModifyTime'].strftime("%m/%d/%Y")
+            
+        try:
+            if data.get("CreateTime") != None:
+                self.CreateTime = data['CreateTime'].strftime("%m/%d/%Y")
+            if data.get("ModifyTime") != None: 
+                self.ModifyTime = data['ModifyTime'].strftime("%m/%d/%Y")
+        except:
+            if data.get("CreateTime") != None:
+                self.ModifyTime = datetime.strptime(data['CreateTime'], "%m/%d/%Y")
+            if data.get("ModifyTime") != None: 
+                self.ModifyTime = datetime.strptime(data['ModifyTime'], "%m/%d/%Y")
+            
 
         if data.get("FilePosition") != None:
             self.FilePosition = data['FilePosition']

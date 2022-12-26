@@ -1,4 +1,6 @@
 from Model.DAO.viewClothesNodeDAO import ViewClothesNodeDAO
+from Model.DAO.viewClothesNodeDAO import ViewClothesNode
+
 import json
 
 

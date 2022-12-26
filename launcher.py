@@ -5,6 +5,8 @@ import sys
 
 import eel
 
+from Model.Domain.clothesNode import ClothesNode
+
 sys.path.append(os.getcwd())  # 抓取路徑
 sys.dont_write_bytecode = True  # 不產生 pyc
 
@@ -21,8 +23,7 @@ from Service.viewVillageService import ViewVillageService
 from Service.cityService import CityService
 from Service.userDashboardService import UserDashboardService
 from Service.ClothesNodeService import ClothesNodeService
-from Service.viewClothesNodeService import ViewClothesNodeService
-from Service.viewClothesNodeService import ViewClothesNodeService
+from Service.viewClothesNodeService import ViewClothesNodeService, ViewClothesNode
 from Service.viewCategoryClothesService import ViewCategoryClothesService
 from Service.viewUserDashboardService import ViewUserDashboardService
 from Service.nodeGraphService import NodeGraphService
@@ -479,20 +480,27 @@ def storage_old_clothes(clothesNode):
         elif position < user_dict['LastPosition']:
             dist_roundTimes = user_dict['LastPosition'] - position
         print("要轉動的次數", dist_roundTimes)
+        print(clothesNode)
+        
+        viewClothesNode = ViewClothesNode()
+        if type(clothesNode) is dict:
+            viewClothesNode.updateByDict(clothesNode)
+        
+        if type(clothesNode) is str:
+            clothesNode_dic = json.loads(clothesNode)
+            viewClothesNode.updateByDict(clothesNode_dic)
         
         userDashboardService.updateLastPosition(user_id, position)
         clothesNodeService.updateIdInPosition(position, clothesNode) #TODO: 
         # arduinoController.storgage_second_half(dist_roundTimes)
         
-        # clothesNode = clothesNodeService.queryAll()
-        # clothesNodeLastId = clothesNode[len(clothesNode)-1]["Id"]
 
-        # clothesGraph_create = '{{"ClothesNodeLastId": {0}, "CategoryId": {1}}}'.format(
-        #     clothesNodeLastId, categoryId, self.path, self.isFavorite)
-        # print("saveClothesGraph_Data:", clothesGraph_create)
+        clothesGraph_create = '{{"ClothesNodeLastId": {0}, "CategoryId": {1}}}'.format(
+            viewClothesNode.Id, viewClothesNode.CategoryId)
+        print("saveClothesGraph_Data:", clothesGraph_create)
         
-        # nodeGraphService = NodeGraphService()
-        # nodeGraphService.create(clothesGraph_create)
+        nodeGraphService = NodeGraphService()
+        nodeGraphService.create(clothesGraph_create)
         
         
 
