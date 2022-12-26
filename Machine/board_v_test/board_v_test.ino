@@ -26,7 +26,7 @@ Stepper disc_stepper(200, 2, 3, 4, 5);
 const int disc_btn_front = 24, discButton = 23;
 const int relay = 48; // 繼電器
 int disc_lastState = false;
-// 車車的伺服馬達(掛勾)
+// 車車的伺服馬達(掛勾) 
 const  int car_servo_btn_negative = 39, car_servo_btn_positive = 37;
 int car_servo_lastStatus = false;
 

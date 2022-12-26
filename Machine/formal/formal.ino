@@ -452,7 +452,7 @@ void loop() {
             Serial.println("輸入的位置 " + String(position_1));
 
             setUpLCD(1, 3, "Disc           " + String(position_1));  Serial.println("圓盤轉動位置至" + String(position_1));
-            discRotate_withTimes(1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
+            discRotate_withTimes(position_1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
             delay(1000);
 
             // 正轉
@@ -528,9 +528,11 @@ void loop() {
 
             // 機械手臂X軸: 轉至圓盤
             setUpLCD(1, 2, "Y: Up  , X: Disc ");  Serial.println("機械手臂X軸: 轉至圓盤");
-            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, X_Track, 85);
-            delay(2000);
-            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, 85, X_Disc);
+            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, X_Track, X_Disc - 30);
+            delay(1000);
+            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, X_Disc - 30, X_Disc - 10);
+            delay(1000);
+            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, X_Disc - 10, X_Disc);
             
 
             // 機械手臂Y軸下降: 放下衣物(圓盤)
@@ -698,13 +700,14 @@ void discRotate_withTimes(int times){
         disc_stepper.step(-1);  // 20/200 = 1/10
         if(millis() - temp_time > 1000){
           if( checkTheBtnStatus(discButton, discButtonState, discButtonLastState, discButtonlastDebounceTime, globalDelayTime) == true){
-              disc_start = false;
+//              disc_start = false;
               now_times++;
           }
         }
        
     }
     // 微動開關按了才結束
+    Serial.println("轉了" + String(now_times) + "次");
 }
 
 void servo_with_time(Servo servo_now, int servo_pin, int speed_now, int angle_now, int angle_need){
