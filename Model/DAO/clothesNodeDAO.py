@@ -199,6 +199,8 @@ class ClothesNodeDAO:
         # 下半身
         elif clothesNode.CategoryId == 2:
             execute_str = "delete from node_graph where LowerId = {}".format(clothesNode.Id)
+        else :
+            execute_str = "delete from node_graph where OtherId = {}".format(clothesNode.Id)
         # print("ChangeCategory_UpdateTheGraph: ", execute_str)
 
         self.cursor.execute(execute_str)

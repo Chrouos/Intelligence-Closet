@@ -401,7 +401,6 @@ def update_clothes_node(clothesNode): # 更新 clothes node
     # 修改衣物時若修改了類別
     clothesNodeService.ChangeCategory_UpdateTheGraph(clothesNode)
     
-
     print("update_clothes_node", isSuccess)
 
     return isSuccess

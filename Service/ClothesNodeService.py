@@ -151,7 +151,7 @@ class ClothesNodeService:
         print(clothesNode_aft.CategoryId, viewClothesNode.CategoryId)
         # 如果分類不一樣才要update graph
         if clothesNode_aft.CategoryId != viewClothesNode.CategoryId:     
-            self.clothesNodeDAO.ChangeCategory_UpdateTheGraph(clothesNode_aft)
+            self.clothesNodeDAO.ChangeCategory_UpdateTheGraph(viewClothesNode)
             clothesGraph_create = '{{"ClothesNodeLastId": {0}, "CategoryId": {1}}}'.format(
             clothesNode_aft.Id, clothesNode_aft.CategoryId)
             print("saveClothesGraph_Data:", clothesGraph_create)

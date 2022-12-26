@@ -226,9 +226,10 @@ app.controller('myCtrl', function ($scope) {
     //更新clothes node
     $scope.update_clothes = async function () {
         // console.log("$scope.clothesNode", $scope.clothesNode);
-        if($scope.clothesNode.Id != null)
+        if($scope.clothesNode.Id != null){
             var isSuccess = await eel.update_clothes_node($scope.clothesNode)();
-
+            $scope.clothes_node_by_id();
+        }
         
     }
 
