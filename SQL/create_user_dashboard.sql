@@ -10,7 +10,7 @@ create table user_dashboard
 	ModifyTime datetime Not Null,--異動時間
 	VillageId bigint,--可以記錄使用者目前所在城市&鄉鎮
 	Clock datetime,
-	LastPositon bigint NULL
+	LastPosition bigint NULL
 
 );
 

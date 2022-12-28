@@ -142,7 +142,7 @@ def get_all_color():
 def weather_to_js():  # 傳送天氣資訊
 
     userDashboardService = UserDashboardService()
-    user_dict = userDashboardService.queryById(user_id)  # 預設為2
+    user_dict = userDashboardService.queryById(user_id)  # 預設為1
 
     we = WeatherAPI(user_dict['VillageId'])  # 地點Id
     weather_list = we.getWeather()  # 獲得陣列(11個資訊)
@@ -185,7 +185,7 @@ def village_to_js(city):
 @eel.expose
 def user_by_id_to_js():
     viewUserDashboardService = ViewUserDashboardService()
-    user_dict = viewUserDashboardService.queryById(user_id)  # 預設為2
+    user_dict = viewUserDashboardService.queryById(user_id)  # 預設為1
 
     # print("user_by_id_to_js: ", user_dict)
     return user_dict
@@ -203,7 +203,7 @@ def all_user_to_js():
 @eel.expose
 def update_user_dashboard(user):
     userDashboardService = UserDashboardService()
-    isSuccess = userDashboardService.updateById(user, user_id)  # 預設為2
+    isSuccess = userDashboardService.updateById(user, user_id)  # 預設為1
 
     # print("update_user_dashboard", isSuccess)
 
@@ -453,7 +453,38 @@ def delete_clothes_node(clothesNodeId): # clothes node 歸零
     return isSuccess
 
 
+@eel.expose
+def most_subCategory_to_js():  # 傳送存放最多種類的衣服資料
+
+    viewClothesNodeService = ViewClothesNodeService()
+    most_subCategory = viewClothesNodeService.queryMostSubCategory()
+
+    # print("most_subCategory_to_js: ", most_subCategory)
+    return most_subCategory
+
+
+@eel.expose
+def most_color_to_js():  # 傳送存放最多顏色的衣服資料
+
+    viewClothesNodeService = ViewClothesNodeService()
+    most_color = viewClothesNodeService.queryMostColor()
+
+    # print("most_color_to_js: ", most_color)
+    return most_color
+
+
+@eel.expose
+def most_counter_to_js():  # 傳送最常拿出來的衣服資料
+
+    viewClothesNodeService = ViewClothesNodeService()
+    most_counter = viewClothesNodeService.queryMostCounter()
+
+    # print("most_counter_to_js: ", most_counter)
+    return most_counter
+
+
 # 硬體啟動
+
 
 @eel.expose
 def arduino_car_back_now():
@@ -463,6 +494,7 @@ def arduino_car_back_now():
     
     return true
 
+
 @eel.expose
 def query_node_graph_setting(upperId, lowerId):
     nodeGraphService = NodeGraphService()
@@ -470,6 +502,7 @@ def query_node_graph_setting(upperId, lowerId):
     print("query_node_graph_setting", v_node_graph)
     
     return v_node_graph
+
 
 @eel.expose
 def storage_old_clothes(clothesNode):
@@ -511,12 +544,11 @@ def storage_old_clothes(clothesNode):
         nodeGraphService = NodeGraphService()
         nodeGraphService.create(clothesGraph_create)
         
-        
-
         return True
     except Exception as e:
         print("storage_old_clothes exception: ", e)
         return False
+
 
 eel.init('View/mui')  # eel.init(網頁的資料夾)
 # eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))

@@ -1,0 +1,63 @@
+@import "menu.css";
+
+/*底色*/
+body {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(to bottom right, rgb(255, 255, 255) , rgb(140, 140, 254));
+  display: flex;
+  flex-direction: column;
+}
+/****************************************************************************************//*主畫面*/
+#settingMain{
+  position: fixed;
+  height: 90%;
+  width: 50%;
+  top: 5%;
+  left: 40%;
+  z-index: 7;
+  display: flex;
+  justify-content: space-around;
+
+}
+
+/****************************************************************************************/
+/*衣物排名文字&圖片*/
+#clothesSet-Scene{
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  /*align-items: center;*/
+  transition: 0.5s;
+  width: 65%;
+  height: 70%;
+  left: 20%;
+  top: 15%;
+  z-index: 12;
+  background-color: rgb(246,248,255);
+  border-radius: 30px;
+}
+
+.text-one{
+  position: fixed;
+  height: 45%;
+  top: 20%;
+  left: 20%;
+  border-radius: 20px;
+}
+
+.text-two{
+  position: fixed;
+  height: 45%;
+  top: 15%;
+  left: 65%;
+  border-radius: 20px;
+}
+
+.pictures-one img{
+  position: fixed;
+  height: 50%;
+  top: 40%;
+  left: 65%;
+  border-radius: 20px;
+}

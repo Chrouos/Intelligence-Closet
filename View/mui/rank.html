@@ -7,7 +7,7 @@
 <head>
 
   <!-- Set -->
-  <title>其他</title>
+  <title>衣物設定</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -19,24 +19,48 @@
   <script type="text/javascript" src="/eel.js"></script> <!-- eel.js 是使用eel的必須  -->
 
   <!-- Connect -->
-  <script src="./js/other.js"></script>
+  <script src="./js/rank.js"></script>
 
   <!-- Css -->
-  <link rel="stylesheet" href="./public/css/other.css" type="text/css">
-
+  <link rel="stylesheet" href="./public/css/rank.css" type="text/css">
 </head>
-
-
 
 <body>
 
-  <div id="all">
-    <a>其他介面</a>
+  <!--主畫面-->
+  <div id="settingMain" ng-show="settingType_Main">
+    <!--<h2>存放最多種類的衣服</h2>
+    <p>存放件數: {{clothesMath_like}}</p>-->
+    <div class="text-one">
+      <h2>存放最多種類的衣服</h2>
+      <br>
+      <h2>種類: {{mostSubCategory.SubCategoryName}}</h2>
+      <h2>次數: {{mostSubCategory.SubCategoryCount}}次</h2>
+      <br><br><br><br><br>
+      <h2>存放最多顏色的衣服</h2>
+      <br>
+      <h2>顏色: {{mostColor.ColorName}}</h2>
+      <h2>次數: {{mostColor.ColorCount}}次</h2>
+    </div>
+    <hr style="border: 0px; border-left: 2px solid rgb(128, 128, 128); margin: 5px;" />
+    <div class="text-two">
+      <h2>最常拿出來的衣服</h2>
+      <br>
+      <h2>拿取次數: {{mostCounter.UsageCounter}}次</h2>
+      <br>
+      <h2>照片:</h2>
+    </div>
+    <div class="pictures-one" ng-show="mostCounter.UsageCounter != 0">
+      <a><img src="{{mostCounter.FilePosition}}"></a>
+    </div>
+    <div class="pictures-one" ng-show="mostCounter.UsageCounter == 0"></div>
   </div>
 
+  <!---------------------------------------------------------------------------------------------------------------->
 
   <!-- 遮罩 -->
   <div id="mask" style="visibility: hidden"></div>
+  <div id="maskT" style="visibility: hidden"></div>
   <div id="maskW" style="visibility: hidden"></div>
   <!-- Menu -->
   <div id="menu">
@@ -77,17 +101,17 @@
           <span class="menu-button">歷史存放</span>
         </a>
       </li>
-      <li>
+      <li style="background-color: rgb(255, 255, 255);">
         <a href="./rank.html">
-          <span class="icon"><i class="fa-solid fa-ranking-star"></i></span>
-          <span class="menu-button">排行榜</span>
+          <span class="icon"><i class="fa-solid fa-ranking-star" style="color: rgb(161, 175, 255);"></i></span>
+          <span class="menu-button" style="color: rgb(161, 175, 255);">排行榜</span>
         </a>
       </li>
       <!--
-      <li style="background-color: rgb(255, 255, 255);">
+      <li>
         <a href="./other.html">
-          <span class="icon"><i class="fa-solid fa-clock" style="color: rgb(161, 175, 255);"></i></span>
-          <span class="menu-button" style="color: rgb(161, 175, 255);">其他</span>
+          <span class="icon"><i class="fa-solid fa-clock"></i></span>
+          <span class="menu-button">其他</span>
         </a>
       </li>
       -->
@@ -101,25 +125,7 @@
     </ul>
     <div id="main-button" onclick="ClickMenu()"></div>
     <!-- Menu class 更改 -->
-    <script>
-      let Mask = document.getElementById('mask');
-      let Menu = document.getElementById('menu');
-
-      function ClickMenu() {
-        Menu.classList.toggle('active');
-        if (Mask.style.visibility == '') {
-          Mask.classList.toggle('active');
-          setTimeout(function () {
-            Mask.style.visibility = 'hidden';
-          }, 500);
-        } else {
-          Mask.style.visibility = '';
-          Mask.classList.toggle('active');
-        }
-      }
-    </script>
   </div>
-
   <!-- 天氣 -->
   <div id="weather">
     <div id="weather_left">

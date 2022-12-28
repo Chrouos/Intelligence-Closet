@@ -242,3 +242,30 @@ class ViewClothesNodeDAO:
             viewClothesNodeLists.append(viewClothesNode)
 
         return viewClothesNodeLists
+
+    # 搜尋存放最多種類的衣服
+    def queryMostSubCategory(self):
+        execute_str = "SELECT SubCategoryName, count(SubCategoryName) as SubCategoryCount FROM intelligence_closet.dbo.v_clothes_node GROUP BY SubCategoryName ORDER BY SubCategoryCount DESC"
+
+        self.cursor.execute(execute_str)
+        data = self.cursor.fetchone()
+
+        return data
+
+    # 搜尋存放最多顏色的衣服
+    def queryMostColor(self):
+        execute_str = "SELECT ColorName, count(ColorName) as ColorCount FROM intelligence_closet.dbo.v_clothes_node GROUP BY ColorName ORDER BY ColorCount DESC"
+
+        self.cursor.execute(execute_str)
+        data = self.cursor.fetchone()
+
+        return data
+
+    # 搜尋最常拿出來的衣服
+    def queryMostCounter(self):
+        execute_str = "SELECT TOP(1) FilePosition, UsageCounter FROM intelligence_closet.dbo.v_clothes_node WHERE UsageCounter = (SELECT MAX(UsageCounter) FROM intelligence_closet.dbo.v_clothes_node)"
+
+        self.cursor.execute(execute_str)
+        data = self.cursor.fetchone()
+
+        return data

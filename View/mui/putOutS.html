@@ -121,16 +121,16 @@
 
     <!-- button -->
     <div>
-      <button class="btn-rb-three" ng-click="changePickUpType()" ng-show="!takeType">
+      <button class="btn-rb-three" ng-click="changePickUpType()" ng-show="!takeType" style="border:none;">
         <a style="text-decoration: none;" class="btm-rb-three-n">單件拿取</a>
       </button>
 
-      <button class="btn-rb-three" ng-click="changePickUpType()" ng-show="takeType">
+      <button class="btn-rb-three" ng-click="changePickUpType()" ng-show="takeType" style="border:none;">
         <a style="text-decoration: none;" class="btm-rb-three-n">整套拿取</a>
       </button>
 
       <div>
-        <button class="btn-rb-two" ng-click="takeOut()">
+        <button class="btn-rb-two" ng-click="takeOut()" style="border:none;">
           <a style="text-decoration: none;" class="btm-rb-two-n">拿 取</a>
         </button>
       </div>
@@ -234,6 +234,12 @@
         <a href="./history.html">
           <span class="icon"><i class="fa-solid fa-clock"></i></span>
           <span class="menu-button">歷史存放</span>
+        </a>
+      </li>
+      <li>
+        <a href="./rank.html">
+          <span class="icon"><i class="fa-solid fa-ranking-star"></i></span>
+          <span class="menu-button">排行榜</span>
         </a>
       </li>
       <!--

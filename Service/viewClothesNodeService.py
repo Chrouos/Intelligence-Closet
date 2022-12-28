@@ -279,7 +279,7 @@ class ViewClothesNodeService:
 
         return viewClothesNode_dict
 
-    # 搜尋全部資料: 轉換成字典
+    # 用類別搜尋最愛資料: 轉換成字典
     def queryIsFavoriteByCategory(self, category):
 
         viewClothesNode_dict = []
@@ -308,3 +308,36 @@ class ViewClothesNodeService:
             })
 
         return viewClothesNode_dict
+
+    # 搜尋存放最多種類的衣服
+    def queryMostSubCategory(self):
+
+        mostSubCategory = {}
+        data = self.viewClothesNodeDAO.queryMostSubCategory()
+
+        mostSubCategory['SubCategoryName'] = data.SubCategoryName
+        mostSubCategory['SubCategoryCount'] = data.SubCategoryCount
+
+        return mostSubCategory
+
+    # 搜尋存放最多顏色的衣服
+    def queryMostColor(self):
+
+        mostColor = {}
+        data = self.viewClothesNodeDAO.queryMostColor()
+
+        mostColor['ColorName'] = data.ColorName
+        mostColor['ColorCount'] = data.ColorCount
+
+        return mostColor
+
+    # 搜尋最常拿出來的衣服
+    def queryMostCounter(self):
+
+        mostCounter = {}
+        data = self.viewClothesNodeDAO.queryMostCounter()
+
+        mostCounter['FilePosition'] = data.FilePosition
+        mostCounter['UsageCounter'] = data.UsageCounter
+
+        return mostCounter
