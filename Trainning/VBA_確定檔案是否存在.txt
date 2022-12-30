@@ -1,0 +1,40 @@
+
+Sub 確定檔案是否存在()
+
+Debug.Print "-----開始-----"
+
+Dim 範圍 As Integer, 編號 As Integer, oldName As String, 路徑 As String
+編號 = 0
+
+For 範圍 = 2 To 5447
+ '輸入範圍
+''''''''''''''''''''''''''''''''''''''''''''''''
+
+ oldName = Cells(範圍, 1).Value
+
+ 
+ 路徑 = "E:\Class Box\Project\Code\Test\images_original\" + oldName + ".jpg"
+ '輸入路徑
+ 
+
+ 
+''''''''''''''''''''''''''''''''''''''''''''''''
+ 
+ a = Dir(路徑)
+ 
+ If a = oldName + ".jpg" Then
+
+ Else
+  Cells(範圍, 3).Value = "失敗"
+  Debug.Print "欄位" & 範圍
+
+ End If
+ 
+Next 範圍
+
+Debug.Print "-----結束-----"
+
+End Sub
+
+
+

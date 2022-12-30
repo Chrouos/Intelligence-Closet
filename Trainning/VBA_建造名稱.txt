@@ -1,0 +1,119 @@
+
+Sub 創建名稱()
+
+Debug.Print "-----開始-----"
+
+Dim T血數量 As Integer, 小可愛數量 As Integer, 襯衫數量 As Integer, 運動衫數量 As Integer, 長袖數量 As Integer, 帽T數量 As Integer, 外套數量 As Integer, 長褲數量 As Integer, 裙子數量 As Integer, 佯裝數量 As Integer, 連身衣數量 As Integer, 西裝套數量 As Integer, 不確定數量 As Integer, 短褲數量 As Integer
+
+Dim 現在位置 As Integer
+現在位置 = 1
+
+T血數量 = 389
+小可愛數量 = 203
+襯衫數量 = 248
+運動衫數量 = 200
+長袖數量 = 257
+帽T數量 = 203
+外套數量 = 355
+長褲數量 = 424
+裙子數量 = 279
+佯裝數量 = 248
+連身衣數量 = 207
+西裝套數量 = 212
+不確定數量 = 42
+短褲數量 = 262
+
+Cells(現在位置, 1).Value = "name"
+Cells(現在位置, 2).Value = "label"
+'''''''''''''''''''''''''''''''''''''''''''
+For 範圍 = 1 To T血數量
+ 現在位置 = 現在位置 + 1
+ Cells(現在位置, 1).Value = "T-Shirt_" & 範圍
+ Cells(現在位置, 2).Value = "T-Shirt"
+Next 範圍
+'''''''''''''''''''''''''''''''''''''''''''
+For 範圍 = 1 To 小可愛數量
+ 現在位置 = 現在位置 + 1
+ Cells(現在位置, 1).Value = "Undershirt_" & 範圍
+ Cells(現在位置, 2).Value = "Undershirt"
+Next 範圍
+'''''''''''''''''''''''''''''''''''''''''''
+For 範圍 = 1 To 襯衫數量
+ 現在位置 = 現在位置 + 1
+ Cells(現在位置, 1).Value = "Shirt_" & 範圍
+ Cells(現在位置, 2).Value = "Shirt"
+Next 範圍
+'''''''''''''''''''''''''''''''''''''''''''
+For 範圍 = 1 To 運動衫數量
+ 現在位置 = 現在位置 + 1
+ Cells(現在位置, 1).Value = "Polo_" & 範圍
+ Cells(現在位置, 2).Value = "Polo"
+Next 範圍
+'''''''''''''''''''''''''''''''''''''''''''
+For 範圍 = 1 To 長袖數量
+ 現在位置 = 現在位置 + 1
+ Cells(現在位置, 1).Value = "Longsleeve_" & 範圍
+ Cells(現在位置, 2).Value = "Longsleeve"
+Next 範圍
+'''''''''''''''''''''''''''''''''''''''''''
+For 範圍 = 1 To 帽T數量
+ 現在位置 = 現在位置 + 1
+ Cells(現在位置, 1).Value = "Hoodie_" & 範圍
+ Cells(現在位置, 2).Value = "Hoodie"
+Next 範圍
+'''''''''''''''''''''''''''''''''''''''''''
+For 範圍 = 1 To 外套數量
+ 現在位置 = 現在位置 + 1
+ Cells(現在位置, 1).Value = "Outwear_" & 範圍
+ Cells(現在位置, 2).Value = "Outwear"
+Next 範圍
+'''''''''''''''''''''''''''''''''''''''''''
+For 範圍 = 1 To 長褲數量
+ 現在位置 = 現在位置 + 1
+ Cells(現在位置, 1).Value = "Pants_" & 範圍
+ Cells(現在位置, 2).Value = "Pants"
+Next 範圍
+'''''''''''''''''''''''''''''''''''''''''''
+For 範圍 = 1 To 裙子數量
+ 現在位置 = 現在位置 + 1
+ Cells(現在位置, 1).Value = "Skirt_" & 範圍
+ Cells(現在位置, 2).Value = "Skirt"
+Next 範圍
+'''''''''''''''''''''''''''''''''''''''''''
+For 範圍 = 1 To 佯裝數量
+ 現在位置 = 現在位置 + 1
+ Cells(現在位置, 1).Value = "Dress_" & 範圍
+ Cells(現在位置, 2).Value = "Dress"
+Next 範圍
+'''''''''''''''''''''''''''''''''''''''''''
+For 範圍 = 1 To 連身衣數量
+ 現在位置 = 現在位置 + 1
+ Cells(現在位置, 1).Value = "Body_" & 範圍
+ Cells(現在位置, 2).Value = "Body"
+Next 範圍
+'''''''''''''''''''''''''''''''''''''''''''
+For 範圍 = 1 To 西裝套數量
+ 現在位置 = 現在位置 + 1
+ Cells(現在位置, 1).Value = "Blazer_" & 範圍
+ Cells(現在位置, 2).Value = "Blazer"
+Next 範圍
+'''''''''''''''''''''''''''''''''''''''''''
+For 範圍 = 1 To 不確定數量
+ 現在位置 = 現在位置 + 1
+ Cells(現在位置, 1).Value = "Not_sure_" & 範圍
+ Cells(現在位置, 2).Value = "Not_sure"
+Next 範圍
+'''''''''''''''''''''''''''''''''''''''''''
+For 範圍 = 1 To 短褲數量
+ 現在位置 = 現在位置 + 1
+ Cells(現在位置, 1).Value = "Shorts_" & 範圍
+ Cells(現在位置, 2).Value = "Shorts"
+Next 範圍
+'''''''''''''''''''''''''''''''''''''''''''
+
+Debug.Print "-----結束-----"
+
+End Sub
+
+
+
