@@ -534,7 +534,7 @@ def storage_old_clothes(clothesNode):
             viewClothesNode.updateByDict(clothesNode_dic)
         
         userDashboardService.updateLastPosition(user_id, position)
-        clothesNodeService.updateIdInPosition(position, clothesNode) #TODO: 
+        clothesNodeService.updateIdInPosition(position, clothesNode) 
         arduinoController.storgage_second_half(dist_roundTimes)
 
         clothesGraph_create = '{{"ClothesNodeLastId": {0}, "CategoryId": {1}}}'.format(

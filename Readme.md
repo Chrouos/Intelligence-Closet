@@ -13,6 +13,11 @@ pip install opencv-python
 pip install machine
 ```
 
+# 訓練模型環境
+fastai: 2.7.10
+python_version: 3.7.9
+torch version: 1.13.0+cpu
+
 # 安裝sql 環境
 - 使用資料庫為 sql server
 - 使用工具不限
