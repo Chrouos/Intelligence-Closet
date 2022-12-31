@@ -12,7 +12,7 @@ Servo biaxial_servo_x, biaxial_servo_y; // 機械手臂 伺服馬達
 Servo car_servo;    // 車車的伺服馬達
 
 const int tailButton = 22; // 尾巴的微動開關 
-const int discButton = 23;  // 圓盤的微動開關
+const int discButton = 23;  // 圓盤的微動開關  
 const int entranceButton = 24; // 入口的微動開關
 
 
@@ -48,7 +48,7 @@ int isTri = true, trigNow = 0, echoNow = 0, isDone = false;
 
 int Y_Track_Up = 160, Y_Track_Down = 40, Y_Disc_Up = 160, Y_Disc_Down = 40;
 int X_Track = 15, X_Disc = 100;
-int Car_Servo_Up = 160, Car_Servo_Down = 120;
+int Car_Servo_Up = 165, Car_Servo_Down = 120;
 int angle_delayTime = 2000;
 
 // ----------------------------------------------- 狀態設定 ^ ----------------------------------------------- //
@@ -330,32 +330,13 @@ void loop() {
 
             // 開始旋轉
             digitalWrite(relay, HIGH); // 把繼電器打開
-            long temp_time = millis();
-            bool disc_start = true;  // true: start, false: stop
-            while(disc_start == true){
-                // stepper_front(disc_L298N1_In1, disc_L298N1_In2, disc_L298N1_In3, disc_L298N1_In4);
+            discRotate_withTimes(1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
 
-                disc_stepper.step(-1);  // 20/200 = 1/10
-
-                if(millis() - temp_time > 1000){
-
-                  if( checkTheBtnStatus(discButton, discButtonState, discButtonLastState, discButtonlastDebounceTime, globalDelayTime) == true
-                  ){
-                      Serial.println("discButton");
-                      disc_start = false;
-                  }
-                  if( checkTheBtnStatus(entranceButton, entranceButtonState, entranceButtonLastState, entranceButtonlastDebounceTime, globalDelayTime) == true
-                  ||  checkTheBtnStatus(tailButton, tailButtonState, tailButtonLastState, tailButtonlastDebounceTime, globalDelayTime) == true
-                  ){
-                      Serial.println("entranceButton");
-                      disc_start = false;
-                  }
-                }
-            }
-            // 微動開關按了才結束
 
             // 結束
             delay(3000);
+            digitalWrite(relay, HIGH); // 把繼電器打開
+
             lcd.clear();
             setUpLCD(1, 0, "wait instruction");
             Serial.println("Done");
@@ -698,7 +679,7 @@ void discRotate_withTimes(int times){
     while( now_times != times){
 
         disc_stepper.step(-1);  // 20/200 = 1/10
-        if(millis() - temp_time > 1000){
+        if(millis() - temp_time > 500){
           if( checkTheBtnStatus(discButton, discButtonState, discButtonLastState, discButtonlastDebounceTime, globalDelayTime) == true){
 //              disc_start = false;
               now_times++;

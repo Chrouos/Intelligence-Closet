@@ -63,11 +63,11 @@ def get_camera_identify():  # 拍照
         arduinoController.storgage_first_half()
         
         idt = CamaraController(camara_choose, clf)
-        idt.useCamara()  # 開啟攝象頭講圖片存檔
+        idt.useCamara()         # 開啟攝象頭講圖片存檔
 
         idt.identifyCategory()  # 辨識樣式
-        idt.identifyColor()  # 辨識顏色
-        idt.printResult()  # 輸出結果
+        idt.identifyColor()     # 辨識顏色
+        idt.printResult()       # 輸出結果
 
         # print("path:", idt.path)
         return [idt.category, idt.color, idt.path, True]

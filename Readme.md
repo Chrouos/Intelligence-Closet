@@ -14,9 +14,16 @@ pip install machine
 ```
 
 # 訓練模型環境
-fastai: 2.7.10
-python_version: 3.7.9
+numpy version: 1.21.6
+pandas version: 1.3.5
 torch version: 1.13.0+cpu
+platform version: 1.0.8
+fastai version: 2.7.10
+json version: 2.0.9
+sys version: 3.7.9 (tags/v3.7.9:13c94747c7, Aug 17 2020, 18:58:18) [MSC v.1900 64 bit (AMD64)]
+fastbook version: 0.0.29
+joblib version: 1.1.0
+cv2 version: 4.5.5
 
 # 安裝sql 環境
 - 使用資料庫為 sql server

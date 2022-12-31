@@ -11,6 +11,7 @@ sys.path.append(os.getcwd())  # 抓取路徑
 # user_dict = userDashboardService.queryById(1)  # 預設為1
 # print(user_dict['LastPosition'])
 
+# -----------------------  硬體控制
 # from Controller.arduinoController import ArduinoController
 # arduinoController = ArduinoController()
 # arduinoController.car_back_now()
@@ -27,11 +28,11 @@ sys.path.append(os.getcwd())  # 抓取路徑
 # clothesGraphController.printEdge()
 # clothesGraphController.getCombination()
 
-from Controller.weatherAPI import WeatherAPI
-we = WeatherAPI(12)
-we.getDataText()
-we.getWeather()
-we.print_dataText()
+# from Controller.weatherAPI import WeatherAPI
+# we = WeatherAPI(12)
+# we.getDataText()
+# we.getWeather()
+# we.print_dataText()
 
 
 # from Controller.camaraController import CamaraController

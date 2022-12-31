@@ -81,9 +81,9 @@ class ClothesNodeDAO:
         else:
             return None
 
-    # 空缺的位置資訊(範圍 0~9 )
+    # 空缺的位置資訊(範圍 1~8 )
     def vacancyPosition(self):
-        for i in range(8):
+        for i in range(1, 9):
             if self.queryDataByPosition(i) == None:
                 return i
 
