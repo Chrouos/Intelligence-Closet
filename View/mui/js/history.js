@@ -154,6 +154,7 @@ app.controller('myCtrl', function ($scope) {
 
   // clothes 重新存放(該衣物不在衣櫃中)
   $scope.clothesRestore = async function () {
+    console.log("clothes restore");
     //TODO:clothes 重新存放
     var isSuccess = await eel.storage_old_clothes($scope.pickUp_ClohtesNode)();
     $scope.queryAllList();

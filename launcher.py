@@ -2,6 +2,7 @@ from asyncio.windows_events import NULL
 import json
 import os
 import sys
+from time import sleep
 
 import eel
 
@@ -31,7 +32,7 @@ from Controller.arduinoController import ArduinoController
 
 
 user_id = 1
-camara_choose = 1
+camara_choose = 0
 
 from Controller.camaraController import *
 # 相機物件
@@ -40,175 +41,220 @@ def get_y(r): return r['label'].split(' ') # split the labels using space as a d
 # 讀取圖檔
 clf = joblib.load('Controller/joblib_export.pkl')
 
+
+def lock_disc_feet(position, user_lastposition):
+    """
+        為了使圓盤不要傾倒，將圓盤的腳位進行偏移
+        腳位共八點 1 ~ 8
+        
+        
+        + Parameters
+        ------------ 
+        position: int
+            要前往的位置
+            
+        user_lastposition: int
+            目前使用者最後的位置
+        
+        
+        + Examples
+        ----------
+        # 到使用者的位置
+        userDashboardService = UserDashboardService()
+        user_dict = userDashboardService.queryById(user_id)
+        
+        # 找到目前衣櫃內布還有剩餘的位置
+        clothesNodeService = ClothesNodeService()
+        position = clothesNodeService.vacancyPosition()
+        
+        # 依據真實腳位移動
+        dist_roundTimes = lock_disc_feet(position, user_dict['LastPosition'])
+
+    """
+    
+    # 腳位共八點, 若剛好同點就轉八次回到原地
+    dist_roundTimes = 8    
+    if position != user_lastposition:
+        dist_roundTimes = (position - user_lastposition) * 3 % 8
+    print( "user last position:", user_lastposition, ", go to position:", position, ", 要轉動的次數", dist_roundTimes)
+    return dist_roundTimes
+
 # 衣物圖形
 @eel.expose
-def comb_to_js():
-    userDashboardService = UserDashboardService()
-    user_dict = userDashboardService.queryById(user_id)  # 預設為1
-
-    clothesGraphController = ClothesGraphController(user_dict['VillageId'])
-    graphComb = clothesGraphController.getCombination()
+def comb_to_js(): # 獲得天氣推薦衣物組合，給JavaScript (Json)
     
-    # print("comb_to_js: ", graphComb)
+    try:
+        # 獲得使用者資訊(1) -> 取得使用者填寫的鄉鎮區編號(2) -> 獲得推薦天氣衣物組合(3)
+        userDashboardService = UserDashboardService()               
+                        
+        user_dict = userDashboardService.queryById(user_id)                         # (1)
+        clothesGraphController = ClothesGraphController(user_dict['VillageId'])     # (2)
+        graphComb = clothesGraphController.getCombination()                         # (3)
 
-    return graphComb
-
+        return graphComb
+    except Exception as e:
+        print("[Fail] comb_to_js:", e)
+        return NULL
 
 @eel.expose
 def get_camera_identify():  # 拍照
     try:
         
-        # 將機器送到超音波前(準備拍照)
-        arduinoController = ArduinoController()
-        arduinoController.storgage_first_half()
-        
+        # 啟動Arduino將模型車送到超音波前，準備拍照(1) -> 拍照(2) -> 辨識結果(3)
+        # arduinoController = ArduinoController()
         idt = CamaraController(camara_choose, clf)
-        idt.useCamara()         # 開啟攝象頭講圖片存檔
+        
+        # (1)
+        # arduinoController.storgage_first_half()   # 將衣物送入（前半段）
+        
+        # (2) 
+        idt.useCamara()                          
 
-        idt.identifyCategory()  # 辨識樣式
-        idt.identifyColor()     # 辨識顏色
-        idt.printResult()       # 輸出結果
+        # (3) 
+        idt.identifyCategory()                      # 辨識樣式          
+        idt.identifyColor()                         # 辨識顏色         
+        idt.printResult()                           # 輸出結果
 
-        # print("path:", idt.path)
         return [idt.category, idt.color, idt.path, True]
 
     except Exception as e:
-        print("get_camera_identify", e)
+        print("[Fail] get_camera_identify:", e)
         return [NULL, NULL, NULL, False]
 
 
 @eel.expose
-def identify_save_sql(category, color, path, isFavorite):  # 確定存檔
+def identify_save_sql(category, color, path, isFavorite):  # 辨識完的結果 -> 確定存檔
+    sleep(1)
+    
     try:
-        arduinoController = ArduinoController()
         
-        # 儲存至sql的資料
-        idt = CamaraController(camara_choose, clf)
-        idt.category = category
-        idt.color = color
-        idt.path = path
-        idt.isFavorite = isFavorite
-        # print("identify_save_sql: ", category, color, path, isFavorite)
-
-        # 將衣服送入圓盤(後半段)
-        userDashboardService = UserDashboardService()
-        user_dict = userDashboardService.queryById(user_id)  # 預設為1
+        # 獲得資訊(0) -> Arduino將衣物送入到圓盤，後半段(1) -> 將資料存到資料庫(2)
         
+        # 變數設定
+        # arduinoController = ArduinoController()
         clothesNodeService = ClothesNodeService()
-        position = clothesNodeService.vacancyPosition() # 剩餘的位置
-        # print("剩餘位置", position)
+        userDashboardService = UserDashboardService()
+        idt = CamaraController(camara_choose, clf)
         
-        print("資料庫目前存放在:", user_dict['LastPosition'], ", 目前衣物空缺位置:", position)
-        dist_roundTimes = 8
-        if position > user_dict['LastPosition']:
-            dist_roundTimes = position - user_dict['LastPosition']
-        elif position < user_dict['LastPosition']:
-            dist_roundTimes = 8 - user_dict['LastPosition'] + position
-        print("要轉動的次數", dist_roundTimes)
+        # (0)
+        user_dict = userDashboardService.queryById(user_id)     # 使用者資訊      
+        position = clothesNodeService.vacancyPosition()         # 衣櫃內布，剩餘的位置
+        print(  "資料庫目前存放在: {0}, 目前衣物空缺位置: {1}".format(
+                user_dict['LastPosition'], 
+                position))
         
-        userDashboardService.updateLastPosition(user_id, position)
-        arduinoController.storgage_second_half(dist_roundTimes)
+        # (1)
+        dist_roundTimes = lock_disc_feet(position, user_dict['LastPosition'])   # 取得存放需要的轉動的次數
+        # arduinoController.storgage_second_half(dist_roundTimes)               # 啟動機器轉動所需次數 + 存放
+        userDashboardService.updateLastPosition(user_id, position)              # 修改使用者的最後存放位置
         
-        idt.saveToSql()  # 存到資料庫
+        # (2)
+        idt.category = category     # 類別
+        idt.color = color           # 顏色
+        idt.path = path             # 存放的位置
+        idt.isFavorite = isFavorite # 是否喜愛(由前端送入)
+        idt.saveToSql()             # 存到資料庫
+        
+        
 
-        return True
+        return [True]
     except Exception as e:
-        print("identify_save_sql exception: ", e)
+        print("[Fail] identify_save_sql:", e)
         return False
 
 
 @eel.expose
-def get_all_sc_name():
-    scCrud = SubCategoryService()
-    datas = scCrud.queryAll()
-
-    # print("get_all_sc_name", datas)
-    return datas
-
-
-@eel.expose
-def get_all_color():
-    colorService = ColorService()
-    datas = colorService.queryAll()
-
-    # print("get_all_color", datas)
-    return datas
-
-
-################################################################################## weather
+def get_all_sc_name():  # 獲得所有的 sub_category 資料
+    try:
+        scCrud = SubCategoryService()
+        datas = scCrud.queryAll()
+        return datas
+    except Exception as e:
+        print("[Fail] get_all_sc_name:", e)
+        return NULL
 
 
 @eel.expose
-def weather_to_js():  # 傳送天氣資訊
+def get_all_color():  # 獲得所有的 color 資料  
+    try:
+        colorService = ColorService()
+        datas = colorService.queryAll()
+        return datas
+    except Exception as e:
+        print("[Fail] get_all_color:", e)
+        return NULL
 
-    userDashboardService = UserDashboardService()
-    user_dict = userDashboardService.queryById(user_id)  # 預設為1
+@eel.expose
+def weather_to_js():  # 獲得天氣資訊到JavaScript
+    try:
+        # 獲得使用者目前居住地(0) -> 中央氣象局 API 獲得天氣資訊(1)
+        
+        # (0)
+        userDashboardService = UserDashboardService()
+        user_dict = userDashboardService.queryById(user_id)  
+        we = WeatherAPI(user_dict['VillageId'])  # 地點Id
+        
+        # (1)
+        weather_list = we.getWeather()  # 獲得陣列 (11個資訊)
 
-    we = WeatherAPI(user_dict['VillageId'])  # 地點Id
-    weather_list = we.getWeather()  # 獲得陣列(11個資訊)
-    # print("weather_to_js", weather_list)
+        return weather_list
+    except Exception as e:
+        print("[Fail] weather_to_js:", e)
+        return NULL
 
-    return weather_list
+@eel.expose
+def city_to_js():  # 獲得所有的 city 資料
+    try:
+        cityService = CityService()
+        city_dict = cityService.queryAll()
+        return city_dict
+    except Exception as e:
+        print("[Fail] city_to_js:", e)
+        return NULL
+
+@eel.expose
+def village_to_js(city):    # 獲得所有的 village 資料
+    try:
+        viewVillageService = ViewVillageService()
+        village_dict = viewVillageService.queryByCityId(city)
+        return village_dict
+    except Exception as e:
+        print("[Fail] village_to_js:", e)
+        return NULL
 
 
 @eel.expose
-def city_to_js():  # 傳送所有縣市資訊
+def user_by_id_to_js(): # 獲得使用者資料 viewUserDashboard
+    try:
+        viewUserDashboardService = ViewUserDashboardService()
+        user_dict = viewUserDashboardService.queryById(user_id)  # 預設為1
 
-    cityService = CityService()
-    city_dict = cityService.queryAll()
-
-    # print("city: ", city_dict)
-    return city_dict
-
-
-@eel.expose
-def station_station_to_js(city):
-    viewStationService = ViewStationService()
-    station_dict = viewStationService.queryByCityId(city)
-
-    # print("station: ", station_dict, city)
-    return station_dict
+        return user_dict
+    except Exception as e:
+        print("[Fail] user_by_id_to_js:", e)
+        return NULL
 
 
 @eel.expose
-def village_to_js(city):
-    viewVillageService = ViewVillageService()
-    village_dict = viewVillageService.queryByCityId(city)
+def all_user_to_js():   # 所有使用者
+    try:
+        userDashboardService = UserDashboardService()
+        user_dict = userDashboardService.queryAll()
 
-    # print("village: ", village_dict, city)
-    return village_dict
-
-
-################################################################################## user
-
-
-@eel.expose
-def user_by_id_to_js():
-    viewUserDashboardService = ViewUserDashboardService()
-    user_dict = viewUserDashboardService.queryById(user_id)  # 預設為1
-
-    # print("user_by_id_to_js: ", user_dict)
-    return user_dict
-
+        return user_dict
+    except Exception as e:
+        print("[Fail] all_user_to_js:", e)
+        return NULL
 
 @eel.expose
-def all_user_to_js():
-    userDashboardService = UserDashboardService()
-    user_dict = userDashboardService.queryAll()
-
-    # print("all_user_to_js: ", user_dict)
-    return user_dict
-
-
-@eel.expose
-def update_user_dashboard(user):
-    userDashboardService = UserDashboardService()
-    isSuccess = userDashboardService.updateById(user, user_id)  # 預設為1
-
-    # print("update_user_dashboard", isSuccess)
-
-    return isSuccess
-
+def update_user_dashboard(user): # 更改使用者資料
+    try:
+        userDashboardService = UserDashboardService()
+        isSuccess = userDashboardService.updateById(user, user_id)  # 預設為1
+        return isSuccess
+    except Exception as e:
+        print("[Fail] update_user_dashboard:", e)
+        return NULL
 
 @eel.expose
 def change_user(userId):
@@ -216,26 +262,21 @@ def change_user(userId):
     user_id = userId
 
 
-################################################################################## clothes node
-
-
 @eel.expose
-def clothes_to_js():
-    viewClothesNodeService = ViewClothesNodeService()
-    v_clothes_dict = viewClothesNodeService.queryAll()
-
-    # print("clothes_to_js", v_clothes_dict)
-
-    return v_clothes_dict
+def clothes_to_js():    # 獲得所有衣物資訊
+    try:
+        viewClothesNodeService = ViewClothesNodeService()
+        v_clothes_dict = viewClothesNodeService.queryAll()
+        return v_clothes_dict
+    except Exception as e:
+        print("[Fail] update_user_dashboard:", e)
+        return NULL
 
 
 @eel.expose
 def upper_clothes_to_js():
     viewClothesNodeService = ViewClothesNodeService()
     v_clothes_dict = viewClothesNodeService.queryUpperAll()
-
-    # print("upper_clothes_to_js", v_clothes_dict)
-
     return v_clothes_dict
 
 
@@ -243,9 +284,6 @@ def upper_clothes_to_js():
 def lower_clothes_to_js():
     viewClothesNodeService = ViewClothesNodeService()
     v_clothes_dict = viewClothesNodeService.queryLowerAll()
-
-    # print("lower_clothes_to_js", v_clothes_dict)
-
     return v_clothes_dict
 
 
@@ -253,9 +291,6 @@ def lower_clothes_to_js():
 def other_clothes_to_js():
     viewClothesNodeService = ViewClothesNodeService()
     v_clothes_dict = viewClothesNodeService.queryOtherAll()
-
-    # print("other_clothes_to_js", v_clothes_dict)
-
     return v_clothes_dict
 
 
@@ -263,9 +298,6 @@ def other_clothes_to_js():
 def isFavorite_clothes_to_js(category):
     viewClothesNodeService = ViewClothesNodeService()
     v_clothes_dict = viewClothesNodeService.queryIsFavoriteByCategory(category)
-
-    # print("other_clothes_to_js", v_clothes_dict)
-
     return v_clothes_dict
 
 
@@ -273,18 +305,14 @@ def isFavorite_clothes_to_js(category):
 def query_clothes_nodes_byPositionIsNull():
     viewClothesNodeService = ViewClothesNodeService()
     v_clothes_dict = viewClothesNodeService.queryPositionIsNull()
-
-    # print("clothes_to_js", v_clothes_dict)
-
     return v_clothes_dict
 
 
 @eel.expose
 def query_subCategory_byCategoryId(categoryId):
     viewCategoryClothesService = ViewCategoryClothesService()
-    v_subCategory_dict = viewCategoryClothesService.queryByCategoryId(
-        categoryId)  # 利用類別搜尋子類別 # 1:上半身, 2:下半身, 3:裙裝, 4:大衣
-    # print("query_subCategory_byCategoryId", v_subCategory_dict)
+    v_subCategory_dict = viewCategoryClothesService.queryByCategoryId(categoryId)  
+    # 利用類別搜尋子類別 # 1:上半身, 2:下半身, 3:裙裝, 4:大衣
 
     return v_subCategory_dict
 
@@ -292,10 +320,7 @@ def query_subCategory_byCategoryId(categoryId):
 @eel.expose
 def query_clothes_nodes_bySubCategoryId(categoryId):
     viewClothesNodeService = ViewClothesNodeService()
-    v_clothes_dict = viewClothesNodeService.queryBySubCategoryId(
-        categoryId)  # 利用類別搜尋子類別 # 1:上半身, 2:下半身, 3:裙裝, 4:大衣
-    # print("query_clothes_nodes_bySubCategoryId", v_clothes_dict)
-
+    v_clothes_dict = viewClothesNodeService.queryBySubCategoryId(categoryId)  # 利用類別搜尋子類別 # 1:上半身, 2:下半身, 3:裙裝, 4:大衣
     return v_clothes_dict
 
 
@@ -303,95 +328,95 @@ def query_clothes_nodes_bySubCategoryId(categoryId):
 def query_clothesNode_byId(clothesId):
     viewClothesNodeService = ViewClothesNodeService()
     v_clothes_dict = viewClothesNodeService.queryById(clothesId)
-    # print("query_clothesNode_byId", v_clothes_dict)
 
     return v_clothes_dict
 
 
-# 拿取衣物
 @eel.expose
-def updatePositionToNull(position):
-    arduinoController = ArduinoController()
+def updatePositionToNull(position): # 拿取衣物
+    sleep(1)
     
-    userDashboardService = UserDashboardService()
-    user_dict = userDashboardService.queryById(user_id)  # 預設為1
-    
-    dist_roundTimes = 8
-    if position > user_dict['LastPosition']:
-        dist_roundTimes = position - user_dict['LastPosition']
-    elif position < user_dict['LastPosition']:
-        dist_roundTimes = 8 - user_dict['LastPosition'] + position
-    print("要轉動的次數", dist_roundTimes)
-    arduinoController.pickUp_one_clothes(dist_roundTimes)
-    userDashboardService.updateLastPosition(user_id, position)
-    
-    clothesNodeService = ClothesNodeService()
-    result = clothesNodeService.updatePositionToNull(position)
-    
-    # print("query_clothesNode_byId", result)
+    try:
+        
+        
+        # 變數取得(0) -> Arduino轉動圓盤並將衣物取出(1) -> 完善結果(2)
+        
+        # (0)
+        # arduinoController = ArduinoController()
+        userDashboardService = UserDashboardService()
+        user_dict = userDashboardService.queryById(user_id) 
+        clothesNodeService = ClothesNodeService()
+        
+        # (1)
+        dist_roundTimes = lock_disc_feet(position, user_dict['LastPosition'])
+        # arduinoController.pickUp_one_clothes(dist_roundTimes)
+        
+        # (2)
+        userDashboardService.updateLastPosition(user_id, position)  # 修改使用者的最後存放位置
+        result = clothesNodeService.updatePositionToNull(position)  # 修改衣物位置為NULL, 使用次數 + 1
+        
 
-    return result
+        return result
+
+    except Exception as e:
+        print("[Fail] updatePositionToNull:", e)
+        return NULL
 
 
 @eel.expose
 def color_to_js():  # 傳送所有顏色
-
     colorService = ColorService()
     color_dict = colorService.queryAll()
-
-    # print("color: ", color_dict)
     return color_dict
 
 
 @eel.expose
 def sub_category_to_js():  # 傳送所有sub catrgory
-
     subCategoryService = SubCategoryService()
     subCategory_dict = subCategoryService.queryAll()
-
-    # print("subCategory: ", subCategory_dict)
     return subCategory_dict
 
 
 @eel.expose
-def vacancyPosition():
+def vacancyPosition():  # 獲得剩餘位置
     clothesNodeService = ClothesNodeService()
     result = clothesNodeService.vacancyPosition()
-    # print("vacancyPosition", result)
-
     return result
-
-
-################################################################################## clothes node graph
 
 
 @eel.expose
 def creat_node_graph(firstClohtesNode, secondClohtesNode, userLike):  # 新增node_graph
-    nodeGraph_dict = {}
-    if(firstClohtesNode['CategoryId'] == 1):
-        nodeGraph_dict['UpperId'] = firstClohtesNode['Id']
-        nodeGraph_dict['LowerId'] = secondClohtesNode['Id']
-        nodeGraph_dict['OtherId'] = NULL
-        nodeGraph_dict['UserLike'] = userLike
+    try:
+        nodeGraph_dict = {}
+        if(firstClohtesNode['CategoryId'] == 1):
+            nodeGraph_dict['UpperId'] = firstClohtesNode['Id']
+            nodeGraph_dict['LowerId'] = secondClohtesNode['Id']
+            nodeGraph_dict['OtherId'] = NULL
+            nodeGraph_dict['UserLike'] = userLike
 
 
-    elif(secondClohtesNode['CategoryId'] == 1):
-        nodeGraph_dict['UpperId'] = secondClohtesNode['Id']
-        nodeGraph_dict['LowerId'] = firstClohtesNode['Id']
-        nodeGraph_dict['OtherId'] = NULL
-        nodeGraph_dict['UserLike'] = userLike
+        elif(secondClohtesNode['CategoryId'] == 1):
+            nodeGraph_dict['UpperId'] = secondClohtesNode['Id']
+            nodeGraph_dict['LowerId'] = firstClohtesNode['Id']
+            nodeGraph_dict['OtherId'] = NULL
+            nodeGraph_dict['UserLike'] = userLike
 
-    # 儲存至node_graph sql的資料
-    nodeGraphService = NodeGraphService()
+        # 儲存至node_graph sql的資料
+        nodeGraphService = NodeGraphService()
 
-    if(nodeGraphService.queryByUpperIdAndLowerId(nodeGraph_dict['UpperId'], nodeGraph_dict['LowerId'])):
-        isSuccess = nodeGraphService.updateByUpperIdAndLowerId(nodeGraph_dict)
-        print("update_node_graph: ", firstClohtesNode, secondClohtesNode, userLike)
-    else:
-        isSuccess = nodeGraphService.create(nodeGraph_dict)
-        print("creat_node_graph: ", firstClohtesNode, secondClohtesNode, userLike)
+        # 修改
+        if(nodeGraphService.queryByUpperIdAndLowerId(nodeGraph_dict['UpperId'], nodeGraph_dict['LowerId'])):
+            isSuccess = nodeGraphService.updateByUpperIdAndLowerId(nodeGraph_dict)
+            # print("update_node_graph: ", firstClohtesNode, secondClohtesNode, userLike)
+        # 新增
+        else:
+            isSuccess = nodeGraphService.create(nodeGraph_dict)
+            # print("creat_node_graph: ", firstClohtesNode, secondClohtesNode, userLike)
 
-    return isSuccess
+        return isSuccess
+    except Exception as e:
+        print("[Fail] creat_node_graph:", e)
+        return False
 
 
 @eel.expose
@@ -412,8 +437,6 @@ def update_clothes_node(clothesNode): # 更新 clothes node
 def return_zero_clothes_node(clothesNodeId): # clothes node 歸零
     clothesNodeService = ClothesNodeService()
     isSuccess = clothesNodeService.returnZeroClothesNode(clothesNodeId)
-
-    # print("return_zero_clothes_node", isSuccess)
 
     return isSuccess
 
@@ -439,47 +462,33 @@ def return_zero_clothes_node_graph(firstClohtesNode, secondClohtesNode): # cloth
     if(nodeGraphService.queryByUpperIdAndLowerId(nodeGraph_dict['UpperId'], nodeGraph_dict['LowerId'])):
         isSuccess = nodeGraphService.updateByUpperIdAndLowerId(nodeGraph_dict)
         
-    # print("return_zero_clothes_node_graph: ", firstClohtesNode, secondClohtesNode, 0)
-
     return isSuccess
 
 @eel.expose
 def delete_clothes_node(clothesNodeId): # clothes node 歸零
     clothesNodeService = ClothesNodeService()
     isSuccess = clothesNodeService.deleteById(clothesNodeId)
-
-    # print("delete_clothes_node", isSuccess)
-
     return isSuccess
 
 
 @eel.expose
 def most_subCategory_to_js():  # 傳送存放最多種類的衣服資料
-
     viewClothesNodeService = ViewClothesNodeService()
     most_subCategory = viewClothesNodeService.queryMostSubCategory()
-
-    # print("most_subCategory_to_js: ", most_subCategory)
     return most_subCategory
 
 
 @eel.expose
 def most_color_to_js():  # 傳送存放最多顏色的衣服資料
-
     viewClothesNodeService = ViewClothesNodeService()
     most_color = viewClothesNodeService.queryMostColor()
-
-    # print("most_color_to_js: ", most_color)
     return most_color
 
 
 @eel.expose
 def most_counter_to_js():  # 傳送最常拿出來的衣服資料
-
     viewClothesNodeService = ViewClothesNodeService()
     most_counter = viewClothesNodeService.queryMostCounter()
-
-    # print("most_counter_to_js: ", most_counter)
     return most_counter
 
 
@@ -489,8 +498,8 @@ def most_counter_to_js():  # 傳送最常拿出來的衣服資料
 @eel.expose
 def arduino_car_back_now():
     
-    arduinoController = ArduinoController()
-    arduinoController.car_back_now()
+    # arduinoController = ArduinoController()
+    # arduinoController.car_back_now()
     
     return true
 
@@ -506,25 +515,30 @@ def query_node_graph_setting(upperId, lowerId):
 
 @eel.expose
 def storage_old_clothes(clothesNode):
+    sleep(1)
+    
     try:
-        arduinoController = ArduinoController()
-
-        # 將衣服送入圓盤(後半段)
+        
+        
+        # 變數設定(0) -> Arduino將衣物重新存放(1) -> 衣物資料的位置擺放回來(2) -> 增加該衣物的圖形(3) 
+        
+        # (0)
+        # arduinoController = ArduinoController()
         userDashboardService = UserDashboardService()
-        user_dict = userDashboardService.queryById(user_id)  # 預設為1
-        
         clothesNodeService = ClothesNodeService()
+        nodeGraphService = NodeGraphService()
+
+        # (1)
+        user_dict = userDashboardService.queryById(user_id)
         position = clothesNodeService.vacancyPosition() # 剩餘的位置
-        # print("剩餘位置", position)
-        print("資料庫目前存放在:", user_dict['LastPosition'], ", 目前衣物空缺位置:", position)
-        dist_roundTimes = 8
-        if position > user_dict['LastPosition']:
-            dist_roundTimes = position - user_dict['LastPosition']
-        elif position < user_dict['LastPosition']:
-            dist_roundTimes = 8 - user_dict['LastPosition'] + position
-        print("要轉動的次數", dist_roundTimes)
-        print(clothesNode)
+        dist_roundTimes = lock_disc_feet(position, user_dict['LastPosition'])
+        # arduinoController.storgage_second_half(dist_roundTimes)
+        userDashboardService.updateLastPosition(user_id, position)      # 修改使用者的最後存放位置
         
+        # (2)
+        clothesNodeService.updateIdInPosition(position, clothesNode)    # 將原本的衣服重新加入位置
+        
+        # (3)
         viewClothesNode = ViewClothesNode()
         if type(clothesNode) is dict:
             viewClothesNode.updateByDict(clothesNode)
@@ -532,17 +546,12 @@ def storage_old_clothes(clothesNode):
         if type(clothesNode) is str:
             clothesNode_dic = json.loads(clothesNode)
             viewClothesNode.updateByDict(clothesNode_dic)
-        
-        userDashboardService.updateLastPosition(user_id, position)
-        clothesNodeService.updateIdInPosition(position, clothesNode) 
-        arduinoController.storgage_second_half(dist_roundTimes)
 
-        clothesGraph_create = '{{"ClothesNodeLastId": {0}, "CategoryId": {1}}}'.format(
-            viewClothesNode.Id, viewClothesNode.CategoryId)
-        print("saveClothesGraph_Data:", clothesGraph_create)
-        
-        nodeGraphService = NodeGraphService()
+        clothesGraph_create =   '{{"ClothesNodeLastId": {0}, "CategoryId": {1}}}'.format(
+                                viewClothesNode.Id, 
+                                viewClothesNode.CategoryId)
         nodeGraphService.create(clothesGraph_create)
+        
         
         return True
     except Exception as e:

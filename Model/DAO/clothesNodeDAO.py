@@ -158,9 +158,8 @@ class ClothesNodeDAO:
             # print('沒有此衣物')
             return False
 
-        execute_str = "UPDATE clothes_node SET Position = NULL WHERE Position = {0}".format(
+        execute_str = "UPDATE clothes_node SET Position = NULL, UsageCounter = UsageCounter + 1 WHERE Position = {0}".format(
             position)
-        # print(execute_str)
 
         self.cursor.execute(execute_str)
         self.cnxn.commit()

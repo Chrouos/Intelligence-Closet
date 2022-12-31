@@ -347,7 +347,7 @@ void discRotate_withTimes(int times){
     while( now_times != times){
 
         disc_stepper.step(-1);  // 20/200 = 1/10
-        if(millis() - temp_time > 1000){
+        if(millis() - temp_time > 500){
           if( checkTheBtnStatus(discButton, discButtonState, discButtonLastState, discButtonlastDebounceTime, globalDelayTime) == true){
               disc_start = false;
               now_times++;

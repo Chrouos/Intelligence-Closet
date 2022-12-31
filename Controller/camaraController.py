@@ -76,7 +76,7 @@ class CamaraController:
 
             clothesGraph_create = '{{"ClothesNodeLastId": {0}, "CategoryId": {1}}}'.format(
                 clothesNodeLastId, categoryId, self.path, self.isFavorite)
-            print("saveClothesGraph_Data:", clothesGraph_create)
+            # print("saveClothesGraph_Data:", clothesGraph_create)
             
             nodeGraphService = NodeGraphService()
             nodeGraphService.create(clothesGraph_create)

@@ -1,4 +1,5 @@
 import sys, os
+
 sys.dont_write_bytecode = True  # 不產生 pyc
 sys.path.append(os.getcwd())  # 抓取路徑
 
@@ -23,10 +24,10 @@ sys.path.append(os.getcwd())  # 抓取路徑
 # arduinoController.pickUp_one_clothes(1)
 
 
-# from Controller.clothesGraphController import ClothesGraphController
-# clothesGraphController = ClothesGraphController(1)
+from Controller.clothesGraphController import ClothesGraphController
+clothesGraphController = ClothesGraphController(204)
+clothesGraphController.getCombination()
 # clothesGraphController.printEdge()
-# clothesGraphController.getCombination()
 
 # from Controller.weatherAPI import WeatherAPI
 # we = WeatherAPI(12)
@@ -47,3 +48,17 @@ sys.path.append(os.getcwd())  # 抓取路徑
 # camaraController.identifyCategory()
 # camaraController.identifyColor()
 # camaraController.printResult()
+
+
+# --------------------------- 換位子
+# from Service.userDashboardService import UserDashboardService   
+# userDashboardService = UserDashboardService()
+# user_dict = userDashboardService.queryById(1)  # 預設為1
+# user_dict['LastPosition'] = 1
+
+# for position in range(1, 9, 1):
+#     dist_roundTimes = 8
+#     if position != user_dict['LastPosition']:
+#         dist_roundTimes = (position - user_dict['LastPosition']) * 3 % 8
+#     print( "user last position:", user_dict['LastPosition'], ", go to position:", position, ", 要轉動的次數", dist_roundTimes)
+

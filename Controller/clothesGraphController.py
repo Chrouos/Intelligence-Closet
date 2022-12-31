@@ -28,7 +28,7 @@ class ClothesGraphController:
         self.userDashboardService = UserDashboardService()
         self.user_info = self.userDashboardService.queryById(1)
 
-        self.comfortableTemp = 26 + self.user_info['WeatherLike']
+        self.comfortableTemp = 26 + self.user_info['WeatherLike'] * 2
         self.comfortableHumd = 60
         
     
@@ -94,6 +94,7 @@ class ClothesGraphController:
             result = round((    abs(diff) * 1.3
                             +   abs(((diff) + ( 5 - graph[2])) / 25 * 45 + (diff_rh   ) / 100 * 60 + ( 5 - graph[2]) ) * 1.5), 2) \
                     + (graph[3] + graph[4] + graph[5]) * 0.5
+                    
             combs.append([  result,
                             graph[0].Position, graph[1].Position,
                             graph[0].ColorName, graph[1].ColorName,

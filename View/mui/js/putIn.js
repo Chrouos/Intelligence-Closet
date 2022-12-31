@@ -61,7 +61,6 @@ app.controller('myCtrl', function ($scope) {
     // 切換畫面
     $scope.StartType = false;
 
-    //TODO bootbox:1.為偵測到衣服，請放入衣服  2.辨識中，請稍等
     $scope.MainType = true;
 
     // 防呆

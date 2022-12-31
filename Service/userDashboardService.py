@@ -39,7 +39,7 @@ class UserDashboardService:
         return userDashboard_dict
 
     def updateById(self, request, id):
-        # try:
+        try:
             userDashboard = UserDashboard()
             if type(request) is dict:
                 userDashboard.updateByDict(request)
@@ -50,9 +50,9 @@ class UserDashboardService:
             
             self.userDashboardDAO.updateById(userDashboard, id)
             return True
-        # except Exception as e:
-        #     print(e)
-        #     return False
+        except Exception as e:
+            print("[Fail] userDashboardService.updateById:", e)
+            return False
     
     
     def create(self, jso):
