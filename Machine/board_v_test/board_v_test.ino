@@ -147,7 +147,6 @@ void loop() {
 
         Serial.println("servo_x_pos: " + String(servo_x_pos));
         setUpLCD(1, 0, "X: "  + String(servo_x_pos) + " ");
-
         servo_x_lastStatus = true;
     }
     else if (servo_x_lastStatus == true 

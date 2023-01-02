@@ -17,7 +17,7 @@ const int RECV_PIN = 53;
 IRrecv irrecv(RECV_PIN);
 decode_results results;//接收訊號後會把結果存在results
 String strp,strnow;//暫存器
-String mod,donow;//命令形式
+int mod=0,donow=0;//命令形式
 
 // 伺服馬達
 const int biaxial_servo_x_control_btn_negative = 27, biaxial_servo_x_control_btn_positive = 25;
@@ -77,9 +77,9 @@ void setup() {
     car_servo.write(100);
 
     // 步進馬達
-    // pinMode(relay, OUTPUT);
-    // digitalWrite(relay, LOW);
-    // disc_stepper.setSpeed(30);
+    pinMode(relay, OUTPUT);
+    digitalWrite(relay, LOW);
+    disc_stepper.setSpeed(30);
 
     // 初始化 LCD
     lcd.init();
@@ -108,22 +108,58 @@ void loop() {
         strnow=results.value;
         strp=results.value;
       }
+////////////////////////////////////////////////////////////////////////模式調整
+    if(strnow=="16753245"){
+      mod=1;
+      Serial.println("1");}
+    if(strnow=="16736925"){
+      mod=2;
+      Serial.println("2");}
+    if(strnow=="16769565"){
+      mod=3;
+      Serial.println("3");}
+    if(strnow=="16720605"){
+      mod=4;
+      Serial.println("4");}
 ////////////////////////////////////////////////////////////////////////
-    if(strnow=="16753245"){Serial.println("1");}
-    if(strnow=="16736925"){Serial.println("2");}
-    if(strnow=="16769565"){Serial.println("3");}
-    if(strnow=="16720605"){Serial.println("4");}
-    if(strnow=="16712445"){Serial.println("5");}
-    if(strnow=="16761405"){Serial.println("6");}
-    if(strnow=="16769055"){Serial.println("7");}
-    if(strnow=="16754775"){Serial.println("8");}
-    if(strnow=="16748655"){Serial.println("9");}
-    if(strnow=="16750695"){Serial.println("0");}
-    if(strnow=="16718055"){Serial.println("上");}
-    if(strnow=="16730805"){Serial.println("下");}
-    if(strnow=="16716015"){Serial.println("左");}
-    if(strnow=="16734885"){Serial.println("右");}
-    if(strnow=="16726215"){Serial.println("OK");}
+    if(mod==1){
+      if(strnow=="16718055"){Serial.println("1上");}
+      if(strnow=="16730805"){Serial.println("1下");}
+      if(strnow=="16716015"){Serial.println("1左");}
+      if(strnow=="16734885"){Serial.println("1右");}
+    }
+    if(mod==2){
+      if(strnow=="16718055"){Serial.println("2上");}
+      if(strnow=="16730805"){Serial.println("2下");}
+      if(strnow=="16716015"){Serial.println("2左");}
+      if(strnow=="16734885"){Serial.println("2右");}
+    }
+    if(mod==3){
+      if(strnow=="16718055"){Serial.println("1上");}
+      if(strnow=="16730805"){Serial.println("1下");}
+    }
+    if(mod==4){
+      if(strnow=="16726215"){Serial.println("OK");}
+      if(strnow=="16718055"){Serial.println("4上");}
+      if(strnow=="16730805"){Serial.println("4下");}
+      if(strnow=="16716015"){Serial.println("4左");}
+      if(strnow=="16734885"){Serial.println("4右");}
+      if(strnow=="16712445"){Serial.println("4五");}
+      if(strnow=="16761405"){Serial.println("4六");}
+      if(strnow=="16769055"){Serial.println("4七");}
+    }
+////////////////////////////////////////////////////////////////////////
+//    if(strnow=="16712445"){Serial.println("5");}
+//    if(strnow=="16761405"){Serial.println("6");}
+//    if(strnow=="16769055"){Serial.println("7");}
+//    if(strnow=="16754775"){Serial.println("8");}
+//    if(strnow=="16748655"){Serial.println("9");}
+//    if(strnow=="16750695"){Serial.println("0");}
+//    if(strnow=="16718055"){Serial.println("上");}
+//    if(strnow=="16730805"){Serial.println("下");}
+//    if(strnow=="16716015"){Serial.println("左");}
+//    if(strnow=="16734885"){Serial.println("右");}
+//    if(strnow=="16726215"){Serial.println("OK");}
 ////////////////////////////////////////////////////////////////////////
     strnow="";
     irrecv.resume(); // 接著接收下一個訊號
