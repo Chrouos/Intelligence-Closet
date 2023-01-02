@@ -269,6 +269,15 @@ void loop() {
         }
     }
 ////////////////////////////////////////////////////////////////////////
+if ( digitalRead(disc_btn_front) == HIGH){
+          digitalWrite(relay, HIGH);
+          discRotate_withTimes(1);
+        delay(2000);
+        digitalWrite(relay, LOW);
+        
+      }   
+}
+////////////////////////////////////////////////////////////////////////
 //    if(strnow=="16753245"){Serial.println("1");}
 //    if(strnow=="16736925"){Serial.println("2");}
 //    if(strnow=="16769565"){Serial.println("3");}
