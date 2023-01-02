@@ -34,6 +34,9 @@ int car_servo_lastStatus = false;
 int servo_x_pos = 12, servo_y_pos = 40, servo_car_pos =100 ;
 int angle = 1, angle_delayTime = 15;
 
+int discButtonState; // 圓盤微動開關的狀態
+int discButtonLastState = LOW; // 圓盤微動開關的最後狀態
+long discButtonlastDebounceTime = 0;  // 按了最後一次被觸發
 // ----------------------------- 控制腳位 end ----------------------------- //
 // ------------------------------ 變數設定 ------------------------------ //
 void setup() {
