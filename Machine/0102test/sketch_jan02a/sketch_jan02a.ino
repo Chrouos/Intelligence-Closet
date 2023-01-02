@@ -213,59 +213,59 @@ void loop() {
         }
       if(strnow=="16718055"){//上
         Serial.println("轉1個位置");
+        setUpLCD(1, 3, "turn 1");
         digitalWrite(relay, HIGH);
         discRotate_withTimes(1);
         delay(2000);
         digitalWrite(relay, LOW);
-        setUpLCD(1, 3, "turn 1");
         }
       if(strnow=="16730805"){//下
         Serial.println("轉2個位置");
+        setUpLCD(1, 3, "turn 2");
         digitalWrite(relay, HIGH);
         discRotate_withTimes(2);
         delay(2000);
         digitalWrite(relay, LOW);
-        setUpLCD(1, 3, "turn 2");
         }
       if(strnow=="16716015"){//左
         Serial.println("轉3個位置");
+        setUpLCD(1, 3, "turn 3");
         digitalWrite(relay, HIGH);
         discRotate_withTimes(3);
         delay(2000);
         digitalWrite(relay, LOW);
-        setUpLCD(1, 3, "turn 3");
         }
       if(strnow=="16734885"){//右
         Serial.println("轉4個位置");
+        setUpLCD(1, 3, "turn 4");
         digitalWrite(relay, HIGH);
         discRotate_withTimes(4);
         delay(2000);
         digitalWrite(relay, LOW);
-        setUpLCD(1, 3, "turn 4");
         }
       if(strnow=="16712445"){//5
         Serial.println("轉5個位置");
+        setUpLCD(1, 3, "turn 5");
         digitalWrite(relay, HIGH);
         discRotate_withTimes(5);
         delay(2000);
         digitalWrite(relay, LOW);
-        setUpLCD(1, 3, "turn 6");
         }
       if(strnow=="16761405"){//6
         Serial.println("轉6個位置");
+        setUpLCD(1, 3, "turn 6");
         digitalWrite(relay, HIGH);
         discRotate_withTimes(6);
         delay(2000);
         digitalWrite(relay, LOW);
-        setUpLCD(1, 3, "turn 6");
         }
       if(strnow=="16769055"){//7
         Serial.println("轉7個位置");
+        setUpLCD(1, 3, "turn 7");
         digitalWrite(relay, HIGH);
         discRotate_withTimes(7);
         delay(2000);
         digitalWrite(relay, LOW);
-        setUpLCD(1, 3, "turn 7");
         }
     }
 ////////////////////////////////////////////////////////////////////////
