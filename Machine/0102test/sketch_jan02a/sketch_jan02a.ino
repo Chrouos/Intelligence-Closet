@@ -183,3 +183,32 @@ void loop() {
   delay(100);
   
 }
+// 步進馬達: 停止
+void mstop(int l298n_car[4]) {
+    digitalWrite(l298n_car[0], LOW);
+    digitalWrite(l298n_car[1], LOW);
+    digitalWrite(l298n_car[2], LOW);
+    digitalWrite(l298n_car[3], LOW);
+}
+// 步進馬達: 前進
+void mfront(int l298n_car[4]) {
+    digitalWrite(l298n_car[0], LOW);
+    digitalWrite(l298n_car[1], HIGH);
+    digitalWrite(l298n_car[2], LOW);
+    digitalWrite(l298n_car[3], HIGH);
+}
+// 步進馬達: 後退
+void mback(int l298n_car[4]) {
+    digitalWrite(l298n_car[0], HIGH);
+    digitalWrite(l298n_car[1], LOW);
+    digitalWrite(l298n_car[2], HIGH);
+    digitalWrite(l298n_car[3], LOW);
+}
+
+
+
+// LCD 顯示畫面
+void setUpLCD(int column, int row, String text){
+    lcd.setCursor(column, row);  // (colum, row) 
+    lcd.print(text);
+}
