@@ -169,7 +169,6 @@ void loop() {
 
         Serial.println("servo_y_pos: " + String(servo_y_pos));
         setUpLCD(1, 1, "Y: "  + String(servo_y_pos) + " ");
-
         servo_y_lastStatus = true;
     }
    // y軸 - 正
@@ -185,7 +184,6 @@ void loop() {
 
         Serial.println("servo_y_pos: " + String(servo_y_pos));
         setUpLCD(1, 1, "Y: "  + String(servo_y_pos) + " ");
-
         servo_y_lastStatus = true;
     }
     else if (servo_y_lastStatus == true 

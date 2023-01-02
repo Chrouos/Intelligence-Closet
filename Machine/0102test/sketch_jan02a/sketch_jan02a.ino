@@ -134,40 +134,85 @@ void loop() {
         }
         car_servo_lastStatus = true;
         Serial.println("servo_car_pos: " + String(servo_car_pos));
-      }
-      if(strnow=="16730805"){
+        setUpLCD(1, 2, "car: "  + String(servo_car_pos) + " ");}
+      if(strnow=="16730805"){//車車伺服負
         Serial.println("車車放下");
         while(servo_car_pos + (-1 * angle) >= 100 ){
           servo_car_pos += (-1 * angle);
           car_servo.attach(car_servo_pin);
           car_servo.write(servo_car_pos);
           delay(angle_delayTime);
-        }
+          }
         car_servo_lastStatus = true;
         Serial.println("servo_car_pos: " + String(servo_car_pos));
+        setUpLCD(1, 2, "car: "  + String(servo_car_pos) + " ");
         }
-      if(strnow=="16716015"){//車車伺服負
-        Serial.println("車車後退");
-        mback(entrance_L298N_car);
-        Serial.println("car front. ");
-        car_lastState = true;
-      }
       if(strnow=="16734885"){//車車前進
         Serial.println("車車前進");
         mfront(entrance_L298N_car);
         Serial.println("car back. ");
-        car_lastState = true;
-      }
+        car_lastState = true;}
+      if(strnow=="16716015"){//車車後退
+        Serial.println("車車後退");
+        mback(entrance_L298N_car);
+        Serial.println("car front. ");
+        car_lastState = true;}
     }
+
     if(mod==2){
-      if(strnow=="16718055"){Serial.println("2上");}
-      if(strnow=="16730805"){Serial.println("2下");}
-      if(strnow=="16716015"){Serial.println("2左");}
-      if(strnow=="16734885"){Serial.println("2右");}
+      if(strnow=="16718055"){//手臂向上
+        Serial.println("手臂向上");
+        while(servo_y_pos + (1 * angle) <= 150 ){
+          servo_y_pos += (1 * angle);
+          biaxial_servo_y.attach(biaxial_servo_y_pin);
+          biaxial_servo_y.write(servo_y_pos);
+          delay(angle_delayTime*2);
+        }
+        Serial.println("servo_y_pos: " + String(servo_y_pos));
+        setUpLCD(1, 1, "Y: "  + String(servo_y_pos) + " ");
+        servo_y_lastStatus = true;
+        }
+      if(strnow=="16730805"){//手臂向下
+        Serial.println("手臂向下");
+        while(servo_y_pos + (-1 * angle) >= 40 ){
+          servo_y_pos += (-1 * angle);
+          biaxial_servo_y.attach(biaxial_servo_y_pin);
+          biaxial_servo_y.write(servo_y_pos);
+          delay(angle_delayTime*2);
+        }
+        Serial.println("servo_y_pos: " + String(servo_y_pos));
+        setUpLCD(1, 1, "Y: "  + String(servo_y_pos) + " ");
+        servo_y_lastStatus = true;
+        }
+      if(strnow=="16734885"){//手臂向右
+        Serial.println("手臂向右");
+        while(servo_x_pos + (1 * angle) <= 96 ){
+          servo_x_pos += (1 * angle);
+          biaxial_servo_x.attach(biaxial_servo_x_pin);
+          biaxial_servo_x.write(servo_x_pos);
+          delay(angle_delayTime*2);
+        }
+        Serial.println("servo_x_pos: " + String(servo_x_pos));
+        setUpLCD(1, 0, "X: "  + String(servo_x_pos) + " ");
+        servo_x_lastStatus = true;
+        }
+      if(strnow=="16716015"){//手臂向左
+        Serial.println("手臂向左");
+        while(servo_x_pos + (-1 * angle) >= 12 ){
+          servo_x_pos += (-1 * angle);
+          biaxial_servo_x.attach(biaxial_servo_x_pin);
+          biaxial_servo_x.write(servo_x_pos);
+          delay(angle_delayTime*2);
+        }
+        Serial.println("servo_x_pos: " + String(servo_x_pos));
+        setUpLCD(1, 0, "X: "  + String(servo_x_pos) + " ");
+        servo_x_lastStatus = true;  
+        }
     }
+    
     if(mod==3){
-      if(strnow=="16718055"){Serial.println("1上");}
-      if(strnow=="16730805"){Serial.println("1下");}
+      if(strnow=="16718055"){Serial.println("3上");}
+      if(strnow=="16730805"){Serial.println("3下");}
     }
     if(mod==4){
       if(strnow=="16726215"){Serial.println("OK");}
@@ -201,9 +246,13 @@ void loop() {
       mstop(entrance_L298N_car);
       car_lastState = false;
     }
-    if(car_servo_lastStatus = true){
+    if(car_servo_lastStatus == true){
       car_servo.detach();
       car_servo_lastStatus = false;
+    }
+    if(servo_x_lastStatus == true){
+    biaxial_servo_x.detach();
+    servo_x_lastStatus = false;
     }
     delay(150);
   }
