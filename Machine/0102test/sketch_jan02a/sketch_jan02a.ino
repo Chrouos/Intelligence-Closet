@@ -29,6 +29,7 @@ Stepper disc_stepper(200, 2, 3, 4, 5);
 const int disc_btn_front = 24, discButton = 23, disc_btn_back = 22;
 const int relay = 48; // 繼電器
 int disc_lastState = false;
+
 int car_servo_lastStatus = false;
 
 int servo_x_pos = 12, servo_y_pos = 40, servo_car_pos =100 ;
@@ -50,8 +51,9 @@ void setup() {
     Serial.println("Enabled IRin");
     
     // 控制腳位
-    // pinMode(disc_btn_front, INPUT);
-    // pinMode(disc_btn_back, INPUT);
+    pinMode(disc_btn_front, INPUT);
+    pinMode(disc_btn_back, INPUT);
+    pinMode(discButton, INPUT);
     
     for(int i=0; i<4; i++){
         pinMode(entrance_L298N_car[i], OUTPUT);
@@ -67,9 +69,9 @@ void setup() {
     car_servo.write(100);
 
     // 步進馬達
-//    pinMode(relay, OUTPUT);
-//    digitalWrite(relay, LOW);
-//    disc_stepper.setSpeed(30);
+    pinMode(relay, OUTPUT);
+    digitalWrite(relay, LOW);
+    disc_stepper.setSpeed(30);
 
     // 初始化 LCD
     lcd.init();
@@ -345,33 +347,13 @@ void setUpLCD(int column, int row, String text){
     lcd.setCursor(column, row);  // (colum, row) 
     lcd.print(text);
 }
-//圓盤轉動
-void discRotate_withTimes(int times){
-  long globalDelayTime = 50;  // 消斗的時間
-    //Serial.println("discRotate_withTimes have to rotate " + String(times) + " Times");
-    long temp_time = millis();
-    int now_times = 0;
-    // 開始旋轉 
-    bool disc_start = true;  // true: start, false: stop
-    //disc_start == true | now_times <= times
-    while( now_times != times){
-        disc_stepper.step(-1);  // 20/200 = 1/10
-        if(millis() - temp_time > 500){
-          if( checkTheBtnStatus(discButton, discButtonState, discButtonLastState, discButtonlastDebounceTime, globalDelayTime) == true){
-              disc_start = false;
-              now_times++;
-          }
-        }
-       
-    }
-    // 微動開關按了才結束
-}
 // 確認按鈕狀況
 int checkTheBtnStatus(const int button, int& buttonState, int& buttonLastState, long& buttonlastDebounceTime, long delayTime){
     int buttonRead = digitalRead(button);
     if (buttonRead != buttonLastState) {  // 如果按键状态和上次不同
         buttonlastDebounceTime = millis();  // 记录初始时间
     }
+
     if ((millis() - buttonlastDebounceTime) > delayTime) {
         if (buttonRead != buttonState) {  // 如果按键状态改变了
             buttonState = buttonRead;
@@ -384,4 +366,28 @@ int checkTheBtnStatus(const int button, int& buttonState, int& buttonLastState, 
     }
     buttonLastState = buttonRead;  // 保存处理结果
     return false;
+}
+//圓盤轉動
+void discRotate_withTimes(int times){
+  long globalDelayTime = 50;  // 消斗的時間
+
+    Serial.println("discRotate_withTimes have to rotate " + String(times) + " Times");
+    long temp_time = millis();
+    int now_times = 0;
+    // 開始旋轉 
+    
+    bool disc_start = true;  // true: start, false: stop
+    //disc_start == true | now_times <= times
+    while( now_times != times){
+
+        disc_stepper.step(-1);  // 20/200 = 1/10
+        if(millis() - temp_time > 500){
+          if( checkTheBtnStatus(discButton, discButtonState, discButtonLastState, discButtonlastDebounceTime, globalDelayTime) == true){
+              disc_start = false;
+              now_times++;
+          }
+        }
+       
+    }
+    // 微動開關按了才結束
 }
