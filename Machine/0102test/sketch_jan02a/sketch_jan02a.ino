@@ -36,7 +36,7 @@ int car_lastState = false;
 const  int car_servo_btn_negative = 39, car_servo_btn_positive = 37;
 int car_servo_lastStatus = false;
 
-int servo_x_pos = 0, servo_y_pos = 0, servo_car_pos = 0;
+int servo_x_pos = 0, servo_y_pos = 0, servo_car_pos =100 ;
 int angle = 1, angle_delayTime = 15;
 
 // ----------------------------- 控制腳位 end ----------------------------- //
@@ -126,22 +126,24 @@ void loop() {
     if(mod==1){
       if(strnow=="16718055"){//車車伺服正
         Serial.println("車車勾住");
-        if(servo_car_pos + (1 * angle) <= 180 ){
+        while(servo_car_pos + (1 * angle) <= 164 ){
           servo_car_pos += (1 * angle);
           car_servo.attach(car_servo_pin);
           car_servo.write(servo_car_pos);
           delay(angle_delayTime);
         }
+        car_servo_lastStatus = true;
         Serial.println("servo_car_pos: " + String(servo_car_pos));
       }
       if(strnow=="16730805"){
         Serial.println("車車放下");
-        if(servo_car_pos + (-1 * angle) >= 0 ){
+        while(servo_car_pos + (-1 * angle) >= 100 ){
           servo_car_pos += (-1 * angle);
           car_servo.attach(car_servo_pin);
           car_servo.write(servo_car_pos);
           delay(angle_delayTime);
-      }
+        }
+        car_servo_lastStatus = true;
         Serial.println("servo_car_pos: " + String(servo_car_pos));
         }
       if(strnow=="16716015"){//車車伺服負
@@ -199,6 +201,11 @@ void loop() {
       mstop(entrance_L298N_car);
       car_lastState = false;
     }
+    if(car_servo_lastStatus = true){
+      car_servo.detach();
+      car_servo_lastStatus = false;
+    }
+    delay(150);
   }
 }
 // ------------------------------ 控制 End ------------------------------ //
