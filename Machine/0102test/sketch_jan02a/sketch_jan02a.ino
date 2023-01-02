@@ -40,6 +40,7 @@ int servo_x_pos = 0, servo_y_pos = 0, servo_car_pos = 0;
 int angle = 1, angle_delayTime = 15;
 
 // ----------------------------- 控制腳位 end ----------------------------- //
+// ------------------------------ 變數設定 ------------------------------ //
 void setup() {
 
     // 開啟Serial Port 並設定通訊速率(baud rate) 
@@ -97,7 +98,7 @@ void setup() {
 
 }
 
-
+// ------------------------------ 控制 Start ------------------------------ //
 void loop() {
   if (irrecv.decode(&results)) {
     //Serial.println(results.value, HEX); //接收訊號，以16進位型式輸出到監控視窗
@@ -123,20 +124,38 @@ void loop() {
       Serial.println("4");}
 ////////////////////////////////////////////////////////////////////////
     if(mod==1){
-      if(strnow=="16718055"){Serial.println("1上");}
-      if(strnow=="16730805"){Serial.println("1下");}
-      if(strnow=="16716015"){//車車前進
-        Serial.println("1左");
-        mfront(entrance_L298N_car);
+      if(strnow=="16718055"){//車車伺服正
+        Serial.println("車車勾住");
+        if(servo_car_pos + (1 * angle) <= 180 ){
+          servo_car_pos += (1 * angle);
+          car_servo.attach(car_servo_pin);
+          car_servo.write(servo_car_pos);
+          delay(angle_delayTime);
+        }
+        Serial.println("servo_car_pos: " + String(servo_car_pos));
+      }
+      if(strnow=="16730805"){
+        Serial.println("車車放下");
+        if(servo_car_pos + (-1 * angle) >= 0 ){
+          servo_car_pos += (-1 * angle);
+          car_servo.attach(car_servo_pin);
+          car_servo.write(servo_car_pos);
+          delay(angle_delayTime);
+      }
+        Serial.println("servo_car_pos: " + String(servo_car_pos));
+        }
+      if(strnow=="16716015"){//車車伺服負
+        Serial.println("車車後退");
+        mback(entrance_L298N_car);
         Serial.println("car front. ");
         car_lastState = true;
-        }
-      if(strnow=="16734885"){//車車後退
-        Serial.println("1右");
-        mback(entrance_L298N_car);
+      }
+      if(strnow=="16734885"){//車車前進
+        Serial.println("車車前進");
+        mfront(entrance_L298N_car);
         Serial.println("car back. ");
         car_lastState = true;
-        }
+      }
     }
     if(mod==2){
       if(strnow=="16718055"){Serial.println("2上");}
@@ -181,9 +200,8 @@ void loop() {
       car_lastState = false;
     }
   }
-
-  
 }
+// ------------------------------ 控制 End ------------------------------ //
 // 步進馬達: 停止
 void mstop(int l298n_car[4]) {
     digitalWrite(l298n_car[0], LOW);
@@ -205,9 +223,6 @@ void mback(int l298n_car[4]) {
     digitalWrite(l298n_car[2], HIGH);
     digitalWrite(l298n_car[3], LOW);
 }
-
-
-
 // LCD 顯示畫面
 void setUpLCD(int column, int row, String text){
     lcd.setCursor(column, row);  // (colum, row) 
