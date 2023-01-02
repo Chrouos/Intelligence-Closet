@@ -125,8 +125,18 @@ void loop() {
     if(mod==1){
       if(strnow=="16718055"){Serial.println("1上");}
       if(strnow=="16730805"){Serial.println("1下");}
-      if(strnow=="16716015"){Serial.println("1左");}
-      if(strnow=="16734885"){Serial.println("1右");}
+      if(strnow=="16716015"){//車車前進
+        Serial.println("1左");
+        mfront(entrance_L298N_car);
+        Serial.println("car front. ");
+        car_lastState = true;
+        }
+      if(strnow=="16734885"){//車車後退
+        Serial.println("1右");
+        mback(entrance_L298N_car);
+        Serial.println("car back. ");
+        car_lastState = true;
+        }
     }
     if(mod==2){
       if(strnow=="16718055"){Serial.println("2上");}
@@ -164,5 +174,12 @@ void loop() {
     strnow="";
     irrecv.resume(); // 接著接收下一個訊號
   }
+  else {
+    if(car_lastState == true){
+      mstop(entrance_L298N_car);
+      car_lastState = false;
+    }
+  }
   delay(100);
+  
 }
