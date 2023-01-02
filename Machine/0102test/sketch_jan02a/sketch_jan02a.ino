@@ -77,9 +77,9 @@ void setup() {
     car_servo.write(100);
 
     // 步進馬達
-    pinMode(relay, OUTPUT);
-    digitalWrite(relay, LOW);
-    disc_stepper.setSpeed(30);
+//    pinMode(relay, OUTPUT);
+//    digitalWrite(relay, LOW);
+//    disc_stepper.setSpeed(30);
 
     // 初始化 LCD
     lcd.init();
@@ -173,6 +173,7 @@ void loop() {
 ////////////////////////////////////////////////////////////////////////
     strnow="";
     irrecv.resume(); // 接著接收下一個訊號
+    delay(150);
   }
   else {
     if(car_lastState == true){
@@ -180,7 +181,7 @@ void loop() {
       car_lastState = false;
     }
   }
-  delay(100);
+
   
 }
 // 步進馬達: 停止
