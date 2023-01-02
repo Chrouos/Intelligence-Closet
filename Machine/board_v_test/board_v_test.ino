@@ -94,30 +94,6 @@ void setup() {
 }
 
 void loop() {
-//    if ( digitalRead(biaxial_servo_x_control_btn_negative) == HIGH){
-//      Serial.println(biaxial_servo_x_control_btn_negative);
-//    }
-//    if ( digitalRead(biaxial_servo_x_control_btn_positive) == HIGH){
-//      Serial.println(biaxial_servo_x_control_btn_positive);
-//    }
-//    if ( digitalRead(biaxial_servo_y_control_btn_negative) == HIGH){
-//      Serial.println(biaxial_servo_y_control_btn_negative);
-//    }
-//    if ( digitalRead(biaxial_servo_y_control_btn_positive) == HIGH){
-//      Serial.println(biaxial_servo_y_control_btn_positive);
-//    }
-//    if ( digitalRead(car_front_btn) == HIGH){
-//      Serial.println(car_front_btn);
-//    }
-//    if ( digitalRead(car_back_btn) == HIGH){
-//      Serial.println(car_back_btn);
-//    }
-//     if ( digitalRead(disc_btn_front) == HIGH){
-//      Serial.println(disc_btn_front);
-//    }
-//     if ( digitalRead(disc_btn_back) == HIGH){
-//      Serial.println(disc_btn_back);
-//    }
 
     // x軸 - 負
     if ( digitalRead(biaxial_servo_x_control_btn_negative) == HIGH){
@@ -301,9 +277,6 @@ void mback(int l298n_car[4]) {
     digitalWrite(l298n_car[2], HIGH);
     digitalWrite(l298n_car[3], LOW);
 }
-
-
-
 // LCD 顯示畫面
 void setUpLCD(int column, int row, String text){
     lcd.setCursor(column, row);  // (colum, row) 
@@ -311,7 +284,6 @@ void setUpLCD(int column, int row, String text){
 }
 
 // 確認按鈕狀況
-
 int checkTheBtnStatus(const int button, int& buttonState, int& buttonLastState, long& buttonlastDebounceTime, long delayTime){
     int buttonRead = digitalRead(button);
     if (buttonRead != buttonLastState) {  // 如果按键状态和上次不同

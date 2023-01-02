@@ -36,7 +36,7 @@ int car_lastState = false;
 const  int car_servo_btn_negative = 39, car_servo_btn_positive = 37;
 int car_servo_lastStatus = false;
 
-int servo_x_pos = 0, servo_y_pos = 0, servo_car_pos =100 ;
+int servo_x_pos = 12, servo_y_pos = 40, servo_car_pos =100 ;
 int angle = 1, angle_delayTime = 15;
 
 // ----------------------------- 控制腳位 end ----------------------------- //
@@ -86,8 +86,7 @@ void setup() {
     lcd.init();
     lcd.backlight();
     lcd.clear();
-
-    //setUpLCD(1, 3, "test mode");
+    setUpLCD(1, 3, "test mode");
     
     
     // 最後歸位
@@ -112,15 +111,19 @@ void loop() {
 ////////////////////////////////////////////////////////////////////////模式調整
     if(strnow=="16753245"){
       mod=1;
+      setUpLCD(1, 3, "car control");
       Serial.println("1");}
     if(strnow=="16736925"){
       mod=2;
+      setUpLCD(1, 3, "arm control");
       Serial.println("2");}
     if(strnow=="16769565"){
       mod=3;
+      setUpLCD(1, 3, "door control");
       Serial.println("3");}
     if(strnow=="16720605"){
       mod=4;
+      setUpLCD(1, 3, "mid control");
       Serial.println("4");}
 ////////////////////////////////////////////////////////////////////////
     if(mod==1){
@@ -209,22 +212,78 @@ void loop() {
         servo_x_lastStatus = true;  
         }
     }
-    
-    if(mod==3){
+
+    if(mod==3){//入口伺服馬達
       if(strnow=="16718055"){Serial.println("3上");}
       if(strnow=="16730805"){Serial.println("3下");}
     }
-    if(mod==4){
-      if(strnow=="16726215"){Serial.println("OK");}
-      if(strnow=="16718055"){Serial.println("4上");}
-      if(strnow=="16730805"){Serial.println("4下");}
-      if(strnow=="16716015"){Serial.println("4左");}
-      if(strnow=="16734885"){Serial.println("4右");}
-      if(strnow=="16712445"){Serial.println("4五");}
-      if(strnow=="16761405"){Serial.println("4六");}
-      if(strnow=="16769055"){Serial.println("4七");}
+
+    if(mod==4){//圓盤控制
+      if(strnow=="16726215"){//OK
+        Serial.println("轉動");
+        }
+      if(strnow=="16718055"){//上
+        Serial.println("轉1個位置");
+        digitalWrite(relay, HIGH);
+        discRotate_withTimes(1);
+        delay(2000);
+        digitalWrite(relay, LOW);
+        setUpLCD(1, 3, "turn 1");
+        }
+      if(strnow=="16730805"){//下
+        Serial.println("轉2個位置");
+        digitalWrite(relay, HIGH);
+        discRotate_withTimes(2);
+        delay(2000);
+        digitalWrite(relay, LOW);
+        setUpLCD(1, 3, "turn 2");
+        }
+      if(strnow=="16716015"){//左
+        Serial.println("轉3個位置");
+        digitalWrite(relay, HIGH);
+        discRotate_withTimes(3);
+        delay(2000);
+        digitalWrite(relay, LOW);
+        setUpLCD(1, 3, "turn 3");
+        }
+      if(strnow=="16734885"){//右
+        Serial.println("轉4個位置");
+        digitalWrite(relay, HIGH);
+        discRotate_withTimes(4);
+        delay(2000);
+        digitalWrite(relay, LOW);
+        setUpLCD(1, 3, "turn 4");
+        }
+      if(strnow=="16712445"){//5
+        Serial.println("轉5個位置");
+        digitalWrite(relay, HIGH);
+        discRotate_withTimes(5);
+        delay(2000);
+        digitalWrite(relay, LOW);
+        setUpLCD(1, 3, "turn 6");
+        }
+      if(strnow=="16761405"){//6
+        Serial.println("轉6個位置");
+        digitalWrite(relay, HIGH);
+        discRotate_withTimes(6);
+        delay(2000);
+        digitalWrite(relay, LOW);
+        setUpLCD(1, 3, "turn 6");
+        }
+      if(strnow=="16769055"){//7
+        Serial.println("轉7個位置");
+        digitalWrite(relay, HIGH);
+        discRotate_withTimes(7);
+        delay(2000);
+        digitalWrite(relay, LOW);
+        setUpLCD(1, 3, "turn 7");
+        }
     }
 ////////////////////////////////////////////////////////////////////////
+//    if(strnow=="16753245"){Serial.println("1");}
+//    if(strnow=="16736925"){Serial.println("2");}
+//    if(strnow=="16769565"){Serial.println("3");}
+//    if(strnow=="16720605"){Serial.println("4");}
 //    if(strnow=="16712445"){Serial.println("5");}
 //    if(strnow=="16761405"){Serial.println("6");}
 //    if(strnow=="16769055"){Serial.println("7");}
@@ -253,6 +312,10 @@ void loop() {
     if(servo_x_lastStatus == true){
     biaxial_servo_x.detach();
     servo_x_lastStatus = false;
+    }
+    if(servo_y_lastStatus == true){
+    biaxial_servo_y.detach();
+    servo_y_lastStatus = false;
     }
     delay(150);
   }
@@ -283,4 +346,44 @@ void mback(int l298n_car[4]) {
 void setUpLCD(int column, int row, String text){
     lcd.setCursor(column, row);  // (colum, row) 
     lcd.print(text);
+}
+//圓盤轉動
+void discRotate_withTimes(int times){
+  long globalDelayTime = 50;  // 消斗的時間
+    //Serial.println("discRotate_withTimes have to rotate " + String(times) + " Times");
+    long temp_time = millis();
+    int now_times = 0;
+    // 開始旋轉 
+    bool disc_start = true;  // true: start, false: stop
+    //disc_start == true | now_times <= times
+    while( now_times != times){
+        disc_stepper.step(-1);  // 20/200 = 1/10
+        if(millis() - temp_time > 500){
+          if( checkTheBtnStatus(discButton, discButtonState, discButtonLastState, discButtonlastDebounceTime, globalDelayTime) == true){
+              disc_start = false;
+              now_times++;
+          }
+        }
+       
+    }
+    // 微動開關按了才結束
+}
+// 確認按鈕狀況
+int checkTheBtnStatus(const int button, int& buttonState, int& buttonLastState, long& buttonlastDebounceTime, long delayTime){
+    int buttonRead = digitalRead(button);
+    if (buttonRead != buttonLastState) {  // 如果按键状态和上次不同
+        buttonlastDebounceTime = millis();  // 记录初始时间
+    }
+    if ((millis() - buttonlastDebounceTime) > delayTime) {
+        if (buttonRead != buttonState) {  // 如果按键状态改变了
+            buttonState = buttonRead;
+
+            // 切換了開始
+            if (buttonRead == HIGH) {
+                return true;
+            }
+        }
+    }
+    buttonLastState = buttonRead;  // 保存处理结果
+    return false;
 }
