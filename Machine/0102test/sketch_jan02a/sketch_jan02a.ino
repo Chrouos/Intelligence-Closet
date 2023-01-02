@@ -11,7 +11,7 @@ Servo car_servo;
 const int car_servo_pin = A4;
 // LCD
 LiquidCrystal_I2C lcd(0x27, 16, 4); // I2C位址，默認為0x27或0x3F，依據背板的晶片不同而有差異，16、2為LCD顯示器大小。
-// ----------------------------- 控制腳位 end ----------------------------- //
+// ----------------------------- 控制腳位 start ----------------------------- //
 //紅外遙控器
 const int RECV_PIN = 53;
 IRrecv irrecv(RECV_PIN);
@@ -20,20 +20,15 @@ String strp,strnow;//暫存器
 int mod=0,donow=0;//命令形式
 
 // 伺服馬達
-const int biaxial_servo_x_control_btn_negative = 27, biaxial_servo_x_control_btn_positive = 25;
-const int biaxial_servo_y_control_btn_negative = 31, biaxial_servo_y_control_btn_positive = 29;
 int servo_x_lastStatus = false, servo_y_lastStatus = false;
 // 車車(減速馬達)的L298N
 const int entrance_L298N_car[4] = {6, 7, 8, 9};
-const int car_front_btn = 33, car_back_btn = 35;
 int car_lastState = false;
 //步進馬達
-// Stepper disc_stepper(200, 2, 3, 4, 5); 
-// const int disc_btn_front = 39, disc_btn_back = 37;
-// const int relay = 48; // 繼電器
-// int disc_lastState = false;
-// 車車的伺服馬達(掛勾)
-const  int car_servo_btn_negative = 39, car_servo_btn_positive = 37;
+Stepper disc_stepper(200, 2, 3, 4, 5); 
+const int disc_btn_front = 24, discButton = 23, disc_btn_back = 22;
+const int relay = 48; // 繼電器
+int disc_lastState = false;
 int car_servo_lastStatus = false;
 
 int servo_x_pos = 12, servo_y_pos = 40, servo_car_pos =100 ;
@@ -52,15 +47,6 @@ void setup() {
     Serial.println("Enabled IRin");
     
     // 控制腳位
-    pinMode(biaxial_servo_x_control_btn_negative, INPUT);
-    pinMode(biaxial_servo_x_control_btn_positive, INPUT);
-    pinMode(biaxial_servo_y_control_btn_negative, INPUT);
-    pinMode(biaxial_servo_y_control_btn_positive, INPUT);
-    pinMode(car_front_btn, INPUT);
-    pinMode(car_back_btn, INPUT);
-
-    pinMode(car_servo_btn_negative, INPUT);
-    pinMode(car_servo_btn_positive, INPUT);
     // pinMode(disc_btn_front, INPUT);
     // pinMode(disc_btn_back, INPUT);
     
