@@ -155,59 +155,16 @@ void loop() {
 
     if(mod==2){
       if(strnow=="16718055"){//手臂向上
-        Serial.println("手臂向上");
-        while(servo_y_pos + (1 * angle) <= 150 ){
-          servo_y_pos += (1 * angle);
-          biaxial_servo_y.attach(biaxial_servo_y_pin);
-          biaxial_servo_y.write(servo_y_pos);
-          delay(angle_delayTime*2);
-        }
-        Serial.println("servo_y_pos: " + String(servo_y_pos));
-        setUpLCD(1, 1, "Y: "  + String(servo_y_pos) + " ");
-        servo_y_lastStatus = true;
+        handup();
         }
       if(strnow=="16730805"){//手臂向下
-        Serial.println("手臂向下");
-        while(servo_y_pos + (-1 * angle) >= 40 ){
-          servo_y_pos += (-1 * angle);
-          biaxial_servo_y.attach(biaxial_servo_y_pin);
-          biaxial_servo_y.write(servo_y_pos);
-          delay(angle_delayTime*2);
-        }
-        Serial.println("servo_y_pos: " + String(servo_y_pos));
-        setUpLCD(1, 1, "Y: "  + String(servo_y_pos) + " ");
-        servo_y_lastStatus = true;
+        handdown();
         }
       if(strnow=="16734885"){//手臂向右
-        Serial.println("手臂向右");
-        while(servo_x_pos + (1 * angle) <= 75 ){
-          servo_x_pos += (1 * angle);
-          biaxial_servo_x.attach(biaxial_servo_x_pin);
-          biaxial_servo_x.write(servo_x_pos);
-          delay(angle_delayTime);
-        }
-        delay(1000);
-        while(servo_x_pos + (1 * angle) <= 96 ){
-          servo_x_pos += (1 * angle);
-          biaxial_servo_x.attach(biaxial_servo_x_pin);
-          biaxial_servo_x.write(servo_x_pos);
-          delay(angle_delayTime*2);
-        }
-        Serial.println("servo_x_pos: " + String(servo_x_pos));
-        setUpLCD(1, 0, "X: "  + String(servo_x_pos) + " ");
-        servo_x_lastStatus = true;
+        handright();
         }
       if(strnow=="16716015"){//手臂向左
-        Serial.println("手臂向左");
-        while(servo_x_pos + (-1 * angle) >= 12 ){
-          servo_x_pos += (-1 * angle);
-          biaxial_servo_x.attach(biaxial_servo_x_pin);
-          biaxial_servo_x.write(servo_x_pos);
-          delay(angle_delayTime*2);
-        }
-        Serial.println("servo_x_pos: " + String(servo_x_pos));
-        setUpLCD(1, 0, "X: "  + String(servo_x_pos) + " ");
-        servo_x_lastStatus = true;  
+        handleft();
         }
     }
 
@@ -326,6 +283,67 @@ void loop() {
 //  }
 }
 // ------------------------------ 控制 End ------------------------------ //
+//手臂左轉
+void handleft(){
+  Serial.println("手臂向左");
+  while(servo_x_pos + (-1 * angle) >= 12 ){
+    servo_x_pos += (-1 * angle);
+    biaxial_servo_x.attach(biaxial_servo_x_pin);
+    biaxial_servo_x.write(servo_x_pos);
+    delay(angle_delayTime*2);
+  }
+  Serial.println("servo_x_pos: " + String(servo_x_pos));
+  setUpLCD(1, 0, "X: "  + String(servo_x_pos) + " ");
+  servo_x_lastStatus = true;
+}
+//手臂右轉
+void handright(){
+  Serial.println("手臂向右");
+  while(servo_x_pos + (1 * angle) <= 75 ){
+    servo_x_pos += (1 * angle);
+    biaxial_servo_x.attach(biaxial_servo_x_pin);
+    biaxial_servo_x.write(servo_x_pos);
+    delay(angle_delayTime);
+  }
+  delay(1000);
+  while(servo_x_pos + (1 * angle) <= 96 ){
+    servo_x_pos += (1 * angle);
+    biaxial_servo_x.attach(biaxial_servo_x_pin);
+    biaxial_servo_x.write(servo_x_pos);
+    delay(angle_delayTime*2);
+  }
+  Serial.println("servo_x_pos: " + String(servo_x_pos));
+  setUpLCD(1, 0, "X: "  + String(servo_x_pos) + " ");
+  servo_x_lastStatus = true;
+}
+//手臂勾起
+void handup(){
+  Serial.println("手臂向上");
+  while(servo_y_pos + (1 * angle) <= 150 ){
+    servo_y_pos += (1 * angle);
+    biaxial_servo_y.attach(biaxial_servo_y_pin);
+    biaxial_servo_y.write(servo_y_pos);
+    delay(angle_delayTime*2);
+  }
+  Serial.println("servo_y_pos: " + String(servo_y_pos));
+  setUpLCD(1, 1, "Y: "  + String(servo_y_pos) + " ");
+  servo_y_lastStatus = true;
+}
+//手臂放下
+void handdown(){
+  Serial.println("手臂向下");
+  while(servo_y_pos + (-1 * angle) >= 40 ){
+    servo_y_pos += (-1 * angle);
+    biaxial_servo_y.attach(biaxial_servo_y_pin);
+    biaxial_servo_y.write(servo_y_pos);
+    delay(angle_delayTime*2);
+  }
+  Serial.println("servo_y_pos: " + String(servo_y_pos));
+  setUpLCD(1, 1, "Y: "  + String(servo_y_pos) + " ");
+  servo_y_lastStatus = true;
+}
+
+
 // 步進馬達: 停止
 void mstop(int l298n_car[4]) {
     digitalWrite(l298n_car[0], LOW);
