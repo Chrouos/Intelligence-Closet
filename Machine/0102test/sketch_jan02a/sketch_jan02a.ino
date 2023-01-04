@@ -71,7 +71,7 @@ void setup() {
     // 步進馬達
     pinMode(relay, OUTPUT);
     digitalWrite(relay, LOW);
-    disc_stepper.setSpeed(30);
+    disc_stepper.setSpeed(5);
 
     // 初始化 LCD
     lcd.init();
@@ -180,6 +180,13 @@ void loop() {
         }
       if(strnow=="16734885"){//手臂向右
         Serial.println("手臂向右");
+        while(servo_x_pos + (1 * angle) <= 75 ){
+          servo_x_pos += (1 * angle);
+          biaxial_servo_x.attach(biaxial_servo_x_pin);
+          biaxial_servo_x.write(servo_x_pos);
+          delay(angle_delayTime);
+        }
+        delay(1000);
         while(servo_x_pos + (1 * angle) <= 96 ){
           servo_x_pos += (1 * angle);
           biaxial_servo_x.attach(biaxial_servo_x_pin);
@@ -309,14 +316,14 @@ void loop() {
     servo_y_lastStatus = false;
     }
     delay(150);
-  }
-  if ( digitalRead(disc_btn_front) == HIGH){
-        Serial.println("入口");
-        digitalWrite(relay, HIGH);
-        discRotate_withTimes(1);
-        delay(2000);
-        digitalWrite(relay, LOW);
-  }
+  }mj6;i
+//  if ( digitalRead(disc_btn_front) == HIGH){
+//        Serial.println("入口");
+//        digitalWrite(relay, HIGH);
+//        discRotate_withTimes(1);
+//        delay(2000);
+//        digitalWrite(relay, LOW);
+//  }
 }
 // ------------------------------ 控制 End ------------------------------ //
 // 步進馬達: 停止
