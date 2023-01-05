@@ -117,18 +117,6 @@ if (irrecv.decode(&results)) {
     mod=4;
     setUpLCD(1, 3, "mid control");
     Serial.println("4");}
-   if(strnow=="16726215"){
-     if(disc_lastState=false){
-        disc_lastState=true;
-        setUpLCD(1, 0, "          on");
-        digitalWrite(relay, HIGH);
-     }
-     else if(disc_lastState=true){
-        disc_lastState=false;
-        setUpLCD(1, 0, "          off");
-        digitalWrite(relay, LOW);
-     }
-    }
 ////////////////////////////////////////////////////////////////////////執行命令
   if(mod==1){//車車控制
     if(strnow=="16718055"){//車車勾起
@@ -294,7 +282,7 @@ void arm_right(){
     delay(angle_delayTime);
   }
   delay(1000);
-  while(servo_x_pos + (1 * angle) <= 96 ){
+  while(servo_x_pos + (1 * angle) <= 98 ){
     servo_x_pos += (1 * angle);
     biaxial_servo_x.attach(biaxial_servo_x_pin);
     biaxial_servo_x.write(servo_x_pos);
@@ -307,7 +295,7 @@ void arm_right(){
 //手臂勾起
 void arm_up(){
   Serial.println("手臂向上");
-  while(servo_y_pos + (1 * angle) <= 150 ){
+  while(servo_y_pos + (1 * angle) <= 155 ){
     servo_y_pos += (1 * angle);
     biaxial_servo_y.attach(biaxial_servo_y_pin);
     biaxial_servo_y.write(servo_y_pos);
@@ -320,7 +308,7 @@ void arm_up(){
 //手臂放下
 void arm_down(){
   Serial.println("手臂向下");
-  while(servo_y_pos + (-1 * angle) >= 40 ){
+  while(servo_y_pos + (-1 * angle) >= 30 ){
     servo_y_pos += (-1 * angle);
     biaxial_servo_y.attach(biaxial_servo_y_pin);
     biaxial_servo_y.write(servo_y_pos);
