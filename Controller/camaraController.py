@@ -43,7 +43,6 @@ class CamaraController:
 
         self.newOneId = clothesNodeService.lastId() + 1
         
-        # self.newOneId = 5 # TODO: 要記得刪除
         self.save_path = 'View/mui/public/src/clothes_' + str(self.newOneId) + '.jpg'
         self.path = "./public/src/clothes_" + str(self.newOneId) + ".jpg"
         
@@ -98,11 +97,11 @@ class CamaraController:
             ret, frame = cap.read()  # 讀取鏡頭畫面
             cv2.imshow("capture", frame)  # 生成攝像頭視窗
             countDown = countDown - 0.1
-            # or countDown <= 0
+            # TODO: or countDown <= 0
             if cv2.waitKey(1) & 0xFF == ord('q') or countDown <= 0:  # 如果按下q 就截圖儲存並退出
                 rotateImg = cv2.rotate(frame, cv2.cv2.ROTATE_90_COUNTERCLOCKWISE) 
                 outputSize = cv2.resize(rotateImg, (480, 640)) # to resize the image
-                cv2.imwrite(self.save_path, rotateImg)
+                cv2.imwrite(self.save_path, self.white_balance_2(rotateImg))
                 break
 
         cap.release()
@@ -245,13 +244,13 @@ class CamaraController:
         dict['BLUE'] = color_list
 
         # 紫色
-        lower_purple = np.array([125, 43, 46])
-        upper_purple = np.array([155, 255, 255])
+        lower_purple = np.array([120, 200, 110])
+        upper_purple = np.array([150, 225, 225])
         color_list = []
         color_list.append(lower_purple)
         color_list.append(upper_purple)
         dict['PURPLE'] = color_list
-        
+            
         # 咖啡色
         lower_brown = np.array([5, 20, 40])
         upper_brown = np.array([50, 180, 90]) 
@@ -289,6 +288,76 @@ class CamaraController:
         self.category = label_list[np.argmax(tens_list)]
         
         return  self.category
+    
+
+
+    def white_balance_2(self, img_input):
+        '''
+        完美反射白平衡
+        STEP 1：计算每个像素的R\G\B之和
+        STEP 2：按R+G+B值的大小计算出其前Ratio%的值作为参考点的的阈值T
+        STEP 3：对图像中的每个点，计算其中R+G+B值大于T的所有点的R\G\B分量的累积和的平均值
+        STEP 4：对每个点将像素量化到[0,255]之间
+        依赖ratio值选取而且对亮度最大区域不是白色的图像效果不佳。
+        :param img: cv2.imread读取的图片数据
+        :return: 返回的白平衡结果图片数据
+        '''
+        img = img_input.copy()
+        b, g, r = cv2.split(img)
+        m, n, t = img.shape
+        sum_ = np.zeros(b.shape)
+        for i in range(m):
+            for j in range(n):
+                sum_[i][j] = int(b[i][j]) + int(g[i][j]) + int(r[i][j])
+        hists, bins = np.histogram(sum_.flatten(), 766, [0, 766])
+        Y = 765
+        num, key = 0, 0
+        ratio = 0.01
+        while Y >= 0:
+            num += hists[Y]
+            if num > m * n * ratio / 100:
+                key = Y
+                break
+            Y = Y - 1
+        
+        sum_b, sum_g, sum_r = 0, 0, 0
+        time = 0
+        for i in range(m):
+            for j in range(n):
+                if sum_[i][j] >= key:
+                    sum_b += b[i][j]
+                    sum_g += g[i][j]
+                    sum_r += r[i][j]
+                    time = time + 1
+        
+        avg_b = sum_b / time
+        avg_g = sum_g / time
+        avg_r = sum_r / time
+        
+        maxvalue = float(np.max(img))
+        # maxvalue = 255
+        for i in range(m):
+            for j in range(n):
+                b = int(img[i][j][0]) * maxvalue / int(avg_b)
+                g = int(img[i][j][1]) * maxvalue / int(avg_g)
+                r = int(img[i][j][2]) * maxvalue / int(avg_r)
+                if b > 255:
+                    b = 255
+                if b < 0:
+                    b = 0
+                if g > 255:
+                    g = 255
+                if g < 0:
+                    g = 0
+                if r > 255:
+                    r = 255
+                if r < 0:
+                    r = 0
+                img[i][j][0] = b
+                img[i][j][1] = g
+                img[i][j][2] = r
+    
+        return img
     
     # https://www.twblogs.net/a/5c36d389bd9eee35b21d46e3
     # https://blog.csdn.net/ruoshui_t/article/details/109310806

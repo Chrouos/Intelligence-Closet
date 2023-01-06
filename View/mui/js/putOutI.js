@@ -141,8 +141,18 @@ app.controller('myCtrl', function ($scope) {
         console.log("拿取衣物1:", $scope.pickUp_clothesGraph.Clothes1Position, ", 拿取衣物2: ",$scope.pickUp_clothesGraph.Clothes2Position)
         $scope.checkShow = !$scope.checkShow;
 
-        $scope.isSuccess = await eel.updatePositionToNull_TwoClothes($scope.pickUp_clothesGraph.Clothes1Position, $scope.pickUp_clothesGraph.Clothes2Position)();
+        var dialog = bootbox.dialog({
+            message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> 拿取衣物中... </p>',
+            closeButton: false
+        });
+    
+        // 放入衣物
+        console.log("clothes restore");
+        // var isSuccess =  await eel.updatePositionToNull_TwoClothes($scope.pickUp_clothesGraph.Clothes1Position, $scope.pickUp_clothesGraph.Clothes2Position)().then(function () {
+        //     dialog.modal('hide'); // 等待時間到就將bootbox隱藏
+        // });
 
+        $scope.queryAllList();
         showMask();
     }
 
@@ -177,6 +187,7 @@ function holdDown(CID) {
         nowClothe = CID;
     }
 }
+
 function holdUp() {
     clearInterval(time);
     nowClothe = null
