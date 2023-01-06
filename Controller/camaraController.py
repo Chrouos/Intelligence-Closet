@@ -92,13 +92,13 @@ class CamaraController:
 
     def useCamara(self):
         cap = cv2.VideoCapture(self.chooseCamara, cv2.CAP_DSHOW)  # 開啟攝像頭
-        countDown = 5
+        countDown = 7
         
         while True:
             ret, frame = cap.read()  # 讀取鏡頭畫面
             cv2.imshow("capture", frame)  # 生成攝像頭視窗
             countDown = countDown - 0.1
-            
+            # or countDown <= 0
             if cv2.waitKey(1) & 0xFF == ord('q') or countDown <= 0:  # 如果按下q 就截圖儲存並退出
                 rotateImg = cv2.rotate(frame, cv2.cv2.ROTATE_90_COUNTERCLOCKWISE) 
                 outputSize = cv2.resize(rotateImg, (480, 640)) # to resize the image
@@ -145,7 +145,7 @@ class CamaraController:
             binary = cv2.threshold(mask, 127, 255, cv2.THRESH_BINARY)[1]
             binary = cv2.dilate(binary, None, iterations=2)
             cnts, hiera = cv2.findContours(binary.copy(), cv2.RETR_EXTERNAL,
-                                           cv2.CHAIN_APPROX_SIMPLE)
+                                            cv2.CHAIN_APPROX_SIMPLE)
             sum = 0
             for c in cnts:
                 sum += cv2.contourArea(c)
@@ -164,15 +164,15 @@ class CamaraController:
 
         # 黑色
         lower_black = np.array([0, 0, 0])
-        upper_black = np.array([180, 255, 46])
+        upper_black = np.array([225, 255, 80])
         color_list = []
         color_list.append(lower_black)
         color_list.append(upper_black)
         dict['BLACK'] = color_list
 
         # #灰色
-        lower_gray = np.array([0, 0, 46])
-        upper_gray = np.array([180, 43, 220])
+        lower_gray = np.array([0, 0, 0])
+        upper_gray = np.array([225, 225, 100])
         color_list = []
         color_list.append(lower_gray)
         color_list.append(upper_gray)
@@ -203,12 +203,12 @@ class CamaraController:
         dict['RED2'] = color_list
 
         # 橙色
-        lower_orange = np.array([11, 43, 46])
-        upper_orange = np.array([25, 255, 255])
-        color_list = []
-        color_list.append(lower_orange)
-        color_list.append(upper_orange)
-        dict['ORANGE'] = color_list
+        # lower_orange = np.array([11, 43, 46])
+        # upper_orange = np.array([25, 255, 255])
+        # color_list = []
+        # color_list.append(lower_orange)
+        # color_list.append(upper_orange)
+        # dict['ORANGE'] = color_list
 
         # 黃色
         lower_yellow = np.array([26, 43, 46])
@@ -219,8 +219,10 @@ class CamaraController:
         dict['YELLOW'] = color_list
 
         # 綠色
-        lower_green = np.array([35, 43, 46])
-        upper_green = np.array([77, 255, 255])
+        # lower_green = np.array([33, 41, 45])
+        # upper_green = np.array([104, 107, 106])
+        lower_green = np.array([20, 30, 20])
+        upper_green = np.array([100, 80, 100])
         color_list = []
         color_list.append(lower_green)
         color_list.append(upper_green)
@@ -249,6 +251,24 @@ class CamaraController:
         color_list.append(lower_purple)
         color_list.append(upper_purple)
         dict['PURPLE'] = color_list
+        
+        # 咖啡色
+        lower_brown = np.array([5, 20, 40])
+        upper_brown = np.array([50, 180, 90]) 
+        color_list = []
+        color_list.append(lower_brown)
+        color_list.append(upper_brown)
+        dict['BROWN'] = color_list
+        
+        # X V X
+        
+        # 粉紅色
+        lower_pink = np.array([130, 10, 40])
+        upper_pink = np.array([155, 225, 100])
+        color_list = []
+        color_list.append(lower_pink)
+        color_list.append(upper_purple)
+        dict['PINK'] = color_list
 
         return dict
     

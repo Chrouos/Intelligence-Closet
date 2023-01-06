@@ -9,7 +9,7 @@ trackbarName = 'Trackbar Part'
 #定义滑动条回调函数，此处pass用作占位语句保持程序结构的完整性
 def nothing(x):
     pass
-img_original=cv2.imread('E:\\ProgrammingLanguage\\git\\Intelligence-Closet\\Trainning\\real_case_picture\\4_T-Shirt.jpg')
+img_original=cv2.imread('E:\\ProgrammingLanguage\\git\\Intelligence-Closet\\Trainning\\real_case_picture\\3_T-Shirt_PINK.jpg')
 #颜色空间的转换
 img_hsv=cv2.cvtColor(img_original, cv2.COLOR_BGR2HSV)
 
