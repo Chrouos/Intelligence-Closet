@@ -21,7 +21,7 @@ app.controller('myCtrl', function ($scope) {
 
     //衣物資料
     $scope.showInfo = async function (clothesID) {
-        //TODO:用clothesID呼叫衣物資料
+        // 用clothesID呼叫衣物資料
         //console.log("clothesID",clothesID);
 
         $scope.clothesInfo = await eel.query_clothesNode_byId(clothesID)();
@@ -118,6 +118,7 @@ app.controller('myCtrl', function ($scope) {
         console.log("$scope.pickUp_clothesGraph", $scope.pickUp_clothesGraph);
     }
 
+    // 拿取衣物(一套)
     $scope.checkTake = function () {
         console.log("check");
         $scope.checkShow = !$scope.checkShow;

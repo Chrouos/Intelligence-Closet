@@ -117,6 +117,15 @@ class ClothesGraphController:
 
         # print("combs_dict_list: ", combs_dict_list)
         return combs_dict_list
+    
+    def needCoat(self, clothes_temp):
+        weather_dict = self.weatherAPI.getWeather()
+        diff_temp = round(self.comfortableTemp - int(weather_dict['T']), 3)
+        remain_temp = diff_temp - clothes_temp;
+        
+        
+        
+        
         
         
     def changeCity(self, villageId):

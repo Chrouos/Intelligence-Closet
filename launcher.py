@@ -32,7 +32,7 @@ from Controller.arduinoController import ArduinoController
 
 
 user_id = 1
-camara_choose = 0
+camara_choose = 1
 
 from Controller.camaraController import *
 # 相機物件
@@ -101,11 +101,11 @@ def get_camera_identify():  # 拍照
     try:
         
         # 啟動Arduino將模型車送到超音波前，準備拍照(1) -> 拍照(2) -> 辨識結果(3)
-        # arduinoController = ArduinoController()
+        arduinoController = ArduinoController()
         idt = CamaraController(camara_choose, clf)
         
         # (1)
-        # arduinoController.storgage_first_half()   # 將衣物送入（前半段）
+        arduinoController.storgage_first_half()   # 將衣物送入（前半段）
         
         # (2) 
         idt.useCamara()                          
@@ -131,7 +131,7 @@ def identify_save_sql(category, color, path, isFavorite):  # 辨識完的結果 
         # 獲得資訊(0) -> Arduino將衣物送入到圓盤，後半段(1) -> 將資料存到資料庫(2)
         
         # 變數設定
-        # arduinoController = ArduinoController()
+        arduinoController = ArduinoController()
         clothesNodeService = ClothesNodeService()
         userDashboardService = UserDashboardService()
         idt = CamaraController(camara_choose, clf)
@@ -145,7 +145,7 @@ def identify_save_sql(category, color, path, isFavorite):  # 辨識完的結果 
         
         # (1)
         dist_roundTimes = lock_disc_feet(position, user_dict['LastPosition'])   # 取得存放需要的轉動的次數
-        # arduinoController.storgage_second_half(dist_roundTimes)               # 啟動機器轉動所需次數 + 存放
+        arduinoController.storgage_second_half(dist_roundTimes)               # 啟動機器轉動所需次數 + 存放
         userDashboardService.updateLastPosition(user_id, position)              # 修改使用者的最後存放位置
         
         # (2)
@@ -331,38 +331,6 @@ def query_clothesNode_byId(clothesId):
 
     return v_clothes_dict
 
-
-@eel.expose
-def updatePositionToNull(position): # 拿取衣物
-    sleep(1)
-    
-    try:
-        
-        
-        # 變數取得(0) -> Arduino轉動圓盤並將衣物取出(1) -> 完善結果(2)
-        
-        # (0)
-        # arduinoController = ArduinoController()
-        userDashboardService = UserDashboardService()
-        user_dict = userDashboardService.queryById(user_id) 
-        clothesNodeService = ClothesNodeService()
-        
-        # (1)
-        dist_roundTimes = lock_disc_feet(position, user_dict['LastPosition'])
-        # arduinoController.pickUp_one_clothes(dist_roundTimes)
-        
-        # (2)
-        userDashboardService.updateLastPosition(user_id, position)  # 修改使用者的最後存放位置
-        result = clothesNodeService.updatePositionToNull(position)  # 修改衣物位置為NULL, 使用次數 + 1
-        
-
-        return result
-
-    except Exception as e:
-        print("[Fail] updatePositionToNull:", e)
-        return NULL
-
-
 @eel.expose
 def color_to_js():  # 傳送所有顏色
     colorService = ColorService()
@@ -492,18 +460,6 @@ def most_counter_to_js():  # 傳送最常拿出來的衣服資料
     return most_counter
 
 
-# 硬體啟動
-
-
-@eel.expose
-def arduino_car_back_now():
-    
-    # arduinoController = ArduinoController()
-    # arduinoController.car_back_now()
-    
-    return true
-
-
 @eel.expose
 def query_node_graph_setting(upperId, lowerId):
     nodeGraphService = NodeGraphService()
@@ -512,18 +468,96 @@ def query_node_graph_setting(upperId, lowerId):
     
     return v_node_graph
 
+# ----------------------------------- 硬體啟動
 
 @eel.expose
-def storage_old_clothes(clothesNode):
+def arduino_car_back_now():         # 車車後退
+    
+    arduinoController = ArduinoController()
+    arduinoController.car_back_now()
+    
+    return true
+
+@eel.expose
+def updatePositionToNull(position): # 拿取衣物
     sleep(1)
     
     try:
         
         
+        # 變數取得(0) -> Arduino轉動圓盤並將衣物取出(1) -> 完善結果(2)
+        
+        # (0)
+        arduinoController = ArduinoController()
+        userDashboardService = UserDashboardService()
+        user_dict = userDashboardService.queryById(user_id) 
+        clothesNodeService = ClothesNodeService()
+        
+        # (1)
+        dist_roundTimes = lock_disc_feet(position, user_dict['LastPosition'])
+        arduinoController.pickUp_one_clothes(dist_roundTimes)
+        
+        # (2)
+        userDashboardService.updateLastPosition(user_id, position)  # 修改使用者的最後存放位置
+        result = clothesNodeService.updatePositionToNull(position)  # 修改衣物位置為NULL, 使用次數 + 1
+        
+
+        return result
+
+    except Exception as e:
+        print("[Fail] updatePositionToNull:", e)
+        return NULL
+
+
+@eel.expose
+def updatePositionToNull_TwoClothes(position1, position2): # 拿取衣物
+    sleep(1)
+    
+    try:
+        
+        # 準備:   變數取得(0)
+        # 第一件: Arduino轉動圓盤並將衣物取出(1) -> 完善結果(2)
+        # 第二件: Arduino轉動圓盤並將衣物取出(3) -> 完善結果(4)
+        
+        # (0)
+        arduinoController = ArduinoController()
+        userDashboardService = UserDashboardService()
+        clothesNodeService = ClothesNodeService()
+        user_dict = userDashboardService.queryById(user_id) 
+        
+        # (1)
+        dist_roundTimes = lock_disc_feet(position1, user_dict['LastPosition'])
+        arduinoController.pickUp_two_clothes(dist_roundTimes)
+        
+        # (2)
+        userDashboardService.updateLastPosition(user_id, position1)  # 修改使用者的最後存放位置
+        result = clothesNodeService.updatePositionToNull(position1)  # 修改衣物位置為NULL, 使用次數 + 1
+        
+        # (3)
+        dist_roundTimes = lock_disc_feet(position2, user_dict['LastPosition'])
+        arduinoController.pickUp_one_clothes(dist_roundTimes)
+        
+        # (4)
+        userDashboardService.updateLastPosition(user_id, position2)  # 修改使用者的最後存放位置
+        result = clothesNodeService.updatePositionToNull(position2)  # 修改衣物位置為NULL, 使用次數 + 1
+
+        return result
+
+    except Exception as e:
+        print("[Fail] updatePositionToNull:", e)
+        return NULL
+    
+
+@eel.expose
+def storage_old_clothes(clothesNode): # 存放 舊衣物
+    sleep(1)
+    
+    try:
+        
         # 變數設定(0) -> Arduino將衣物重新存放(1) -> 衣物資料的位置擺放回來(2) -> 增加該衣物的圖形(3) 
         
         # (0)
-        # arduinoController = ArduinoController()
+        arduinoController = ArduinoController()
         userDashboardService = UserDashboardService()
         clothesNodeService = ClothesNodeService()
         nodeGraphService = NodeGraphService()
@@ -532,7 +566,7 @@ def storage_old_clothes(clothesNode):
         user_dict = userDashboardService.queryById(user_id)
         position = clothesNodeService.vacancyPosition() # 剩餘的位置
         dist_roundTimes = lock_disc_feet(position, user_dict['LastPosition'])
-        # arduinoController.storgage_second_half(dist_roundTimes)
+        arduinoController.storgage_second_half(dist_roundTimes)
         userDashboardService.updateLastPosition(user_id, position)      # 修改使用者的最後存放位置
         
         # (2)
@@ -559,11 +593,11 @@ def storage_old_clothes(clothesNode):
         return False
 
 
+
+# ------------------------------------------ 啟動器
+
 eel.init('View/mui')  # eel.init(網頁的資料夾)
 # eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))
-
 # eel.start('User.html',mode='chrome-app', size=(1920, 1080), cmdline_args=['--start-fullscreen', '--browser-startup-dialog'])  # eel.start(html名稱, size=(起始大小))
-
 eel.start('User.html', mode='chrome-app', port=8080, cmdline_args=['--start-fullscreen', '--browser-startup-dialog'])
-
 # eel.start('User.html', mode='chrome', cmdline_args=['--kiosk'])

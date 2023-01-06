@@ -8,7 +8,7 @@ Servo biaxial_servo_x, biaxial_servo_y;
 const int biaxial_servo_x_pin = A1, biaxial_servo_y_pin = A2; 
 // 車車的伺服馬達
 Servo car_servo;
-const int car_servo_pin = A4;
+const int car_servo_pin = A6;
 // 入口的伺服馬達
 Servo entrance_servo;
 const int entrance_servo_pin = A5;
@@ -278,8 +278,8 @@ else {
 // -----------------入口停車場----------------- //
 void park_up(){
   Serial.println("入口伺服往上");
-  while(servo_entrance_pos + (-1 * angle) >= 0 ){
-    servo_entrance_pos += (-1 * angle);
+  while(servo_entrance_pos + (1 * angle) <= 135 ){
+    servo_entrance_pos += (1 * angle);
     entrance_servo.attach(entrance_servo_pin);
     entrance_servo.write(servo_entrance_pos);
     delay(angle_delayTime * 2);
@@ -290,7 +290,7 @@ void park_up(){
 }
 void park_down(){
   Serial.println("入口伺服往下");
-  while(servo_entrance_pos + (1 * angle) <= 180 ){
+  while(servo_entrance_pos + (-1 * angle) >= 0 ){
     servo_entrance_pos += (-1 * angle);
     entrance_servo.attach(entrance_servo_pin);
     entrance_servo.write(servo_entrance_pos);
@@ -299,9 +299,10 @@ void park_down(){
   Serial.println("servo_entrance_pos: " + String(servo_entrance_pos));
   setUpLCD(1, 0, "Park: "  + String(servo_entrance_pos) + " ");
   servo_entrance_lastStatus = true;
-}
 
-// -----------------入口停車場----------------- //
+  
+  
+}
 
 
 // -----------------手臂----------------- //
@@ -328,7 +329,7 @@ void arm_right(){
     delay(angle_delayTime);
   }
   delay(1000);
-  while(servo_x_pos + (1 * angle) <= 98 ){
+  while(servo_x_pos + (1 * angle) <= 101 ){
     servo_x_pos += (1 * angle);
     biaxial_servo_x.attach(biaxial_servo_x_pin);
     biaxial_servo_x.write(servo_x_pos);

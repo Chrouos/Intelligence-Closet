@@ -14,11 +14,14 @@ function getTimeNow() {
 }
 function holdDown(CID) {
   timeStart = getTimeNow();
-  //每100毫秒執行一次
+  //  每100毫秒執行一次
   time = setInterval(function () {
     timeEnd = getTimeNow();
-    //如果按超過2s
+    //  如果按超過2s
     if (timeEnd - timeStart > 1000) {
+      console.log(
+        "2000 > 1000"
+      )
       clearInterval(time);
       //呼叫衣物資訊
       var a = CID.id;
@@ -217,7 +220,7 @@ app.controller('myCtrl', function ($scope) {
   //衣物資料
   $scope.showInfo = function (clothesID) {
     //TODO:用clothesID呼叫衣物資料
-    console.log(clothesID)
+    // console.log(clothesID)
     $scope.queryThePickUpList(clothesID);
     $scope.putOStype = !$scope.putOStype;
   }

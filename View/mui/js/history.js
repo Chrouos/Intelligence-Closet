@@ -154,9 +154,17 @@ app.controller('myCtrl', function ($scope) {
 
   // clothes 重新存放(該衣物不在衣櫃中)
   $scope.clothesRestore = async function () {
+
+    var dialog = bootbox.dialog({
+      message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> 重新存放中... </p>',
+      closeButton: false
+    });
+
+    // 放入衣物
     console.log("clothes restore");
-    //TODO:clothes 重新存放
-    var isSuccess = await eel.storage_old_clothes($scope.pickUp_ClohtesNode)();
+    var isSuccess = await eel.storage_old_clothes($scope.pickUp_ClohtesNode)().then(function () {
+      dialog.modal('hide'); // 等待時間到就將bootbox隱藏
+    });
     $scope.queryAllList();
   }
 
