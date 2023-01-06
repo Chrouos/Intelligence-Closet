@@ -13,10 +13,15 @@ app.controller('myCtrl', function ($scope) {
 
     $scope.putOItype = false
     $scope.checkShow = false
-
+    $scope.proposalStatus=false;
     // 從 Python中 獲得天氣資訊
     $scope.weather_to_js = async function () {
         $scope.weather = await eel.weather_to_js()();
+        
+        if($scope.weather['UVI'] >=5 || $scope.weather['PoP12h'] >= 30 || $scope.weather['T'] <= 15){
+            $scope.proposalStatus=true;
+            showMask();
+        }
     }; $scope.weather_to_js();
 
     //衣物資料
@@ -43,6 +48,7 @@ app.controller('myCtrl', function ($scope) {
     $scope.backToMain = function () {
         $scope.putOItype = false;
         $scope.checkShow = false;
+        $scope.proposalStatus=false;
         nowClothe = null;
     }
 

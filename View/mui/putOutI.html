@@ -112,6 +112,32 @@
 
   </div>
   <!----------------------------------------------------------------------------------->
+  <!-- 衣物照片 -->
+
+  <div id="putOI-Proposal" ng-show="proposalStatus">
+
+    <div class="proposal">
+      <div ng-show="weather.UVI >= 5">
+        <p style="display: inline; font-size: 30px;">今日紫外線 {{weather.UVI}} 級，建議做好防曬</p>
+      </div>
+      <br>
+      <div ng-show="weather.PoP12h >= 30">
+        <p style="display: inline; font-size: 30px;">今日降雨機率 {{weather.PoP12h}} %，建議攜帶雨傘</p>
+      </div>
+      <br>
+      <div ng-show="weather.T <= 15">
+        <p style="display: inline; font-size: 30px;">今日溫度 {{weather.T}} °C，建議多穿外套保暖</p>
+      </div>
+
+    </div>
+    <div>
+      <buttom class="btn-rb-one" onclick="showMask()" ng-click="backToMain()">
+        <a class="btm-rb-one-n">返 回</a>
+      </buttom>
+    </div>
+
+  </div>
+  <!----------------------------------------------------------------------------------->
   <!-- button -->
   <div>
     <buttom class="si-btn-rb-one" ng-click="checkTake()" ng-show="pickUp_clothesGraph">

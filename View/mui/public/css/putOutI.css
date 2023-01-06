@@ -251,3 +251,20 @@ body {
   font-size: 15px;
   color: aliceblue;
 }
+
+/****************************************************/
+
+#putOI-Proposal{
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  /*align-items: center;*/
+  transition: 0.5s;
+  width: 65%;
+  height: 70%;
+  left: 20%;
+  top: 15%;
+  z-index: 12;
+  background-color: rgb(246,248,255);
+  border-radius: 30px;
+}
