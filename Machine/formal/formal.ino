@@ -6,22 +6,22 @@
 
 // ----------------------------------------------- 變數設定 v ----------------------------------------------- //
 
-LiquidCrystal_I2C lcd(0x27, 16, 4); // LCD, 20/21, I2C位址，默認為0x27或0x3F，依據背板的晶片不同而有差異，16、4為LCD顯示器大小。
+LiquidCrystal_I2C lcd(0x27, 16, 4);     // LCD, 20/21, I2C位址，默認為0x27或0x3F，依據背板的晶片不同而有差異，16、4為LCD顯示器大小。
 Stepper disc_stepper(200, 2, 3, 4, 5);  // (200步可以轉一圈) = 1.8度
 Servo biaxial_servo_x, biaxial_servo_y; // 機械手臂 伺服馬達
-Servo car_servo;    // 車車的伺服馬達
+Servo car_servo;                        // 車車的伺服馬達
+Servo entrance_servo;                   // 入口的伺服馬達
 
-const int tailButton = 22; // 尾巴的微動開關 
-const int discButton = 23;  // 圓盤的微動開關  
-const int entranceButton = 24; // 入口的微動開關
+const int tailButton = 22;      // 尾巴的微動開關 
+const int discButton = 23;      // 圓盤的微動開關  
+const int entranceButton = 24;  // 入口的微動開關
+const int camaraButton = 25;    // 拍照點的微動開關
 
 
-const int entrance_L298N_car[4] = {6, 7, 8, 9};
-const int trigPin = 40; // 超音波 trig
-const int echoPin = 42; // 超音波 echo
-const int relay = 48; // 繼電器
-const int biaxial_servo_x_pin = A1, biaxial_servo_y_pin = A2;  // 雙軸: 機械手臂 X, Y軸
-const int car_servo_pin = A4;
+const int entrance_L298N_car[4] = {6, 7, 8, 9};                 // 模型車的減速馬達
+const int relay = 48;                                           // 繼電器
+const int biaxial_servo_x_pin = A1, biaxial_servo_y_pin = A2;   // 雙軸: 機械手臂 X, Y軸
+const int car_servo_pin = A4, entrance_servo_pin = A5;          // 車子的伺服馬達, 入口的伺服馬達(停車場)
 
 
 // ----------------------------------------------- 變數設定 ^ ----------------------------------------------- //
@@ -42,13 +42,20 @@ int discButtonState; // 圓盤微動開關的狀態
 int discButtonLastState = LOW; // 圓盤微動開關的最後狀態
 long discButtonlastDebounceTime = 0;  // 按了最後一次被觸發
 
-int Duration; // 超音波發射到接收的時間
-int Distance; // 距離
-int isTri = true, trigNow = 0, echoNow = 0, isDone = false;
+int camaraButtonState; // 拍照點的微動開關的狀態
+int camaraButtonLastState = LOW; // 拍照點的微動開關的最後狀態
+long camaraButtonlastDebounceTime = 0;  // 拍照點的按了最後一次被觸發
 
+// int Duration; // 超音波發射到接收的時間
+// int Distance; // 距離
+// int isTri = true, trigNow = 0, echoNow = 0, isDone = false;
+
+// 最後角度區
 int Y_Track_Up = 160, Y_Track_Down = 40, Y_Disc_Up = 160, Y_Disc_Down = 40;
 int X_Track = 15, X_Disc = 100;
 int Car_Servo_Up = 165, Car_Servo_Down = 120;
+int Entrance_Servo_1 = 20, Entrance_Servo_2 = 80;
+
 int angle_delayTime = 2000;
 
 // ----------------------------------------------- 狀態設定 ^ ----------------------------------------------- //
@@ -61,26 +68,30 @@ void setup() {
         pinMode(entrance_L298N_car[i], OUTPUT);
     }
 
+    // 微動開關: INPUT
     pinMode(entranceButton, INPUT);
     pinMode(tailButton, INPUT);
     pinMode(discButton, INPUT);
+    pinMode(camaraButton, INPUT);
 
-    pinMode(trigPin, OUTPUT);
-    pinMode(echoPin, INPUT);
-    digitalWrite(trigPin, LOW);
+    // pinMode(trigPin, OUTPUT);
+    // pinMode(echoPin, INPUT);
+    // digitalWrite(trigPin, LOW);
 
     pinMode(relay, OUTPUT);
     digitalWrite(relay, LOW);
 
-    // 雙軸伺服馬達
+    // 伺服馬達
     biaxial_servo_x.attach(biaxial_servo_x_pin);
     biaxial_servo_y.attach(biaxial_servo_y_pin);
     car_servo.attach(car_servo_pin); 
+    entrance_servo.attch(entrance_servo_pin);
 
     // 伺服馬達定位
     biaxial_servo_x.write(X_Track);
     biaxial_servo_y.write(Y_Track_Down);
     car_servo.write(Car_Servo_Up);
+    entrance_servo.write(Entrance_Servo_1);
 
     // 步進馬達
     disc_stepper.setSpeed(10);
@@ -96,6 +107,7 @@ void setup() {
     biaxial_servo_x.detach();
     biaxial_servo_y.detach();
     car_servo.detach();
+    entrance_servo.detach();
     Serial.println("----------- 等待指令中 -----------");
 }
 
