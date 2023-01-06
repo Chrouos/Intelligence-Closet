@@ -113,8 +113,8 @@
     <div class="grid-container">
       <div class="grid-item" ng-repeat="clothesNode in clothesNodeList" ng-init="outerIndex = $index" ng-show="clothesNode.Position == 0 || clothesNode.Position">
         <a ng-click="checkThePickUpList(clothesNode)">
-          <img src="{{clothesNode.FilePosition}}" id="clothesNode_{{clothesNode.Id}}" onmousedown="holdDown(this)"
-            onmouseup="holdUp()" ng-style="isPositionNull(clothesNode.Position)">
+          <img src="{{clothesNode.FilePosition}}" id="clothesNode_{{clothesNode.Id}}"
+            ondblclick="dclick(this)" ng-style="isPositionNull(clothesNode.Position)">
         </a>
       </div>
     </div>

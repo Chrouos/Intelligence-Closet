@@ -161,6 +161,7 @@ app.controller('myCtrl', function ($scope) {
 
 });
 
+/*
 var nowClothe = null;
 
 //獲取此刻時間
@@ -195,13 +196,12 @@ function holdUp() {
     clearInterval(time);
     nowClothe = null
 }
+*/
 
-
-/*
 function dclick(CID) {
     //呼叫衣物資訊
     var a = CID.id;
     angular.element(document.getElementById('putOutI_main')).scope().showInfo(a.substr(14));
     showMask();
 }
-*/
+

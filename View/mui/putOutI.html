@@ -46,10 +46,10 @@
     <div id="recommend_main" ng-show="pageStatus">
       <!--TODO:other還未寫-->
       <div class="recommend_second" class="grid-item" ng-repeat="clothesGraph in pageList" ng-init="outerIndex = $index" ng-click="checkPickUpList($index)" ng-style="set_pickUp_color()" id="clothesGraph_{{$index}}">
-        <img class="recommend_third" id="clothesGraph1_{{clothesGraph.Clothes1Id}}" src={{clothesGraph.Clothes1Path}} onmousedown="holdDown(this)"
-          onmouseup="holdUp()" ondblclick="dclick(this)" ng-show="clothesGraph.Clothes1Path">
-        <img class="recommend_third" id="clothesGraph2_{{clothesGraph.Clothes2Id}}" src={{clothesGraph.Clothes2Path}} onmousedown="holdDown(this)"
-          onmouseup="holdUp()" ondblclick="dclick(this)" ng-show="clothesGraph.Clothes2Path">
+        <img class="recommend_third" id="clothesGraph1_{{clothesGraph.Clothes1Id}}" src={{clothesGraph.Clothes1Path}}
+          ondblclick="dclick(this)" ng-show="clothesGraph.Clothes1Path">
+        <img class="recommend_third" id="clothesGraph2_{{clothesGraph.Clothes2Id}}" src={{clothesGraph.Clothes2Path}}
+          ondblclick="dclick(this)" ng-show="clothesGraph.Clothes2Path">
       </div>
     </div>
     <div id="page" ng-show="pageStatus">
@@ -139,7 +139,7 @@
 
     </div>
     <div>
-      <button class="btn-rb-one" onclick="showMask()" ng-click="backToMain()">
+      <button class="btn-rb-one" onclick="showMask()" ng-click="backToMain()" style="border:none;">
         <a class="btm-rb-one-n">返 回</a>
       </button>
     </div>
@@ -148,7 +148,7 @@
   <!----------------------------------------------------------------------------------->
   <!-- button -->
   <div>
-    <button class="si-btn-rb-one" ng-click="checkTake()" ng-show="pickUp_clothesGraph">
+    <button class="si-btn-rb-one" ng-click="checkTake()" ng-show="pickUp_clothesGraph" style="border:none;">
       <span class="si-btm-rb-one-n">拿 取</span>
     </button>
   </div>

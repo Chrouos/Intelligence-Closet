@@ -4,6 +4,8 @@ function takeClick(a) {
   else
     a.style.background.color = "white";
 }
+
+/*
 var timeStart, timeEnd, time;
 
 var nowClothe = null;
@@ -40,6 +42,14 @@ function holdDown(CID) {
 }
 function holdUp() {
   clearInterval(time);
+}
+*/
+
+function dclick(CID) {
+  //呼叫衣物資訊
+  var a = CID.id;
+  angular.element(document.getElementById('putOS-Info')).scope().showInfo(a.substr(12));
+  showMask();
 }
 
 /* ----------------------------------------------------------------------------------------------------- */
