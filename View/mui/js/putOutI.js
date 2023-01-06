@@ -126,13 +126,23 @@ app.controller('myCtrl', function ($scope) {
                 $scope.pickUp_clothesGraph = $scope.clothesGraphList[($scope.page-1)*5+index];
             }
         }
-        console.log("$scope.pickUp_clothesGraph", $scope.pickUp_clothesGraph);
+        // console.log("$scope.pickUp_clothesGraph", $scope.pickUp_clothesGraph);
     }
 
     // 拿取衣物(一套)
     $scope.checkTake = function () {
-        console.log("check");
         $scope.checkShow = !$scope.checkShow;
+        showMask();
+    }
+
+    // 確認拿取(一套)
+    $scope.ConfirmTake = async function (){
+        console.log("確認拿取:", $scope.pickUp_clothesGraph)
+        console.log("拿取衣物1:", $scope.pickUp_clothesGraph.Clothes1Position, ", 拿取衣物2: ",$scope.pickUp_clothesGraph.Clothes2Position)
+        $scope.checkShow = !$scope.checkShow;
+
+        $scope.isSuccess = await eel.updatePositionToNull_TwoClothes($scope.pickUp_clothesGraph.Clothes1Position, $scope.pickUp_clothesGraph.Clothes2Position)();
+
         showMask();
     }
 

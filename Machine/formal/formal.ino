@@ -52,10 +52,10 @@ long camaraButtonlastDebounceTime = 0;  // 拍照點的按了最後一次被觸�
 int isDone = false;
 
 // 最後角度區
-int Y_Track_Up = 160, Y_Track_Down = 40, Y_Disc_Up = 160, Y_Disc_Down = 40;
-int X_Track = 15, X_Disc = 100;
-int Car_Servo_Up = 165, Car_Servo_Down = 100;
-int Entrance_Servo_Down = 20, Entrance_Servo_Up = 80;
+int Y_Track_Up = 155, Y_Track_Down = 30, Y_Disc_Up = 155, Y_Disc_Down = 30;
+int X_Track = 12, X_Disc = 104;
+int Car_Servo_Up = 168, Car_Servo_Down = 100;
+int Entrance_Servo_Down = 0, Entrance_Servo_Up = 135;
 
 int angle_delayTime = 2000;
 
@@ -92,7 +92,7 @@ void setup() {
     biaxial_servo_x.write(X_Track);
     biaxial_servo_y.write(Y_Track_Down);
     car_servo.write(Car_Servo_Up);
-    entrance_servo.write(Entrance_Servo_Down);
+    entrance_servo.write(Entrance_Servo_Up);
 
     // 步進馬達
     disc_stepper.setSpeed(10);
@@ -134,9 +134,9 @@ void loop() {
             setUpLCD(1, 0, "GO Storage");
             setUpLCD(1, 2, "Y: Down, X: Track");  
 
-//            setUpLCD(1, 3, "Disc           " + String(position_1));  Serial.println("圓盤轉動位置至" + String(position_1));
-//            discRotate_withTimes(position_1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
-//            delay(1000);
+            setUpLCD(1, 3, "Disc           " + String(position_1));  Serial.println("圓盤轉動位置至" + String(position_1));
+            discRotate_withTimes(position_1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
+            delay(1000);
 
             // 開始步驟 
             bool start = true; // true: start, false: stop
@@ -198,9 +198,9 @@ void loop() {
 
            // 機械手臂X軸: 轉至圓盤
             setUpLCD(1, 2, "Y: Up  , X: Disc ");  Serial.println("機械手臂X軸: 轉至圓盤");
-            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, X_Track, 85);
+            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, X_Track, X_Disc - 15);
             delay(3500);
-            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, 85, X_Disc);
+            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, X_Disc - 15, X_Disc);
 
             // 模型車掛臂露出
             setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("模型車掛臂露出");
@@ -219,6 +219,9 @@ void loop() {
             setUpLCD(1, 2, "Y: Down, X: Track");  Serial.println("機械手臂X軸: 轉至軌道");
             servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 5, X_Disc, X_Track);
 
+            // 模型車掛臂露出
+            setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("模型車掛臂露出");
+            servo_with_time(car_servo, car_servo_pin, 10, Car_Servo_Down, Car_Servo_Up);
 
             // 結束步驟            
             lcd.clear();
@@ -246,9 +249,9 @@ void loop() {
             Serial.println("輸入的位置 " + String(position_1));
 
             // TODO: 圓盤轉至「位置指定」
-//            setUpLCD(1, 3, "Disc           " + String(position_1));  Serial.println("圓盤轉動位置至" + String(position_1));
-//            discRotate_withTimes(position_1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
-//            delay(1000);
+            setUpLCD(1, 3, "Disc           " + String(position_1));  Serial.println("圓盤轉動位置至" + String(position_1));
+            discRotate_withTimes(position_1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
+            delay(1000);
 
             // 機械手臂X軸: 轉至圓盤
             setUpLCD(1, 2, "Y: Down, X: Disc ");  Serial.println("機械手臂X軸: 轉至圓盤");
@@ -293,9 +296,11 @@ void loop() {
             motor_running(2, entrance_L298N_car);
             setUpLCD(1, 1, "Stopping,  Back");  Serial.println("反轉停止");
 
+            delay(1000);
+
             // 入口停衣場 放下
-            setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("模型車掛臂露出");
-            servo_with_time(entrance_servo, entrance_servo_pin, 5, Entrance_Servo_Up, Entrance_Servo_Down);
+//            setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("入口停衣場 放下");
+//            servo_with_time(entrance_servo, entrance_servo_pin, 1, Entrance_Servo_Up, Entrance_Servo_Down);
 
             // 結束動作
             lcd.clear();
@@ -308,8 +313,12 @@ void loop() {
         // ---------------- 拿取兩件第一次 START p2---------------- //
         else if (command == "GO_PickUp_2") {
             digitalWrite(relay, HIGH); // 把繼電器打開
-            
+
             lcd.clear();
+
+             // 入口停衣場 放下
+            setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("入口停衣場 放下");
+            servo_with_time(entrance_servo, entrance_servo_pin, 5, Entrance_Servo_Up, Entrance_Servo_Down);
 
             Serial.println("GO PickUp 1");
             setUpLCD(1, 0, "GO PickUp 1");   
@@ -321,9 +330,9 @@ void loop() {
             int position_1 = get_position_1.toInt();
             Serial.println("輸入的位置 " + String(position_1));
 
-//            setUpLCD(1, 3, "Disc           " + String(position_1));  Serial.println("圓盤轉動位置至" + String(position_1));
-//            discRotate_withTimes(position_1); 
-//            delay(1000);
+            setUpLCD(1, 3, "Disc           " + String(position_1));  Serial.println("圓盤轉動位置至" + String(position_1));
+            discRotate_withTimes(position_1); 
+            delay(1000);
 
             // 機械手臂X軸: 轉至圓盤
             setUpLCD(1, 2, "Y: Down, X: Disc ");  Serial.println("機械手臂X軸: 轉至圓盤");
@@ -369,7 +378,7 @@ void loop() {
             setUpLCD(1, 1, "Stopping,  Back");  Serial.println("反轉停止");
 
             // 入口停衣場 抬起
-            setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("模型車掛臂露出");
+            setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("入口停衣場 抬起");
             servo_with_time(entrance_servo, entrance_servo_pin, 5, Entrance_Servo_Down, Entrance_Servo_Up);
 
             // 結束動作
@@ -491,9 +500,9 @@ void loop() {
             int position_1 = get_position_1.toInt();
             Serial.println("輸入的位置 " + String(position_1));
 
-//            setUpLCD(1, 3, "Disc           " + String(position_1));  Serial.println("圓盤轉動位置至" + String(position_1));
-//            discRotate_withTimes(position_1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
-//            delay(1000);
+            setUpLCD(1, 3, "Disc           " + String(position_1));  Serial.println("圓盤轉動位置至" + String(position_1));
+            discRotate_withTimes(position_1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
+            delay(1000);
 
             // 正轉
             setUpLCD(1, 1, "Running,  Front");  Serial.println("正轉至 碰到微動開關為止");
@@ -518,9 +527,9 @@ void loop() {
 
              // 機械手臂X軸: 轉至圓盤
             setUpLCD(1, 2, "Y: Up  , X: Disc ");  Serial.println("機械手臂X軸: 轉至圓盤");
-            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, X_Track, 70);
-            delay(3500);
-            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, 70, X_Disc);
+            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, X_Track, X_Disc - 20);
+            delay(2000);
+            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, X_Disc - 20, X_Disc);
 
             // 機械手臂Y軸下降: 放下衣物(圓盤)
             setUpLCD(1, 2, "Y: Down, X: Disc ");  Serial.println("機械手臂Y軸下降: 放下衣物(圓盤)");
@@ -568,11 +577,9 @@ void loop() {
 
             // 機械手臂X軸: 轉至圓盤
             setUpLCD(1, 2, "Y: Up  , X: Disc ");  Serial.println("機械手臂X軸: 轉至圓盤");
-            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, X_Track, X_Disc - 30);
+            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, X_Track, X_Disc - 20);
             delay(1000);
-            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, X_Disc - 30, X_Disc - 10);
-            delay(1000);
-            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, X_Disc - 10, X_Disc);
+            servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 1, X_Disc - 20, X_Disc);
             
 
             // 機械手臂Y軸下降: 放下衣物(圓盤)
@@ -600,9 +607,9 @@ void loop() {
             setUpLCD(1, 0, "test_get");
 
             // TODO: 圓盤轉至「位置指定」
-//            setUpLCD(1, 3, "Disc           " + String(1));  Serial.println("圓盤轉動位置至" + String(1));
-//            discRotate_withTimes(1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
-//            delay(1000);
+            setUpLCD(1, 3, "Disc           " + String(1));  Serial.println("圓盤轉動位置至" + String(1));
+            discRotate_withTimes(1); // TODO: 3為測試數值，之後接上資料庫做正確數值修改
+            delay(1000);
             
             // 機械手臂X軸: 轉至圓盤
             setUpLCD(1, 2, "Y: Down, X: Disc ");  Serial.println("機械手臂X軸: 轉至圓盤");

@@ -164,15 +164,15 @@ class CamaraController:
 
         # 黑色
         lower_black = np.array([0, 0, 0])
-        upper_black = np.array([225, 255, 80])
+        upper_black = np.array([225, 255, 50])
         color_list = []
         color_list.append(lower_black)
         color_list.append(upper_black)
         dict['BLACK'] = color_list
 
         # #灰色
-        lower_gray = np.array([0, 0, 0])
-        upper_gray = np.array([225, 225, 100])
+        lower_gray = np.array([120, 0, 0])
+        upper_gray = np.array([150, 100, 100])
         color_list = []
         color_list.append(lower_gray)
         color_list.append(upper_gray)
@@ -237,8 +237,8 @@ class CamaraController:
         dict['CYAN'] = color_list
 
         # 藍色
-        lower_blue = np.array([100, 43, 46])
-        upper_blue = np.array([124, 255, 255])
+        lower_blue = np.array([110,50,50])
+        upper_blue = np.array([120,255,255])
         color_list = []
         color_list.append(lower_blue)
         color_list.append(upper_blue)
@@ -271,7 +271,6 @@ class CamaraController:
         dict['PINK'] = color_list
 
         return dict
-    
 
     
     def ClassifierLoop(self, predict):

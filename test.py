@@ -13,9 +13,9 @@ sys.path.append(os.getcwd())  # 抓取路徑
 # print(user_dict['LastPosition'])
 
 # -----------------------  硬體控制
-# from Controller.arduinoController import ArduinoController
-# arduinoController = ArduinoController()
-# arduinoController.car_back_now()
+from Controller.arduinoController import ArduinoController
+arduinoController = ArduinoController()
+arduinoController.car_back_now()
 # arduinoController.car_front_now()
 
 # arduinoController.storgage_first_half()
@@ -36,19 +36,19 @@ sys.path.append(os.getcwd())  # 抓取路徑
 # we.print_dataText()
 
 
-from Controller.camaraController import CamaraController
-import joblib
-# 相機物件
-def get_x(r): return './images_original/'+r['image'] # create path to open images in the original folder
-def get_y(r): return r['label'].split(' ') # split the labels using space as a delimitter
-# 讀取圖檔
-clf = joblib.load('Controller/joblib_export.pkl')
-camaraController = CamaraController(1, clf)
-camaraController.useCamara()
-camaraController.identifyCategory()
-camaraController.identifyColor()
-camaraController.printResult()
-camaraController.saveToSql()
+# from Controller.camaraController import CamaraController
+# import joblib
+# # 相機物件
+# def get_x(r): return './images_original/'+r['image'] # create path to open images in the original folder
+# def get_y(r): return r['label'].split(' ') # split the labels using space as a delimitter
+# # 讀取圖檔
+# clf = joblib.load('Controller/joblib_export.pkl')
+# camaraController = CamaraController(1, clf)
+# camaraController.useCamara()
+# camaraController.identifyCategory()
+# camaraController.identifyColor()
+# camaraController.printResult()
+# camaraController.saveToSql()
 
 
 # --------------------------- 換位子

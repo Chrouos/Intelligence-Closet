@@ -329,7 +329,7 @@ void arm_right(){
     delay(angle_delayTime);
   }
   delay(1000);
-  while(servo_x_pos + (1 * angle) <= 101 ){
+  while(servo_x_pos + (1 * angle) <= 104 ){
     servo_x_pos += (1 * angle);
     biaxial_servo_x.attach(biaxial_servo_x_pin);
     biaxial_servo_x.write(servo_x_pos);
@@ -394,7 +394,7 @@ void car_back(int l298n_car[4]) {
 //車車勾起
 void car_up(){
   Serial.println("車車勾住");
-  while(servo_car_pos + (1 * angle) <= 164 ){
+  while(servo_car_pos + (1 * angle) <= 168 ){
     servo_car_pos += (1 * angle);
     car_servo.attach(car_servo_pin);
     car_servo.write(servo_car_pos);

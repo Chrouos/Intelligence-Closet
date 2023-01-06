@@ -102,12 +102,12 @@
       <a><img src="{{pickUp_clothesGraph.Clothes2Path}}"></a>
     </div>
     <div>
-      <buttom class="check-send-btn-rb-one">
+      <button class="check-send-btn-rb-one" ng-click="ConfirmTake()" style="border:none;">
         <a class="check-send-btm-rb-one-n">確 認</a>
-      </buttom>
-      <buttom class="check-btn-rb-one" onclick="showMask()" ng-click="backToMain()">
+      </button>
+      <button class="check-btn-rb-one" onclick="showMask()" ng-click="backToMain()"  style="border:none;">
         <a class="check-btm-rb-one-n">返 回</a>
-      </buttom>
+      </button>
     </div>
 
   </div>
@@ -131,18 +131,18 @@
 
     </div>
     <div>
-      <buttom class="btn-rb-one" onclick="showMask()" ng-click="backToMain()">
+      <button class="btn-rb-one" onclick="showMask()" ng-click="backToMain()">
         <a class="btm-rb-one-n">返 回</a>
-      </buttom>
+      </button>
     </div>
 
   </div>
   <!----------------------------------------------------------------------------------->
   <!-- button -->
   <div>
-    <buttom class="si-btn-rb-one" ng-click="checkTake()" ng-show="pickUp_clothesGraph">
+    <button class="si-btn-rb-one" ng-click="checkTake()" ng-show="pickUp_clothesGraph">
       <span class="si-btm-rb-one-n">拿 取</span>
-    </buttom>
+    </button>
   </div>
   <!----------------------------------------------------------------------------------->
 
