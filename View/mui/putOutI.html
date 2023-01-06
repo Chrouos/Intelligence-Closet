@@ -32,19 +32,19 @@
 <body>
 
   <div id="putOutI_main">
-    <div id="tital">
+    <div id="tital" ng-show="pageStatus">
       <a>衣 物 推 薦</a>
     </div>
-    <div id="recommend_main">
+    <div id="recommend_main" ng-show="pageStatus">
       <!--TODO:other還未寫-->
       <div class="recommend_second" class="grid-item" ng-repeat="clothesGraph in pageList" ng-init="outerIndex = $index" ng-click="checkPickUpList($index)" ng-style="set_pickUp_color()" id="clothesGraph_{{$index}}">
         <img class="recommend_third" id="clothesGraph1_{{clothesGraph.Clothes1Id}}" src={{clothesGraph.Clothes1Path}} onmousedown="holdDown(this)"
-          onmouseup="holdUp()" ng-show="clothesGraph.Clothes1Path">
+          onmouseup="holdUp()" ondblclick="dclick(this)" ng-show="clothesGraph.Clothes1Path">
         <img class="recommend_third" id="clothesGraph2_{{clothesGraph.Clothes2Id}}" src={{clothesGraph.Clothes2Path}} onmousedown="holdDown(this)"
-          onmouseup="holdUp()" ng-show="clothesGraph.Clothes2Path">
+          onmouseup="holdUp()" ondblclick="dclick(this)" ng-show="clothesGraph.Clothes2Path">
       </div>
     </div>
-    <div id="page">
+    <div id="page" ng-show="pageStatus">
       <a style="font-size: 20px;">第{{page}}頁</a>
       <div>
         <a ng-click="Previous()" ng-show="page != 1">上一頁</a>
@@ -52,6 +52,7 @@
         <a ng-click="Next()" ng-show="page != maxPage">下一頁</a>
       </div>
     </div>
+    <p style="font-size: 50px;" ng-show="!pageStatus">無資料</p>
   </div>
   <!----------------------------------------------------------------------------------->
   <!-- 衣物照片 -->

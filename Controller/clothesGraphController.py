@@ -121,7 +121,7 @@ class ClothesGraphController:
     def needCoat(self, clothes_temp):
         weather_dict = self.weatherAPI.getWeather()
         diff_temp = round(self.comfortableTemp - int(weather_dict['T']), 3)
-        remain_temp = diff_temp - clothes_temp;
+        remain_temp = diff_temp - clothes_temp
         
         
         

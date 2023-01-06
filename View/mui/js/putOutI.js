@@ -43,14 +43,19 @@ app.controller('myCtrl', function ($scope) {
     $scope.backToMain = function () {
         $scope.putOItype = false;
         $scope.checkShow = false;
+        nowClothe = null;
     }
 
+    $scope.pageStatus = true;
     // 抓取全部資料
     $scope.queryAllList = async function () {
         $scope.clothesGraphList = await eel.comb_to_js()();
         //console.log("$scope.clothesGraphList", $scope.clothesGraphList);
         $scope.maxPage = Math.ceil($scope.clothesGraphList.length/'5');
         //console.log("$scope.maxPage", $scope.maxPage )
+        if($scope.clothesGraphList.length == 0){
+            $scope.pageStatus = false;
+        }
         $scope.setData();
     }
     $scope.queryAllList();
@@ -127,26 +132,46 @@ app.controller('myCtrl', function ($scope) {
 
 });
 
+var nowClothe = null;
+
 //獲取此刻時間
 function getTimeNow() {
     var now = new Date();
     return now.getTime();
 }
 function holdDown(CID) {
-    timeStart = getTimeNow();
-    //每100毫秒執行一次
-    time = setInterval(function () {
-        timeEnd = getTimeNow();
-        //如果按超過2s
-        if (timeEnd - timeStart > 1000) {
-            clearInterval(time);
-            //呼叫衣物資訊
-            var a = CID.id;
-            angular.element(document.getElementById('putOutI_main')).scope().showInfo(a.substr(14));
-            showMask();
-        }
-    }, 100);
+    
+    if(nowClothe == null || CID == nowClothe){
+        timeStart = getTimeNow();
+        //每100毫秒執行一次
+        time = setInterval(function () {
+            timeEnd = getTimeNow();
+            //如果按超過2s
+            if (timeEnd - timeStart > 1000) {
+                clearInterval(time);
+                //呼叫衣物資訊
+                var a = CID.id;
+                angular.element(document.getElementById('putOutI_main')).scope().showInfo(a.substr(14));
+                showMask();
+            }
+        }, 0);
+    }
+
+    if(CID != nowClothe){
+        nowClothe = CID;
+    }
 }
 function holdUp() {
     clearInterval(time);
+    nowClothe = null
 }
+
+
+/*
+function dclick(CID) {
+    //呼叫衣物資訊
+    var a = CID.id;
+    angular.element(document.getElementById('putOutI_main')).scope().showInfo(a.substr(14));
+    showMask();
+}
+*/
