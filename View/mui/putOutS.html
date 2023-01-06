@@ -122,16 +122,16 @@
     <!-- button -->
     <div>
       <button class="btn-rb-three" ng-click="changePickUpType()" ng-show="!takeType" style="border:none;">
-        <a style="text-decoration: none;" class="btm-rb-three-n">單件拿取</a>
+        <span style="text-decoration: none;" class="btm-rb-three-n">單件拿取</span>
       </button>
 
       <button class="btn-rb-three" ng-click="changePickUpType()" ng-show="takeType" style="border:none;">
-        <a style="text-decoration: none;" class="btm-rb-three-n">整套拿取</a>
+        <span style="text-decoration: none;" class="btm-rb-three-n">整套拿取</span>
       </button>
 
       <div>
         <button class="btn-rb-two" ng-click="takeOut()" style="border:none;">
-          <a style="text-decoration: none;" class="btm-rb-two-n">拿 取</a>
+          <span style="text-decoration: none;" class="btm-rb-two-n">拿 取</span>
         </button>
       </div>
       <!-- <div class="btn-rb-two" ng-click="takeOut()">
@@ -185,8 +185,9 @@
       </div>
     </div>
     <div>
-      <div class="btn-rb-one" onclick="showMask()" ng-click="backToMain()"><a class="btm-rb-one-n" onclick="showMask()"
-          ng-click="backToMain()">返 回</a></div>
+      <button class="btn-rb-one" onclick="showMask()" ng-click="backToMain()"
+        style="border:none">
+        <span class="btm-rb-one-n">返 回</span></button>
     </div>
 
   </div>

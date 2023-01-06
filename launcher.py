@@ -527,26 +527,33 @@ def updatePositionToNull_TwoClothes(position1, position2, clothes_graph): # 拿�
         userDashboardService = UserDashboardService()
         clothesNodeService = ClothesNodeService()
         nodeGraphService = NodeGraphService()
-        user_dict = userDashboardService.queryById(user_id) 
+        viewClothesNodeService = ViewClothesNodeService()
+        
         
         
         # (1)
+        user_dict = userDashboardService.queryById(user_id) 
         dist_roundTimes = lock_disc_feet(position1, user_dict['LastPosition'])
         arduinoController.pickUp_two_clothes(dist_roundTimes)
         
         # (2)
         userDashboardService.updateLastPosition(user_id, position1)  # 修改使用者的最後存放位置
         result = clothesNodeService.updatePositionToNull(position1)  # 修改衣物位置為NULL, 使用次數 + 1
-        result = nodeGraphService.deleteByBullPosition(1, clothes_graph['Clothes1Id'])
+        
+        vNode = viewClothesNodeService.queryById(clothes_graph['Clothes1Id'])
+        result = nodeGraphService.deleteByBullPosition(vNode['CategoryId'], vNode['Id'])
         
         # (3)
+        user_dict = userDashboardService.queryById(user_id) 
         dist_roundTimes = lock_disc_feet(position2, user_dict['LastPosition'])
         arduinoController.pickUp_one_clothes(dist_roundTimes)
         
         # (4)
         userDashboardService.updateLastPosition(user_id, position2)  # 修改使用者的最後存放位置
         result = clothesNodeService.updatePositionToNull(position2)  # 修改衣物位置為NULL, 使用次數 + 1
-        result = nodeGraphService.deleteByBullPosition(1, clothes_graph['Clothes2Id'])
+        
+        vNode = viewClothesNodeService.queryById(clothes_graph['Clothes2Id'])
+        result = nodeGraphService.deleteByBullPosition(vNode['CategoryId'], vNode['Id'])
 
         return result
 

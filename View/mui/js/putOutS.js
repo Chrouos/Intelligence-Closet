@@ -107,9 +107,6 @@ app.controller('myCtrl', function ($scope) {
   // 拿取衣物: 
   $scope.takeOut = async function () {
 
-    // TODO: step1: 把衣物位置position = null
-    // TODO: step2: 硬體啟動
-
     // 單件 // 
     if ($scope.takeType == false) {
       console.log("updateThePickUpListToNull ", $scope.siglePickUpList)
@@ -126,8 +123,28 @@ app.controller('myCtrl', function ($scope) {
     }
     // 一套
     else if ($scope.takeType == true) {
+      console.log("一套:", $scope.pairPickUpList);
 
+      var temp_clothesNode_json = {
+        "Clothes1Position": $scope.pairPickUpList[0].Position,
+        "Clothes2Position": $scope.pairPickUpList[1].Position,
+        "Clothes1Id": $scope.pairPickUpList[0].Id,
+        "Clothes2Id": $scope.pairPickUpList[1].Id,
+      };
+
+      var dialog = bootbox.dialog({
+        message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> 等待衣物拿取中... </p>',
+        closeButton: false
+      });
+      $scope.info_clothesNode = await eel.updatePositionToNull_TwoClothes(
+        temp_clothesNode_json.Clothes1Position, temp_clothesNode_json.Clothes2Position,
+        temp_clothesNode_json)().then(function () {
+        dialog.modal('hide'); // 等待時間到就將bootbox隱藏
+      });
+      $scope.pairPickUpList = [null, null]
     }
+
+    $scope.queryAllList();
   }
 
   $scope.siglePickUpList = null; // 只拿取一件衣物: JSON
@@ -226,8 +243,6 @@ app.controller('myCtrl', function ($scope) {
   $scope.putOStype = false
   //衣物資料
   $scope.showInfo = function (clothesID) {
-    //TODO:用clothesID呼叫衣物資料
-    // console.log(clothesID)
     $scope.queryThePickUpList(clothesID);
     $scope.putOStype = !$scope.putOStype;
   }

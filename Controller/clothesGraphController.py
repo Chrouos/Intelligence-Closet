@@ -8,7 +8,7 @@ from Controller.weatherAPI import WeatherAPI
 # import networkx as nx  # 生成圖與網路
 import matplotlib.pyplot as plt  # 畫圖顯示
 import math
-
+from operator import itemgetter
 
 class ClothesGraphController:
     def __init__(self, villageId):
@@ -77,10 +77,10 @@ class ClothesGraphController:
         
         weather_dict = self.weatherAPI.getWeather()
         # 還相差的溫度 abs((26 + user_weatherLike - now_weather) - weather_score)
-        diff_temp = round(self.comfortableTemp - int(weather_dict['T']), 3)
+        diff_temp = round(self.comfortableTemp - int(weather_dict['AT']), 3)
         diff_rh = round(self.comfortableHumd - int(weather_dict['RH']), 3)
         self.weatherAPI.printWeather()
-        print("最適合溫度 - 現在溫度 = 相差溫度: {} - {} = {}".format(self.comfortableTemp, weather_dict['T'], diff_temp))
+        print("最適合溫度 - 現在溫度 = 相差溫度: {} - {} = {}".format(self.comfortableTemp, weather_dict['AT'], diff_temp))
         print("最適合濕度 - 現在濕度 = 相差濕度: {} - {} = {}".format(self.comfortableHumd, weather_dict['RH'], diff_rh))
         
         # 弄成 dict增加可讀性
@@ -91,8 +91,15 @@ class ClothesGraphController:
         for graph in self.graphs:
             
             diff = diff_temp - graph[2]
-            result = round((    abs(diff) * 1.3
-                            +   abs(((diff) + ( 5 - graph[2])) / 25 * 45 + (diff_rh   ) / 100 * 60 + ( 5 - graph[2]) ) * 1.5), 2) \
+            # result = round((    abs(diff) * 1.5
+            #                 +   abs(((diff) + ( 5 - graph[2])) / 25 * 45 + (diff_rh) / 100 * 60 + ( 5 - graph[2]) ) * 1.5
+            #                 ), 2) \
+            #                 + (graph[3] + graph[4] + graph[5]) * 0.5
+            
+            result = round(
+                         abs(diff) * 1.5  \
+                    +    abs( ( (diff_temp) + ( 10 - graph[2])) / 25 * 45 + (diff_rh) / 100 * 60 + ( 10 - graph[2]) ) * 1.5 # 權重比
+                    , 2)    \
                     + (graph[3] + graph[4] + graph[5]) * 0.5
                     
             combs.append([  result,
@@ -109,14 +116,17 @@ class ClothesGraphController:
                                     'Clothes1Path': graph[0].FilePosition, 'Clothes2Path': graph[1].FilePosition})
         
         combs.sort(reverse = False)
+        sort_dict = sorted(combs_dict_list, key = itemgetter('ResultScore'))
         
         
         
         for c in combs:
             print(c)
 
+        # print(sort_dict)
+
         # print("combs_dict_list: ", combs_dict_list)
-        return combs_dict_list
+        return sort_dict
     
     def needCoat(self, clothes_temp):
         weather_dict = self.weatherAPI.getWeather()

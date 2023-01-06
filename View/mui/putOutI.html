@@ -55,9 +55,9 @@
     <div id="page" ng-show="pageStatus">
       <a style="font-size: 20px; border: none; color: black; text-decoration: none;">第{{page}}頁</a>
       <div>
-        <a ng-click="Previous()" ng-show="page != 1">上一頁</a>
+        <a ng-click="Previous()" ng-show="page != 1" style="border: none; color: black; text-decoration: none;">上一頁</a>
         <a style="font-size: 30px;">&nbsp / &nbsp</a>
-        <a ng-click="Next()" ng-show="page != maxPage">下一頁</a>
+        <a ng-click="Next()" ng-show="page != maxPage" style="border: none; color: black; text-decoration: none;">下一頁</a>
       </div>
     </div>
     <p style="font-size: 50px;" ng-show="!pageStatus">無資料</p>

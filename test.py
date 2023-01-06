@@ -24,9 +24,9 @@ sys.path.append(os.getcwd())  # 抓取路徑
 # arduinoController.pickUp_one_clothes(1)
 
 
-# from Controller.clothesGraphController import ClothesGraphController
-# clothesGraphController = ClothesGraphController(204)
-# clothesGraphController.getCombination()
+from Controller.clothesGraphController import ClothesGraphController
+clothesGraphController = ClothesGraphController(212)
+clothesGraphController.getCombination()
 # clothesGraphController.printEdge()
 
 # from Controller.weatherAPI import WeatherAPI
@@ -36,19 +36,19 @@ sys.path.append(os.getcwd())  # 抓取路徑
 # we.print_dataText()
 
 
-from Controller.camaraController import CamaraController
-import joblib
-# 相機物件
-def get_x(r): return './images_original/'+r['image'] # create path to open images in the original folder
-def get_y(r): return r['label'].split(' ') # split the labels using space as a delimitter
-# 讀取圖檔
-clf = joblib.load('Controller/joblib_export.pkl')
-camaraController = CamaraController(1, clf)
-camaraController.useCamara()
-camaraController.identifyCategory()
-camaraController.identifyColor()
-camaraController.printResult()
-camaraController.saveToSql()
+# from Controller.camaraController import CamaraController
+# import joblib
+# # 相機物件
+# def get_x(r): return './images_original/'+r['image'] # create path to open images in the original folder
+# def get_y(r): return r['label'].split(' ') # split the labels using space as a delimitter
+# # 讀取圖檔
+# clf = joblib.load('Controller/joblib_export.pkl')
+# camaraController = CamaraController(1, clf)
+# camaraController.useCamara()
+# camaraController.identifyCategory()
+# camaraController.identifyColor()
+# camaraController.printResult()
+# camaraController.saveToSql()
 
 
 # --------------------------- 換位子

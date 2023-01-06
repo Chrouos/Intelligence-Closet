@@ -56,13 +56,13 @@ app.controller('myCtrl', function ($scope) {
     // 抓取全部資料
     $scope.queryAllList = async function () {
         $scope.clothesGraphList = await eel.comb_to_js()();
-        //console.log("$scope.clothesGraphList", $scope.clothesGraphList);
         $scope.maxPage = Math.ceil($scope.clothesGraphList.length/'5');
-        //console.log("$scope.maxPage", $scope.maxPage )
         if($scope.clothesGraphList.length == 0){
             $scope.pageStatus = false;
         }
         $scope.setData();
+
+        console.log("comb:", $scope.clothesGraphList);
     }
     $scope.queryAllList();
 
