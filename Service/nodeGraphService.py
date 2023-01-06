@@ -133,3 +133,17 @@ class NodeGraphService:
         
         self.nodeGraphDAO.updateByUpperIdAndLowerId(nodeGraph)
         return True
+    
+    def deleteByBullPosition(self, CategoryId, Id):
+        try:
+            nodeGraphDAO = NodeGraphDAO()
+            nodeGraphDAO.deleteByBullPosition(CategoryId, Id)
+            
+            return True
+
+        except Exception as e:
+            print(e)
+            return False
+        
+        
+        

@@ -29,6 +29,7 @@ const int car_servo_pin = A6, entrance_servo_pin = A5;          // 車子的伺�
 // ----------------------------------------------- 狀態設定 v ----------------------------------------------- //
 
 long globalDelayTime = 50;  // 消斗的時間
+long discDelayTime = 100;
 
 int entranceButtonState; // 入口微動開關的狀態
 int entranceButtonLastState = LOW; // 入口微動開關的最後狀態
@@ -95,7 +96,7 @@ void setup() {
     entrance_servo.write(Entrance_Servo_Up);
 
     // 步進馬達
-    disc_stepper.setSpeed(10);
+    disc_stepper.setSpeed(5);
 
     // 初始化 LCD
     lcd.init();
@@ -318,7 +319,7 @@ void loop() {
 
              // 入口停衣場 放下
             setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("入口停衣場 放下");
-            servo_with_time(entrance_servo, entrance_servo_pin, 5, Entrance_Servo_Up, Entrance_Servo_Down);
+            servo_with_time(entrance_servo, entrance_servo_pin, 1, Entrance_Servo_Up, Entrance_Servo_Down);
 
             Serial.println("GO PickUp 1");
             setUpLCD(1, 0, "GO PickUp 1");   
@@ -377,9 +378,15 @@ void loop() {
             motor_running(2, entrance_L298N_car);
             setUpLCD(1, 1, "Stopping,  Back");  Serial.println("反轉停止");
 
+            // 模型車掛臂露出
+            setUpLCD(1, 2, "Y: Down, X: Track");  Serial.println("模型車掛臂露出");
+            servo_with_time(car_servo, car_servo_pin, 5, Car_Servo_Down, Car_Servo_Up);
+
+            delay(1000);
+
             // 入口停衣場 抬起
-            setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("入口停衣場 抬起");
-            servo_with_time(entrance_servo, entrance_servo_pin, 5, Entrance_Servo_Down, Entrance_Servo_Up);
+            setUpLCD(1, 2, "Y: Down, X: Track");  Serial.println("入口停衣場 抬起");
+            servo_with_time(entrance_servo, entrance_servo_pin, 1, Entrance_Servo_Down, Entrance_Servo_Up);
 
             // 結束動作
             lcd.clear();
@@ -535,7 +542,7 @@ void loop() {
             setUpLCD(1, 2, "Y: Down, X: Disc ");  Serial.println("機械手臂Y軸下降: 放下衣物(圓盤)");
             servo_with_time(biaxial_servo_y, biaxial_servo_y_pin, 1, Y_Disc_Up, Y_Disc_Down);
 
-             // 模型車掛臂露出
+            // 模型車掛臂露出
             setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("模型車掛臂露出");
             servo_with_time(car_servo, car_servo_pin, 5, Car_Servo_Down, Car_Servo_Up);
 
@@ -547,6 +554,10 @@ void loop() {
             // 機械手臂X軸: 轉至軌道
             setUpLCD(1, 2, "Y: Down, X: Track");  Serial.println("機械手臂X軸: 轉至軌道");
             servo_with_time(biaxial_servo_x, biaxial_servo_x_pin, 5, X_Disc, X_Track);
+
+            // 模型車掛臂露出
+            setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("模型車掛臂露出");
+            servo_with_time(car_servo, car_servo_pin, 5, Car_Servo_Down, Car_Servo_Up);
 
             // 結束步驟            
             lcd.clear();
@@ -746,7 +757,7 @@ void discRotate_withTimes(int times){
 
         disc_stepper.step(-1);  // 20/200 = 1/10
         if(millis() - temp_time > 500){
-          if( checkTheBtnStatus(discButton, discButtonState, discButtonLastState, discButtonlastDebounceTime, globalDelayTime) == true){
+          if( checkTheBtnStatus(discButton, discButtonState, discButtonLastState, discButtonlastDebounceTime, discDelayTime) == true){
 //              disc_start = false;
               now_times++;
           }

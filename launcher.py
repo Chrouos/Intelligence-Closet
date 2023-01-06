@@ -479,11 +479,10 @@ def arduino_car_back_now():         # 車車後退
     return true
 
 @eel.expose
-def updatePositionToNull(position): # 拿取衣物
+def updatePositionToNull(node): # 拿取衣物
     sleep(1)
     
     try:
-        
         
         # 變數取得(0) -> Arduino轉動圓盤並將衣物取出(1) -> 完善結果(2)
         
@@ -492,15 +491,19 @@ def updatePositionToNull(position): # 拿取衣物
         userDashboardService = UserDashboardService()
         user_dict = userDashboardService.queryById(user_id) 
         clothesNodeService = ClothesNodeService()
+        viewClothesNodeService = ViewClothesNodeService()
+        nodeGraphService = NodeGraphService()
         
         # (1)
-        dist_roundTimes = lock_disc_feet(position, user_dict['LastPosition'])
+        dist_roundTimes = lock_disc_feet(node['Position'], user_dict['LastPosition'])
         arduinoController.pickUp_one_clothes(dist_roundTimes)
         
         # (2)
-        userDashboardService.updateLastPosition(user_id, position)  # 修改使用者的最後存放位置
-        result = clothesNodeService.updatePositionToNull(position)  # 修改衣物位置為NULL, 使用次數 + 1
+        userDashboardService.updateLastPosition(user_id, node['Position'])  # 修改使用者的最後存放位置
+        result = clothesNodeService.updatePositionToNull(node['Position'])  # 修改衣物位置為NULL, 使用次數 + 1
         
+        vNode = viewClothesNodeService.queryById(node['Id'])
+        result = nodeGraphService.deleteByBullPosition(vNode['CategoryId'], vNode['Id'])
 
         return result
 
@@ -510,7 +513,7 @@ def updatePositionToNull(position): # 拿取衣物
 
 
 @eel.expose
-def updatePositionToNull_TwoClothes(position1, position2): # 拿取衣物
+def updatePositionToNull_TwoClothes(position1, position2, clothes_graph): # 拿取衣物
     sleep(1)
     
     try:
@@ -523,7 +526,9 @@ def updatePositionToNull_TwoClothes(position1, position2): # 拿取衣物
         arduinoController = ArduinoController()
         userDashboardService = UserDashboardService()
         clothesNodeService = ClothesNodeService()
+        nodeGraphService = NodeGraphService()
         user_dict = userDashboardService.queryById(user_id) 
+        
         
         # (1)
         dist_roundTimes = lock_disc_feet(position1, user_dict['LastPosition'])
@@ -532,6 +537,7 @@ def updatePositionToNull_TwoClothes(position1, position2): # 拿取衣物
         # (2)
         userDashboardService.updateLastPosition(user_id, position1)  # 修改使用者的最後存放位置
         result = clothesNodeService.updatePositionToNull(position1)  # 修改衣物位置為NULL, 使用次數 + 1
+        result = nodeGraphService.deleteByBullPosition(1, clothes_graph['Clothes1Id'])
         
         # (3)
         dist_roundTimes = lock_disc_feet(position2, user_dict['LastPosition'])
@@ -540,6 +546,7 @@ def updatePositionToNull_TwoClothes(position1, position2): # 拿取衣物
         # (4)
         userDashboardService.updateLastPosition(user_id, position2)  # 修改使用者的最後存放位置
         result = clothesNodeService.updatePositionToNull(position2)  # 修改衣物位置為NULL, 使用次數 + 1
+        result = nodeGraphService.deleteByBullPosition(1, clothes_graph['Clothes2Id'])
 
         return result
 

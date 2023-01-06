@@ -179,3 +179,26 @@ class NodeGraphDAO:
         self.cnxn.commit()
 
         return True
+    
+    
+    
+    def deleteByBullPosition(self, CategoryId, Id):
+        
+
+        execute_str = ""
+
+        if(CategoryId == 1):
+            execute_str = "DELETE FROM intelligence_closet.dbo.node_graph WHERE UpperId = {};".format(Id)
+        
+        elif(CategoryId == 2):
+            execute_str = "DELETE FROM intelligence_closet.dbo.node_graph WHERE LowerId = {};".format(Id)
+            
+        else:
+            execute_str = "DELETE FROM intelligence_closet.dbo.node_graph WHERE OtherId = {};".format(Id)
+        
+        # print("deleteByBullPosition: ", execute_str)
+
+        self.cursor.execute(execute_str)
+        self.cnxn.commit()
+
+        return True
