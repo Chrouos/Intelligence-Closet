@@ -529,8 +529,6 @@ def updatePositionToNull_TwoClothes(position1, position2, clothes_graph): # æ‹¿å
         nodeGraphService = NodeGraphService()
         viewClothesNodeService = ViewClothesNodeService()
         
-        
-        
         # (1)
         user_dict = userDashboardService.queryById(user_id) 
         dist_roundTimes = lock_disc_feet(position1, user_dict['LastPosition'])

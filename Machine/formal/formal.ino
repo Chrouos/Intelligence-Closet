@@ -53,10 +53,10 @@ long camaraButtonlastDebounceTime = 0;  // 拍照點的按了最後一次被觸�
 int isDone = false;
 
 // 最後角度區
-int Y_Track_Up = 155, Y_Track_Down = 30, Y_Disc_Up = 155, Y_Disc_Down = 30;
-int X_Track = 12, X_Disc = 104;
-int Car_Servo_Up = 170, Car_Servo_Down = 100;
-int Entrance_Servo_Down = 0, Entrance_Servo_Up = 135;
+int Y_Track_Up = 145, Y_Track_Down = 20, Y_Disc_Up = 145, Y_Disc_Down = 20;
+int X_Track = 18, X_Disc = 115;
+int Car_Servo_Up = 167, Car_Servo_Down = 70;
+int Entrance_Servo_Down = 30, Entrance_Servo_Up = 135;
 
 int angle_delayTime = 2000;
 
@@ -229,6 +229,10 @@ void loop() {
             setUpLCD(1, 0, "wait instruction");
             isDone = false;
             digitalWrite(relay, LOW); // 把繼電器打開
+            biaxial_servo_x.detach();
+            biaxial_servo_y.detach();
+            car_servo.detach();
+            entrance_servo.detach();
             Serial.println("Done");
         } 
         // ---------------- 存放 END ---------------- //
@@ -302,6 +306,10 @@ void loop() {
             lcd.clear();
             setUpLCD(1, 0, "wait instruction");
             digitalWrite(relay, LOW); // 把繼電器關閉
+            biaxial_servo_x.detach();
+            biaxial_servo_y.detach();
+            car_servo.detach();
+            entrance_servo.detach();
             Serial.println("Done");
         }
         // ---------------- 拿取 END ---------------- //
@@ -391,12 +399,22 @@ void loop() {
 
             // 入口停衣場 放下
             setUpLCD(1, 2, "Y: Up  , X: Track");  Serial.println("入口停衣場 放下");
-            servo_with_time(entrance_servo, entrance_servo_pin, 1, Entrance_Servo_Up, Entrance_Servo_Down);            
+            servo_with_time(entrance_servo, entrance_servo_pin, 1, Entrance_Servo_Up, Entrance_Servo_Down); 
+
+            delay(500);  
+  
+            // 模型車掛臂露出
+            setUpLCD(1, 2, "Y: Down, X: Track");  Serial.println("模型車掛臂露出");
+            servo_with_time(car_servo, car_servo_pin, 5, Car_Servo_Down, Car_Servo_Up);
 
             // 結束動作
             lcd.clear();
             setUpLCD(1, 0, "wait instruction");
             digitalWrite(relay, LOW); // 把繼電器關閉
+            biaxial_servo_x.detach();
+            biaxial_servo_y.detach();
+            car_servo.detach();
+            entrance_servo.detach();
             Serial.println("Done");
         }
         // ---------------- 拿取 END ---------------- //
@@ -493,6 +511,10 @@ void loop() {
             setUpLCD(1, 0, "wait instruction");
             isDone = false;
             digitalWrite(relay, LOW); // 把繼電器打開
+            biaxial_servo_x.detach();
+            biaxial_servo_y.detach();
+            car_servo.detach();
+            entrance_servo.detach();
             Serial.println("Done");
         } 
         // ---------------- 進去拍照 END ---------------- //
@@ -569,6 +591,10 @@ void loop() {
             setUpLCD(1, 0, "wait instruction");
             isDone = false;
             digitalWrite(relay, LOW); // 把繼電器打開
+            biaxial_servo_x.detach();
+            biaxial_servo_y.detach();
+            car_servo.detach();
+            entrance_servo.detach();
             Serial.println("Done");
         } 
         // ---------------- 進去拍照 END ---------------- //
@@ -761,7 +787,7 @@ void discRotate_withTimes(int times){
     while( now_times != times){
 
         disc_stepper.step(-1);  // 20/200 = 1/10
-        if(millis() - temp_time > 700){
+        if(millis() - temp_time > 500){
           if( checkTheBtnStatus(discButton, discButtonState, discButtonLastState, discButtonlastDebounceTime, discDelayTime) == true){
 //              disc_start = false;
               now_times++;
@@ -793,5 +819,5 @@ void servo_with_time(Servo servo_now, int servo_pin, int speed_now, int angle_no
     
     // 結束連線
     delay(angle_delayTime);
-    servo_now.detach();
+//    servo_now.detach();
 }

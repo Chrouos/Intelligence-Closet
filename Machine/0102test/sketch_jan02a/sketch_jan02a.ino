@@ -309,7 +309,7 @@ void park_down(){
 //手臂左轉
 void arm_left(){
   Serial.println("手臂向左");
-  while(servo_x_pos + (-1 * angle) >= 12 ){
+  while(servo_x_pos + (-1 * angle) >= 18 ){
     servo_x_pos += (-1 * angle);
     biaxial_servo_x.attach(biaxial_servo_x_pin);
     biaxial_servo_x.write(servo_x_pos);
@@ -322,14 +322,14 @@ void arm_left(){
 //手臂右轉
 void arm_right(){
   Serial.println("手臂向右");
-  while(servo_x_pos + (1 * angle) <= 75 ){
+  while(servo_x_pos + (1 * angle) <= 88 ){
     servo_x_pos += (1 * angle);
     biaxial_servo_x.attach(biaxial_servo_x_pin);
     biaxial_servo_x.write(servo_x_pos);
     delay(angle_delayTime);
   }
   delay(1000);
-  while(servo_x_pos + (1 * angle) <= 104 ){
+  while(servo_x_pos + (1 * angle) <= 110 ){
     servo_x_pos += (1 * angle);
     biaxial_servo_x.attach(biaxial_servo_x_pin);
     biaxial_servo_x.write(servo_x_pos);
@@ -342,7 +342,7 @@ void arm_right(){
 //手臂勾起
 void arm_up(){
   Serial.println("手臂向上");
-  while(servo_y_pos + (1 * angle) <= 155 ){
+  while(servo_y_pos + (1 * angle) <= 145 ){
     servo_y_pos += (1 * angle);
     biaxial_servo_y.attach(biaxial_servo_y_pin);
     biaxial_servo_y.write(servo_y_pos);
@@ -355,7 +355,7 @@ void arm_up(){
 //手臂放下
 void arm_down(){
   Serial.println("手臂向下");
-  while(servo_y_pos + (-1 * angle) >= 30 ){
+  while(servo_y_pos + (-1 * angle) >= 20 ){
     servo_y_pos += (-1 * angle);
     biaxial_servo_y.attach(biaxial_servo_y_pin);
     biaxial_servo_y.write(servo_y_pos);

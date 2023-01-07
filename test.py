@@ -13,9 +13,9 @@ sys.path.append(os.getcwd())  # 抓取路徑
 # print(user_dict['LastPosition'])
 
 # -----------------------  硬體控制
-# from Controller.arduinoController import ArduinoController
-# arduinoController = ArduinoController()
-# arduinoController.car_back_now()
+from Controller.arduinoController import ArduinoController
+arduinoController = ArduinoController()
+arduinoController.car_back_now()
 # arduinoController.car_front_now()
 
 # arduinoController.storgage_first_half()
@@ -24,9 +24,9 @@ sys.path.append(os.getcwd())  # 抓取路徑
 # arduinoController.pickUp_one_clothes(1)
 
 
-from Controller.clothesGraphController import ClothesGraphController
-clothesGraphController = ClothesGraphController(212)
-clothesGraphController.getCombination()
+# from Controller.clothesGraphController import ClothesGraphController
+# clothesGraphController = ClothesGraphController(212)
+# clothesGraphController.getCombination()
 # clothesGraphController.printEdge()
 
 # from Controller.weatherAPI import WeatherAPI

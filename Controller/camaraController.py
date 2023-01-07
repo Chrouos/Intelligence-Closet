@@ -178,12 +178,12 @@ class CamaraController:
         dict['GRAY'] = color_list
 
         # 白色
-        lower_white = np.array([0, 0, 221])
-        upper_white = np.array([180, 30, 255])
-        color_list = []
-        color_list.append(lower_white)
-        color_list.append(upper_white)
-        dict['WHITE'] = color_list
+        # lower_white = np.array([0, 0, 221])
+        # upper_white = np.array([180, 30, 255])
+        # color_list = []
+        # color_list.append(lower_white)
+        # color_list.append(upper_white)
+        # dict['WHITE'] = color_list
 
         # 紅色
         lower_red = np.array([156, 43, 46])
@@ -194,12 +194,12 @@ class CamaraController:
         dict['RED'] = color_list
 
         # 紅色2
-        lower_red = np.array([0, 43, 46])
-        upper_red = np.array([10, 255, 255])
-        color_list = []
-        color_list.append(lower_red)
-        color_list.append(upper_red)
-        dict['RED2'] = color_list
+        # lower_red = np.array([0, 43, 46])
+        # upper_red = np.array([10, 255, 255])
+        # color_list = []
+        # color_list.append(lower_red)
+        # color_list.append(upper_red)
+        # dict['RED2'] = color_list
 
         # 橙色
         # lower_orange = np.array([11, 43, 46])
@@ -358,6 +358,28 @@ class CamaraController:
                 img[i][j][2] = r
     
         return img
+    
+    def white_balance_1(self, img):
+        '''
+        第一種簡單的求均值白平衡法
+        :param img: cv2.imread讀取的圖片數據
+        :return: 返回的白平衡結果圖片數據
+        '''
+        # 讀取圖像
+        r, g, b = cv2.split(img)
+        r_avg = cv2.mean(r)[0]
+        g_avg = cv2.mean(g)[0]
+        b_avg = cv2.mean(b)[0]
+        # 求各個通道所佔增益
+        k = (r_avg + g_avg + b_avg) / 3
+        kr = k / r_avg
+        kg = k / g_avg
+        kb = k / b_avg
+        r = cv2.addWeighted(src1=r, alpha=kr, src2=0, beta=0, gamma=0)
+        g = cv2.addWeighted(src1=g, alpha=kg, src2=0, beta=0, gamma=0)
+        b = cv2.addWeighted(src1=b, alpha=kb, src2=0, beta=0, gamma=0)
+        balance_img = cv2.merge([b, g, r])
+        return balance_img
     
     # https://www.twblogs.net/a/5c36d389bd9eee35b21d46e3
     # https://blog.csdn.net/ruoshui_t/article/details/109310806
