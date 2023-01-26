@@ -56,4 +56,5 @@ https://drive.google.com/file/d/1v_6Fj4ZRIB9F6AiU6hXszEdE2_sMmrOk/view?usp=share
 + [ ] 樹梅派
 + [ ] 排行榜功能
 + [ ] 公式+上濕度風速
-+ [ ] 
++ [ ] 實體重作
++ [ ] 透過IC感應卡控制使用權/使用者
