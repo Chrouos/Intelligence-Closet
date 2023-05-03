@@ -9,11 +9,12 @@ Stepper stepperX(200, 8, 9, 10, 11);
 const int RECV_PIN = 49;
 IRrecv irrecv(RECV_PIN);
 decode_results results; // 紅外線接收訊號後會把結果存在 results
-String strp, strnow;    //暫存器
-int mod = 0, donow = 0; //命令形式
+String strp, strnow;    // 暫存器
+int mod = 0, donow = 0; // 命令形式
 
 int CraneX = 0, CraneY = 0; // 實際天車的 Direct
-int CranxDirect_Up = -50, CranxDirect_Down = 50, CranxDirect_Left = 50, CranxDirect_Right = -50;
+int CranxDirect_Up = -50, CranxDirect_Down = 50, CranxDirect_Left = 50,
+    CranxDirect_Right = -50;
 
 void setup() {
   Serial.begin(9600);
@@ -56,16 +57,16 @@ void loop() {
 
     // --------------------------- setting 上下左右
 
-    if (strnow == "16718055") { //手臂向上
+    if (strnow == "16718055") { // 手臂向上
       arm_up();
     }
-    if (strnow == "16730805") { //手臂向下
+    if (strnow == "16730805") { // 手臂向下
       arm_down();
     }
-    if (strnow == "16734885") { //手臂向右
+    if (strnow == "16734885") { // 手臂向右
       arm_right();
     }
-    if (strnow == "16716015") { //手臂向左
+    if (strnow == "16716015") { // 手臂向左
       arm_left();
     }
 
@@ -83,32 +84,38 @@ void loop() {
   Serial.println(String(CraneX) + " " + String(CraneY));
 }
 
-
 // -------------------------------------------------------------- Function
 
-void crane_changeDirect(int& craneX, int& craneY, String direct){
+void crane_changeDirect(int &craneX, int &craneY, int direct) {
   /*
+    (未測試實驗)
     craneDirect: 需改變的變數
     direct: 方向, Up, Down, Left, Right
+
+    -------
+    |1 2 3|
+    |4 5 6|
+    |7 8 9|
+    |  0  |
+    -------
   */
 
-  if(direct == "Up"){
+  int steps_of_crane = 50;
+  int right_or_up = -1 * steps_of_crane, left_or_down = steps_of_crane;
 
-  }
-  else if (direct == "Down"){
-
-  }
-  else if (direct == "Left"){
-    
-  }
-  else if (direct == "Right"){
-    
+  if (direct == 2) {
+    craneY = right_or_up;
+  } else if (direct == 8) { // down
+    craneY = left_or_down;
+  } else if (direct == 4) { // left
+    craneX = left_or_down;
+  } else if (direct == 6) { // right
+    craneX = right_or_up;
   }
 }
 
-
 // ----------------- 手臂 v ----------------- //
-void arm_left() { //手臂左轉
+void arm_left() { // 手臂左轉
   Serial.println("手臂向左");
   while (servo_x_pos + (-1 * angle) >= 20) {
     servo_x_pos += (-1 * angle);
@@ -117,7 +124,7 @@ void arm_left() { //手臂左轉
     delay(angle_delayTime * 2);
   }
 }
-void arm_right() { //手臂右轉
+void arm_right() { // 手臂右轉
   Serial.println("手臂向右");
   while (servo_x_pos + (1 * angle) <= 160) {
     servo_x_pos += (1 * angle);
@@ -126,7 +133,7 @@ void arm_right() { //手臂右轉
     delay(angle_delayTime);
   }
 }
-void arm_up() { //手臂勾起
+void arm_up() { // 手臂勾起
   Serial.println("手臂向上");
   while (servo_y_pos + (1 * angle) <= 160) {
     servo_y_pos += (1 * angle);
@@ -135,7 +142,7 @@ void arm_up() { //手臂勾起
     delay(angle_delayTime * 2);
   }
 }
-void arm_down() { //手臂放下
+void arm_down() { // 手臂放下
   Serial.println("手臂向下");
   while (servo_y_pos + (-1 * angle) >= 20) {
     servo_y_pos += (-1 * angle);
