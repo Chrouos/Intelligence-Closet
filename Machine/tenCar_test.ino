@@ -1,10 +1,10 @@
 #include <Stepper.h>
 
 
-const int disc_L298N1_In1 = 8; // 圓盤(步進馬達)的L298N in1
-const int disc_L298N1_In2 = 9; // 圓盤(步進馬達)的L298N in2 
-const int disc_L298N1_In3 = 10; // 圓盤(步進馬達)的L298N in3
-const int disc_L298N1_In4 = 11; // 圓盤(步進馬達)的L298N in4
+const int disc_L298N1_In1 = 2; // 圓盤(步進馬達)的L298N in1
+const int disc_L298N1_In2 = 3; // 圓盤(步進馬達)的L298N in2 
+const int disc_L298N1_In3 = 4; // 圓盤(步進馬達)的L298N in3
+const int disc_L298N1_In4 = 5; // 圓盤(步進馬達)的L298N in4
 
 void setup()
 {
