@@ -54,8 +54,49 @@ void loop(){
         
         // -------------------------------------------------------- 放衣服
         if (command == "Put_The_Clothes") {
+
+            // 從外部輸入「空位置」
+            String str_put_position =  Serial.readStringUntil('\n');
+            int put_position = str_put_position.toInt();
+            Serial.println("目前可放置的位置 " + String(put_position));
             
+            // 輸入位置:put_position, 放入: put
+            position_test(put_position, "put");
+
+            // 結束指令
+            Serial.println("Done"); 
         }
+
+        // -------------------------------------------------------- 拿衣服
+        else if (command == "Take_The_Clothes"){
+
+            // 從外部輸入「空位置」
+            String str_take_position =  Serial.readStringUntil('\n');
+            int take_position = str_take_position.toInt();
+            Serial.println("目前可放置的位置 " + String(take_position));
+
+            // 輸入位置:take_position, 拿取: take
+            position_test(take_position, "take");
+
+            // 結束指令
+            Serial.println("Done"); 
+        }
+
+        // -------------------------------------------------------- 天車歸位
+        else if (command == "Return_Crane_Zero"){
+            
+            correction_zero();
+
+            // 結束指令
+            Serial.println("Done"); 
+        }
+
+        else{
+            // 結束指令
+            Serial.println("Done"); 
+        }
+
+        delay(1000);
 
     }
 
