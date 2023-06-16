@@ -30,6 +30,12 @@ from Service.viewUserDashboardService import ViewUserDashboardService
 from Service.nodeGraphService import NodeGraphService
 from Controller.arduinoController import ArduinoController
 
+import json
+from json import load
+
+jsonFile = open('./setting.json','r')
+settingJson = json.load(jsonFile)
+total_closet_sapce = settingJson['real_closet_space']
 
 user_id = 1
 camara_choose = 1
@@ -73,9 +79,9 @@ def lock_disc_feet(position, user_lastposition):
     """
     
     # 腳位共八點, 若剛好同點就轉八次回到原地
-    dist_roundTimes = 8    
+    dist_roundTimes = total_closet_sapce 
     if position != user_lastposition:
-        dist_roundTimes = (position - user_lastposition) * 3 % 8
+        dist_roundTimes = (position - user_lastposition) * 3 % total_closet_sapce
     print( "user last position:", user_lastposition, ", go to position:", position, ", 要轉動的次數", dist_roundTimes)
     return dist_roundTimes
 

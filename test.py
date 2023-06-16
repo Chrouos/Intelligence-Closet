@@ -13,9 +13,9 @@ sys.path.append(os.getcwd())  # 抓取路徑
 # print(user_dict['LastPosition'])
 
 # -----------------------  硬體控制
-from Controller.arduinoController import ArduinoController
-arduinoController = ArduinoController()
-arduinoController.car_back_now()
+# from Controller.arduinoController import ArduinoController
+# arduinoController = ArduinoController()
+# arduinoController.car_back_now()
 # arduinoController.car_front_now()
 
 # arduinoController.storgage_first_half()
@@ -51,7 +51,7 @@ arduinoController.car_back_now()
 # camaraController.saveToSql()
 
 
-# --------------------------- 換位子
+# --------------------------- 換位子 --------------------------- # 
 # from Service.userDashboardService import UserDashboardService   
 # userDashboardService = UserDashboardService()
 # user_dict = userDashboardService.queryById(1)  # 預設為1
@@ -63,3 +63,15 @@ arduinoController.car_back_now()
 #         dist_roundTimes = (position - user_dict['LastPosition']) * 3 % 8
 #     print( "user last position:", user_dict['LastPosition'], ", go to position:", position, ", 要轉動的次數", dist_roundTimes)
 
+# ----------------------- 測試 JSON ----------------------- #
+# import json
+# from json import load
+# jsonFile = open('./setting.json','r')
+# settingJson = json.load(jsonFile)
+# print(settingJson['real_closet_space'])
+
+
+# ----------------------- ClothesNode Service ----------------------- #
+from Service.ClothesNodeService import ClothesNodeService 
+clothesNodeService = ClothesNodeService()
+print(clothesNodeService.vacancyPosition()) 

@@ -5,6 +5,10 @@ from Model.Domain.clothesNode import ClothesNode
 import pyodbc
 import time
 
+import json
+from json import load
+
+
 
 class ClothesNodeDAO:
 
@@ -36,6 +40,9 @@ class ClothesNodeDAO:
 
     # 搜尋所有資料: tuple
     def queryAll(self):
+        
+
+        
         execute_str = "SELECT * FROM intelligence_closet.dbo.clothes_node;"
         # # print("queryAll: ", execute_str)
 
@@ -81,9 +88,14 @@ class ClothesNodeDAO:
         else:
             return None
 
-    # 空缺的位置資訊(範圍 1~8 )
+    # 空缺的位置資訊(範圍 1 ~ 8 )
     def vacancyPosition(self):
-        for i in range(1, 9):
+        
+        jsonFile = open('./setting.json','r')
+        settingJson = json.load(jsonFile)
+        print("衣櫃內共有", settingJson['real_closet_space'], "個位置")
+        
+        for i in range(1, settingJson['real_closet_space'] + 1):
             if self.queryDataByPosition(i) == None:
                 return i
 
