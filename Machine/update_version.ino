@@ -56,6 +56,7 @@ void loop(){
         if (command == "Put_The_Clothes") {
 
             // 從外部輸入「空位置」
+            Serial.println("please_input_str_put_position");
             String str_put_position =  Serial.readStringUntil('\n');
             int put_position = str_put_position.toInt();
             Serial.println("目前可放置的位置 " + String(put_position));
@@ -71,6 +72,7 @@ void loop(){
         else if (command == "Take_The_Clothes"){
 
             // 從外部輸入「空位置」
+            Serial.println("please_input_str_take_position");
             String str_take_position =  Serial.readStringUntil('\n');
             int take_position = str_take_position.toInt();
             Serial.println("目前可放置的位置 " + String(take_position));
