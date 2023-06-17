@@ -88,7 +88,7 @@ class ClothesNodeDAO:
         else:
             return None
 
-    # 空缺的位置資訊(範圍 1 ~ 8 )
+    # 空缺的位置資訊(範圍 1 ~ 9 )
     def vacancyPosition(self):
         
         jsonFile = open('./setting.json','r')

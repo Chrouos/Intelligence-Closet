@@ -9,7 +9,6 @@ Stepper stepperY(200, 2, 3, 4, 5);      // 步進馬達 (Y)
 const int x_StopButton = 23;            // 歸零按鈕 (X)
 const int y_StopButton = 22;            // 歸零按鈕 (Y)
 
-
 // ----------------------- 定義 v ----------------------- //
 Servo biaxial_servo_x, biaxial_servo_y; // 雙軸伺服馬達
 const int stepperSpeed = 80;
@@ -46,9 +45,7 @@ void setup() {
     
     delay(1000);
 
-    Serial.println("Please Start Now ....");
-
-    delay(1000);
+    Serial.println("----------- 等待指令中 -----------");
 }
 
 
@@ -62,13 +59,13 @@ void loop(){
         if (command == "Put_The_Clothes") {
 
             // 從外部輸入「空位置」
-            Serial.println("please_input_str_put_position");
-            String str_put_position =  Serial.readStringUntil('\n');
-            int put_position = 2; // str_put_position.toInt();
-            Serial.println("目前可放置的位置 " + String(put_position));
+            Serial.println("please_input_str_position");
+            String str_position =  Serial.readStringUntil('\n');
+            int _position = str_position.toInt();
+            Serial.println("目前可放置的位置 " + String(_position));
             
             // 從入口到放下衣物，再到歸零位置
-            put_zero_position_zero(put_position);
+            put_zero_position_zero(_position);
 
             // 結束指令
             Serial.println("Done"); 
@@ -78,12 +75,12 @@ void loop(){
         else if (command == "Take_The_Clothes"){
 
             // 從外部輸入「空位置」
-            Serial.println("please_input_str_take_position");
-            String str_take_position =  Serial.readStringUntil('\n');
-            int take_position = 2; // str_take_position.toInt();
-            Serial.println("目前可放置的位置 " + String(take_position));
+            Serial.println("please_input_str_position");
+            String str_position =  Serial.readStringUntil('\n');
+            int _position = str_position.toInt();
+            Serial.println("目前可放置的位置 " + String(_position));
 
-            take_zero_position_entrance(take_position); // 將衣服從位置放到入口
+            take_zero_position_entrance(_position); // 將衣服從位置放到入口
 
             // 結束指令
             Serial.println("Done"); 
@@ -92,12 +89,12 @@ void loop(){
         else if (command == "Put_Entrance_Position_Zero"){
 
             // 從外部輸入「空位置」
-            Serial.println("please_input_str_take_position");
-            String str_put_position =  Serial.readStringUntil('\n');
-            int put_position = 2; // str_take_position.toInt();
-            Serial.println("目前可放置的位置 " + String(put_position));
+            Serial.println("please_input_str_position");
+            String str_position =  Serial.readStringUntil('\n');
+            int _position = str_position.toInt();
+            Serial.println("目前可放置的位置 " + String(_position));
 
-            put_entrance_position_zero(put_position);
+            put_entrance_position_zero(_position);
 
             // 結束指令
             Serial.println("Done"); 
@@ -106,13 +103,13 @@ void loop(){
         else if (command == "Put_Zero_Position_Zero"){
 
             // 從外部輸入「空位置」
-            Serial.println("please_input_str_take_position");
-            String str_put_position =  Serial.readStringUntil('\n');
-            int put_position = 2; // str_take_position.toInt();
-            Serial.println("目前可放置的位置 " + String(put_position));
+            Serial.println("please_input_str_position");
+            String str_position =  Serial.readStringUntil('\n');
+            int _position = str_position.toInt();
+            Serial.println("目前可放置的位置 " + String(_position));
 
             // 歸零 -> 位置 -> 歸零
-            put_zero_position_zero(put_position);
+            put_zero_position_zero(_position);
 
             // 結束指令
             Serial.println("Done"); 
