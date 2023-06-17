@@ -12,18 +12,22 @@ sys.path.append(os.getcwd())  # 抓取路徑
 
 
 # ----------------------- ClothesNode Service ----------------------- #
-# from Service.ClothesNodeService import ClothesNodeService 
-# clothesNodeService = ClothesNodeService()
+from Service.ClothesNodeService import ClothesNodeService 
+clothesNodeService = ClothesNodeService()
+clothesNodeService
 # print(clothesNodeService.vacancyPosition()) 
 
 
 # ----------------------- Arduino Controller ----------------------- #
-from Controller.arduinoController import ArduinoController
-arduinoController = ArduinoController() 
+# from Controller.arduinoController import ArduinoController
+# arduinoController = ArduinoController() 
+# arduinoController.returnCraneZero()
+# arduinoController.putClothes(1)
 # 拿取 
 # arduinoController.takeClothes_single(2)
 # arduinoController.put_EntrancePositionZero(2)
 # 存放
-arduinoController.takeClothes_single(2)
+# arduinoController.takeClothes_single(2)
 # arduinoController.entranceToZero()
-# arduinoController.put_ZeroPositionZero(2)
+# arduinoController.put_ZeroPositionZero(1)
+

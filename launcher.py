@@ -101,72 +101,7 @@ def comb_to_js(): # 獲得天氣推薦衣物組合，給JavaScript (Json)
     except Exception as e:
         print("[Fail] comb_to_js:", e)
         return NULL
-
-@eel.expose
-def get_camera_identify():  # 拍照
-    try:
-        
-        # 啟動Arduino將模型車送到超音波前，準備拍照(1) -> 拍照(2) -> 辨識結果(3)
-        arduinoController = ArduinoController()     
-        idt = CamaraController(camara_choose, clf)  # 選擇攝像頭
-        
-        # (1)
-        arduinoController.returnCraneZero()         # 將拿取衣物歸位等待拍照
-        
-        # (2) 
-        idt.useCamara()                          
-
-        # (3) 
-        idt.identifyCategory()                      # 辨識樣式          
-        idt.identifyColor()                         # 辨識顏色         
-        idt.printResult()                           # 輸出結果
-
-        return [idt.category, idt.color, idt.path, True]
-
-    except Exception as e:
-        print("[Fail] get_camera_identify:", e)
-        return [NULL, NULL, NULL, False]
-
-
-@eel.expose
-def identify_save_sql(category, color, path, isFavorite):  # 辨識完的結果 -> 確定存檔
-    sleep(1)
     
-    try:
-        
-        # 獲得資訊(0) -> Arduino將衣物送入到圓盤，後半段(1) -> 將資料存到資料庫(2)
-        
-        # 變數設定
-        arduinoController = ArduinoController()
-        clothesNodeService = ClothesNodeService()
-        userDashboardService = UserDashboardService()
-        idt = CamaraController(camara_choose, clf)
-        
-        # (0)
-        user_dict = userDashboardService.queryById(user_id)     # 使用者資訊      
-        position = clothesNodeService.vacancyPosition()         # 衣櫃內布，剩餘的位置
-        print(  "資料庫目前存放在: {0}, 目前衣物空缺位置: {1}".format(
-                user_dict['LastPosition'], 
-                position
-            ))
-        
-        # (1)
-        arduinoController.putClothes(position)                                  # 啟動機器轉動所需次數 + 存放
-        userDashboardService.updateLastPosition(user_id, position)              # 修改使用者的最後存放位置
-        
-        # (2)
-        idt.category = category     # 類別
-        idt.color = color           # 顏色
-        idt.path = path             # 存放的位置
-        idt.isFavorite = isFavorite # 是否喜愛(由前端送入)
-        idt.saveToSql()             # 存到資料庫
-        
-        
-
-        return [True]
-    except Exception as e:
-        print("[Fail] identify_save_sql:", e)
-        return False
 
 
 @eel.expose
@@ -474,16 +409,32 @@ def query_node_graph_setting(upperId, lowerId):
     
     return v_node_graph
 
-# ----------------------------------- 硬體啟動
-
-
+# ---------------------------------------------------------------------- 硬體啟動 
 
 @eel.expose
-def updatePositionToNull(node): # 拿取衣物
+def putNullPositionModel_toEntrance(): # 拿取衣物 2: 把空的模塊放回去
+    
+    try:
+        arduinoController = ArduinoController()
+        userDashboardService = UserDashboardService()
+        
+        user_dict = userDashboardService.queryById(user_id)     # 使用者資訊    
+        
+        print("將模塊送回位置 {} 號".format(user_dict['LastPosition']))
+        arduinoController.put_EntrancePositionZero(user_dict['LastPosition'])
+        
+        userDashboardService.updateLastPosition(user_id, -1)  # 修改使用者的最後存放位置
+        
+        return True
+        
+    except Exception as e:
+        print("[putNullPositionModel_toEntrance] get_camera_identify:", e)
+
+@eel.expose
+def updatePositionToNull(node): # 拿取衣物 1
     sleep(1)
     
     try:
-        
         # 變數取得(0) -> Arduino轉動圓盤並將衣物取出(1) -> 完善結果(2)
         
         # (0)
@@ -494,6 +445,7 @@ def updatePositionToNull(node): # 拿取衣物
         nodeGraphService = NodeGraphService()
         
         # (1)
+        print("從歸零位置將位置 {} 的模塊送至入口".format(node['Position']))
         arduinoController.takeClothes_single(node['Position'])
         
         # (2)
@@ -569,12 +521,14 @@ def storage_old_clothes(clothesNode): # 存放 舊衣物
         nodeGraphService = NodeGraphService()
 
         # (1)
-        position = clothesNodeService.vacancyPosition() # 剩餘的位置
-        arduinoController.putClothes(position)
-        userDashboardService.updateLastPosition(user_id, position)      # 修改使用者的最後存放位置
+        user_dict = userDashboardService.queryById(user_id)     # 使用者資訊    
+        
+        print("將模塊送回位置 {} 號".format(user_dict['LastPosition']))
+        arduinoController.putClothes(user_dict['LastPosition'])
+        userDashboardService.updateLastPosition(user_id, -1)      # 修改使用者的最後存放位置
         
         # (2)
-        clothesNodeService.updateIdInPosition(position, clothesNode)    # 將原本的衣服重新加入位置
+        clothesNodeService.updateIdInPosition(user_dict['LastPosition'], clothesNode)    # 將原本的衣服重新加入位置
         
         # (3)
         viewClothesNode = ViewClothesNode()
@@ -596,13 +550,121 @@ def storage_old_clothes(clothesNode): # 存放 舊衣物
         print("storage_old_clothes exception: ", e)
         return False
 
+@eel.expose
+def getNullPositionModel_toEntrance(): # 拿空的模塊在入口等待
+    
+    try:
+        # 變數
+        arduinoController = ArduinoController()
+        clothesNodeService = ClothesNodeService()
+        userDashboardService = UserDashboardService()
+        
+        # 獲取資訊
+        position = clothesNodeService.vacancyPosition()         # 衣櫃內布，剩餘的位置
+        
+        # 取得資料
+        print("從歸零位置將空模塊送至入口")
+        arduinoController.takeClothes_single(position)
+        userDashboardService.updateLastPosition(user_id, position)  # 修改最後存放位置
+        
+        return True
+        
+    except Exception as e:
+        print("[getNullPositionModel_toEntrance] get_camera_identify:", e)
+        return NULL
+
+@eel.expose
+def put_cancel(): # 取消
+    
+    try:
+        # 變數
+        arduinoController = ArduinoController()
+        clothesNodeService = ClothesNodeService()
+        userDashboardService = UserDashboardService()
+        
+        # (0)
+        user_dict = userDashboardService.queryById(user_id)     # 使用者資訊    
+        
+        # (1)
+        print("[取消] 將模塊送回位置 {} 號".format(user_dict['LastPosition']))
+        arduinoController.putClothes(user_dict['LastPosition'])
+        userDashboardService.updateLastPosition(user_id, -1)  # 修改最後存放位置
+        
+        return True
+        
+    except Exception as e:
+        print("[getNullPositionModel_toEntrance] get_camera_identify:", e)
+        return NULL
+
+@eel.expose
+def get_camera_identify():  # 拍照
+    try:
+        
+        # 啟動Arduino將模型車送到超音波前，準備拍照(1) -> 拍照(2) -> 辨識結果(3)
+        arduinoController = ArduinoController()
+        idt = CamaraController(camara_choose, clf)  # 選擇攝像頭
+        
+        # (1)
+        print("將模塊從入口送至歸零位置，等待拍照")
+        arduinoController.entranceToZero()         # 將拿取衣物歸位等待拍照
+        
+        # (2) 
+        idt.useCamara()                     
+
+        # (3) 
+        idt.identifyCategory()                      # 辨識樣式          
+        idt.identifyColor()                         # 辨識顏色         
+        idt.printResult()                           # 輸出結果
+
+        return [idt.category, idt.color, idt.path, True]
+
+    except Exception as e:
+        print("[Fail] get_camera_identify:", e)
+        return [NULL, NULL, NULL, False]
+
+
+@eel.expose
+def identify_save_sql(category, color, path, isFavorite):  # 辨識完的結果 -> 確定存檔
+    sleep(1)
+    
+    try:
+        
+        # 獲得資訊(0) -> Arduino將衣物送入存放位置，後半段(1) -> 將資料存到資料庫(2)
+        
+        # 變數設定
+        arduinoController = ArduinoController()
+        clothesNodeService = ClothesNodeService()
+        userDashboardService = UserDashboardService()
+        idt = CamaraController(camara_choose, clf)
+        
+        # (0)
+        user_dict = userDashboardService.queryById(user_id)     # 使用者資訊    
+        
+        # (1)
+        print("將模塊送回位置 {} 號".format(user_dict['LastPosition']))
+        arduinoController.put_ZeroPositionZero(user_dict['LastPosition'])                                  # 啟動機器轉動所需次數 + 存放
+        
+        # (2)
+        idt.category = category     # 類別
+        idt.color = color           # 顏色
+        idt.path = path             # 存放的位置
+        idt.isFavorite = isFavorite # 是否喜愛(由前端送入)
+        idt.saveToSql()             # 存到資料庫
+        
+        userDashboardService.updateLastPosition(user_id, -1)  # 修改最後存放位置
+
+        return [True]
+    except Exception as e:
+        print("[Fail] identify_save_sql:", e)
+        return False
+
 
 
 # ------------------------------------------ 啟動器
 
 eel.init('View/mui')  # eel.init(網頁的資料夾)
-eel.start('User.html', mode='chrome-app', port=8080, cmdline_args=['--start-fullscreen', '--browser-startup-dialog'])
+# eel.start('User.html', mode='chrome-app', port=8080, cmdline_args=['--start-fullscreen', '--browser-startup-dialog'])
 
 # eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))
-# eel.start('User.html',mode='chrome-app', size=(1920, 1080), cmdline_args=['--start-fullscreen', '--browser-startup-dialog'])  # eel.start(html名稱, size=(起始大小))
+eel.start('User.html',mode='chrome-app', size=(1920, 1080), cmdline_args=['--start-fullscreen', '--browser-startup-dialog'])  # eel.start(html名稱, size=(起始大小))
 # eel.start('User.html', mode='chrome', cmdline_args=['--kiosk'])

@@ -154,7 +154,24 @@ app.controller('myCtrl', function ($scope) {
       $scope.pairPickUpList = [null, null]
     }
 
+    var dialog = bootbox.dialog({
+      message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> 等待衣物拿取中... </p>',
+      closeButton: false,
+      buttons: {
+        ok: {
+          label: '確認',
+          callback: function() {
+            $scope.takeOut_Done();
+          }
+        }
+      }
+    });
+
     $scope.queryAllList();
+  }
+
+  $scope.takeOut_Done = async function () {
+    await eel.putNullPositionModel_toEntrance();
   }
 
   $scope.siglePickUpList = null; // 只拿取一件衣物: JSON
