@@ -171,7 +171,7 @@ app.controller('myCtrl', function ($scope) {
   }
 
   $scope.takeOut_Done = async function () {
-    await eel.putNullPositionModel_toEntrance();
+    await eel.putNullPositionModel_toZero();
   }
 
   $scope.siglePickUpList = null; // 只拿取一件衣物: JSON

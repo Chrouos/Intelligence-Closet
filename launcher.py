@@ -412,7 +412,7 @@ def query_node_graph_setting(upperId, lowerId):
 # ---------------------------------------------------------------------- 硬體啟動 
 
 @eel.expose
-def putNullPositionModel_toEntrance(): # 拿取衣物 2: 把空的模塊放回去
+def putNullPositionModel_toZero(): # 拿取衣物 2: 把空的模塊放回去
     
     try:
         arduinoController = ArduinoController()
@@ -428,7 +428,7 @@ def putNullPositionModel_toEntrance(): # 拿取衣物 2: 把空的模塊放回�
         return True
         
     except Exception as e:
-        print("[putNullPositionModel_toEntrance] get_camera_identify:", e)
+        print("[putNullPositionModel_toZero] get_camera_identify:", e)
 
 @eel.expose
 def updatePositionToNull(node): # 拿取衣物 1
