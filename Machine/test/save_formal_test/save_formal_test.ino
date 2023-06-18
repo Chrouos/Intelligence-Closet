@@ -199,7 +199,7 @@ void arm_down() {
 // 手臂勾起
 void arm_up() {    
     Serial.println("手臂向上");
-    while (servo_y_pos + (-1 * angle) >= 39) {
+    while (servo_y_pos + (-1 * angle) >= 36) {
         servo_y_pos += (-1 * angle);
         biaxial_servo_y.attach(biaxial_servo_y_pin);
         biaxial_servo_y.write(servo_y_pos);
