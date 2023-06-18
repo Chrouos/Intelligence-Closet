@@ -59,7 +59,35 @@ app.controller('myCtrl', function ($scope) {
     // 等待空模塊拿出
     $scope.getNullPositionModel_toEntrance().then(function () {
       dialog.modal('hide'); // 等待時間到就將bootbox隱藏
+
+      dialog = bootbox.dialog({
+        message: '<p class="text-center mb-0">是否確認以放入衣物 ... </p>',
+        closeButton: false,
+        buttons: {
+        cancel: {
+          label: '取消',
+          className: 'btn-danger',
+          callback: function() {
+                $scope.put_cancel().then(function () {
+                dialog.modal('hide'); // 等待時間到就將bootbox隱藏
+                }); // 触发put_cancel函数
+          }
+        },
+        ok: {
+          label: '確認',
+          className: 'btn-success',
+          callback: function() {
+                $scope.start_identify().then(function () {
+                dialog.modal('hide'); // 等待時間到就將bootbox隱藏
+                });
+          }
+        },
+        }
+      });
     })
+
+    
+
 
     $scope.isClothesExis = !$scope.isClothesExis;
 

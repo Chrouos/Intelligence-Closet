@@ -40,11 +40,8 @@
 <body>
 
   <div id="putInStart" ng-if="StartType" ng-show="!vacancyStatus">
-    <p style="font-size: 50px;" ng-show="!isClothesExis">是否存放？</p>
-    <p style="font-size: 50px;" ng-show="isClothesExis">請掛入衣服並點擊「確認衣物以存放」</p>
-    <button id="btn-start" ng-show="!isClothesExis" style="background-color: transparent;" ng-click="wait_zero_nullPosition_entrance()">請求衣物存放</button>
-    <button id="btn-start" ng-show="isClothesExis" style="background-color: transparent; left:10%" ng-click="start_identify()">確認衣物已存放</button>
-    <button id="btn-start" ng-show="isClothesExis" style="background-color: transparent; right:25%" ng-click="put_cancel()">取消</button>
+    <p style="font-size: 50px;" >是否存放？</p>
+    <button id="btn-start" style="background-color: transparent;" ng-click="wait_zero_nullPosition_entrance()">請求衣物存放</button>
 
   </div>
 

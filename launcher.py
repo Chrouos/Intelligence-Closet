@@ -428,7 +428,7 @@ def putNullPositionModel_toZero(): # 拿取衣物 2: 把空的模塊放回去
         return True
         
     except Exception as e:
-        print("[putNullPositionModel_toZero] get_camera_identify:", e)
+        print("[Fail] putNullPositionModel_toZero:", e)
 
 @eel.expose
 def updatePositionToNull(node): # 拿取衣物 1
@@ -547,11 +547,12 @@ def storage_old_clothes(clothesNode): # 存放 舊衣物
         
         return True
     except Exception as e:
-        print("storage_old_clothes exception: ", e)
+        print("[Fail] storage_old_clothes:", e)
         return False
 
 @eel.expose
 def getNullPositionModel_toEntrance(): # 拿空的模塊在入口等待
+    sleep(1)
     
     try:
         # 變數
@@ -570,12 +571,12 @@ def getNullPositionModel_toEntrance(): # 拿空的模塊在入口等待
         return True
         
     except Exception as e:
-        print("[getNullPositionModel_toEntrance] get_camera_identify:", e)
+        print("[Fail] getNullPositionModel_toEntrance:", e)
         return NULL
 
 @eel.expose
 def put_cancel(): # 取消
-    
+    sleep(1)
     try:
         # 變數
         arduinoController = ArduinoController()
@@ -593,11 +594,12 @@ def put_cancel(): # 取消
         return True
         
     except Exception as e:
-        print("[getNullPositionModel_toEntrance] get_camera_identify:", e)
+        print("[Fail] put_cancel:", e)
         return NULL
 
 @eel.expose
 def get_camera_identify():  # 拍照
+    sleep(1)
     try:
         
         # 啟動Arduino將模型車送到超音波前，準備拍照(1) -> 拍照(2) -> 辨識結果(3)
@@ -619,7 +621,7 @@ def get_camera_identify():  # 拍照
         return [idt.category, idt.color, idt.path, True]
 
     except Exception as e:
-        print("[Fail] get_camera_identify:", e)
+        print("[Fail] put_cancel:", e)
         return [NULL, NULL, NULL, False]
 
 
