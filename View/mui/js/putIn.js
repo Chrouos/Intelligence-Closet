@@ -68,18 +68,18 @@ app.controller('myCtrl', function ($scope) {
           label: '取消',
           className: 'btn-danger',
           callback: function() {
-                $scope.put_cancel().then(function () {
-                dialog.modal('hide'); // 等待時間到就將bootbox隱藏
-                }); // 触发put_cancel函数
+            $scope.put_cancel().then(function () {
+              dialog.modal('hide'); // 等待時間到就將bootbox隱藏
+            }); // 触发put_cancel函数
           }
         },
         ok: {
           label: '確認',
           className: 'btn-success',
           callback: function() {
-                $scope.start_identify().then(function () {
-                dialog.modal('hide'); // 等待時間到就將bootbox隱藏
-                });
+            $scope.start_identify().then(function () {
+              dialog.modal('hide'); // 等待時間到就將bootbox隱藏
+            });
           }
         },
         }
@@ -96,7 +96,7 @@ app.controller('myCtrl', function ($scope) {
 
   }
 
-  $scope.start_identify = function () { // 開始辨識
+  $scope.start_identify = async function () { // 開始辨識
 
     var dialog = bootbox.dialog({
       message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> 存放與辨識中，請稍等... </p>',

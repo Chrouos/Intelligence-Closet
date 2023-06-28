@@ -38,7 +38,7 @@ settingJson = json.load(jsonFile)
 total_closet_sapce = settingJson['real_closet_space']
 
 user_id = 1
-camara_choose = 1
+camara_choose = 0
 
 from Controller.camaraController import *
 # 相機物件
@@ -421,7 +421,7 @@ def putNullPositionModel_toZero(): # 拿取衣物 2: 把空的模塊放回去
         user_dict = userDashboardService.queryById(user_id)     # 使用者資訊    
         
         print("將模塊送回位置 {} 號".format(user_dict['LastPosition']))
-        arduinoController.put_EntrancePositionZero(user_dict['LastPosition'])
+        arduinoController.put_EntranceMidPositionZero(user_dict['LastPosition'])
         
         userDashboardService.updateLastPosition(user_id, -1)  # 修改使用者的最後存放位置
         
@@ -446,7 +446,7 @@ def updatePositionToNull(node): # 拿取衣物 1
         
         # (1)
         print("從歸零位置將位置 {} 的模塊送至入口".format(node['Position']))
-        arduinoController.takeClothes_single(node['Position'])
+        arduinoController.takeTheClothes_single(node['Position'])
         
         # (2)
         userDashboardService.updateLastPosition(user_id, node['Position'])  # 修改使用者的最後存放位置
@@ -469,8 +469,8 @@ def updatePositionToNull_TwoClothes(position1, position2, clothes_graph): # 拿�
     try:
         
         # 準備:   變數取得(0)
-        # 第一件: Arduino轉動圓盤並將衣物取出(1) -> 完善結果(2)
-        # 第二件: Arduino轉動圓盤並將衣物取出(3) -> 完善結果(4)
+        # 第一件: (1) -> 完善結果(2)
+        # 第二件: (3) -> 完善結果(4)
         
         # (0)
         arduinoController = ArduinoController()
@@ -480,7 +480,8 @@ def updatePositionToNull_TwoClothes(position1, position2, clothes_graph): # 拿�
         viewClothesNodeService = ViewClothesNodeService()
         
         # (1)
-        arduinoController.takeClothes_single(position1)
+        arduinoController.takeTheClothes_single(position1)
+        
         
         # (2)
         userDashboardService.updateLastPosition(user_id, position1)  # 修改使用者的最後存放位置
@@ -490,14 +491,43 @@ def updatePositionToNull_TwoClothes(position1, position2, clothes_graph): # 拿�
         result = nodeGraphService.deleteByBullPosition(vNode['CategoryId'], vNode['Id'])
         
         # (3)
-        arduinoController.takeClothes_single(position2)
-        
+        arduinoController.takeTheClothes_second(position2)
+            
         # (4)
         userDashboardService.updateLastPosition(user_id, position2)  # 修改使用者的最後存放位置
         result = clothesNodeService.updatePositionToNull(position2)  # 修改衣物位置為NULL, 使用次數 + 1
         
         vNode = viewClothesNodeService.queryById(clothes_graph['Clothes2Id'])
         result = nodeGraphService.deleteByBullPosition(vNode['CategoryId'], vNode['Id'])
+
+        return result
+
+    except Exception as e:
+        print("[Fail] updatePositionToNull:", e)
+        return NULL
+    
+    
+@eel.expose
+def done_TwoClothes(position1, position2): # 拿取衣物
+    sleep(1)
+    
+    try:
+        
+        # 準備:   變數取得(0)
+        # 還衣服(1)
+        # 修改狀態(2)
+        
+        # (0)
+        arduinoController = ArduinoController()
+        userDashboardService = UserDashboardService()
+        
+        # (1)
+        arduinoController.put_EntranceMidPositionZero_second(position1)
+        arduinoController.put_EntranceMidPositionZero(position2)
+        
+        # (2)
+        userDashboardService.updateLastPosition(user_id, -1)  # 修改使用者的最後存放位置
+
 
         return result
 
@@ -524,7 +554,7 @@ def storage_old_clothes(clothesNode): # 存放 舊衣物
         user_dict = userDashboardService.queryById(user_id)     # 使用者資訊    
         
         print("將模塊送回位置 {} 號".format(user_dict['LastPosition']))
-        arduinoController.putClothes(user_dict['LastPosition'])
+        arduinoController.put_EntranceMidPositionZero(user_dict['LastPosition'])
         userDashboardService.updateLastPosition(user_id, -1)      # 修改使用者的最後存放位置
         
         # (2)
@@ -565,7 +595,7 @@ def getNullPositionModel_toEntrance(): # 拿空的模塊在入口等待
         
         # 取得資料
         print("從歸零位置將空模塊送至入口")
-        arduinoController.takeClothes_single(position)
+        arduinoController.takeTheClothes_single(position)
         userDashboardService.updateLastPosition(user_id, position)  # 修改最後存放位置
         
         return True
@@ -588,7 +618,7 @@ def put_cancel(): # 取消
         
         # (1)
         print("[取消] 將模塊送回位置 {} 號".format(user_dict['LastPosition']))
-        arduinoController.putClothes(user_dict['LastPosition'])
+        arduinoController.put_EntranceMidPositionZero(user_dict['LastPosition'])
         userDashboardService.updateLastPosition(user_id, -1)  # 修改最後存放位置
         
         return True
@@ -665,8 +695,8 @@ def identify_save_sql(category, color, path, isFavorite):  # 辨識完的結果 
 # ------------------------------------------ 啟動器
 
 eel.init('View/mui')  # eel.init(網頁的資料夾)
-# eel.start('User.html', mode='chrome-app', port=8080, cmdline_args=['--start-fullscreen', '--browser-startup-dialog'])
+eel.start('User.html', mode='chrome-app', port=8080, cmdline_args=['--start-fullscreen', '--browser-startup-dialog'])
 
 # eel.start('User.html', size=(1920, 1080))  # eel.start(html名稱, size=(起始大小))
-eel.start('User.html',mode='chrome-app', size=(1920, 1080), cmdline_args=['--start-fullscreen', '--browser-startup-dialog'])  # eel.start(html名稱, size=(起始大小))
+# eel.start('User.html',mode='chrome-app', size=(1920, 1080), cmdline_args=['--start-fullscreen', '--browser-startup-dialog'])  # eel.start(html名稱, size=(起始大小))
 # eel.start('User.html', mode='chrome', cmdline_args=['--kiosk'])

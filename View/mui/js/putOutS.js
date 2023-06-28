@@ -130,6 +130,19 @@ app.controller('myCtrl', function ($scope) {
       });
       $scope.clothesNodeList = await eel.clothes_to_js()();
       $scope.siglePickUpList = null;
+
+      var dialog = bootbox.dialog({
+        message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> 等待衣物拿取中... </p>',
+        closeButton: false,
+        buttons: {
+          ok: {
+            label: '確認',
+            callback: function() {
+              $scope.takeOut_Done();
+            }
+          }
+        }
+      });
     }
     // 一套
     else if ($scope.takeType == true) {
@@ -152,26 +165,31 @@ app.controller('myCtrl', function ($scope) {
         dialog.modal('hide'); // 等待時間到就將bootbox隱藏
       });
       $scope.pairPickUpList = [null, null]
-    }
 
-    var dialog = bootbox.dialog({
-      message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> 等待衣物拿取中... </p>',
-      closeButton: false,
-      buttons: {
-        ok: {
-          label: '確認',
-          callback: function() {
-            $scope.takeOut_Done();
+      var dialog = bootbox.dialog({
+        message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> 確認衣物已拿取! </p>',
+        closeButton: false,
+        buttons: {
+          ok: {
+            label: '確認',
+            callback: function() {
+              $scope.done_TwoClothes(temp_clothesNode_json.Clothes1Position, temp_clothesNode_json.Clothes2Position);
+            }
           }
         }
-      }
-    });
+      });
+    }
+
 
     $scope.queryAllList();
   }
 
   $scope.takeOut_Done = async function () {
     await eel.putNullPositionModel_toZero();
+  }
+
+  $scope.done_TwoClothes = async function (c1, c2) {
+    await eel.done_TwoClothes(c1, c2);
   }
 
   $scope.siglePickUpList = null; // 只拿取一件衣物: JSON

@@ -147,17 +147,37 @@ app.controller('myCtrl', function ($scope) {
             closeButton: false
         });
     
-        // 放入衣物
-        console.log("clothes restore");
-        var isSuccess =  await eel.updatePositionToNull_TwoClothes(
+        await eel.updatePositionToNull_TwoClothes(
             $scope.pickUp_clothesGraph.Clothes1Position, $scope.pickUp_clothesGraph.Clothes2Position,
             $scope.pickUp_clothesGraph)().then(function () {
             dialog.modal('hide'); // 等待時間到就將bootbox隱藏
+            
         });
+
+        dialog = bootbox.dialog({
+            message: '<p class="text-center mb-0"><i class="fa fa-spin fa-cog"></i> 等待衣物拿取中... </p>',
+            closeButton: false,
+            buttons: {
+                ok: {
+                    label: '確認',
+                    callback: function() {
+                        $scope.done_TwoClothes($scope.pickUp_clothesGraph.Clothes1Position, $scope.pickUp_clothesGraph.Clothes2Position);
+                    }
+                }
+            }
+        });
+
+        
 
         $scope.queryAllList();
         showMask();
     }
+
+    $scope.done_TwoClothes = async function (c1, c2) {
+        await eel.done_TwoClothes(c1, c2);
+    }
+    
+    
 
 });
 
